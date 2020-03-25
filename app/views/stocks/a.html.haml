@@ -1,0 +1,42 @@
+.stock-information
+  .container
+    .row
+      .col-lg-7.col-md.col-sm-12.col-xs-12
+        .shadow.bg-white.rounded.p-3.mb-2
+          = render partial: 'stocks/information_v2/quote_information', locals: {logo: @stock.company.logo_url, quote: @stock.quote}
+
+        .shadow.bg-white.rounded.p-3.mb-2
+          .row
+            .col-lg-8.col-md-12.col-sm-12.col-xs-12
+              = render_async stocks_chart_path(symbol: @stock.quote.symbol)
+
+            .col-lg-4.col-md-12.col-sm-12.col-xs-12
+              = render partial: 'stocks/information_v2/key_stats', locals: {quote: @stock.quote, stats: @stock.stats}
+
+        .shadow.bg-white.rounded.p-3.mb-2
+          .row
+            .col-lg.col-md-6.col-sm-12.col-xs-12
+              = render_async stocks_earnings_path(symbol: @stock.quote.symbol)
+            .col-lg.col-md-6.col-sm-12.col-xs-12
+              = render partial: 'stocks/information_v2/growth', locals: { stats: @stock.stats, symbol: @stock.quote.symbol }
+            .col-lg.col-md-6.col-sm-12.col-xs-12
+              = render_async stocks_recommendation_trends_path(symbol: @stock.quote.symbol)
+
+
+      .col-lg-5.col-md.col-sm-12.col-xs-12
+        .shadow.bg-white.rounded.p-3.mb-2
+          .row
+            .col-lg.col-md.col-sm-6.col-xs-6
+              = render partial: 'stocks/information_v2/volume', locals: {quote: @stock.quote, stats: @stock.stats}
+            .col-lg.col-md.col-sm-6.col-xs-6
+              = render partial: 'stocks/information_v2/dividend', locals: {stats: @stock.stats}
+
+
+        .shadow.bg-white.rounded.p-3.mb-2
+          = render_async stocks_news_path(symbol: @stock.quote.symbol)
+
+
+        - if @stock.company.description.present?
+          .shadow.bg-white.rounded.p-3.mb-2
+            = render partial: 'stocks/information_v2/company', locals: { company: @stock.company }
+

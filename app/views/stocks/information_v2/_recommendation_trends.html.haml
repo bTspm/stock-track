@@ -1,0 +1,9 @@
+.section-title
+  .title Recommendation Trends
+
+%div#recommendation-trends-container{style: 'height:400px; width:100%'}
+
+:javascript
+  $(document).ready(function() {
+      RecommendationTrends.initChart(JSON.parse('#{raw(recommendation_trends.chart_data.to_json)}'));
+  });

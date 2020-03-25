@@ -1,0 +1,9 @@
+.section-title
+  .title Earnings
+
+%div#earnings-container{style: 'height:300px; width:100%'}
+
+:javascript
+  $(document).ready(function() {
+      Earnings.initChart(JSON.parse('#{raw(earnings.chart_data.to_json)}'));
+  });

@@ -1,0 +1,16 @@
+.section-title
+  .title Growth
+-#%table.table.table-hover
+-#  %tbody
+-#    - stats.growth_details.each do |title, value|
+-#      %tr
+-#        %td
+-#          %b= title
+-#        %td.text-right= value
+
+%div#growth-container{style: 'height:300px; width:100%'}
+
+:javascript
+  $(document).ready(function() {
+      Growth.initChart(JSON.parse('#{raw(stats.growth_chart_data)}'), '#{symbol}');
+  });

@@ -1,0 +1,11 @@
+%div
+  .section-title
+    .title Company Executive
+  .row.small
+    - executives.groups.each do |group|
+      .col
+        - group.each do |title, people|
+          %dt= title
+          %dd
+            - people.each do |person|
+              %div= person.person_name_with_age

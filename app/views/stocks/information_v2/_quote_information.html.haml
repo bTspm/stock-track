@@ -1,0 +1,24 @@
+.row
+  .col-lg-4.col-md-6.col-sm-12.col-xs-12
+    .media
+      %img.align-self-center.mr-1.mb-0.stock-logo(src="#{logo}")
+      .media-body
+        = @stock.company.name
+        %br
+        .small
+          = quote.symbol_with_exchange_name(@stock.company.exchange.name)
+          %span{class: "flag-icon flag-icon-#{@stock.company.exchange.country.downcase}"}
+
+
+  .col-lg-4.col-md-6.col-sm-12.col-xs-12
+    .d-inline-block.align-middle.mr-1.current-price
+      = quote.latest_price_icon
+      = number_with_delimiter quote.latest_price
+    .d-inline-block.align-middle
+      %span.updated-time= quote.latest_time
+      .d-flex.today-change
+        %span= quote.change_percent
+        %span.ml-auto= quote.change
+
+  .col-lg-4
+    = render partial: 'stocks/information_v2/stock_information', locals: {company: @stock.company, quote: @stock.quote}

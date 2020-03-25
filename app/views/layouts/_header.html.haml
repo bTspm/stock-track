@@ -1,0 +1,24 @@
+%nav.navbar.navbar-default.navbar-expand-lg.fixed-top.custom-navbar
+  %button.navbar-toggler(aria-controls="navbarNavDropdown" aria-expanded="false" aria-label="Toggle navigation" data-target="#navbarNavDropdown" data-toggle="collapse" type="button")
+    %span.icon.ion-md-menu
+  = link_to 'Stock Track', root_path, class: 'navbar-brand nav-logo-mobile'
+  #navbarNavDropdown.collapse.navbar-collapse
+    = link_to 'Stock Track', root_path, class: 'navbar-brand nav-logo-desktop'
+    %ul.navbar-nav.ml-auto.nav-right(data-easing="easeInOutExpo" data-offset="65" data-speed="1250")
+      %li.nav-item
+        %a.nav-link(href="index.html")
+          Home
+          %i.icon.ion-ios-arrow-forward.icon-mobile
+      %li.nav-item
+        %a.nav-link(href="#marketing")
+          Features
+          %i.icon.ion-ios-arrow-forward.icon-mobile
+      %li.nav-item
+        %a.nav-link(href="#testimonials")
+          Testimonials
+          %i.icon.ion-ios-arrow-forward.icon-mobile
+      %li.nav-item
+        %a.nav-link(href="#pricing")
+          Pricing
+          %i.icon.ion-ios-arrow-forward.icon-mobile
+

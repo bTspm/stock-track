@@ -1,0 +1,30 @@
+!!!
+%html
+  %head
+    %meta(content='text/html; charset=UTF-8' http-equiv='Content-Type')/
+    %title StockTrack
+
+    %script{src:  "https://cdnjs.cloudflare.com/ajax/libs/highcharts/8.0.4/highstock.min.js"}
+
+    %link{crossorigin: 'anonymous', href: 'https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.8.2/css/all.min.css', integrity: 'sha256-BtbhCIbtfeVWGsqxk1vOHEYXS6qcvQvLMZqjtpWUEx8=', rel: 'stylesheet'}/
+
+    %script{crossorigin: 'anonymous', integrity: 'sha256-CSXorXvZcTkaix6Yvo6HppcZGetbYMGWSFlBw8HfCJo=', src: 'https://cdnjs.cloudflare.com/ajax/libs/jquery/3.4.1/jquery.min.js'}
+
+    %script{src: 'http://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.0/umd/popper.min.js'}
+    %link{href: "https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css", rel: "stylesheet", integrity: "sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh", crossorigin: "anonymous"}
+    %script{src: "https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js", integrity: "sha384-wfSDF2E50Y2D1uUdj0O3uMBJnjuUD4Ih7YwaYd1iqfktj0Uod8GCExl3Og8ifwB6", crossorigin: "anonymous"}
+    %script{src: 'https://cdnjs.cloudflare.com/ajax/libs/underscore.js/1.9.1/underscore-min.js', type: 'text/javascript'}
+
+    %link{crossorigin:  "anonymous", href:  "https://cdnjs.cloudflare.com/ajax/libs/flag-icon-css/3.4.6/css/flag-icon.min.css", integrity:  "sha256-YjcCvXkdRVOucibC9I4mBS41lXPrWfqY2BnpskhZPnw=", rel:  "stylesheet"}/
+
+
+    = csrf_meta_tags
+    = csp_meta_tag
+    = stylesheet_link_tag 'application', media: 'all', 'data-turbolinks-track': 'reload'
+    = javascript_include_tag 'application', 'data-turbolinks-track': 'reload'
+  %body
+    .container-fluid
+      = render partial: 'layouts/header'
+      = yield
+      = content_for :render_async
+      = render partial: 'layouts/footer'

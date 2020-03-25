@@ -1,0 +1,8 @@
+.d-inline-block.align-middle.mr-1.current-price
+  = quote.latest_price_icon
+  = number_with_delimiter quote.latest_price
+.d-inline-block.align-middle
+  %span.updated-time= quote.latest_time
+  .d-flex.today-change
+    %span= quote.change_percent
+    %span.ml-auto= quote.change
