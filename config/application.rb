@@ -16,8 +16,13 @@ require "sprockets/railtie"
 # Require the gems listed in Gemfile, including any gems
 # you've limited to :test, :development, or :production.
 Bundler.require(*Rails.groups)
-require 'dotenv/load'
-Dotenv::Railtie.load
+
+if defined? Dotenv
+  require 'dotenv/load'
+  Dotenv::Railtie.load
+end
+
+
 HOSTNAME = ENV['HOSTNAME']
 
 RenderAsync.configuration.jquery = true
