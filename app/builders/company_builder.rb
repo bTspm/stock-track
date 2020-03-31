@@ -7,6 +7,7 @@ class CompanyBuilder
     set_address(company_entity.address) if company_entity.address.line_1
     set_exchange_id(company_entity.exchange.id)
     set_issuer_type_id(company_entity.issuer_type.id)
+    set_company_executives(company_entity.executives)
 
     @company.tap do |c|
       c.symbol = company_entity.symbol
@@ -26,10 +27,11 @@ class CompanyBuilder
   end
 
   def set_company_executives(executives)
-    executives.each do |executive|
+    return if executives.blank?
 
-      @company.company_executives << CompanyExecutiveBuilder.new(@company).build_company_executive(executive)
-    end
+    executives_names_to_be_deleted = @company.company_executives.map(&:name) - executives.map(&:name)
+    _delete_company_executives(executives_names_to_be_deleted) if executives_names_to_be_deleted.any?
+    _update_or_add_company_executives(executives)
   end
 
   def set_exchange_id(exchange_id)
@@ -38,5 +40,32 @@ class CompanyBuilder
 
   def set_issuer_type_id(issuer_type_id)
     @company.issuer_type_id = issuer_type_id
+  end
+
+  private
+
+  def _new_company_executives(executives)
+    executives.each do |executive|
+      @company.company_executives << CompanyExecutiveBuilder.new.build_company_executive(executive)
+    end
+  end
+
+  def _update_or_add_company_executives(executives)
+    executives.each do |executive|
+      existing_executive = _saved_executives_grouped_by_name[executive.name]&.first
+      @company.association(:company_executives).add_to_target(
+        CompanyExecutiveBuilder.new(existing_executive).build_company_executive(executive)
+      )
+    end
+  end
+
+  def _delete_company_executives(executives_names)
+    executives_names.each do |name|
+      @company.company_executives.detect{|executive| executive.name == name }.mark_for_destruction
+    end
+  end
+
+  def _saved_executives_grouped_by_name
+    @_executives_grouped_by_name ||= @company.company_executives.group_by(&:name)
   end
 end

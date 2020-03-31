@@ -10,7 +10,7 @@ class StatsPresenter
     end
 
     def dividend_rate
-      value_or_na ttm_dividend_rate
+      value_or_na ttm_dividend_rate&.round(3)
     end
 
     def dividend_yield

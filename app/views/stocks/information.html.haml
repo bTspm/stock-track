@@ -1,7 +1,7 @@
 .stock-information
   .container-fluid
     .row
-      .col-xl-9.col-lg-8.col-md-8.col-sm-12.col.xs-12
+      .col-xl-7.col-lg-7.col-md-7.col-sm-12.col.xs-12
         .shadow.bg-white.rounded.p-3.mb-2
           = render partial: 'stocks/information_v2/quote_information', locals: {logo: @stock.company.logo_url, quote: @stock.quote}
 
@@ -19,12 +19,20 @@
           .shadow.bg-white.rounded.p-3.mb-2
             = render partial: 'stocks/information_v2/company', locals: { company: @stock.company }
 
-      .col-xl-3.col-lg-4.col-md-4.col-sm-12.col.xs-12
+      .col-xl-5.col-lg-5.col-md-5.col-sm-12.col.xs-12
         - unless @stock.company.etf?
-          .shadow.bg-white.rounded.p-3.mb-2
-            = render_async stocks_earnings_path(symbol: @stock.quote.symbol)
-        .shadow.bg-white.rounded.p-3.mb-2
-          = render partial: 'stocks/information_v2/growth', locals: { stats: @stock.stats, symbol: @stock.quote.symbol }
-        - unless @stock.company.etf?
-          .shadow.bg-white.rounded.p-3.mb-2
-            = render_async stocks_recommendation_trends_path(symbol: @stock.quote.symbol)
+          .row
+            .col-xl.col-lg.col-md.col-sm.col-xs-12
+              .shadow.bg-white.rounded.p-3.mb-2
+                = render_async stocks_earnings_path(symbol: @stock.quote.symbol)
+            .col-xl.col-lg.col-md.col-sm.col-xs-12
+              .shadow.bg-white.rounded.p-3.mb-2
+                = render_async stocks_recommendation_trends_path(symbol: @stock.quote.symbol)
+        .row
+          .col
+            .shadow.bg-white.rounded.p-3.mb-2
+              = render partial: 'stocks/information_v2/growth', locals: { stats: @stock.stats, symbol: @stock.quote.symbol }
+
+          .col
+            .d-none.shadow.bg-white.rounded.p-3.mb-2
+

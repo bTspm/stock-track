@@ -3,6 +3,10 @@ class Allocator
     CompanyStore.new
   end
 
+  def company_executive_store
+    CompanyExecutiveStore.new
+  end
+
   def earnings_store
     EarningsStore.new
   end

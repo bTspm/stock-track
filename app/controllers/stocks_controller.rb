@@ -4,6 +4,7 @@ class StocksController < ApplicationController
 
   def create_or_update_company_by_symbol
     company_service.create_or_update_company_by_symbol(params[:symbol])
+    redirect_to stocks_information_path(symbol: params[:symbol])
   end
 
   def news
@@ -28,13 +29,5 @@ class StocksController < ApplicationController
   def recommendation_trends
     recommendation_trends = present(stock_service.recommendation_trends(params[:symbol]), RecommendationTrendsPresenter)
     render partial: 'stocks/information_v2/recommendation_trends', locals: { recommendation_trends: recommendation_trends }
-  end
-
-  def company_executives
-    executives = present(
-      company_service.company_executives_by_symbol(params[:symbol]),
-      CompanyExecutivesPresenter
-    )
-    render partial: 'stocks/information_v2/company_executive', locals: { executives: executives }
   end
 end

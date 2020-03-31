@@ -16,9 +16,9 @@ class StockService < BusinessService
   def stock_by_symbol(symbol)
     company = company_by_symbol(symbol)
 
-    if company.null_object?
+    if company.blank?
       company = company_storage.by_symbol_from_iex(symbol)
-      # company.executives = company_storage.company_executives_by_symbol(symbol)
+      company.executives = company_executive_storage.executives_by_symbol_from_finn_hub(symbol)
       company = company_storage.save_company(company)
     end
 

@@ -13,10 +13,12 @@ module Entities
     end
 
     def self.from_db_entity(entity)
-      return new if entity.blank?
+      return if entity.blank?
+
+      new(entity.attributes.with_indifferent_access)
     end
 
-    def self.from_finn_hub_response(response={})
+    def self.from_finn_hub_response(response = {})
       args = {
         age: response[:age],
         name: response[:name],

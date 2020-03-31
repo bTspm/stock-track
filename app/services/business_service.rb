@@ -9,6 +9,10 @@ class BusinessService
 
   #Stores
 
+  def company_executive_storage
+    engine.company_executive_store
+  end
+
   def company_storage
     engine.company_store
   end

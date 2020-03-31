@@ -16,6 +16,12 @@ class CompaniesPresenter
       ::ExchangePresenter.present(data_object.exchange, h)
     end
 
+    def executives
+      return [] if data_object.executives.blank?
+
+      ::CompanyExecutivesPresenter.present(data_object.executives, h)
+    end
+
     def issuer_type
       ::IssuerTypesPresenter.present(data_object.issuer_type, h)
     end

@@ -11,6 +11,5 @@ Rails.application.routes.draw do
     get :chart
     get :earnings
     get :recommendation_trends
-    get :company_executives
   end
 end

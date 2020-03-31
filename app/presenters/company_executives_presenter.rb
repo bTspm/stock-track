@@ -18,7 +18,7 @@ class CompanyExecutivesPresenter
         h[title] = people
       end
       }
-      h.keys.sort.in_groups(2).map { |keys_set| h.with_indifferent_access.slice(*keys_set) }
+      h.keys.sort.in_groups(4).map { |keys_set| h.with_indifferent_access.slice(*keys_set) }
     end
   end
 end

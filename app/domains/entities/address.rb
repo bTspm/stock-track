@@ -5,7 +5,6 @@ module Entities
                 :id,
                 :line_1,
                 :line_2,
-                :null_object,
                 :state,
                 :zip_code
 
@@ -15,28 +14,27 @@ module Entities
       @id = args[:id]
       @line_1 = args[:line_1]
       @line_2 = args[:line_2]
-      @null_object = args[:null_object] || false
       @state = args[:state]
       @zip_code = args[:zip_code]
     end
 
-    def self.null_object
+    def self.from_db_entity(entity)
+      return if entity.blank?
+
+      Entities::Address.new(entity.attributes.with_indifferent_access)
+    end
+
+    def self.from_iex_response(response = {})
       args = {
-          city: "",
-          country: "",
-          id: nil,
-          line_1: "",
-          line_2: "",
-          null_object: true,
-          state: "",
-          zip_code: ""
+        city: response[:city],
+        country: response[:country],
+        line_1: response[:address],
+        line_2: response[:address2],
+        state: response[:state],
+        zip_code: response[:zip]
       }
 
       new(args)
-    end
-
-    def null_object?
-      @null_object
     end
   end
 end

@@ -1,6 +1,8 @@
-%div
-  .section-title
-    .title Company Executive
+%br
+.section-title
+  .title Company Executive
+
+- if executives.any?
   .row.small
     - executives.groups.each do |group|
       .col
@@ -9,3 +11,5 @@
           %dd
             - people.each do |person|
               %div= person.person_name_with_age
+- else
+  N/A

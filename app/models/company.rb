@@ -3,5 +3,5 @@ class Company < ApplicationRecord
   belongs_to :exchange
   belongs_to :issuer_type
 
-  has_many :company_executives
+  has_many :company_executives, autosave: true
 end

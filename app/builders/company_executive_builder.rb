@@ -5,13 +5,11 @@ class CompanyExecutiveBuilder
   end
 
   def build_company_executive(company_executive_entity)
-    @company_executive.tap do |a|
-      a.line_1 = company_executive_entity.line_1
-      a.line_2 = company_executive_entity.line_2
-      a.city = company_executive_entity.city
-      a.state = company_executive_entity.state
-      a.country = company_executive_entity.country
-      a.zip_code = company_executive_entity.zip_code
+    @company_executive.tap do |ce|
+      ce.age = company_executive_entity.age
+      ce.name = company_executive_entity.name
+      ce.since = company_executive_entity.since
+      ce.titles = company_executive_entity.titles
     end
   end
 end
