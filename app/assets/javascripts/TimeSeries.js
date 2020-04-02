@@ -1,6 +1,6 @@
 var TimeSeries = {
     initChart: function (data) {
-    Highcharts.stockChart('container', {
+    Highcharts.stockChart('time-series-container', {
         navigator: {
             enabled: false
         },
