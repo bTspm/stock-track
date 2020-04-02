@@ -23,7 +23,7 @@ module Entities
         age: response[:age],
         name: response[:name],
         since: response[:since],
-        titles: _title_format(response[:title])
+        titles: _title_format(response[:position])
       }
 
       new(args)

@@ -1,0 +1,8 @@
+.section-title
+  .title Chart
+#container{style: "height: 350px; width: 100%"}
+
+:javascript
+  $(document).ready(function() {
+    TimeSeries.initChart(JSON.parse('#{raw(time_series.chart_data(params[:symbol]).to_json)}'));
+  });

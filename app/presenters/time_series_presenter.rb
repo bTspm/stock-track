@@ -16,7 +16,23 @@ class TimeSeriesPresenter
   class Enum < Btspm::Presenters::EnumPresenter
     include Utils
 
-    def time_line_buttons
+    def chart_data(symbol)
+      {
+        stock_data: _ordered_by_datetime_asc.map(&:formatted_chart_data),
+        subtitle: _subtitle,
+        symbol: symbol,
+        time_line_buttons: _time_line_buttons,
+        title: _title(symbol)
+      }
+    end
+
+    private
+
+    def _ordered_by_datetime_asc
+      @_ordered_by_datetime_asc ||= sort_by(&:date_time)
+    end
+
+    def _time_line_buttons
       [
         {type: 'week', count: 1, text: '1w'},
         {type: 'month', count: 1, text: '1m'},
@@ -29,24 +45,14 @@ class TimeSeriesPresenter
       ]
     end
 
-    def sorted_data
-      _ordered_by_datetime_asc.map(&:formatted_chart_data)
-    end
-
-    def title(symbol)
+    def _title(symbol)
       "#{symbol.upcase} Stock QuotePrice"
     end
 
-    def subtitle
+    def _subtitle
       start_year = readable_date _ordered_by_datetime_asc.first.date_time
       end_year = readable_date _ordered_by_datetime_asc.last.date_time
       "Between #{start_year} to #{end_year}"
-    end
-
-    private
-
-    def _ordered_by_datetime_asc
-      @_ordered_by_datetime_asc ||= sort_by(&:date_time)
     end
   end
 end

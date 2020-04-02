@@ -8,7 +8,7 @@ Rails.application.routes.draw do
     get :news
     get :company
     get :create_or_update_company_by_symbol
-    get :chart
+    get :time_series
     get :earnings
     get :recommendation_trends
   end

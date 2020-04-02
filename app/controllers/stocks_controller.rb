@@ -12,9 +12,9 @@ class StocksController < ApplicationController
     render partial: 'stocks/information_v2/news', locals: { news: news }
   end
 
-  def chart
+  def time_series
     time_series = present(stock_service.time_series(params[:symbol]), TimeSeriesPresenter)
-    render partial: 'stocks/information_v2/chart', locals: { time_series: time_series }
+    render partial: 'stocks/information_v2/time_series', locals: {time_series: time_series }
   end
 
   def information
