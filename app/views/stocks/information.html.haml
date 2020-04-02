@@ -8,7 +8,7 @@
         .shadow.bg-white.rounded.p-3.mb-2
           .row
             .col-lg-8.col-md-12.col-sm-12.col-xs-12
-              = render_async stocks_chart_path(symbol: @stock.quote.symbol)
+              = render_async stocks_time_series_path(symbol: @stock.quote.symbol)
 
             .col-lg-4.col-md-12.col-sm-12.col-xs-12
               = render partial: 'stocks/information_v2/key_stats', locals: {quote: @stock.quote, stats: @stock.stats}
