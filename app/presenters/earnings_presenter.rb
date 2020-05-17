@@ -4,26 +4,26 @@ class EarningsPresenter
   class Scalar < Btspm::Presenters::ScalarPresenter
     def chart_data
       {
-        actual: _eps.map(&:actual),
+        actual: _eps_surprises.map(&:actual),
         categories: _categories,
-        estimated: _estimated
+        estimated: _estimated_earnings
       }
     end
 
     private
 
     def _categories
-      dates = _eps.map(&:date)
+      dates = _eps_surprises.map(&:date)
       dates += _eps_estimates.map(&:date) if _eps_estimates
       dates.map { |date| "Q#{date.quarter}<br>#{date.year.to_s}" }
     end
 
-    def _eps
-      @_eps ||= data_object[:eps].sort_by(&:date).last(4)
+    def _eps_surprises
+      @_eps ||= data_object[:eps_surprises].sort_by(&:date).last(4)
     end
 
     def _eps_last_date
-      @_eps_last_date ||= _eps.last.date
+      @_eps_last_date ||= _eps_surprises.last.date
     end
 
     def _eps_estimates
@@ -34,11 +34,11 @@ class EarningsPresenter
       end.sort_by(&:date).first(2)
     end
 
-    def _estimated
-      eps_estimates = _eps.map(&:estimate)
-      return eps_estimates if _eps_estimates.blank?
+    def _estimated_earnings
+      estimated_earnings = _eps_surprises.map(&:estimate)
+      return estimated_earnings if _eps_estimates.blank?
 
-      eps_estimates + _eps_estimates.map(&:average)
+      estimated_earnings + _eps_estimates.map(&:average)
     end
   end
 end

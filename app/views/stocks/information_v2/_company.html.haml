@@ -1,20 +1,25 @@
-.section-title
-  .title Company Profile
-
-%table.table.table-sm.table-hover
-  %thead
-    %tr
-      %th Employees
-      %th Website
-      %th Address
-  %tbody
-    %tr
-      %td= company.employees
-      %td= link_to company.website, company.website, target: '_blank'
-      %td= company.address&.formatted
-
-.section-title
-  .title Description
-.small= company.description
-
-= render partial: 'stocks/information_v2/company_executive', locals: { executives: company.executives }
+.card
+  .card-header Company
+  .card-body
+    %table.table.table-hover.table-sm
+      %tbody
+        %tr
+          %td
+            %b Address
+          %td.text-right= company.address&.formatted
+        %tr
+          %td
+            %b Employees
+          %td.text-right= company.employees
+        %tr
+          %td
+            %b Phone Number
+          %td.text-right= "123"
+        %tr
+          %td
+            %b SicCode
+          %td.text-right= company.sic_code
+        %tr
+          %td
+            %b Website
+          %td.text-right= link_to company.website, company.website, target: '_blank'

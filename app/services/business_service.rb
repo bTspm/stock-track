@@ -29,6 +29,22 @@ class BusinessService
     engine.issuer_type_store
   end
 
+  def news_storage
+    engine.news_store
+  end
+
+  def stats_storage
+    engine.stats_store
+  end
+
+  def quote_storage
+    engine.quote_store
+  end
+
+  def growth_storage
+    engine.growth_store
+  end
+
   def recommendation_trend_storage
     engine.recommendation_trend_store
   end

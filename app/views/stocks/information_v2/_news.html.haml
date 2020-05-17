@@ -1,16 +1,14 @@
-.section-title
-  .title News
-- if news.any?
-  .row
-    - news.groups_abc.each do |group|
-      .col-lg.col-md.col-sm-12.col-xs-12
-        - group.each do |news_article|
-          .media.mb-3
-            %img.align-self-center.mr-2.rounded-circle.news-icon(src="#{news_article.image}")
-            .media-body
-              %div= link_to news_article.headline, url_for(news_article.url), target: '_blank'
-              %small.text-muted
-                = news_article.meta_info
-
-- else
-  No News found.
+.card
+  .card-header News
+  .card-body
+    - if news.any?
+      .row
+        - news.groups_abc.each do |group|
+          .col-lg.col-md-12
+            - group.each do |news_article|
+              .media.mb-3
+                %img.align-self-center.mr-2.news-icon(src="#{news_article.image}")
+                .media-body
+                  %div= link_to news_article.headline, url_for(news_article.url), target: '_blank'
+                  %small.text-muted
+                    = news_article.meta_info

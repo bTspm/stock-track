@@ -1,5 +1,5 @@
 var Growth = {
-    initChart: function (data, symbol) {
+    initChart: function (data) {
         Highcharts.chart('growth-container', {
             chart: {
                 type: 'line'
@@ -8,7 +8,7 @@ var Growth = {
                 text: ""
             },
             subtitle: {
-                text: "Growth Percentage(%) of " + symbol
+                text: "Growth Percentage(%)"
             },
             legend: {
                 enabled: false
@@ -41,7 +41,7 @@ var Growth = {
                 color: 'green',
                 threshold: 0,
                 negativeColor: "red",
-                name: "Growth value of " + symbol,
+                name: "Growth value",
             }]
         });
     }

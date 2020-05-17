@@ -1,6 +1,8 @@
 class ExchangeStore
+  include Allocator::ApiClients
+
   def create_or_update_exchanges
-    exchanges_response = _iex_client.exchanges
+    exchanges_response = iex_client.exchanges
     exchanges_response.body.each { |exchange_response| _create_or_update_exchange(exchange_response) }
   end
 
@@ -21,9 +23,5 @@ class ExchangeStore
       exchange.country = exchange_entity.country
       exchange.save
     end
-  end
-
-  def _iex_client
-    Api::Iex::Client.new
   end
 end

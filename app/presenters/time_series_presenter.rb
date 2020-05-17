@@ -9,7 +9,7 @@ class TimeSeriesPresenter
     private
 
     def _formatted_date_time
-      date_time.to_i * 1000
+      datetime.to_i * 1000
     end
   end
 
@@ -29,7 +29,7 @@ class TimeSeriesPresenter
     private
 
     def _ordered_by_datetime_asc
-      @_ordered_by_datetime_asc ||= sort_by(&:date_time)
+      @_ordered_by_datetime_asc ||= sort_by(&:datetime)
     end
 
     def _time_line_buttons
@@ -50,8 +50,8 @@ class TimeSeriesPresenter
     end
 
     def _subtitle
-      start_year = readable_date _ordered_by_datetime_asc.first.date_time
-      end_year = readable_date _ordered_by_datetime_asc.last.date_time
+      start_year = readable_date _ordered_by_datetime_asc.first.datetime
+      end_year = readable_date _ordered_by_datetime_asc.last.datetime
       "Between #{start_year} to #{end_year}"
     end
   end

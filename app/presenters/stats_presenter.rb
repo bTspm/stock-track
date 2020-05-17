@@ -6,6 +6,7 @@ class StatsPresenter
 
     def beta
       return "N/A" if data_object.beta.blank?
+
       data_object.beta.round(3)
     end
 
@@ -17,37 +18,15 @@ class StatsPresenter
       format_percentage data_object.dividend_yield
     end
 
-    def dividend_rate_and_yield
-      return "N/A" if data_object.ttm_dividend_rate.blank? && data_object.dividend_yield.blank?
+    def dividend_rate_and_yield_with_next_date
+      return "N/A" if _no_dividends?
 
-      "#{dividend_rate} / #{dividend_yield}"
-    end
-
-    def ex_dividend_date
-      readable_date data_object.ex_dividend_date
+      dividend_date_content = h.content_tag :div, "next (#{next_dividend_date})", class: "small"
+      ("#{dividend_rate} / #{dividend_yield}" + dividend_date_content).html_safe
     end
 
     def float
       value_or_na h.number_to_human data_object.float, precesion: 10
-    end
-
-    def growth_details
-      @growth_details ||= {
-       '5D': format_percentage(day_5_change_percent),
-       '1M': format_percentage(month_1_change_percent),
-       '3M': format_percentage(month_3_change_percent),
-       '6M': format_percentage(month_6_change_percent),
-       'YTD': format_percentage(ytd_change_percent),
-       '1Y': format_percentage(year_1_change_percent),
-       '5Y': format_percentage(year_5_change_percent),
-      }
-    end
-
-    def growth_chart_data
-      {
-       data: growth_details.values.reverse.map(&:to_i),
-       xaxis_titles: growth_details.keys.reverse,
-      }.to_json
     end
 
     def market_cap
@@ -66,8 +45,47 @@ class StatsPresenter
       value_or_na data_object.pe_ratio
     end
 
-    def ttm_eps
-      value_or_na h.number_to_human data_object.ttm_eps
+    def shares_outstanding
+      value_or_na h.number_to_human data_object.shares_outstanding, precision: 3
+    end
+
+    def ttm_eps_with_next_date
+      return "N/A" if data_object.ttm_eps.blank?
+
+      eps_date_content = h.content_tag :div, "next (#{next_earnings_date})", class: "small"
+      (value_or_na(h.number_to_human data_object.ttm_eps) +  eps_date_content).html_safe
+    end
+
+    def volume_average
+      return "N/A" if volume_10_day_average.blank? && volume_30_day_average.blank?
+
+      "#{h.number_to_human volume_10_day_average} / #{h.number_to_human volume_30_day_average}"
+    end
+
+    def moving_average
+      return "N/A" if moving_50_day_average.blank? && moving_200_day_average.blank?
+
+      "#{h.number_to_human moving_50_day_average} / #{h.number_to_human moving_200_day_average}"
+    end
+
+    def week_52_range
+      return "N/A" if week_52_low.blank? && week_52_high.blank?
+
+      "#{week_52_low} - #{week_52_high}".html_safe
+    end
+
+    def week_52_high
+      h.positive_content(h.number_with_delimiter(data_object.week_52_high))
+    end
+
+    def week_52_low
+      h.negative_content(h.number_with_delimiter(data_object.week_52_low))
+    end
+
+    private
+
+    def _no_dividends?
+      data_object.ttm_dividend_rate.blank? && data_object.dividend_yield.blank?
     end
   end
 end

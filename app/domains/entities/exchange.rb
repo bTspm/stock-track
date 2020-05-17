@@ -1,39 +1,21 @@
 module Entities
-  class Exchange
-    attr_reader :code,
-                :country,
-                :id,
-                :name
+  class Exchange < BaseEntity
+    ATTRIBUTES = %i[code
+                    country
+                    id
+                    name].freeze
 
-    def initialize(args = {})
-      @code = args[:code]
-      @country = args[:country]
-      @id = args[:id]
-      @name = args[:name]
-    end
-
-    def self.from_db_entity(entity)
-      return if entity.blank?
-
-      new(entity.attributes.with_indifferent_access)
-    end
+    attr_reader *ATTRIBUTES
 
     def self.from_iex_company_response(response)
-      return if response.blank?
-
-      args = {
-        name: response[:exchange]
-      }
-      new(args)
+      new({ name: response[:exchange] })
     end
 
     def self.from_iex_response(response)
-      return if response.blank?
-
       args = {
-        code: response[:exchange],
-        country: response[:region],
-        name: response[:description]
+       code: response[:exchange],
+       country: response[:region],
+       name: response[:description]
       }
 
       new(args)

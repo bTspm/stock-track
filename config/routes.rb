@@ -11,5 +11,8 @@ Rails.application.routes.draw do
     get :time_series
     get :earnings
     get :recommendation_trends
+    get :quote
+    get :stats
+    get :growth
   end
 end

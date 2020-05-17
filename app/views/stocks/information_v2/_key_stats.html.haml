@@ -1,49 +1,45 @@
-.section-title
-  .title Key Stats
-%table.table.table-sm.table-hover
-  %tbody
-    %tr
-      %td
-        %b Open
-      %td.text-right= quote.open
-    %tr
-      %td
-        %b Prev Close
-      %td.text-right= quote.previous_close
-    %tr
-      %td
-        %b Day Range
-      %td.text-right= quote.day_range
-    %tr
-      %td
-        %b 52 Week Range
-      %td.text-right= quote.week_52_range
-    %tr
-      %td
-        %b Volume
-      %td.text-right= quote.volume
-
-    %tr
-      %td
-        %b Market Cap
-      %td.text-right= stats.market_cap
-    %tr
-      %td
-        %b Dividend Rate / Yield
-      %td.text-right= stats.dividend_rate_and_yield
-    %tr
-      %td
-        %b P/E Ratio
-      %td.text-right= stats.pe_ratio
-    %tr
-      %td
-        %b Beta
-      %td.text-right= stats.beta
-    %tr
-      %td
-        %b Earnings Per Share
-      %td.text-right= stats.ttm_eps
-    %tr
-      %td
-        %b Float
-      %td.text-right= stats.float
+.card
+  .card-header Key Stats
+  .card-body
+    %table.table.table-sm.table-hover
+      %tbody
+        %tr
+          %td
+            %b 52 Week Range
+          %td.text-right= stats.week_52_range
+        %tr
+          %td
+            %b Market Cap
+          %td.text-right= stats.market_cap
+        %tr
+          %td
+            %b Annual Div Rate / Yield
+          %td.text-right= stats.dividend_rate_and_yield_with_next_date
+        %tr
+          %td
+            %b Shares Outstanding
+          %td.text-right= stats.shares_outstanding
+        %tr
+          %td
+            %b P/E Ratio
+          %td.text-right= stats.pe_ratio
+        %tr
+          %td
+            %b Beta
+          %td.text-right= stats.beta
+        %tr
+          %td
+            %b Earnings Per Share
+          %td.text-right= stats.ttm_eps_with_next_date
+        %tr
+          %td
+            %b Float
+          %td.text-right= stats.float
+        %tr
+          %td
+            %b Vol Avg 10d/30d
+          %td.text-right= stats.volume_average
+        %tr
+          %td
+            %b Mov Avg 50d/200d
+          %td.text-right= stats.moving_average

@@ -1,38 +1,23 @@
 module Entities
-  class Company
-    attr_accessor :address,
-                  :description,
-                  :employees,
-                  :executives,
-                  :exchange,
-                  :id,
-                  :industry,
-                  :issuer_type,
-                  :logo_url,
-                  :name,
-                  :sector,
-                  :security_name,
-                  :sic_code,
-                  :symbol,
-                  :website
+  class Company < BaseEntity
+    ATTRIBUTES = %i[address
+                    description
+                    employees
+                    executives
+                    exchange
+                    id
+                    industry
+                    issuer_type
+                    name
+                    sector
+                    security_name
+                    sic_code
+                    symbol
+                    website].freeze
 
-    def initialize(args = {})
-      @address = args[:address]
-      @description = args[:description]
-      @employees = args[:employees]
-      @executives = args[:executives]
-      @exchange = args[:exchange]
-      @id = args[:id]
-      @industry = args[:industry]
-      @issuer_type = args[:issuer_type]
-      @name = args[:name]
-      @sector = args[:sector]
-      @security_name = args[:security_name]
-      @sic_code = args[:sic_code]
-      @symbol = args[:symbol]
-      @website = args[:website]
-      @logo_url = args[:logo_url] || _logo_url
-    end
+    attr_accessor *ATTRIBUTES
+
+    delegate :etf?, to: :issuer_type, allow_nil: true
 
     def self.from_db_entity(entity)
       return if entity.blank?
@@ -44,6 +29,7 @@ module Entities
         employees: entity.employees,
         exchange: Entities::Exchange.from_db_entity(entity.exchange),
         executives: executives,
+        id: entity.id,
         industry: entity.industry,
         issuer_type: Entities::IssuerType.from_db_entity(entity.issuer_type),
         name: entity.name,
@@ -60,13 +46,11 @@ module Entities
     def self.from_iex_response(response)
       args = {
         address: Entities::Address.from_iex_response(response),
-        ceo: response[:CEO],
         description: response[:description],
         employees: response[:employees],
         exchange: Entities::Exchange.from_iex_company_response(response),
         industry: response[:industry],
         issuer_type: Entities::IssuerType.from_iex_company_response(response),
-        logo_url: "#{ENV['IEX_SYMBOl_LOGO_PREFIX']}#{response[:symbol]}.png",
         name: response[:companyName],
         sector: response[:sector],
         security_name: response[:securityName],
@@ -76,16 +60,6 @@ module Entities
       }
 
       new(args)
-    end
-
-    def etf?
-      issuer_type.code == "ET"
-    end
-
-    private
-
-    def _logo_url
-      "#{ENV['IEX_SYMBOl_LOGO_PREFIX']}#{@symbol}.png"
     end
   end
 end

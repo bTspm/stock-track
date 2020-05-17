@@ -3,7 +3,7 @@ class ExchangePresenter
 
   class Scalar < Btspm::Presenters::ScalarPresenter
     def name_with_country
-      "#{name} (#{country})"
+      "#{name} - (#{country})"
     end
   end
 end

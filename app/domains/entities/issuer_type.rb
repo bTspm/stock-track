@@ -1,28 +1,18 @@
 module Entities
-  class IssuerType
-    attr_reader :code,
-                :id,
-                :name
+  class IssuerType < BaseEntity
+    ETF_CODE = "ET".freeze
+    ATTRIBUTES = %i[code id name].freeze
 
-    def initialize(args = {})
-      @code = args[:code]
-      @id = args[:id]
-      @name = args[:name]
-    end
-
-    def self.from_db_entity(entity)
-      return if entity.blank?
-
-      new(entity.attributes.with_indifferent_access)
-    end
+    attr_reader *ATTRIBUTES
 
     def self.from_iex_company_response(response = {})
-      args = {
-        code: response[:issueType]
-      }
+      new({ code: response[:issueType] })
+    end
 
-      new(args)
+    def etf?
+      return false if code.blank?
+
+      code.upcase == ETF_CODE
     end
   end
 end
-

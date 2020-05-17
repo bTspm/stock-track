@@ -1,0 +1,23 @@
+.card
+  .card-header Profile
+  .card-body
+    .text-center.mt-3.mb-3
+      %img.align-self-center.mr-1.mb-0.stock-logo(src="#{company.logo_url}")
+    %table.table.table-hover.table-sm
+      %tbody
+        %tr
+          %td
+            %b Security Name
+          %td.text-right= company.security_name
+        %tr
+          %td
+            %b Issuer
+          %td.text-right= company.issuer_type.name
+        %tr
+          %td
+            %b Sector
+          %td.text-right= company.sector
+        %tr
+          %td
+            %b Industry
+          %td.text-right= company.industry

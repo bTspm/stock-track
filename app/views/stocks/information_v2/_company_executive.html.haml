@@ -1,15 +1,29 @@
-%br
-.section-title
-  .title Company Executive
+.card
+  .card-header Company Executives
+  .card-body
+    %table#executives.table.table-sm.table-hover.table-striped.w-100
+      %thead
+        %tr
+          %th Name
+          %th Title
+          %th Age
+          %th Since
+          %th Compensation
+      %tbody
+        - executives.sorted_by_name.each do |executive|
+          %tr
+            %td= executive.name
+            %td= elements_in_single(executive.titles)
+            %td= executive.age
+            %td= executive.since
+            %td= executive.compensation_with_currency
 
-- if executives.any?
-  .row.small
-    - executives.groups.each do |group|
-      .col
-        - group.each do |title, people|
-          %dt= title
-          %dd
-            - people.each do |person|
-              %div= person.person_name_with_age
-- else
-  N/A
+:javascript
+  $(document).ready( function () {
+    $('#executives').DataTable({
+            paging: false,
+            scrollX: true,
+            scrollCollapse: true,
+            scrollY: "40vh",
+            });
+  } );

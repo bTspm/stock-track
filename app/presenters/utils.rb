@@ -1,11 +1,4 @@
 module Utils
-  def epoch_to_datetime(epoch, format = "%b %d, %Y %-l:%M %p EST")
-    return "N/A" if epoch.blank?
-
-    formatted_epoch = _formatted_epoch(epoch)
-    Time.at(formatted_epoch.to_i).strftime(format)
-  end
-
   def format_percentage(percentage)
     return "N/A" if percentage.blank?
 
@@ -15,7 +8,7 @@ module Utils
   def readable_date(date, format = '%b %d, %Y')
     return "N/A" if date.blank?
 
-    date.strftime(format)
+    date.in_time_zone('Eastern Time (US & Canada)').strftime(format)
   end
 
   def value_or_na(value)

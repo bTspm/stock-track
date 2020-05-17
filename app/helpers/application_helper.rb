@@ -20,5 +20,9 @@ module ApplicationHelper
 
     html.html_safe
   end
+
+  def show_or_hide(value)
+     value.blank? ? "d-none" : ""
+  end
 end
 

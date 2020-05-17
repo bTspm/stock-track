@@ -1,38 +1,48 @@
 .stock-information
   .container-fluid
-    .row
-      .col-xl-7.col-lg-7.col-md-7.col-sm-12.col.xs-12
-        .shadow.bg-white.rounded.p-3.mb-2
-          = render partial: 'stocks/information_v2/quote_information', locals: {logo: @stock.company.logo_url, quote: @stock.quote}
+    #stock-summary.shadow-lg.p-3.mb-5.bg-white.rounded
+      .card
+        .card-body
+          #company-name= @company.name_with_symbol
+          %div.small
+            = @company.exchange.name_with_country
+            %span{class: "flag-icon flag-icon-#{@company.exchange.country.downcase}"}
 
-        .shadow.bg-white.rounded.p-3.mb-2
+      .row.mt-3
+        .col-lg-9.col-md-12.col-sm-12.col.xs-12
+          = render_async stocks_quote_path(symbol: @company.symbol) do
+            = render partial: "loading_card"
           .row
-            .col-lg-8.col-md-12.col-sm-12.col-xs-12
-              = render_async stocks_time_series_path(symbol: @stock.quote.symbol)
+            .col-lg-8.col-md-12.col-sm-12.col.xs-12
+              = render_async stocks_time_series_path(symbol: @company.symbol) do
+                = render partial: "loading_card", locals: { header: "Time Series" }
 
             .col-lg-4.col-md-12.col-sm-12.col-xs-12
-              = render partial: 'stocks/information_v2/key_stats', locals: {quote: @stock.quote, stats: @stock.stats}
-        .shadow.bg-white.rounded.p-3.mb-2
-          = render_async stocks_news_path(symbol: @stock.quote.symbol)
+              = render_async stocks_stats_path(symbol: @company.symbol) do
+                = render partial: "loading_card", locals: { header: "Stats" }
 
-        - if @stock.company.description.present?
-          .shadow.bg-white.rounded.p-3.mb-2
-            = render partial: 'stocks/information_v2/company', locals: { company: @stock.company }
+          = render_async stocks_news_path(symbol: @company.symbol) do
+            = render partial: "loading_card", locals: { header: "News" }
 
-      .col-xl-5.col-lg-5.col-md-5.col-sm-12.col.xs-12
-        - unless @stock.company.etf?
-          .row
-            .col-xl.col-lg.col-md.col-sm.col-xs-12
-              .shadow.bg-white.rounded.p-3.mb-2
-                = render_async stocks_earnings_path(symbol: @stock.quote.symbol)
-            .col-xl.col-lg.col-md.col-sm.col-xs-12
-              .shadow.bg-white.rounded.p-3.mb-2
-                = render_async stocks_recommendation_trends_path(symbol: @stock.quote.symbol)
-        .row
-          .col
-            .shadow.bg-white.rounded.p-3.mb-2
-              = render partial: 'stocks/information_v2/growth', locals: { stats: @stock.stats, symbol: @stock.quote.symbol }
+          - if @company.description.present?
+            .row
+              .col-lg.col-md-12
+                = render partial: 'stocks/information_v2/company', locals: { company: @company }
+              .col-lg.col-md-12
+                = render partial: 'stocks/information_v2/company', locals: { company: @company }
+            = render partial: 'stocks/information_v2/overview', locals: { description: @company.description }
+          - if @company.executives.any?
+            = render partial: 'stocks/information_v2/company_executive', locals: { executives: @company.executives }
 
-          .col
-            .d-none.shadow.bg-white.rounded.p-3.mb-2
+        .col-lg-3.col-md-12.col-sm-12.col.xs-12
+          = render partial: 'stocks/information_v2/profile', locals: {company: @company}
 
+          - unless @company.etf?
+            = render_async stocks_earnings_path(symbol: @company.symbol) do
+              = render partial: "loading_card", locals: { header: "Earnings" }
+
+            = render_async stocks_recommendation_trends_path(symbol: @company.symbol) do
+              = render partial: "loading_card", locals: { header: "Recommendation Trends" }
+
+          = render_async stocks_growth_path(symbol: @company.symbol) do
+            = render partial: "loading_card", locals: { header: "Growth" }

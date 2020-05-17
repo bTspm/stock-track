@@ -17,7 +17,7 @@ module Api
     private
 
     def _build_body
-      body = @response.body
+      body = JSON.parse(@response.body)
       if body.is_a? Hash
         body.with_indifferent_access
       elsif body.is_a? Array

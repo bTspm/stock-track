@@ -6,17 +6,17 @@ module Api
               else
                 Faraday.new do |conn|
                   conn.request :json
-                  conn.request :url_encoded
-                  conn.response :json
+                  # conn.request :url_encoded
                   conn.response :logger
+                  conn.use _response_handler
                   conn.adapter _adapter
-                  conn.use _error_handler
                 end
               end
     end
 
     def get(url)
-      _parse_response(@conn.get url)
+      response = @conn.get url
+      _parse_response(response)
     end
 
     protected
@@ -25,8 +25,8 @@ module Api
       Faraday.default_adapter
     end
 
-    def _error_handler
-      Api::Iex::RaiseHttpException
+    def _response_handler
+      Api::RaiseHttpException
     end
 
     def _parse_response(response)

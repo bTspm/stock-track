@@ -1,0 +1,18 @@
+.price-information {
+  margin-top: 1rem;
+  background-color: #f8f9fa !important;
+  border-left: 5px solid;
+  padding: 2px 0 2px 10px;
+
+  dt {
+    font-size: 80%;
+  }
+}
+
+.loss {
+  border-left: 5px solid #dc3545 !important;
+}
+
+.profit {
+  border-left: 5px solid #28a745 !important;
+}

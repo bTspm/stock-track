@@ -1,0 +1,9 @@
+- header = local_assigns.fetch(:header, "")
+
+.card
+  .card-header{class: show_or_hide(header)}
+    = "#{header}"
+  .card-body.text-center
+    %h4
+      %i.fas.fa-spinner.fa-spin.mr-1
+      Loading...

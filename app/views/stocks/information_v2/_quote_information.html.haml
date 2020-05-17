@@ -1,24 +1,49 @@
-.row
-  .col-lg-4.col-md-6.col-sm-12.col-xs-12
-    .media
-      %img.align-self-center.mr-1.mb-0.stock-logo(src="#{logo}")
-      .media-body
-        = @stock.company.name
-        %br
-        .small
-          = quote.symbol_with_exchange_name(@stock.company.exchange.name)
-          %span{class: "flag-icon flag-icon-#{@stock.company.exchange.country.downcase}"}
-
-
-  .col-lg-4.col-md-6.col-sm-12.col-xs-12
-    .d-inline-block.align-middle.mr-1.current-price
-      = quote.latest_price_icon
-      = number_with_delimiter quote.latest_price
-    .d-inline-block.align-middle
-      %span.updated-time= quote.latest_time
-      .d-flex.today-change
-        %span= quote.change_percent
-        %span.ml-auto= quote.change
-
-  .col-lg-4
-    = render partial: 'stocks/information_v2/stock_information', locals: {company: @stock.company, quote: @stock.quote}
+.card
+  .card-header
+    Quote
+  .card-body.mb-2
+    .price-information{class: quote.latest_price_info.price_color}
+      %div.mb-2
+        %span.small= quote.latest_price_info.last_updated
+        .float-sm-right
+          %span= quote.latest_price_info.source
+      .row
+        .col-lg.col-md-6.col-sm-12.col-xs-12
+          .price= quote.latest_price_info.amount
+        .col-lg.col-md-6.col-sm-6.col-xs-12
+          %dt Change
+          %dd
+            %span= quote.latest_price_info.price_icon
+            %span.mr-1= quote.latest_price_info.change
+            %span= quote.latest_price_info.change_percent
+        .col-lg.col-md-3.col-sm-6.col-xs-12
+          %dt Day Range
+          %dd= quote.day_range
+        .col-lg.col-md-3.col-sm-4.col-xs-4
+          %dt Volume
+          %dd= quote.volume
+        .col-lg.col-md-3.col-sm-4.col-xs-4
+          %dt Open
+          %dd= quote.open
+        .col-lg.col-md-3.col-sm-4.col-xs-4
+          %dt Prev Close
+          %dd= quote.previous_close
+    - if quote.show_extended_info?
+      .price-information{class: quote.extended_price_info.price_color}
+        %div.mb-2
+          %span.small= quote.extended_price_info.last_updated
+          .float-sm-right
+            %span= quote.extended_price_info.source
+        .row
+          .col-lg.col-md-6.col-sm-6
+            .price= quote.extended_price_info.amount
+          .col-lg.col-md-6.col-sm-6
+            %dt Change
+            %dd
+              %span= quote.extended_price_info.price_icon
+              %span.mr-1= quote.extended_price_info.change
+              %span= quote.extended_price_info.change_percent
+          .col-lg.col-md-12
+          .col-lg.col-md-12
+          .col-lg.col-md-12
+          .col-lg.col-md-12

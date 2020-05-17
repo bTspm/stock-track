@@ -2,6 +2,8 @@ class CreateCompanyExecutives < ActiveRecord::Migration[5.2]
   def up
     create_table :company_executives do |t|
       t.integer :age
+      t.integer :compensation, limit: 8
+      t.citext :currency
       t.citext :name, null: false
       t.integer :since
       t.text :titles, array: true, default: []
@@ -10,12 +12,16 @@ class CreateCompanyExecutives < ActiveRecord::Migration[5.2]
       t.timestamps
     end
 
+    add_index :company_executives, :currency
     add_index :company_executives, :name
     add_index :company_executives, :titles
     add_index :company_executives, :since
   end
 
   def down
+    if index_exists? :company_executives, :currency
+      remove_index :company_executives, currency: :index_company_executives_on_currency
+    end
     if index_exists? :company_executives, :name
       remove_index :company_executives, name: :index_company_executives_on_name
     end

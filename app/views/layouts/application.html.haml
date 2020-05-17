@@ -2,6 +2,7 @@
 %html
   %head
     %meta(content='text/html; charset=UTF-8' http-equiv='Content-Type')/
+    %meta{content: "width=device-width, initial-scale=1", name: "viewport"}/
     %title StockTrack
 
     %script{src:  "https://cdnjs.cloudflare.com/ajax/libs/highcharts/8.0.4/highstock.min.js"}
@@ -17,6 +18,8 @@
 
     %link{crossorigin:  "anonymous", href:  "https://cdnjs.cloudflare.com/ajax/libs/flag-icon-css/3.4.6/css/flag-icon.min.css", integrity:  "sha256-YjcCvXkdRVOucibC9I4mBS41lXPrWfqY2BnpskhZPnw=", rel:  "stylesheet"}/
 
+    %link{href: "https://cdn.datatables.net/v/bs4/dt-1.10.20/datatables.min.css", rel: "stylesheet", type: "text/css"}/
+    %script{src: "https://cdn.datatables.net/v/bs4/dt-1.10.20/datatables.min.js", type: "text/javascript"}
 
     = csrf_meta_tags
     = csp_meta_tag

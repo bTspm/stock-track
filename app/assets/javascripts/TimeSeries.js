@@ -54,5 +54,12 @@ var TimeSeries = {
             threshold: null
         }]
     });
+    },
+
+    myCustomLabelFormatter: function() {
+        var len = this.yData.length,
+            sgn = this.yData[len - 1] >= this.yData[len - 2] ? "+" : "-";
+        return this.name + ": " + (this.yData[0] / this.yData[len - 1]).toFixed(2) + "%";
     }
+
 };

@@ -25,5 +25,13 @@ class CompaniesPresenter
     def issuer_type
       ::IssuerTypesPresenter.present(data_object.issuer_type, h)
     end
+
+    def logo_url
+      "#{ENV['IEX_SYMBOl_LOGO_PREFIX']}#{symbol}.png"
+    end
+
+    def name_with_symbol
+      "#{name} - (#{symbol.upcase})"
+    end
   end
 end

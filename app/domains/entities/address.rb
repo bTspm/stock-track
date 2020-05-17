@@ -1,28 +1,14 @@
 module Entities
-  class Address
-    attr_reader :city,
-                :country,
-                :id,
-                :line_1,
-                :line_2,
-                :state,
-                :zip_code
+  class Address < BaseEntity
+    ATTRIBUTES = %i[city
+                    country
+                    id
+                    line_1
+                    line_2
+                    state
+                    zip_code].freeze
 
-    def initialize(args = {})
-      @city = args[:city]
-      @country = args[:country]
-      @id = args[:id]
-      @line_1 = args[:line_1]
-      @line_2 = args[:line_2]
-      @state = args[:state]
-      @zip_code = args[:zip_code]
-    end
-
-    def self.from_db_entity(entity)
-      return if entity.blank?
-
-      Entities::Address.new(entity.attributes.with_indifferent_access)
-    end
+    attr_reader *ATTRIBUTES
 
     def self.from_iex_response(response = {})
       args = {
@@ -38,4 +24,3 @@ module Entities
     end
   end
 end
-

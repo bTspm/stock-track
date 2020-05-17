@@ -1,26 +1,25 @@
 module Entities
-  class CompanyExecutive
-    attr_reader :age,
-                :name,
-                :since,
-                :titles
+  class CompanyExecutive < BaseEntity
+    ATTRIBUTES = %i[age
+                    compensation
+                    currency
+                    name
+                    since
+                    titles].freeze
+    TOP_TITLES = %w(chairman chief).freeze
+
+    attr_reader *ATTRIBUTES
 
     def initialize(args = {})
-      @age = args[:age]
-      @name = args[:name]
-      @since = args[:since]
-      @titles = args[:titles] || Array.new
-    end
-
-    def self.from_db_entity(entity)
-      return if entity.blank?
-
-      new(entity.attributes.with_indifferent_access)
+      super
+      @titles ||= []
     end
 
     def self.from_finn_hub_response(response = {})
       args = {
         age: response[:age],
+        compensation: response[:compensation],
+        currency: response[:currency],
         name: response[:name],
         since: response[:since],
         titles: _title_format(response[:position])
@@ -30,9 +29,9 @@ module Entities
     end
 
     def self._title_format(title_string)
-      return Array.new if title_string.blank?
+      return [] if title_string.blank?
 
-      title_string.split(',')
+      title_string.split(',').map(&:strip)
     end
 
     private_class_method :_title_format

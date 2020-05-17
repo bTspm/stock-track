@@ -5,41 +5,40 @@ class StockService < BusinessService
     exchange_storage.create_or_update_exchanges
   end
 
-  def company_by_symbol(symbol)
-    company_storage.by_symbol(symbol)
-  end
-
   def news_by_symbol(symbol)
-    stock_storage.news_by_symbol(symbol: symbol)
+    news_storage.by_symbol_from_iex(symbol: symbol)
   end
 
-  def stock_by_symbol(symbol)
-    company = company_by_symbol(symbol)
-
-    if company.blank?
-      company = company_storage.by_symbol_from_iex(symbol)
-      company.executives = company_executive_storage.executives_by_symbol_from_finn_hub(symbol)
-      company = company_storage.save_company(company)
-    end
-
-    s = stock_storage.stock_by_symbol(symbol)
-    s.company = company
-    s
+  def time_series_by_symbol(symbol)
+    time_series_storage.by_symbol_from_twelve_data(_time_series_5year_options(symbol))
   end
 
-  def time_series(symbol)
-    request = TimeSeriesRequest.five_year(symbol)
-    time_series_storage.time_series_from_twelve_data(request.to_options)
-  end
-
-  def recommendation_trends(symbol)
-    recommendation_trend_storage.recommendation_trends_from_finn_hub(symbol)
+  def recommendation_trends_by_symbol(symbol)
+    recommendation_trend_storage.by_symbol_from_finn_hub(symbol)
   end
 
   def earnings_by_symbol(symbol)
     {
       eps_estimates: earnings_storage.eps_estimates_from_finn_hub(symbol),
-      eps: earnings_storage.eps_from_finn_hub(symbol)
+      eps_surprises: earnings_storage.eps_surprises_from_finn_hub(symbol)
     }
+  end
+
+  def quote_by_symbol(symbol)
+    quote_storage.by_symbol_from_iex(symbol)
+  end
+
+  def stats_by_symbol(symbol)
+    stats_storage.by_symbol_from_iex(symbol)
+  end
+
+  def growth_by_symbol(symbol)
+    growth_storage.by_symbol_from_iex(symbol)
+  end
+
+  private
+
+  def _time_series_5year_options(symbol)
+    TimeSeriesRequest.five_year(symbol).to_options
   end
 end

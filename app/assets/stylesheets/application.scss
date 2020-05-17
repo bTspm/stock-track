@@ -14,18 +14,50 @@
  *= require_self
  */
 
-.stock-information{
+.stock-information {
   padding-top: 100px;
+
+  .container-fluid {
+    width: 90%
+  }
 }
 
-.today-change {
-  margin-top: -0.5rem;
+#company-name {
+  font-size: 1.5rem;
 }
 
-.updated-time {
-  font-size: 0.6rem;
-}
-
-.current-price {
+.price {
   font-size: 2rem;
 }
+
+.card-header {
+  background: #d7e4eb;
+  border: 1px solid #eaebec;
+  color: #006899;
+  font-size: 14px;
+  font-weight: normal;
+  margin: 0;
+  padding: 6px 12px;
+}
+
+.card {
+  border: 0;
+}
+
+.card-body {
+  margin: -1rem;
+}
+
+.table > tbody > tr > td {
+  vertical-align: middle;
+
+  td {
+    font-weight: bold;
+  }
+}
+
+//.table {
+//  margin-top: -1rem;
+//  margin-bottom: -0.5rem;
+//}
+

@@ -6,6 +6,10 @@ class StocksPresenter
       @company ||= ::CompaniesPresenter.present(data_object.company, h)
     end
 
+    def growth
+      @growth ||= ::GrowthPresenter.present(data_object.growth, h)
+    end
+
     def news
       @news ||= ::NewsPresenter.present(data_object.news, h)
     end

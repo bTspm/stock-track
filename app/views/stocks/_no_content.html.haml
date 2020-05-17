@@ -1,0 +1,11 @@
+- header = local_assigns.fetch(:header, "")
+- error_messages = Array.wrap(local_assigns.fetch(:error_messages, ""))
+
+.card
+  .card-header{class: show_or_hide(header)}
+    = "#{header}"
+  .card-body.text-center
+    .alert.alert-danger
+      %i.fas.fa-exclamation-triangle.mr-1
+      - error_messages.each do |message|
+        %li= message

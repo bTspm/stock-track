@@ -1,4 +1,18 @@
 class Allocator
+  module ApiClients
+    def finn_hub_client
+      Api::FinnHub::Client.new
+    end
+
+    def iex_client
+      Api::Iex::Client.new
+    end
+
+    def twelve_data_client
+      Api::TwelveData::Client.new
+    end
+  end
+
   def company_store
     CompanyStore.new
   end
@@ -17,6 +31,22 @@ class Allocator
 
   def issuer_type_store
     IssuerTypeStore.new
+  end
+
+  def news_store
+    NewsStore.new
+  end
+
+  def stats_store
+    StatsStore.new
+  end
+
+  def quote_store
+    QuoteStore.new
+  end
+
+  def growth_store
+    GrowthStore.new
   end
 
   def recommendation_trend_store

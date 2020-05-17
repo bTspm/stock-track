@@ -1,16 +1,9 @@
-.section-title
-  .title Growth
--#%table.table.table-hover
--#  %tbody
--#    - stats.growth_details.each do |title, value|
--#      %tr
--#        %td
--#          %b= title
--#        %td.text-right= value
-
-%div#growth-container{style: 'height:300px; width:100%'}
+.card
+  .card-header Growth
+  .card-body
+    %div#growth-container{style: 'height:300px; width:100%'}
 
 :javascript
   $(document).ready(function() {
-      Growth.initChart(JSON.parse('#{raw(stats.growth_chart_data)}'), '#{symbol}');
+      Growth.initChart(JSON.parse('#{raw(growth.chart_data)}'));
   });

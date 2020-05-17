@@ -5,7 +5,7 @@ module Api
         get "#{_url}/executive?symbol=#{_format_symbol(symbol)}&token=#{_key}"
       end
 
-      def eps(symbol)
+      def eps_surprises(symbol)
         get "#{_url}/earnings?symbol=#{_format_symbol(symbol)}&token=#{_key}"
       end
 
@@ -15,6 +15,10 @@ module Api
 
       def recommendation_trends(symbol)
         get "#{_url}/recommendation?symbol=#{_format_symbol(symbol)}&token=#{_key}"
+      end
+
+      def symbols_by_exchange(exchange)
+        get "#{_url}/symbol?exchange=#{exchange.upcase}&token=#{_key}"
       end
 
       private

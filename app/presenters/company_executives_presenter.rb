@@ -1,24 +1,29 @@
 class CompanyExecutivesPresenter
   include Btspm::Presenters::Presentable
+  GROUPS = 4
 
   class Scalar < Btspm::Presenters::ScalarPresenter
-    def person_name_with_age
-      return name if age.blank?
+    def age
+      data_object.age || "N/A"
+    end
 
-      "#{name} - #{age}"
+    def compensation_with_currency
+      return "N/A" if compensation.blank? || currency.blank?
+
+      compensation = h.number_to_human data_object.compensation
+      return compensation if currency.blank?
+
+      "#{compensation} (#{currency.upcase})"
+    end
+
+    def since
+      data_object.since || "N/A"
     end
   end
 
   class Enum < Btspm::Presenters::EnumPresenter
-    def groups
-      h = {}
-      grouped_by_titles = group_by { |a| a.titles }
-      grouped_by_titles.each { |titles, people| titles.each do |title|
-        title.strip!
-        h[title] = people
-      end
-      }
-      h.keys.sort.in_groups(4).map { |keys_set| h.with_indifferent_access.slice(*keys_set) }
+    def sorted_by_name
+      sort_by(&:name)
     end
   end
 end

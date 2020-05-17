@@ -1,20 +1,13 @@
 module Entities
-  class RecommendationTrend
-    attr_reader :buy,
-                :date,
-                :hold,
-                :sell,
-                :strong_buy,
-                :strong_sell
+  class RecommendationTrend < BaseEntity
+    ATTRIBUTES = %i[buy
+                    date
+                    hold
+                    sell
+                    strong_buy
+                    strong_sell].freeze
 
-    def initialize(args = {})
-      @buy = args[:buy]
-      @date = args[:date]
-      @hold = args[:hold]
-      @sell = args[:sell]
-      @strong_buy = args[:strong_buy]
-      @strong_sell = args[:strong_sell]
-    end
+    attr_reader *ATTRIBUTES
 
     def self.from_finn_hub_response(response)
       args = {
