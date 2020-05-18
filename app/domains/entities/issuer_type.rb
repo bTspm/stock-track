@@ -1,12 +1,15 @@
 module Entities
-  class IssuerType < BaseEntity
+  class IssuerType
+    include BaseEntity
+    include DbEntity
+
     ETF_CODE = "ET".freeze
     ATTRIBUTES = %i[code id name].freeze
 
     attr_reader *ATTRIBUTES
 
     def self.from_iex_company_response(response = {})
-      new({ code: response[:issueType] })
+      new({code: response[:issueType]})
     end
 
     def etf?

@@ -1,5 +1,8 @@
 module Entities
-  class CompanyExecutive < BaseEntity
+  class CompanyExecutive
+    include BaseEntity
+    include DbEntity
+
     ATTRIBUTES = %i[age
                     compensation
                     currency
@@ -17,12 +20,12 @@ module Entities
 
     def self.from_finn_hub_response(response = {})
       args = {
-        age: response[:age],
-        compensation: response[:compensation],
-        currency: response[:currency],
-        name: response[:name],
-        since: response[:since],
-        titles: _title_format(response[:position])
+       age: response[:age],
+       compensation: response[:compensation],
+       currency: response[:currency],
+       name: response[:name],
+       since: response[:since],
+       titles: _title_format(response[:position])
       }
 
       new(args)

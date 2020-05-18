@@ -1,5 +1,7 @@
 module Entities
-  class RecommendationTrend < BaseEntity
+  class RecommendationTrend
+    include BaseEntity
+
     ATTRIBUTES = %i[buy
                     date
                     hold
@@ -11,12 +13,12 @@ module Entities
 
     def self.from_finn_hub_response(response)
       args = {
-        buy: response[:buy],
-        date: response[:period]&.to_date,
-        hold: response[:hold],
-        sell: response[:sell],
-        strong_buy: response[:strongBuy],
-        strong_sell: response[:strongSell]
+       buy: response[:buy],
+       date: response[:period]&.to_date,
+       hold: response[:hold],
+       sell: response[:sell],
+       strong_buy: response[:strongBuy],
+       strong_sell: response[:strongSell]
       }
 
       new(args)

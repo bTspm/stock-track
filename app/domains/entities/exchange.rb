@@ -1,5 +1,8 @@
 module Entities
-  class Exchange < BaseEntity
+  class Exchange
+    include BaseEntity
+    include DbEntity
+
     ATTRIBUTES = %i[code
                     country
                     id
@@ -8,7 +11,7 @@ module Entities
     attr_reader *ATTRIBUTES
 
     def self.from_iex_company_response(response)
-      new({ name: response[:exchange] })
+      new({name: response[:exchange]})
     end
 
     def self.from_iex_response(response)

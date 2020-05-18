@@ -1,5 +1,7 @@
 module Entities
-  class EpsSurprise < ::Entities::BaseEntity
+  class EpsSurprise
+    include BaseEntity
+
     ATTRIBUTES = %i[actual date estimate].freeze
 
     attr_reader *ATTRIBUTES

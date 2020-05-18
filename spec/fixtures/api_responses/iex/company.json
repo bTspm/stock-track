@@ -1,0 +1,25 @@
+{
+  "symbol": "AAPL",
+  "companyName": "Apple, Inc.",
+  "exchange": "NASDAQ",
+  "industry": "Telecommunications Equipment",
+  "website": "http://www.apple.com",
+  "description": "Test Description",
+  "CEO": "Timothy Donald Cook",
+  "securityName": "Apple Inc.",
+  "issueType": "cs",
+  "sector": "Electronic Technology",
+  "primarySicCode": 3663,
+  "employees": 137000,
+  "tags": [
+    "Electronic Technology",
+    "Telecommunications Equipment"
+  ],
+  "address": "One Apple Park Way",
+  "address2": "Address 2",
+  "state": "CA",
+  "city": "Cupertino",
+  "zip": "95014-2083",
+  "country": "US",
+  "phone": "1.408.996.1010"
+}

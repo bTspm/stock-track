@@ -1,0 +1,16 @@
+[
+  {
+    "exchange": "NAS",
+    "region": "US",
+    "description": "NASDAQ",
+    "mic": "XNAS",
+    "exchangeSuffix": ""
+  },
+  {
+    "exchange": "NYS",
+    "region": "US",
+    "description": "New York Stock Exchange",
+    "mic": "XNYS",
+    "exchangeSuffix": ""
+  }
+]

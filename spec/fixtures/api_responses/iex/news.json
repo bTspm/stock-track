@@ -1,0 +1,24 @@
+[
+  {
+    "datetime": 1589763693000,
+    "headline": "Apple's retail reopening plan: Temperature checks, mandatory masks and 25 stores to reopen this week",
+    "source": "CNBC",
+    "url": "https://cloud.iexapis.com/v1/news/article/dfe8debf-9952-4b3c-9450-02aa33954fe3",
+    "summary": "Apple released a set of guidelines its retail stores will follow as they reopen.",
+    "related": "AAPL",
+    "image": "https://cloud.iexapis.com/v1/news/image/dfe8debf-9952-4b3c-9450-02aa33954fe3",
+    "lang": "en",
+    "hasPaywall": false
+  },
+  {
+    "datetime": 1577836800000,
+    "headline": "Apple says nearly 100 of its stores have reopened globally",
+    "source": "South China Morning Post",
+    "url": "https://cloud.iexapis.com/v1/news/article/4f8d347e-62b0-4a79-bd10-183fa469ce05",
+    "summary": "News Summary",
+    "related": "AAPL",
+    "image": "https://cloud.iexapis.com/v1/news/image/4f8d347e-62b0-4a79-bd10-183fa469ce05",
+    "lang": "en",
+    "hasPaywall": false
+  }
+]

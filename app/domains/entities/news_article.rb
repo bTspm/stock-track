@@ -1,5 +1,7 @@
 module Entities
-  class NewsArticle < ::Entities::BaseEntity
+  class NewsArticle
+    include BaseEntity
+
     ATTRIBUTES = %i[datetime
                     headline
                     image
@@ -13,7 +15,7 @@ module Entities
 
     def self.from_iex_response(response)
       args = {
-       datetime: DateTime.strptime(response[:datetime].to_s,'%Q'),
+       datetime: response[:datetime]&.to_datetime,
        headline: response[:headline],
        image: response[:image],
        language: response[:lang],
@@ -22,7 +24,7 @@ module Entities
        summary: response[:summary],
        url: response[:url]
       }
-      
+
       new(args)
     end
   end

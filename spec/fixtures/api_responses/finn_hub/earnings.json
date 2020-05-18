@@ -1,0 +1,14 @@
+[
+  {
+    "actual": 2.55,
+    "estimate": 2.3051999999999997,
+    "period": "2020-03-31",
+    "symbol": "AAPL"
+  },
+  {
+    "actual": 4.99,
+    "estimate": 4.641,
+    "period": "2019-12-31",
+    "symbol": "AAPL"
+  }
+]
