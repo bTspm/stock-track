@@ -12,22 +12,25 @@
           .price= quote.latest_price_info.amount
         .col-lg.col-md-6.col-sm-6.col-xs-12
           %dt Change
-          %dd
+          %dd.small
             %span= quote.latest_price_info.price_icon
             %span.mr-1= quote.latest_price_info.change
             %span= quote.latest_price_info.change_percent
-        .col-lg.col-md-3.col-sm-6.col-xs-12
+        .col-lg.col-md-3.col-sm-6
           %dt Day Range
-          %dd= quote.day_range
-        .col-lg.col-md-3.col-sm-4.col-xs-4
+          %dd.small= quote.day_range
+        .col-lg.col-md-3.col-sm-6
           %dt Volume
-          %dd= quote.volume
-        .col-lg.col-md-3.col-sm-4.col-xs-4
+          %dd.small= quote.volume
+        .col-lg.col-md-3.col-sm-6
           %dt Open
-          %dd= quote.open
-        .col-lg.col-md-3.col-sm-4.col-xs-4
-          %dt Prev Close
-          %dd= quote.previous_close
+          %dd.small= quote.open
+        .col-lg.col-md-6.col-sm-6
+          %dt Previous Close
+          %dd.small= quote.previous_close
+        .col-lg.col-md-6.col-sm-6
+          %dt Previous Volume
+          %dd.small= quote.previous_volume
     - if quote.show_extended_info?
       .price-information{class: quote.extended_price_info.price_color}
         %div.mb-2
@@ -39,7 +42,7 @@
             .price= quote.extended_price_info.amount
           .col-lg.col-md-6.col-sm-6
             %dt Change
-            %dd
+            %dd.small
               %span= quote.extended_price_info.price_icon
               %span.mr-1= quote.extended_price_info.change
               %span= quote.extended_price_info.change_percent

@@ -22,15 +22,15 @@ class EarningsPresenter
       @_eps ||= data_object[:eps_surprises].sort_by(&:date).last(4)
     end
 
-    def _eps_last_date
-      @_eps_last_date ||= _eps_surprises.last.date
+    def _eps_surprise_last_date
+      @_eps_surprise_last_date ||= _eps_surprises.last.date
     end
 
     def _eps_estimates
       return if data_object[:eps_estimates].blank?
 
       @_eps_estimates ||= data_object[:eps_estimates].select do |estimate|
-        estimate.date > _eps_last_date
+        estimate.date > _eps_surprise_last_date
       end.sort_by(&:date).first(2)
     end
 

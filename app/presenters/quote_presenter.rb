@@ -52,6 +52,12 @@ class QuotePresenter
       h.number_with_delimiter data_object.previous_close
     end
 
+    def previous_volume
+      return "N/A" if data_object.previous_volume.blank?
+
+      h.number_with_delimiter data_object.previous_volume
+    end
+
     def volume
       return "N/A" if data_object.volume.blank?
       h.number_with_delimiter data_object.volume
