@@ -1,6 +1,18 @@
 class BaseBuilder
+  attr_accessor :db_entity
+
   def initialize(db_entity = nil)
     @db_entity = db_entity || _db_entity_class.new
+  end
+
+  def self.build(db_entity)
+    builder = new(db_entity)
+    yield(builder)
+    builder.db_entity
+  end
+
+  def self.build_base_entity(db_entity: nil, domain_entity:)
+    build(db_entity) { |builder| builder.build_base_entity(domain_entity) }
   end
 
   def build_base_entity(domain_entity)

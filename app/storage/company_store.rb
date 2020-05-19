@@ -27,7 +27,7 @@ class CompanyStore
     company = Company.includes(:address, :company_executives, :exchange, :issuer_type)
                   .references(:address, :company_executives, :exchange, :issuer_type)
                   .where(symbol: company_entity.symbol).first
-    company = CompanyBuilder.new(company).build_full_company(company_entity)
+    company = CompanyBuilder.build_full_company(db_entity: company, domain_entity: company_entity)
     company.save!
     Rails.logger.info("Company saved: #{company.symbol}")
     Entities::Company.from_db_entity(company)

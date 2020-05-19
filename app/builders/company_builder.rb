@@ -1,15 +1,16 @@
 class CompanyBuilder < BaseBuilder
-  def build_full_company(company_entity)
-    build_base_entity(company_entity)
-    set_address(company_entity.address) if company_entity.address.line_1
-    set_exchange_id(company_entity.exchange.id)
-    set_issuer_type_id(company_entity.issuer_type.id)
-    set_company_executives(company_entity.executives)
+  def self.build_full_company(db_entity:, domain_entity:)
+    build(db_entity) do |builder|
+      builder.build_base_entity(domain_entity)
+      builder.set_address(domain_entity.address) if domain_entity.address.line_1
+      builder.set_company_executives(domain_entity.executives)
+      builder.set_exchange_id(domain_entity.exchange.id)
+      builder.set_issuer_type_id(domain_entity.issuer_type.id)
+    end
   end
 
   def set_address(address_entity)
-    @db_entity.address = AddressBuilder.new(@db_entity.address).build_base_entity(address_entity)
-    @db_entity
+    @db_entity.address = AddressBuilder.build_base_entity(db_entity: @db_entity.address, domain_entity: address_entity)
   end
 
   def set_company_executives(executives)
@@ -18,17 +19,14 @@ class CompanyBuilder < BaseBuilder
       _delete_company_executives(executives_names_to_be_deleted) if executives_names_to_be_deleted.any?
       _update_or_add_company_executives(executives)
     end
-    @db_entity
   end
 
   def set_exchange_id(exchange_id)
     @db_entity.exchange_id = exchange_id
-    @db_entity
   end
 
   def set_issuer_type_id(issuer_type_id)
     @db_entity.issuer_type_id = issuer_type_id
-    @db_entity
   end
 
   def _base_column_names
@@ -43,7 +41,7 @@ class CompanyBuilder < BaseBuilder
 
   def _new_company_executives(executives)
     executives.each do |executive|
-      @db_entity.company_executives << CompanyExecutiveBuilder.new.build_base_entity(executive)
+      @db_entity.company_executives << CompanyExecutiveBuilder.build_base_entity(executive)
     end
   end
 
@@ -51,7 +49,7 @@ class CompanyBuilder < BaseBuilder
     executives.each do |executive|
       existing_executive = _saved_executives_grouped_by_name[executive.name]&.first
       @db_entity.association(:company_executives).add_to_target(
-       CompanyExecutiveBuilder.new(existing_executive).build_base_entity(executive)
+       CompanyExecutiveBuilder.build_base_entity(db_entity: existing_executive, domain_entity: executive)
       )
     end
   end
