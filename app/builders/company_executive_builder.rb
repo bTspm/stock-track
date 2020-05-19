@@ -1,17 +1,11 @@
-class CompanyExecutiveBuilder
+class CompanyExecutiveBuilder < BaseBuilder
+  protected
 
-  def initialize(company_executive = nil)
-    @company_executive = company_executive || CompanyExecutive.new
+  def _base_column_names
+    Entities::CompanyExecutive::BASE_ATTRIBUTES
   end
 
-  def build_company_executive(company_executive_entity)
-    @company_executive.tap do |ce|
-      ce.age = company_executive_entity.age
-      ce.compensation = company_executive_entity.compensation
-      ce.currency = company_executive_entity.currency
-      ce.name = company_executive_entity.name
-      ce.since = company_executive_entity.since
-      ce.titles = company_executive_entity.titles
-    end
+  def _db_entity_class
+    CompanyExecutive
   end
 end
