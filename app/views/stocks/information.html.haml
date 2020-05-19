@@ -11,7 +11,7 @@
       .row.mt-3
         .col-lg-9.col-md-12.col-sm-12.col.xs-12
           = render_async stocks_quote_path(symbol: @company.symbol) do
-            = render partial: "loading_card"
+            = render partial: "loading_card", locals: { header: "Quote" }
           .row
             .col-lg-8.col-md-12.col-sm-12.col.xs-12
               = render_async stocks_time_series_path(symbol: @company.symbol) do
