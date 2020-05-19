@@ -1,7 +1,5 @@
 module Entities
-  class Growth
-    include BaseEntity
-
+  class Growth < BaseEntity
     ATTRIBUTES = %i[day_30
                     day_5
                     max

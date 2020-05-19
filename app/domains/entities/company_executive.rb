@@ -1,15 +1,12 @@
 module Entities
-  class CompanyExecutive
-    include BaseEntity
-    include DbEntity
-
-    ATTRIBUTES = %i[age
-                    compensation
-                    currency
-                    name
-                    since
-                    titles].freeze
-    TOP_TITLES = %w(chairman chief).freeze
+  class CompanyExecutive < DbEntity
+    BASE_ATTRIBUTES = %i[age
+                         compensation
+                         currency
+                         name
+                         since
+                         titles].freeze
+    ATTRIBUTES = BASE_ATTRIBUTES
 
     attr_reader *ATTRIBUTES
 

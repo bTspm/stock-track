@@ -1,8 +1,5 @@
 module Entities
-  class IssuerType
-    include BaseEntity
-    include DbEntity
-
+  class IssuerType < DbEntity
     ETF_CODE = "ET".freeze
     ATTRIBUTES = %i[code id name].freeze
 

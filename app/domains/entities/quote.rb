@@ -1,7 +1,5 @@
 module Entities
-  class Quote
-    include BaseEntity
-
+  class Quote < BaseEntity
     ATTRIBUTES = %i[change
                     change_percent
                     close

@@ -1,15 +1,13 @@
 module Entities
-  class Address
-    include BaseEntity
-    include DbEntity
-
-    ATTRIBUTES = %i[city
-                    country
-                    id
-                    line_1
-                    line_2
-                    state
-                    zip_code].freeze
+  class Address < DbEntity
+    BASE_ATTRIBUTES = %i[city
+                         country
+                         id
+                         line_1
+                         line_2
+                         state
+                         zip_code].freeze
+    ATTRIBUTES = BASE_ATTRIBUTES
 
     attr_reader *ATTRIBUTES
 

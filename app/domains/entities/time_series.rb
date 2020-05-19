@@ -1,7 +1,5 @@
 module Entities
-  class TimeSeries
-    include BaseEntity
-
+  class TimeSeries < BaseEntity
     ATTRIBUTES = %i[close
                     datetime
                     high

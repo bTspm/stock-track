@@ -7,6 +7,7 @@ class CreateCompanies < ActiveRecord::Migration[5.2]
       t.citext :sector, null: false
       t.citext :industry, null: false
       t.integer :address_id
+      t.citext :phone
       t.integer :employees
       t.citext :website
       t.text :description

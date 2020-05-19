@@ -1,21 +1,20 @@
 module Entities
-  class Company
-    include BaseEntity
-
+  class Company < DbEntity
+    BASE_ATTRIBUTES = %i[description
+                         employees
+                         id
+                         industry
+                         name
+                         phone
+                         sector
+                         security_name
+                         sic_code
+                         symbol
+                         website].freeze
     ATTRIBUTES = %i[address
-                    description
-                    employees
                     executives
                     exchange
-                    id
-                    industry
-                    issuer_type
-                    name
-                    sector
-                    security_name
-                    sic_code
-                    symbol
-                    website].freeze
+                    issuer_type].freeze + BASE_ATTRIBUTES
 
     attr_accessor *ATTRIBUTES
 
@@ -35,6 +34,7 @@ module Entities
        industry: entity.industry,
        issuer_type: Entities::IssuerType.from_db_entity(entity.issuer_type),
        name: entity.name,
+       phone: entity.phone,
        sector: entity.sector,
        security_name: entity.security_name,
        sic_code: entity.sic_code,
@@ -54,6 +54,7 @@ module Entities
        industry: response[:industry],
        issuer_type: Entities::IssuerType.from_iex_company_response(response),
        name: response[:companyName],
+       phone: response[:phone],
        sector: response[:sector],
        security_name: response[:securityName],
        sic_code: response[:primarySicCode],

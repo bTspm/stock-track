@@ -30,6 +30,7 @@ describe Entities::Company do
   let(:industry) { double(:industry) }
   let(:issuer_type) { double(:issuer_type) }
   let(:name) { double(:name) }
+  let(:phone) { double(:phone) }
   let(:sector) { double(:sector) }
   let(:security_name) { double(:security_name) }
   let(:sic_code) { double(:sic_code) }
@@ -52,6 +53,7 @@ describe Entities::Company do
        industry: industry,
        issuer_type: issuer_type_entity,
        name: name,
+       phone: phone,
        sector: sector,
        security_name: security_name,
        sic_code: sic_code,
@@ -90,6 +92,7 @@ describe Entities::Company do
         expect(subject.industry).to eq industry
         expect(subject.issuer_type).to eq issuer_type
         expect(subject.name).to eq name
+        expect(subject.phone).to eq phone
         expect(subject.sector).to eq sector
         expect(subject.security_name).to eq security_name
         expect(subject.sic_code).to eq sic_code
@@ -109,6 +112,7 @@ describe Entities::Company do
        industry: "Telecommunications Equipment",
        issuer_type: issuer_type,
        name: "Apple, Inc.",
+       phone: "1.408.996.1010",
        sector: "Electronic Technology",
        security_name: "Apple Inc.",
        sic_code: 3663,

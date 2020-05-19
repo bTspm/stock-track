@@ -1,7 +1,5 @@
 module Entities
-  class EpsEstimate
-    include BaseEntity
-
+  class EpsEstimate < BaseEntity
     ATTRIBUTES = %i[analysts_count
                     average
                     date

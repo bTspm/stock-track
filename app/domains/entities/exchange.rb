@@ -1,8 +1,5 @@
 module Entities
-  class Exchange
-    include BaseEntity
-    include DbEntity
-
+  class Exchange < DbEntity
     ATTRIBUTES = %i[code
                     country
                     id

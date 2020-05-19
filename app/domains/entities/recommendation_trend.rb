@@ -1,7 +1,5 @@
 module Entities
-  class RecommendationTrend
-    include BaseEntity
-
+  class RecommendationTrend < BaseEntity
     ATTRIBUTES = %i[buy
                     date
                     hold

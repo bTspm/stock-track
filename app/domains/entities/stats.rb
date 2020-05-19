@@ -1,7 +1,5 @@
 module Entities
-  class Stats
-    include BaseEntity
-
+  class Stats < BaseEntity
     ATTRIBUTES = %i[beta
                     dividend_yield
                     float

@@ -1,7 +1,5 @@
 module Entities
-  class NewsArticle
-    include BaseEntity
-
+  class NewsArticle < BaseEntity
     ATTRIBUTES = %i[datetime
                     headline
                     image
