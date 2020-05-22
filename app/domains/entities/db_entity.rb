@@ -3,7 +3,13 @@ module Entities
     def self.from_db_entity(entity)
       return if entity.blank?
 
-      new(entity.attributes.with_indifferent_access)
+      new(_db_entity_args(entity))
+    end
+
+    protected
+
+    def self._db_entity_args(entity)
+      entity.attributes
     end
   end
 end
