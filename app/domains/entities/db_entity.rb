@@ -9,7 +9,7 @@ module Entities
     protected
 
     def self._db_entity_args(entity)
-      entity.attributes
+      entity.attributes.with_indifferent_access
     end
   end
 end

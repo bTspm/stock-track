@@ -46,19 +46,8 @@ describe Entities::Company do
        :entity,
        address: address_entity,
        company_executives: executive_entities,
-       description: description,
-       employees: employees,
        exchange: exchange_entity,
-       id: id,
-       industry: industry,
-       issuer_type: issuer_type_entity,
-       name: name,
-       phone: phone,
-       sector: sector,
-       security_name: security_name,
-       sic_code: sic_code,
-       symbol: symbol,
-       website: website
+       issuer_type: issuer_type_entity
       )
     end
     let(:exchange_entity) { double(:exchange_entity) }
@@ -76,28 +65,26 @@ describe Entities::Company do
     end
 
     context "with entity" do
+      let(:args) do
+        {
+         address: address,
+         exchange: exchange,
+         executives: [executive],
+         issuer_type: issuer_type,
+         test: 123
+        }
+      end
+      let(:attributes) { {test: 123} }
+
       it "expect to return company with properties" do
         expect(Entities::Address).to receive(:from_db_entity).with(address_entity) { address }
         expect(Entities::CompanyExecutive).to receive(:from_db_entity).with(executive_entity) { executive }
         expect(Entities::Exchange).to receive(:from_db_entity).with(exchange_entity) { exchange }
         expect(Entities::IssuerType).to receive(:from_db_entity).with(issuer_type_entity) { issuer_type }
+        expect(entity).to receive(:attributes)  { attributes }
+        expect(described_class).to receive(:new).with(args)
 
-
-        expect(subject.address).to eq address
-        expect(subject.description).to eq description
-        expect(subject.employees).to eq employees
-        expect(subject.executives).to match_array [executive]
-        expect(subject.exchange).to eq exchange
-        expect(subject.id).to eq id
-        expect(subject.industry).to eq industry
-        expect(subject.issuer_type).to eq issuer_type
-        expect(subject.name).to eq name
-        expect(subject.phone).to eq phone
-        expect(subject.sector).to eq sector
-        expect(subject.security_name).to eq security_name
-        expect(subject.sic_code).to eq sic_code
-        expect(subject.symbol).to eq symbol
-        expect(subject.website).to eq website
+        subject
       end
     end
   end
