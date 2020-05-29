@@ -5,7 +5,7 @@ class CompanyExecutiveBuilder < BaseBuilder
     Entities::CompanyExecutive::BASE_ATTRIBUTES
   end
 
-  def _db_entity_class
+  def _model_class
     CompanyExecutive
   end
 end

@@ -5,7 +5,7 @@ class AddressBuilder < BaseBuilder
     Entities::Address::BASE_ATTRIBUTES
   end
 
-  def _db_entity_class
+  def _model_class
     Address
   end
 end
