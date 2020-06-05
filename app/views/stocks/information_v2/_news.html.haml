@@ -3,7 +3,7 @@
   .card-body
     - if news.any?
       .row
-        - news.groups_abc.each do |group|
+        - news.grouped.each do |group|
           .col-lg.col-md-12
             - group.each do |news_article|
               .media.mb-3

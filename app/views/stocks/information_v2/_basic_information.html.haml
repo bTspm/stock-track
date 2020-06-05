@@ -1,0 +1,6 @@
+.card
+  .card-body
+    #company-name= @company.name_with_symbol
+    %div.small
+      = @company.exchange_name_with_country
+      %span{class: "flag-icon flag-icon-#{@company.exchange_country.downcase}"}

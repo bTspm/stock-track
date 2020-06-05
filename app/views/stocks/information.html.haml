@@ -1,12 +1,7 @@
 .stock-information
   .container-fluid
     #stock-summary.shadow-lg.p-3.mb-5.bg-white.rounded
-      .card
-        .card-body
-          #company-name= @company.name_with_symbol
-          %div.small
-            = @company.exchange.name_with_country
-            %span{class: "flag-icon flag-icon-#{@company.exchange.country.downcase}"}
+      = render partial: "stocks/information_v2/basic_information", locals: { company: @company }
 
       .row.mt-3
         .col-lg-9.col-md-12.col-sm-12.col.xs-12
