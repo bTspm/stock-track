@@ -19,7 +19,7 @@ class StocksController < ApplicationController
   end
 
   def quote
-    quote = present(stock_service.quote_by_symbol(params[:symbol]), QuotePresenter)
+    quote = present(stock_service.quote_by_symbol(params[:symbol]), QuotesPresenter)
     render partial: 'stocks/information_v2/quote_information', locals: {quote: quote}
   # rescue StandardError => e
   #   render partial: 'stocks/no_content', locals: {error_messages: e.message}
