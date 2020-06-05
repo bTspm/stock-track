@@ -31,6 +31,10 @@ module Api
         ENV["FINNHUB_KEY"]
       end
 
+      def _response_handler
+        Api::FinnHub::RaiseHttpException
+      end
+
       def _url
         "https://finnhub.io/api/v1/stock"
       end
