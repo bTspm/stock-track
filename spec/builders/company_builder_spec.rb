@@ -104,7 +104,7 @@ describe CompanyBuilder do
           expect(CompanyExecutiveBuilder).to receive(:build).with(db_executive).and_yield(builder)
           expect(builder).to receive(:build_base_entity_from_domain).with(executive) { "Built Executive" }
           expect(company_builder).not_to receive(:_delete_company_executives)
-          expect(company_builder).to receive(:_add_to_association).with(["Built Executive"]) { "Added" }
+          expect(company_builder).to receive(:_add_to_association).with("Built Executive") { "Added" }
 
           subject
         end
@@ -115,7 +115,7 @@ describe CompanyBuilder do
           expect(CompanyExecutiveBuilder).to receive(:build).with(nil).and_yield(builder)
           expect(builder).to receive(:build_base_entity_from_domain).with(executive) { "Built Executive" }
           expect(company_builder).to receive(:_delete_company_executives).with([db_executive_name]).and_call_original
-          expect(company_builder).to receive(:_add_to_association).with(["Built Executive"]) { "Added" }
+          expect(company_builder).to receive(:_add_to_association).with("Built Executive") { "Added" }
           expect(db_executive).to receive(:mark_for_destruction)
 
           subject

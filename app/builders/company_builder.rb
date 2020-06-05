@@ -43,8 +43,8 @@ class CompanyBuilder < BaseBuilder
 
   private
 
-  def _add_to_association(executives)
-    @db_entity.association(:company_executives).add_to_target(executives)
+  def _add_to_association(executive)
+    @db_entity.association(:company_executives).add_to_target(executive)
   end
 
   def _delete_company_executives(executives_names)
@@ -58,13 +58,11 @@ class CompanyBuilder < BaseBuilder
   end
 
   def _update_or_add_company_executives(executives)
-    built_executives = executives.map do |executive|
+    executives.map do |executive|
       existing_executive = _saved_executives_grouped_by_name[executive.name]&.first
       CompanyExecutiveBuilder.build(existing_executive) do |builder|
-        builder.build_base_entity_from_domain(executive)
+        _add_to_association(builder.build_base_entity_from_domain(executive))
       end
     end
-
-    _add_to_association(built_executives)
   end
 end
