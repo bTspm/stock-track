@@ -20,10 +20,10 @@ class TimeSeriesPresenter
       {
         stock_data: _ordered_by_datetime_asc.map(&:formatted_chart_data),
         subtitle: _subtitle,
-        symbol: symbol,
+        symbol: symbol.upcase,
         time_line_buttons: _time_line_buttons,
         title: _title(symbol)
-      }
+      }.to_json
     end
 
     private
@@ -50,8 +50,8 @@ class TimeSeriesPresenter
     end
 
     def _subtitle
-      start_year = readable_date _ordered_by_datetime_asc.first.datetime
-      end_year = readable_date _ordered_by_datetime_asc.last.datetime
+      start_year = readable_date(date:_ordered_by_datetime_asc.first.datetime)
+      end_year = readable_date(date: _ordered_by_datetime_asc.last.datetime)
       "Between #{start_year} to #{end_year}"
     end
   end

@@ -1,4 +1,4 @@
-class ExchangePresenter
+class ExchangesPresenter
   include Btspm::Presenters::Presentable
 
   class Scalar < Btspm::Presenters::ScalarPresenter

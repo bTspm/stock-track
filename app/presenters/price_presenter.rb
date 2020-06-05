@@ -1,9 +1,15 @@
 class PricePresenter
   include Btspm::Presenters::Presentable
   EXTENDED = "Extended".freeze
+  EXTENDED_BADGE = "badge-warning"
+  NOT_EXTENDED_BADGE = "badge-info"
 
   class Scalar < Btspm::Presenters::ScalarPresenter
     include Utils
+
+    def amount
+      h.number_with_delimiter data_object.amount
+    end
 
     def change
       content = h.number_with_delimiter data_object.change
@@ -16,19 +22,11 @@ class PricePresenter
     end
 
     def last_updated
-      readable_date(data_object.time, "%b %d, %Y %-l:%M:%S %p")
+      readable_datetime(datetime: data_object.time)
     end
 
     def price_color
       h.price_color_class data_object.change
-    end
-
-    def amount
-      h.number_with_delimiter data_object.amount
-    end
-
-    def change_amount_with_percentage
-      change + change_percent
     end
 
     def price_icon
@@ -36,13 +34,13 @@ class PricePresenter
     end
 
     def source
-      badge_color = extended? ? "badge-warning" : "badge-info"
-      h.badge_format(data_object.source, {badge_color: badge_color})
+      badge_color = _extended? ? EXTENDED_BADGE : NOT_EXTENDED_BADGE
+      h.badge_format(content: data_object.source, options: {badge_color: badge_color})
     end
 
     private
 
-    def extended?
+    def _extended?
       data_object.source == PricePresenter::EXTENDED
     end
   end

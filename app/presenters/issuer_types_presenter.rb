@@ -3,7 +3,7 @@ class IssuerTypesPresenter
 
   class Scalar < Btspm::Presenters::ScalarPresenter
     def name_with_code
-      "#{code} (#{name})"
+      "#{name} - (#{code})"
     end
   end
 end

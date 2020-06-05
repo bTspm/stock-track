@@ -1,23 +1,24 @@
 class CompanyExecutivesPresenter
   include Btspm::Presenters::Presentable
-  GROUPS = 4
 
   class Scalar < Btspm::Presenters::ScalarPresenter
+    include Utils
+
     def age
-      data_object.age || "N/A"
+      value_or_na(data_object.age)
     end
 
     def compensation_with_currency
-      return "N/A" if compensation.blank? || currency.blank?
+      return "N/A" if compensation.blank? && currency.blank?
 
-      compensation = h.number_to_human data_object.compensation
+      compensation = h.number_with_delimiter data_object.compensation
       return compensation if currency.blank?
 
       "#{compensation} (#{currency.upcase})"
     end
 
     def since
-      data_object.since || "N/A"
+      value_or_na(data_object.since)
     end
   end
 

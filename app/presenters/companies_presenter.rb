@@ -2,6 +2,10 @@ class CompaniesPresenter
   include Btspm::Presenters::Presentable
 
   class Scalar < Btspm::Presenters::ScalarPresenter
+    delegate :formatted, to: :address, prefix: true
+    delegate :country, :name_with_country, to: :exchange, prefix: true
+    delegate :name_with_code, to: :issuer_type, prefix: true
+
     def address
       ::AddressesPresenter.present(data_object.address, h)
     end
@@ -13,7 +17,7 @@ class CompaniesPresenter
     end
 
     def exchange
-      ::ExchangePresenter.present(data_object.exchange, h)
+      ::ExchangesPresenter.present(data_object.exchange, h)
     end
 
     def executives

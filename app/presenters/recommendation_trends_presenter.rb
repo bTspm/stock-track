@@ -1,75 +1,65 @@
 class RecommendationTrendsPresenter
   include Btspm::Presenters::Presentable
+  MONTH_DATE_FORMAT = "%b"
+  TREND_COUNT = 5
 
   class Scalar < Btspm::Presenters::ScalarPresenter
+    include Utils
+
+    def formatted_month_with_year
+      "#{_date_with_month}<br>#{date.year}"
+    end
+
+    private
+
+    def _date_with_month
+      readable_date(date: date, format: MONTH_DATE_FORMAT)
+    end
   end
 
   class Enum < Btspm::Presenters::EnumPresenter
     def chart_data
-      {categories: _categories, series: _series}
+      {categories: _categories, series: _ordered_series}.to_json
     end
 
     private
 
     def _buy_series
-      {
-        name: "Buy",
-        data: _data(:buy)
-      }
+      {data: _ordered_by_date_asc.map(&:buy), name: "Buy"}
     end
 
     def _categories
-      _ordered_by_date_asc_last_5items.map { |item| "#{item.date.strftime("%b")}<br>#{item.date.year}" }
-    end
-
-    def _data(type)
-      _ordered_by_date_asc_last_5items.map(&type)
+      _ordered_by_date_asc.map(&:formatted_month_with_year)
     end
 
     def _hold_series
-      {
-        name: "Hold",
-        data: _data(:hold)
-      }
+      {data: _ordered_by_date_asc.map(&:hold), name: "Hold"}
     end
 
     def _ordered_by_date_asc
-      @_ordered_by_date_asc ||= sort_by(&:date)
+      @_ordered_by_date_asc ||= sort_by(&:date).last(TREND_COUNT)
     end
 
-    def _ordered_by_date_asc_last_5items
-      @_ordered_by_date_asc_last_4items ||= _ordered_by_date_asc.last(5)
-    end
-
-    def _sell_series
-      {
-        name: "Sell",
-        data: _data(:sell)
-      }
-    end
-
-    def _series
+    def _ordered_series
       [
-        _strong_buy_series,
-        _buy_series,
-        _hold_series,
-        _sell_series,
-        _strong_sell_series
+       _strong_buy_series,
+       _buy_series,
+       _hold_series,
+       _sell_series,
+       _strong_sell_series
       ].compact
     end
 
+    def _sell_series
+      {data: _ordered_by_date_asc.map(&:sell), name: "Sell"}
+    end
+
     def _strong_buy_series
-      {
-        name: "Strong Buy",
-        data: _data(:strong_buy)
-      }
+      {data: _ordered_by_date_asc.map(&:strong_buy), name: "Strong Buy"}
     end
 
     def _strong_sell_series
-      {
-        name: "Strong Sell",
-        data: _data(:strong_sell)
-      }
+      {data: _ordered_by_date_asc.map(&:strong_sell), name: "Strong Sell"}
     end
   end
 end

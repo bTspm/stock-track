@@ -1,32 +1,27 @@
 module Utils
-  def format_percentage(percentage)
-    return "N/A" if percentage.blank?
+  DEFAULT_DATE_FORMAT = "%b %d, %Y"
+  DEFAULT_DATETIME_FORMAT = "%b %d, %Y %-l:%M:%S %p"
+  DEFAULT_TIME_ZONE = "Eastern Time (US & Canada)"
 
-    "#{(percentage * 100).round(2)}%"
+  def format_percentage(percentage)
+    percentage.blank? ? "N/A" : "#{(percentage * 100).round(2)}%"
   end
 
-  def readable_date(date, format = '%b %d, %Y')
-    return "N/A" if date.blank?
+  def percentage_value(percentage)
+    percentage ? (percentage * 100).round(2) : percentage
+  end
 
-    date.in_time_zone('Eastern Time (US & Canada)').strftime(format)
+  def readable_date(date:, format: DEFAULT_DATE_FORMAT)
+    date.blank? ? "N/A" : date.strftime(format)
+  end
+
+  def readable_datetime(datetime:, format: DEFAULT_DATETIME_FORMAT)
+    return "N/A" if datetime.blank?
+
+    datetime.in_time_zone(DEFAULT_TIME_ZONE).strftime(format)
   end
 
   def value_or_na(value)
     value.blank? ? "N/A" : value
   end
-
-  def yes_or_no(flag)
-    flag ? 'Yes' : 'No'
-  end
-
-  private
-
-  def _formatted_epoch(epoch)
-    epoch = Integer epoch
-    digits = epoch.digits.count
-    return epoch if digits == 10
-
-    epoch / 10 ** (digits - 10)
-  end
 end
-

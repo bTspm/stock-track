@@ -1,13 +1,11 @@
 class EarningsPresenter
   include Btspm::Presenters::Presentable
+  ESTIMATES_COUNT = 2
+  SURPRISES_COUNT = 4
 
   class Scalar < Btspm::Presenters::ScalarPresenter
     def chart_data
-      {
-        actual: _eps_surprises.map(&:actual),
-        categories: _categories,
-        estimated: _estimated_earnings
-      }
+      {actual: _eps_surprises.map(&:actual), categories: _categories, estimated: _estimated_earnings}.to_json
     end
 
     private
@@ -18,20 +16,20 @@ class EarningsPresenter
       dates.map { |date| "Q#{date.quarter}<br>#{date.year.to_s}" }
     end
 
-    def _eps_surprises
-      @_eps ||= data_object[:eps_surprises].sort_by(&:date).last(4)
-    end
-
-    def _eps_surprise_last_date
-      @_eps_surprise_last_date ||= _eps_surprises.last.date
-    end
-
     def _eps_estimates
       return if data_object[:eps_estimates].blank?
 
       @_eps_estimates ||= data_object[:eps_estimates].select do |estimate|
         estimate.date > _eps_surprise_last_date
-      end.sort_by(&:date).first(2)
+      end.sort_by(&:date).first(ESTIMATES_COUNT)
+    end
+
+    def _eps_surprises
+      @_eps_surprises ||= data_object[:eps_surprises].sort_by(&:date).last(SURPRISES_COUNT)
+    end
+
+    def _eps_surprise_last_date
+      @_eps_surprise_last_date ||= _eps_surprises.last.date
     end
 
     def _estimated_earnings
