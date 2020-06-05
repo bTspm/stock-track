@@ -8,6 +8,10 @@ describe Entities::Quote do
      change: change,
      change_percent: change_percent,
      close: close,
+     extended_change: extended_change,
+     extended_change_percent: extended_change_percent,
+     extended_price: extended_price,
+     extended_time: extended_time,
      high: high,
      is_us_market_open: is_us_market_open,
      latest_price: latest_price,
@@ -24,6 +28,10 @@ describe Entities::Quote do
   let(:change) { double(:change) }
   let(:change_percent) { double(:change_percent) }
   let(:close) { double(:close) }
+  let(:extended_change) { double(:extended_change) }
+  let(:extended_change_percent) { double(:extended_change_percent) }
+  let(:extended_price) { double(:extended_price) }
+  let(:extended_time) { double(:extended_time) }
   let(:high) { double(:high) }
   let(:is_us_market_open) { double(:is_us_market_open) }
   let(:latest_price) { double(:latest_price) }
