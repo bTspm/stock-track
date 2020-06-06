@@ -6,8 +6,8 @@ class CompanyStore
     companies = iex_client.information_by_symbols(symbols: symbols, options: {types: "company"})
     companies.body.values.map do |company_response|
       company = Entities::Company.from_iex_response(company_response[:company])
-      company.exchange = ExchangeStore.new.by_name(company.exchange.name)
-      company.issuer_type = IssuerTypeStore.new.by_code(company.issuer_type.code)
+      company.exchange = ExchangeStore.new.by_name(company.exchange_name)
+      company.issuer_type = IssuerTypeStore.new.by_code(company.issuer_type_code)
       company
     end
   end

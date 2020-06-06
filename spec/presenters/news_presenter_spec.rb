@@ -11,11 +11,11 @@ describe NewsPresenter do
     describe "#meta_info" do
       subject { presenter.meta_info }
       it "expect to return chart data" do
-        expect(view_context).to receive(:fontawesome_icon).with("fas fa-user text-info", source) { "Formatted Source" }
+        expect(view_context).to receive(:fontawesome_icon).with(name_icon_with_style: "fas fa-user text-info",
+                                                                text: source) { "Formatted Source" }
         expect(presenter).to receive(:readable_datetime).with(datetime: datetime) { "DateTime" }
-        expect(
-         view_context
-        ).to receive(:fontawesome_icon).with("fas fa-clock text-warning", "DateTime") { "Formatted DateTime" }
+        expect(view_context).to receive(:fontawesome_icon).with(name_icon_with_style: "fas fa-clock text-warning",
+                                                                text: "DateTime") { "Formatted DateTime" }
 
         expect(subject).to eq "Formatted Source | Formatted DateTime"
       end
