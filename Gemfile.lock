@@ -139,7 +139,7 @@ GEM
     pg (1.1.4)
     pg (1.1.4-x64-mingw32)
     public_suffix (3.0.2)
-    puma (3.12.1)
+    puma (3.12.6)
     rack (2.2.2)
     rack-protection (2.0.8.1)
       rack
@@ -283,7 +283,7 @@ DEPENDENCIES
   haml
   jbuilder (~> 2.5)
   pg (>= 0.18, < 2.0)
-  puma (~> 3.11)
+  puma (~> 3.12)
   rails (~> 5.2.1)
   render_async
   rspec
