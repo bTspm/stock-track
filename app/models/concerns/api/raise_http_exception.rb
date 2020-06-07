@@ -1,15 +1,15 @@
 module Api
   class RaiseHttpException < Faraday::Middleware
     ERROR_STATUS_MAPPING = {
-     "400": ApiExceptions::BadRequest,
-     "401": ApiExceptions::Unauthorized,
-     "402": ApiExceptions::PremiumDataError,
-     "403": ApiExceptions::Forbidden,
-     "404": ApiExceptions::NotFound,
-     "413": ApiExceptions::RequestBig,
-     "414": ApiExceptions::RequestBig,
-     "429": ApiExceptions::TooManyRequests,
-     "500": ApiExceptions::InternalServerError
+      "400": ApiExceptions::BadRequest,
+      "401": ApiExceptions::Unauthorized,
+      "402": ApiExceptions::PremiumDataError,
+      "403": ApiExceptions::Forbidden,
+      "404": ApiExceptions::NotFound,
+      "413": ApiExceptions::RequestBig,
+      "414": ApiExceptions::RequestBig,
+      "429": ApiExceptions::TooManyRequests,
+      "500": ApiExceptions::InternalServerError
     }.with_indifferent_access
 
     def call(env)

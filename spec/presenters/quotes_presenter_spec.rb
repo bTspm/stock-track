@@ -4,24 +4,24 @@ describe QuotesPresenter do
   describe ".scalar" do
     let(:args) do
       {
-       change: change,
-       change_percent: change_percent,
-       close: close,
-       extended_change: extended_change,
-       extended_change_percent: extended_change_percent,
-       extended_price: extended_price,
-       extended_time: extended_time,
-       high: high,
-       is_us_market_open: is_us_market_open,
-       latest_price: latest_price,
-       latest_source: latest_source,
-       latest_update: latest_update,
-       latest_volume: latest_volume,
-       low: low,
-       open: open,
-       previous_close: previous_close,
-       previous_volume: previous_volume,
-       volume: volume
+        change: change,
+        change_percent: change_percent,
+        close: close,
+        extended_change: extended_change,
+        extended_change_percent: extended_change_percent,
+        extended_price: extended_price,
+        extended_time: extended_time,
+        high: high,
+        is_us_market_open: is_us_market_open,
+        latest_price: latest_price,
+        latest_source: latest_source,
+        latest_update: latest_update,
+        latest_volume: latest_volume,
+        low: low,
+        open: open,
+        previous_close: previous_close,
+        previous_volume: previous_volume,
+        volume: volume
       }
     end
     let(:change) { 100_000 }
@@ -95,11 +95,11 @@ describe QuotesPresenter do
 
       it "expect to init an extended price and init price presenter" do
         expect(OpenStruct).to receive(:new).with(
-         amount: extended_price,
-         change: extended_change,
-         change_percent: extended_change_percent,
-         source: "Extended",
-         time: extended_time
+          amount: extended_price,
+          change: extended_change,
+          change_percent: extended_change_percent,
+          source: "Extended",
+          time: extended_time
         ) { extended_price }
         expect(PricePresenter).to receive(:present).with(extended_price, view_context) { "Extended Price" }
 
@@ -114,11 +114,11 @@ describe QuotesPresenter do
 
       it "expect to init an latest price and init price presenter" do
         expect(OpenStruct).to receive(:new).with(
-         amount: latest_price,
-         change: change,
-         change_percent: change_percent,
-         source: latest_source,
-         time: latest_update
+          amount: latest_price,
+          change: change,
+          change_percent: change_percent,
+          source: latest_source,
+          time: latest_update
         ) { latest_price }
         expect(PricePresenter).to receive(:present).with(latest_price, view_context) { "Latest Price" }
 

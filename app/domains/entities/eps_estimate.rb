@@ -10,11 +10,11 @@ module Entities
 
     def self.from_finn_hub_response(response)
       args = {
-       analysts_count: response[:numberAnalysts],
-       average: response[:epsAvg],
-       date: response[:period].to_date,
-       high: response[:epsHigh],
-       low: response[:epsLow]
+        analysts_count: response[:numberAnalysts],
+        average: response[:epsAvg],
+        date: response[:period].to_date,
+        high: response[:epsHigh],
+        low: response[:epsLow]
       }
 
       new(args)

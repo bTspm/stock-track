@@ -5,22 +5,22 @@ describe Entities::Stats do
 
   let(:args) do
     {
-     beta: beta,
-     dividend_yield: dividend_yield,
-     float: float,
-     market_cap: market_cap,
-     moving_200_day_average: moving_200_day_average,
-     moving_50_day_average: moving_50_day_average,
-     next_dividend_date: next_dividend_date,
-     next_earnings_date: next_earnings_date,
-     pe_ratio: pe_ratio,
-     shares_outstanding: shares_outstanding,
-     ttm_dividend_rate: ttm_dividend_rate,
-     ttm_eps: ttm_eps,
-     volume_10_day_average: volume_10_day_average,
-     volume_30_day_average: volume_30_day_average,
-     week_52_high: week_52_high,
-     week_52_low: week_52_low
+      beta: beta,
+      dividend_yield: dividend_yield,
+      float: float,
+      market_cap: market_cap,
+      moving_200_day_average: moving_200_day_average,
+      moving_50_day_average: moving_50_day_average,
+      next_dividend_date: next_dividend_date,
+      next_earnings_date: next_earnings_date,
+      pe_ratio: pe_ratio,
+      shares_outstanding: shares_outstanding,
+      ttm_dividend_rate: ttm_dividend_rate,
+      ttm_eps: ttm_eps,
+      volume_10_day_average: volume_10_day_average,
+      volume_30_day_average: volume_30_day_average,
+      week_52_high: week_52_high,
+      week_52_low: week_52_low
     }
   end
   let(:beta) { double(:beta) }
@@ -43,22 +43,22 @@ describe Entities::Stats do
   describe ".from_iex_response" do
     let(:args) do
       {
-       beta: 1.1465479399284613,
-       dividend_yield: 0.010009424458093661,
-       float: 4329598232,
-       market_cap: 1333719761400,
-       moving_50_day_average: 273.11,
-       moving_200_day_average: 263.21,
-       next_dividend_date: converted_date,
-       next_earnings_date: converted_date,
-       pe_ratio: 23.92,
-       shares_outstanding: 4334340000,
-       ttm_dividend_rate: 3.08,
-       ttm_eps: 12.8615,
-       volume_10_day_average: 37676579.4,
-       volume_30_day_average: 38930421.53,
-       week_52_high: 327.85,
-       week_52_low: 170.27
+        beta: 1.1465479399284613,
+        dividend_yield: 0.010009424458093661,
+        float: 4329598232,
+        market_cap: 1333719761400,
+        moving_50_day_average: 273.11,
+        moving_200_day_average: 263.21,
+        next_dividend_date: converted_date,
+        next_earnings_date: converted_date,
+        pe_ratio: 23.92,
+        shares_outstanding: 4334340000,
+        ttm_dividend_rate: 3.08,
+        ttm_eps: 12.8615,
+        volume_10_day_average: 37676579.4,
+        volume_30_day_average: 38930421.53,
+        week_52_high: 327.85,
+        week_52_low: 170.27
       }
     end
     let(:converted_date) { Date.new(2020, 0o7, 28) }

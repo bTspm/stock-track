@@ -44,8 +44,8 @@ class StocksController < ApplicationController
 
   def recommendation_trends
     recommendation_trends = present(
-     stock_service.recommendation_trends_by_symbol(params[:symbol]),
-     RecommendationTrendsPresenter
+      stock_service.recommendation_trends_by_symbol(params[:symbol]),
+      RecommendationTrendsPresenter
     )
     render partial: "stocks/information_v2/recommendation_trends",
            locals: { recommendation_trends: recommendation_trends }

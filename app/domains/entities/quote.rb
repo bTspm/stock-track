@@ -23,24 +23,24 @@ module Entities
 
     def self.from_iex_response(response)
       args = {
-       change: response[:change],
-       change_percent: response[:changePercent],
-       close: response[:close],
-       extended_change: response[:extendedChange],
-       extended_change_percent: response[:extendedChangePercent],
-       extended_price: response[:extendedPrice],
-       extended_time: response[:extendedPriceTime]&.to_datetime,
-       high: response[:high],
-       is_us_market_open: response[:isUSMarketOpen],
-       latest_price: response[:latestPrice],
-       latest_source: response[:latestSource],
-       latest_update: response[:latestUpdate]&.to_datetime,
-       latest_volume: response[:latestVolume],
-       low: response[:low],
-       open: response[:open],
-       previous_close: response[:previousClose],
-       previous_volume: response[:previousVolume],
-       volume: response[:volume]
+        change: response[:change],
+        change_percent: response[:changePercent],
+        close: response[:close],
+        extended_change: response[:extendedChange],
+        extended_change_percent: response[:extendedChangePercent],
+        extended_price: response[:extendedPrice],
+        extended_time: response[:extendedPriceTime]&.to_datetime,
+        high: response[:high],
+        is_us_market_open: response[:isUSMarketOpen],
+        latest_price: response[:latestPrice],
+        latest_source: response[:latestSource],
+        latest_update: response[:latestUpdate]&.to_datetime,
+        latest_volume: response[:latestVolume],
+        low: response[:low],
+        open: response[:open],
+        previous_close: response[:previousClose],
+        previous_volume: response[:previousVolume],
+        volume: response[:volume]
       }
 
       new(args)

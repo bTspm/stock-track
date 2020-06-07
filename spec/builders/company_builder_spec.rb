@@ -9,13 +9,13 @@ describe CompanyBuilder do
   let(:db_address) { double(:db_address) }
   let(:db_entity) do
     OpenStruct.new(
-     {
-      association: builder,
-      address: db_address,
-      company_executives: db_executives,
-      exchange_id: nil,
-      issuer_type_id: nil
-     }
+      {
+        association: builder,
+        address: db_address,
+        company_executives: db_executives,
+        exchange_id: nil,
+        issuer_type_id: nil
+      }
     )
   end
   let(:db_executives) { [db_executive] }
@@ -29,12 +29,12 @@ describe CompanyBuilder do
     let(:executives) { double(:executives) }
     let(:domain_entity) do
       double(
-       :domain_entity,
-       address: address,
-       exchange_id: exchange_id,
-       executives: executives,
-       issuer_type_id: issuer_type_id,
-       line_1: line_1,
+        :domain_entity,
+        address: address,
+        exchange_id: exchange_id,
+        executives: executives,
+        issuer_type_id: issuer_type_id,
+        line_1: line_1,
       )
     end
     let(:issuer_type_id) { double(:issuer_type_id) }

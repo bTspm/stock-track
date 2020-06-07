@@ -13,9 +13,9 @@ module Entities
 
     def self.from_iex_response(response)
       args = {
-       code: response[:exchange],
-       country: response[:region],
-       name: response[:description]
+        code: response[:exchange],
+        country: response[:region],
+        name: response[:description]
       }
 
       new(args)

@@ -5,16 +5,16 @@ describe Entities::Growth do
 
   let(:args) do
     {
-     day_30: day_30,
-     day_5: day_5,
-     max: max,
-     month_1: month_1,
-     month_3: month_3,
-     month_6: month_6,
-     year_1: year_1,
-     year_2: year_2,
-     year_5: year_5,
-     ytd: ytd
+      day_30: day_30,
+      day_5: day_5,
+      max: max,
+      month_1: month_1,
+      month_3: month_3,
+      month_6: month_6,
+      year_1: year_1,
+      year_2: year_2,
+      year_5: year_5,
+      ytd: ytd
     }
   end
   let(:day_30) { double(:day_30) }
@@ -31,16 +31,16 @@ describe Entities::Growth do
   describe ".from_iex_response" do
     let(:args) do
       {
-       day_30: 0.2746,
-       day_5: -0.0232,
-       max: 303.6634,
-       month_1: 0.0818,
-       month_3: -0.0354,
-       month_6: 0.1578,
-       year_1: 0.6117,
-       year_2: 0.6505,
-       year_5: 1.3896,
-       ytd: 0.0387
+        day_30: 0.2746,
+        day_5: -0.0232,
+        max: 303.6634,
+        month_1: 0.0818,
+        month_3: -0.0354,
+        month_6: 0.1578,
+        year_1: 0.6117,
+        year_2: 0.6505,
+        year_5: 1.3896,
+        ytd: 0.0387
       }
     end
     let!(:response) { json_fixture("/api_responses/iex/stats.json") }

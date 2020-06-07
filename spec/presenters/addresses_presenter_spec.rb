@@ -10,13 +10,13 @@ describe AddressesPresenter do
     let(:zip_code) { 12345 }
     let(:object) do
       double(
-       :object,
-       city: city,
-       country: country,
-       line_1: line_1,
-       line_2: line_2,
-       state: state,
-       zip_code: zip_code
+        :object,
+        city: city,
+        country: country,
+        line_1: line_1,
+        line_2: line_2,
+        state: state,
+        zip_code: zip_code
       )
     end
 

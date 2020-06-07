@@ -6,10 +6,10 @@ describe Entities::Exchange do
 
   let(:args) do
     {
-     code: code,
-     country: country,
-     id: id,
-     name: name
+      code: code,
+      country: country,
+      id: id,
+      name: name
     }
   end
   let(:code) { double(:code) }

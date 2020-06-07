@@ -64,8 +64,8 @@ class QuotesPresenter
 
     def _has_extended_info?
       extended_change ||
-       extended_change_percent ||
-       extended_price
+        extended_change_percent ||
+        extended_price
     end
 
     def _high
@@ -76,11 +76,11 @@ class QuotesPresenter
 
     def _latest_price_info
       latest = OpenStruct.new(
-       amount: latest_price,
-       change: change,
-       change_percent: change_percent,
-       source: latest_source,
-       time: latest_update
+        amount: latest_price,
+        change: change,
+        change_percent: change_percent,
+        source: latest_source,
+        time: latest_update
       )
       PricePresenter.present(latest, h)
     end
@@ -93,11 +93,11 @@ class QuotesPresenter
 
     def _extended_price_info
       extended = OpenStruct.new(
-       amount: extended_price,
-       change: extended_change,
-       change_percent: extended_change_percent,
-       source: PricePresenter::EXTENDED,
-       time: extended_time
+        amount: extended_price,
+        change: extended_change,
+        change_percent: extended_change_percent,
+        source: PricePresenter::EXTENDED,
+        time: extended_time
       )
       PricePresenter.present(extended, h)
     end

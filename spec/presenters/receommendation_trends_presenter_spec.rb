@@ -17,12 +17,12 @@ describe RecommendationTrendsPresenter do
   describe ".enum" do
     let(:args) do
       {
-       buy: buy,
-       date: date,
-       hold: hold,
-       sell: sell,
-       strong_buy: strong_buy,
-       strong_sell: strong_sell
+        buy: buy,
+        date: date,
+        hold: hold,
+        sell: sell,
+        strong_buy: strong_buy,
+        strong_sell: strong_sell
       }
     end
     let(:buy) { 100 }
@@ -35,12 +35,12 @@ describe RecommendationTrendsPresenter do
 
     let(:args_1) do
       {
-       buy: buy_1,
-       date: date_1,
-       hold: hold_1,
-       sell: sell_1,
-       strong_buy: strong_buy_1,
-       strong_sell: strong_sell_1
+        buy: buy_1,
+        date: date_1,
+        hold: hold_1,
+        sell: sell_1,
+        strong_buy: strong_buy_1,
+        strong_sell: strong_sell_1
       }
     end
     let(:buy_1) { 1_000 }
@@ -72,12 +72,12 @@ describe RecommendationTrendsPresenter do
       context "count" do
         let(:objects) do
           [
-           object,
-           object_1,
-           generate_object(args: args, increment: 10),
-           generate_object(args: args, increment: 20),
-           generate_object(args: args, increment: 30),
-           generate_object(args: args, increment: 40)
+            object,
+            object_1,
+            generate_object(args: args, increment: 10),
+            generate_object(args: args, increment: 20),
+            generate_object(args: args, increment: 30),
+            generate_object(args: args, increment: 40)
           ]
         end
 

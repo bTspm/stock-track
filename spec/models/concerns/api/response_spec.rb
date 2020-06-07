@@ -5,11 +5,11 @@ describe Api::Response do
   let(:headers) { double(:headers) }
   let(:response_object) do
     double(
-     :response,
-     body: body,
-     headers: headers,
-     status: status,
-     success?: success
+      :response,
+      body: body,
+      headers: headers,
+      status: status,
+      success?: success
     )
   end
   let(:status) { double(:status) }

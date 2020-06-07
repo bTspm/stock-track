@@ -5,14 +5,14 @@ describe Entities::NewsArticle do
 
   let(:args) do
     {
-     datetime: datetime,
-     headline: headline,
-     image: image,
-     language: language,
-     related: related,
-     source: source,
-     summary: summary,
-     url: url
+      datetime: datetime,
+      headline: headline,
+      image: image,
+      language: language,
+      related: related,
+      source: source,
+      summary: summary,
+      url: url
     }
   end
   let(:datetime) { double(:datetime) }
@@ -27,14 +27,14 @@ describe Entities::NewsArticle do
   describe ".from_iex_response" do
     let(:args) do
       {
-       datetime: converted_datetime,
-       headline: "Apple says nearly 100 of its stores have reopened globally",
-       image: "https://cloud.iexapis.com/v1/news/image/4f8d347e-62b0-4a79-bd10-183fa469ce05",
-       language: "en",
-       related: "AAPL",
-       source: "South China Morning Post",
-       summary: "News Summary",
-       url: "https://cloud.iexapis.com/v1/news/article/4f8d347e-62b0-4a79-bd10-183fa469ce05"
+        datetime: converted_datetime,
+        headline: "Apple says nearly 100 of its stores have reopened globally",
+        image: "https://cloud.iexapis.com/v1/news/image/4f8d347e-62b0-4a79-bd10-183fa469ce05",
+        language: "en",
+        related: "AAPL",
+        source: "South China Morning Post",
+        summary: "News Summary",
+        url: "https://cloud.iexapis.com/v1/news/article/4f8d347e-62b0-4a79-bd10-183fa469ce05"
       }
     end
     let(:converted_datetime) { DateTime.new(2020, 0o1, 0o1, 0o0, 0o0, 0o0) }

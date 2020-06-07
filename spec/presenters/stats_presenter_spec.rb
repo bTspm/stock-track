@@ -4,22 +4,22 @@ describe StatsPresenter do
   describe ".scalar" do
     let(:args) do
       {
-       beta: beta,
-       dividend_yield: dividend_yield,
-       float: float,
-       market_cap: market_cap,
-       moving_200_day_average: moving_200_day_average,
-       moving_50_day_average: moving_50_day_average,
-       next_dividend_date: next_dividend_date,
-       next_earnings_date: next_earnings_date,
-       pe_ratio: pe_ratio,
-       shares_outstanding: shares_outstanding,
-       ttm_dividend_rate: ttm_dividend_rate,
-       ttm_eps: ttm_eps,
-       volume_10_day_average: volume_10_day_average,
-       volume_30_day_average: volume_30_day_average,
-       week_52_high: week_52_high,
-       week_52_low: week_52_low
+        beta: beta,
+        dividend_yield: dividend_yield,
+        float: float,
+        market_cap: market_cap,
+        moving_200_day_average: moving_200_day_average,
+        moving_50_day_average: moving_50_day_average,
+        next_dividend_date: next_dividend_date,
+        next_earnings_date: next_earnings_date,
+        pe_ratio: pe_ratio,
+        shares_outstanding: shares_outstanding,
+        ttm_dividend_rate: ttm_dividend_rate,
+        ttm_eps: ttm_eps,
+        volume_10_day_average: volume_10_day_average,
+        volume_30_day_average: volume_30_day_average,
+        week_52_high: week_52_high,
+        week_52_low: week_52_low
       }
     end
     let(:beta) { 100.3456 }

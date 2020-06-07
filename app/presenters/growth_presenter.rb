@@ -6,8 +6,8 @@ class GrowthPresenter
 
     def chart_data
       {
-       data: _growth_details_ordered_by_time_desc.values,
-       xaxis_titles: _growth_details_ordered_by_time_desc.keys
+        data: _growth_details_ordered_by_time_desc.values,
+        xaxis_titles: _growth_details_ordered_by_time_desc.keys
       }.to_json
     end
 
@@ -15,13 +15,13 @@ class GrowthPresenter
 
     def _growth_details_ordered_by_time_desc
       @_growth_details_ordered_by_time_desc ||= {
-       '5Y': percentage_value(year_5),
-       '1Y': percentage_value(year_1),
-       'YTD': percentage_value(ytd),
-       '6M': percentage_value(month_6),
-       '3M': percentage_value(month_3),
-       '1M': percentage_value(month_1),
-       '5D': percentage_value(day_5)
+        '5Y': percentage_value(year_5),
+        '1Y': percentage_value(year_1),
+        'YTD': percentage_value(ytd),
+        '6M': percentage_value(month_6),
+        '3M': percentage_value(month_3),
+        '1M': percentage_value(month_1),
+        '5D': percentage_value(day_5)
       }
     end
   end

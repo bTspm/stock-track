@@ -6,13 +6,13 @@ describe Entities::Address do
 
   let(:args) do
     {
-     city: city,
-     country: country,
-     id: id,
-     line_1: line_1,
-     line_2: line_2,
-     state: state,
-     zip_code: zip_code
+      city: city,
+      country: country,
+      id: id,
+      line_1: line_1,
+      line_2: line_2,
+      state: state,
+      zip_code: zip_code
     }
   end
   let(:city) { double(:city) }
@@ -26,12 +26,12 @@ describe Entities::Address do
   describe ".from_iex_response" do
     let(:args) do
       {
-       line_1: "One Apple Park Way",
-       line_2: "Address 2",
-       city: "Cupertino",
-       country: "US",
-       state: "CA",
-       zip_code: "95014-2083"
+        line_1: "One Apple Park Way",
+        line_2: "Address 2",
+        city: "Cupertino",
+        country: "US",
+        state: "CA",
+        zip_code: "95014-2083"
       }
     end
     let!(:response) { json_fixture("/api_responses/iex/company.json") }

@@ -12,7 +12,7 @@ describe Api::Iex::Client do
 
     it "expect to get exchanges" do
       expect(client).to receive(:get).with(
-       "https://cloud.iexapis.com/stable/ref-data/exchanges?token=api_key"
+        "https://cloud.iexapis.com/stable/ref-data/exchanges?token=api_key"
       ) { "Exchanges" }
 
       expect(subject).to eq "Exchanges"
@@ -28,7 +28,7 @@ describe Api::Iex::Client do
 
     it "expect to get information_by_symbols" do
       expect(client).to receive(:get).with(
-       "https://cloud.iexapis.com/v1/stock/market/batch?token=api_key&symbols=ABC&types=Types"
+        "https://cloud.iexapis.com/v1/stock/market/batch?token=api_key&symbols=ABC&types=Types"
       ) { "Information by Symbols" }
 
       expect(subject).to eq "Information by Symbols"
@@ -47,7 +47,7 @@ describe Api::Iex::Client do
 
       it "expect to get information_by_symbols" do
         expect(client).to receive(:get).with(
-         "https://cloud.iexapis.com/v1/stock/ABC/news/last/4?token=api_key"
+          "https://cloud.iexapis.com/v1/stock/ABC/news/last/4?token=api_key"
         ) { "News by Symbol" }
 
         expect(subject).to eq "News by Symbol"
@@ -57,7 +57,7 @@ describe Api::Iex::Client do
     context "with count" do
       it "expect to get information_by_symbols" do
         expect(client).to receive(:get).with(
-         "https://cloud.iexapis.com/v1/stock/ABC/news/last/500?token=api_key"
+          "https://cloud.iexapis.com/v1/stock/ABC/news/last/500?token=api_key"
         ) { "News by Symbol" }
 
         expect(subject).to eq "News by Symbol"

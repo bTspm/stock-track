@@ -11,10 +11,10 @@ describe Api::TwelveData::Client do
     let(:end_datetime) { "end" }
     let(:options) do
       {
-       end_datetime: end_datetime,
-       interval: "1day",
-       start_datetime: start_datetime,
-       symbol: "ABC"
+        end_datetime: end_datetime,
+        interval: "1day",
+        start_datetime: start_datetime,
+        symbol: "ABC"
       }
     end
     let(:start_datetime) { "start" }
@@ -28,7 +28,7 @@ describe Api::TwelveData::Client do
 
       it "expect to get time_series without the end and start date" do
         expect(client).to receive(:get).with(
-         "https://api.twelvedata.com/time_series?symbol=ABC&interval=1day&apikey=api_key"
+          "https://api.twelvedata.com/time_series?symbol=ABC&interval=1day&apikey=api_key"
         ) { "Time Series" }
 
         expect(subject).to eq "Time Series"
@@ -38,7 +38,7 @@ describe Api::TwelveData::Client do
     context "with start and end datetime" do
       it "expect to get time_series" do
         expect(client).to receive(:get).with(
-         "https://api.twelvedata.com/time_series?symbol=ABC&interval=1day&start_date=start&end_date=end&apikey=api_key"
+          "https://api.twelvedata.com/time_series?symbol=ABC&interval=1day&start_date=start&end_date=end&apikey=api_key"
         ) { "Time Series" }
 
         expect(subject).to eq "Time Series"

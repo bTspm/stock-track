@@ -5,12 +5,12 @@ describe Entities::RecommendationTrend do
 
   let(:args) do
     {
-     buy: buy,
-     date: date,
-     hold: hold,
-     sell: sell,
-     strong_buy: strong_buy,
-     strong_sell: strong_sell
+      buy: buy,
+      date: date,
+      hold: hold,
+      sell: sell,
+      strong_buy: strong_buy,
+      strong_sell: strong_sell
     }
   end
   let(:buy) { double(:buy) }
@@ -23,12 +23,12 @@ describe Entities::RecommendationTrend do
   describe ".from_finn_hub_response" do
     let(:args) do
       {
-       buy: 16,
-       date: converted_date,
-       hold: 9,
-       sell: 2,
-       strong_buy: 13,
-       strong_sell: 0
+        buy: 16,
+        date: converted_date,
+        hold: 9,
+        sell: 2,
+        strong_buy: 13,
+        strong_sell: 0
       }
     end
     let(:converted_date) { Date.new(2020, 0o4, 0o1) }

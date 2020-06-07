@@ -8,11 +8,11 @@ describe CompanyExecutivesPresenter do
     let(:since) { double(:since) }
     let(:object) do
       double(
-       :object,
-       age: age,
-       compensation: compensation,
-       currency: currency,
-       since: since
+        :object,
+        age: age,
+        compensation: compensation,
+        currency: currency,
+        since: since
       )
     end
 

@@ -5,12 +5,12 @@ describe Entities::TimeSeries do
 
   let(:args) do
     {
-     close: close,
-     datetime: datetime,
-     high: high,
-     low: low,
-     open: open,
-     volume: volume
+      close: close,
+      datetime: datetime,
+      high: high,
+      low: low,
+      open: open,
+      volume: volume
     }
   end
   let(:close) { double(:close) }
@@ -23,12 +23,12 @@ describe Entities::TimeSeries do
   describe ".from_twelve_data_response" do
     let(:args) do
       {
-       close: 180.53000,
-       datetime: converted_datetime,
-       high: 180.69000,
-       low: 175.67999,
-       open: 177.53999,
-       volume: 41818400
+        close: 180.53000,
+        datetime: converted_datetime,
+        high: 180.69000,
+        low: 175.67999,
+        open: 177.53999,
+        volume: 41818400
       }
     end
     let(:converted_datetime) { DateTime.new(2020, 0o5, 14, 0o0, 0o0, 0o0) }

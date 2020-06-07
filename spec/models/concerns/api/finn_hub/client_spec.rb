@@ -14,7 +14,7 @@ describe Api::FinnHub::Client do
 
     it "expect to get company_executives" do
       expect(client).to receive(:get).with(
-       "https://finnhub.io/api/v1/stock/executive?symbol=ABC&token=api_key"
+        "https://finnhub.io/api/v1/stock/executive?symbol=ABC&token=api_key"
       ) { "Company Executives" }
 
       expect(subject).to eq "Company Executives"
@@ -28,7 +28,7 @@ describe Api::FinnHub::Client do
 
     it "expect to get eps_estimates" do
       expect(client).to receive(:get).with(
-       "https://finnhub.io/api/v1/stock/eps-estimate?symbol=ABC&token=api_key"
+        "https://finnhub.io/api/v1/stock/eps-estimate?symbol=ABC&token=api_key"
       ) { "Eps Estimates" }
 
       expect(subject).to eq "Eps Estimates"
@@ -42,7 +42,7 @@ describe Api::FinnHub::Client do
 
     it "expect to get eps_surprises" do
       expect(client).to receive(:get).with(
-       "https://finnhub.io/api/v1/stock/earnings?symbol=ABC&token=api_key"
+        "https://finnhub.io/api/v1/stock/earnings?symbol=ABC&token=api_key"
       ) { "Eps Surprises" }
 
       expect(subject).to eq "Eps Surprises"
@@ -56,7 +56,7 @@ describe Api::FinnHub::Client do
 
     it "expect to get recommendation_trends" do
       expect(client).to receive(:get).with(
-       "https://finnhub.io/api/v1/stock/recommendation?symbol=ABC&token=api_key"
+        "https://finnhub.io/api/v1/stock/recommendation?symbol=ABC&token=api_key"
       ) { "Recommendation Trends" }
 
       expect(subject).to eq "Recommendation Trends"
@@ -70,7 +70,7 @@ describe Api::FinnHub::Client do
 
     it "expect to get symbols_by_exchange" do
       expect(client).to receive(:get).with(
-       "https://finnhub.io/api/v1/stock/symbol?exchange=ABC&token=api_key"
+        "https://finnhub.io/api/v1/stock/symbol?exchange=ABC&token=api_key"
       ) { "Symbols By Exchange" }
 
       expect(subject).to eq "Symbols By Exchange"

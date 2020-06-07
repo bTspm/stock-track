@@ -14,8 +14,8 @@ class CompanyStore
 
   def by_symbol(symbol)
     company = ::Company.includes(:address, :company_executives, :exchange, :issuer_type)
-               .references(:address, :company_executives, :exchange, :issuer_type)
-               .where(symbol: symbol).first
+                .references(:address, :company_executives, :exchange, :issuer_type)
+                .where(symbol: symbol).first
     Entities::Company.from_db_entity(company)
   end
 
@@ -25,8 +25,8 @@ class CompanyStore
 
   def save_company(company_entity)
     company = Company.includes(:address, :company_executives, :exchange, :issuer_type)
-               .references(:address, :company_executives, :exchange, :issuer_type)
-               .where(symbol: company_entity.symbol).first
+                .references(:address, :company_executives, :exchange, :issuer_type)
+                .where(symbol: company_entity.symbol).first
     company = CompanyBuilder.build_full_company(db_entity: company, domain_entity: company_entity)
     company.save!
     Rails.logger.info("Company saved: #{company.symbol}")

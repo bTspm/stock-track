@@ -4,11 +4,11 @@ describe PricePresenter do
   describe ".scalar" do
     let(:args) do
       {
-       amount: 100_000,
-       change: change,
-       change_percent: change_percent,
-       source: source,
-       time: DateTime.new(2020, 0o5, 0o1)
+        amount: 100_000,
+        change: change,
+        change_percent: change_percent,
+        source: source,
+        time: DateTime.new(2020, 0o5, 0o1)
       }
     end
     let(:change) { 2_000 }
@@ -29,7 +29,7 @@ describe PricePresenter do
 
       it "expect to return formatted change" do
         expect(
-         view_context
+          view_context
         ).to receive(:content_color_by_value).with(content: "2,000", value: change) { "Formatted Content" }
 
         expect(subject).to eq "Formatted Content"
@@ -41,7 +41,7 @@ describe PricePresenter do
 
       it "expect to return formatted change_percent" do
         expect(
-         view_context
+          view_context
         ).to receive(:content_color_by_value).with(content: "(8.18%)", value: change_percent) { "Formatted Content" }
 
         expect(subject).to eq "Formatted Content"

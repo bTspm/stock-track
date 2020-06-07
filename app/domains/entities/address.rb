@@ -13,12 +13,12 @@ module Entities
 
     def self.from_iex_response(response = {})
       args = {
-       city: response[:city],
-       country: response[:country],
-       line_1: response[:address],
-       line_2: response[:address2],
-       state: response[:state],
-       zip_code: response[:zip]
+        city: response[:city],
+        country: response[:country],
+        line_1: response[:address],
+        line_2: response[:address2],
+        state: response[:state],
+        zip_code: response[:zip]
       }
 
       new(args)

@@ -25,19 +25,19 @@ module Entities
 
     def self.from_iex_response(response)
       args = {
-       address: Entities::Address.from_iex_response(response),
-       description: response[:description],
-       employees: response[:employees],
-       exchange: Entities::Exchange.from_iex_company_response(response),
-       industry: response[:industry],
-       issuer_type: Entities::IssuerType.from_iex_company_response(response),
-       name: response[:companyName],
-       phone: response[:phone],
-       sector: response[:sector],
-       security_name: response[:securityName],
-       sic_code: response[:primarySicCode],
-       symbol: response[:symbol],
-       website: response[:website]
+        address: Entities::Address.from_iex_response(response),
+        description: response[:description],
+        employees: response[:employees],
+        exchange: Entities::Exchange.from_iex_company_response(response),
+        industry: response[:industry],
+        issuer_type: Entities::IssuerType.from_iex_company_response(response),
+        name: response[:companyName],
+        phone: response[:phone],
+        sector: response[:sector],
+        security_name: response[:securityName],
+        sic_code: response[:primarySicCode],
+        symbol: response[:symbol],
+        website: response[:website]
       }
 
       new(args)
@@ -47,10 +47,10 @@ module Entities
 
     def self._db_entity_args(entity)
       super.merge(
-       address: Entities::Address.from_db_entity(entity.address),
-       exchange: Entities::Exchange.from_db_entity(entity.exchange),
-       executives: entity.company_executives.map { |executive| Entities::CompanyExecutive.from_db_entity(executive) },
-       issuer_type: Entities::IssuerType.from_db_entity(entity.issuer_type),
+        address: Entities::Address.from_db_entity(entity.address),
+        exchange: Entities::Exchange.from_db_entity(entity.exchange),
+        executives: entity.company_executives.map { |executive| Entities::CompanyExecutive.from_db_entity(executive) },
+        issuer_type: Entities::IssuerType.from_db_entity(entity.issuer_type),
       ).with_indifferent_access
     end
   end

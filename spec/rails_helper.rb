@@ -6,9 +6,9 @@ ENV["RAILS_ENV"] ||= "test"
 
 require "dotenv"
 Dotenv.load(
- ".env.local",
- ".env.test",
- ".env"
+  ".env.local",
+  ".env.test",
+  ".env"
 )
 
 require "simplecov"

@@ -14,14 +14,14 @@ describe CompaniesPresenter do
     let(:symbol) { "Symbol" }
     let(:object) do
       double(
-       :object,
-       address: address,
-       employees: employees,
-       exchange: exchange,
-       executives: executives,
-       issuer_type: issuer_type,
-       name: name,
-       symbol: symbol
+        :object,
+        address: address,
+        employees: employees,
+        exchange: exchange,
+        executives: executives,
+        issuer_type: issuer_type,
+        name: name,
+        symbol: symbol
       )
     end
 

@@ -14,10 +14,10 @@ describe EarningsPresenter do
     let(:eps_surprise_1_estimate) { 3_000 }
     let(:eps_surprise_1) do
       double(
-       :eps_surprise_1,
-       actual: eps_surprise_1_actual,
-       date: eps_surprise_1_date,
-       estimate: eps_surprise_1_estimate
+        :eps_surprise_1,
+        actual: eps_surprise_1_actual,
+        date: eps_surprise_1_date,
+        estimate: eps_surprise_1_estimate
       )
     end
     let(:eps_surprise_2_actual) { 2_000 }
@@ -25,10 +25,10 @@ describe EarningsPresenter do
     let(:eps_surprise_2_estimate) { 4_000 }
     let(:eps_surprise_2) do
       double(
-       :eps_surprise_2,
-       actual: eps_surprise_2_actual,
-       date: eps_surprise_2_date,
-       estimate: eps_surprise_2_estimate
+        :eps_surprise_2,
+        actual: eps_surprise_2_actual,
+        date: eps_surprise_2_date,
+        estimate: eps_surprise_2_estimate
       )
     end
     let(:eps_surprises) { [eps_surprise_1, eps_surprise_2] }
@@ -77,10 +77,10 @@ describe EarningsPresenter do
         let(:eps_surprise_3_estimate) { 6_000 }
         let(:eps_surprise_3) do
           double(
-           :eps_surprise_3,
-           actual: eps_surprise_3_actual,
-           date: eps_surprise_3_date,
-           estimate: eps_surprise_3_estimate
+            :eps_surprise_3,
+            actual: eps_surprise_3_actual,
+            date: eps_surprise_3_date,
+            estimate: eps_surprise_3_estimate
           )
         end
 
@@ -89,10 +89,10 @@ describe EarningsPresenter do
         let(:eps_surprise_4_estimate) { 8_000 }
         let(:eps_surprise_4) do
           double(
-           :eps_surprise_4,
-           actual: eps_surprise_4_actual,
-           date: eps_surprise_4_date,
-           estimate: eps_surprise_4_estimate
+            :eps_surprise_4,
+            actual: eps_surprise_4_actual,
+            date: eps_surprise_4_date,
+            estimate: eps_surprise_4_estimate
           )
         end
 
@@ -101,10 +101,10 @@ describe EarningsPresenter do
         let(:eps_surprise_5_estimate) { 10_000 }
         let(:eps_surprise_5) do
           double(
-           :eps_surprise_5,
-           actual: eps_surprise_5_actual,
-           date: eps_surprise_5_date,
-           estimate: eps_surprise_5_estimate
+            :eps_surprise_5,
+            actual: eps_surprise_5_actual,
+            date: eps_surprise_5_date,
+            estimate: eps_surprise_5_estimate
           )
         end
 

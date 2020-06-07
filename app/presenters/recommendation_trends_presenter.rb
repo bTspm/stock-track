@@ -42,11 +42,11 @@ class RecommendationTrendsPresenter
 
     def _ordered_series
       [
-       _strong_buy_series,
-       _buy_series,
-       _hold_series,
-       _sell_series,
-       _strong_sell_series
+        _strong_buy_series,
+        _buy_series,
+        _hold_series,
+        _sell_series,
+        _strong_sell_series
       ].compact
     end
 

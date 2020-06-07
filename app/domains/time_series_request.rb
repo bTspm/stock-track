@@ -17,20 +17,20 @@ class TimeSeriesRequest
 
   def to_options
     {
-     end_datetime: @end_datetime.strftime(DATE_FORMAT),
-     interval: @interval,
-     start_datetime: @start_datetime.strftime(DATE_FORMAT),
-     symbol: @symbol
+      end_datetime: @end_datetime.strftime(DATE_FORMAT),
+      interval: @interval,
+      start_datetime: @start_datetime.strftime(DATE_FORMAT),
+      symbol: @symbol
     }
   end
 
   def self.five_year(symbol)
     end_date = DateTime.now.end_of_day
     args = {
-     end_datetime: end_date,
-     start_datetime: end_date - 6.years,
-     interval: DAY1,
-     symbol: symbol
+      end_datetime: end_date,
+      start_datetime: end_date - 6.years,
+      interval: DAY1,
+      symbol: symbol
     }
 
     new(args)

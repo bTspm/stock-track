@@ -4,13 +4,13 @@ describe GrowthPresenter do
   describe ".scalar" do
     let(:args) do
       {
-       day_5: day_5,
-       month_1: 0.0818,
-       month_3: -0.0354,
-       month_6: 0.1578,
-       year_1: 0.6117,
-       year_5: 1.3896,
-       ytd: 0.0387
+        day_5: day_5,
+        month_1: 0.0818,
+        month_3: -0.0354,
+        month_6: 0.1578,
+        year_1: 0.6117,
+        year_5: 1.3896,
+        ytd: 0.0387
       }
     end
     let(:day_5) { -0.0232 }

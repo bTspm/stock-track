@@ -6,12 +6,12 @@ describe Entities::CompanyExecutive do
 
   let(:args) do
     {
-     age: age,
-     compensation: compensation,
-     currency: currency,
-     name: name,
-     since: since,
-     titles: titles
+      age: age,
+      compensation: compensation,
+      currency: currency,
+      name: name,
+      since: since,
+      titles: titles
     }
   end
   let(:age) { double(:age) }
@@ -35,12 +35,12 @@ describe Entities::CompanyExecutive do
   describe ".from_finn_hub_response" do
     let(:args) do
       {
-       age: 59,
-       compensation: 11555466,
-       currency: "USD",
-       name: "Mr. Timothy Cook",
-       since: "2011",
-       titles: ["Chief Executive Officer", "Director"]
+        age: 59,
+        compensation: 11555466,
+        currency: "USD",
+        name: "Mr. Timothy Cook",
+        since: "2011",
+        titles: ["Chief Executive Officer", "Director"]
       }
     end
     let!(:response) { json_fixture("/api_responses/finn_hub/executives.json").last }

@@ -13,14 +13,14 @@ module Entities
 
     def self.from_iex_response(response)
       args = {
-       datetime: response[:datetime]&.to_datetime,
-       headline: response[:headline],
-       image: response[:image],
-       language: response[:lang],
-       related: response[:related],
-       source: response[:source],
-       summary: response[:summary],
-       url: response[:url]
+        datetime: response[:datetime]&.to_datetime,
+        headline: response[:headline],
+        image: response[:image],
+        language: response[:lang],
+        related: response[:related],
+        source: response[:source],
+        summary: response[:summary],
+        url: response[:url]
       }
 
       new(args)

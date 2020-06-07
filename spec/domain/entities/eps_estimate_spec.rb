@@ -5,11 +5,11 @@ describe Entities::EpsEstimate do
 
   let(:args) do
     {
-     analysts_count: analysts_count,
-     average: average,
-     date: date,
-     high: high,
-     low: low
+      analysts_count: analysts_count,
+      average: average,
+      date: date,
+      high: high,
+      low: low
     }
   end
   let(:analysts_count) { double(:analysts_count) }
@@ -21,11 +21,11 @@ describe Entities::EpsEstimate do
   describe ".from_finn_hub_response" do
     let(:args) do
       {
-       analysts_count: 4,
-       average: 3.3405,
-       date: converted_date,
-       high: 3.444,
-       low: 3.2046
+        analysts_count: 4,
+        average: 3.3405,
+        date: converted_date,
+        high: 3.444,
+        low: 3.2046
       }
     end
     let(:converted_date) { Date.new(2022, 0o6, 30) }
