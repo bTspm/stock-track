@@ -7,7 +7,7 @@ class BusinessService
     @engine ||= Allocator.new
   end
 
-  #Stores
+  # Stores
 
   def company_executive_storage
     engine.company_executive_store
