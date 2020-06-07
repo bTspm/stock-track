@@ -10,7 +10,7 @@ describe TimeSeriesPresenter do
     describe "#formatted_chart_data" do
       subject { presenter.formatted_chart_data }
 
-      it { is_expected.to eq [1588291200000, 100] }
+      it { is_expected.to eq [1_588_291_200_000, 100] }
     end
   end
 
@@ -29,7 +29,7 @@ describe TimeSeriesPresenter do
 
       it "expect to return chart data" do
         result = subject
-        expect(result[:stock_data]).to eq [[1588291200000, 200], [1903824000000, 100]]
+        expect(result[:stock_data]).to eq [[1_588_291_200_000, 200], [1_903_824_000_000, 100]]
         expect(result[:subtitle]).to eq "Between May 01, 2020 to May 01, 2030"
         expect(result[:symbol]).to eq "ABC"
         expect(result[:time_line_buttons]).to eq [{ "type" => "week", "count" => 1, "text" => "1w" },

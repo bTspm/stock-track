@@ -36,7 +36,7 @@ describe Entities::CompanyExecutive do
     let(:args) do
       {
         age: 59,
-        compensation: 11555466,
+        compensation: 11_555_466,
         currency: "USD",
         name: "Mr. Timothy Cook",
         since: "2011",

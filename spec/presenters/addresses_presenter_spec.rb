@@ -7,7 +7,7 @@ describe AddressesPresenter do
     let(:line_1) { "Line 1" }
     let(:line_2) { "Line 2" }
     let(:state) { "State" }
-    let(:zip_code) { 12345 }
+    let(:zip_code) { 12_345 }
     let(:object) do
       double(
         :object,

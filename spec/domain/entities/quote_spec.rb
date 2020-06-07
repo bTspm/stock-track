@@ -59,12 +59,12 @@ describe Entities::Quote do
         latest_price: 307.71,
         latest_source: "Close",
         latest_update: converted_datetime,
-        latest_volume: 42108051,
+        latest_volume: 42_108_051,
         low: 300.21,
         open: 300.94,
         previous_close: 309.54,
-        previous_volume: 39732269,
-        volume: 42108051
+        previous_volume: 39_732_269,
+        volume: 42_108_051
       }
     end
     let(:converted_datetime) { DateTime.new(2020, 0o1, 0o1, 0o0, 0o0, 0o0) }

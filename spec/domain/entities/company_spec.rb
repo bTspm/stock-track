@@ -94,7 +94,7 @@ describe Entities::Company do
       {
         address: address,
         description: "Test Description",
-        employees: 137000,
+        employees: 137_000,
         exchange: exchange,
         industry: "Telecommunications Equipment",
         issuer_type: issuer_type,

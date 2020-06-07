@@ -28,7 +28,7 @@ describe Entities::TimeSeries do
         high: 180.69000,
         low: 175.67999,
         open: 177.53999,
-        volume: 41818400
+        volume: 41_818_400
       }
     end
     let(:converted_datetime) { DateTime.new(2020, 0o5, 14, 0o0, 0o0, 0o0) }

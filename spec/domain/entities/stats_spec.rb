@@ -45,18 +45,18 @@ describe Entities::Stats do
       {
         beta: 1.1465479399284613,
         dividend_yield: 0.010009424458093661,
-        float: 4329598232,
-        market_cap: 1333719761400,
+        float: 4_329_598_232,
+        market_cap: 1_333_719_761_400,
         moving_50_day_average: 273.11,
         moving_200_day_average: 263.21,
         next_dividend_date: converted_date,
         next_earnings_date: converted_date,
         pe_ratio: 23.92,
-        shares_outstanding: 4334340000,
+        shares_outstanding: 4_334_340_000,
         ttm_dividend_rate: 3.08,
         ttm_eps: 12.8615,
-        volume_10_day_average: 37676579.4,
-        volume_30_day_average: 38930421.53,
+        volume_10_day_average: 37_676_579.4,
+        volume_30_day_average: 38_930_421.53,
         week_52_high: 327.85,
         week_52_low: 170.27
       }
