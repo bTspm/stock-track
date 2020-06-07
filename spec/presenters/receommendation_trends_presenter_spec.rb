@@ -60,7 +60,7 @@ describe RecommendationTrendsPresenter do
       context "values" do
         it "expected to return chart data" do
           result = subject
-          expect(result[:categories]).to eq %w(Jan<br>2020 Jan<br>2021)
+          expect(result[:categories]).to eq %w[Jan<br>2020 Jan<br>2021]
           expect(result[:series]).to eq [{ data: [strong_buy, strong_buy_1], name: "Strong Buy" },
                                          { data: [buy, buy_1], name: "Buy" },
                                          { data: [hold, hold_1], name: "Hold" },

@@ -25,7 +25,7 @@ describe GrowthPresenter do
         it "expect to return chart data" do
           result = subject
           expect(result[:data]).to eq [138.96, 61.17, 3.87, 15.78, -3.54, 8.18, -2.32]
-          expect(result[:xaxis_titles]).to eq %w(5Y 1Y YTD 6M 3M 1M 5D)
+          expect(result[:xaxis_titles]).to eq %w[5Y 1Y YTD 6M 3M 1M 5D]
         end
       end
 
@@ -34,7 +34,7 @@ describe GrowthPresenter do
         it "expect to return chart data with nil" do
           result = subject
           expect(result[:data]).to eq [138.96, 61.17, 3.87, 15.78, -3.54, 8.18, nil]
-          expect(result[:xaxis_titles]).to eq %w(5Y 1Y YTD 6M 3M 1M 5D)
+          expect(result[:xaxis_titles]).to eq %w[5Y 1Y YTD 6M 3M 1M 5D]
         end
       end
     end

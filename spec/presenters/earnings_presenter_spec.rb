@@ -44,7 +44,7 @@ describe EarningsPresenter do
         it "expect to return chart data" do
           result = subject
           expect(result[:actual]).to match_array [eps_surprise_1_actual, eps_surprise_2_actual]
-          expect(result[:categories]).to match_array %w(Q1<br>2020 Q2<br>2020)
+          expect(result[:categories]).to match_array %w[Q1<br>2020 Q2<br>2020]
           expect(result[:estimated]).to match_array [eps_surprise_1_estimate, eps_surprise_2_estimate]
         end
       end
@@ -53,7 +53,7 @@ describe EarningsPresenter do
         it "expect to return chart data" do
           result = subject
           expect(result[:actual]).to match_array [eps_surprise_1_actual, eps_surprise_2_actual]
-          expect(result[:categories]).to match_array %w(Q1<br>2020 Q2<br>2020 Q3<br>2020 Q4<br>2020)
+          expect(result[:categories]).to match_array %w[Q1<br>2020 Q2<br>2020 Q3<br>2020 Q4<br>2020]
           expect(result[:estimated]).to match_array [eps_estimate_1_average,
                                                      eps_estimate_2_average,
                                                      eps_surprise_1_estimate,
