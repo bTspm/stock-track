@@ -14,7 +14,7 @@ describe Entities::Growth do
      year_1: year_1,
      year_2: year_2,
      year_5: year_5,
-     ytd: ytd,
+     ytd: ytd
     }
   end
   let(:day_30) { double(:day_30) }

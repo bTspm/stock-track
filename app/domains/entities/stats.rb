@@ -36,7 +36,7 @@ module Entities
        volume_10_day_average: response[:avg10Volume],
        volume_30_day_average: response[:avg30Volume],
        week_52_high: response[:week52high],
-       week_52_low: response[:week52low],
+       week_52_low: response[:week52low]
       }
 
       new(args)

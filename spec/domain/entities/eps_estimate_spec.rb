@@ -9,7 +9,7 @@ describe Entities::EpsEstimate do
      average: average,
      date: date,
      high: high,
-     low: low,
+     low: low
     }
   end
   let(:analysts_count) { double(:analysts_count) }

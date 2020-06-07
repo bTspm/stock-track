@@ -10,7 +10,7 @@ describe Entities::TimeSeries do
      high: high,
      low: low,
      open: open,
-     volume: volume,
+     volume: volume
     }
   end
   let(:close) { double(:close) }

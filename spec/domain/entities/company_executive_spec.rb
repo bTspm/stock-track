@@ -11,7 +11,7 @@ describe Entities::CompanyExecutive do
      currency: currency,
      name: name,
      since: since,
-     titles: titles,
+     titles: titles
     }
   end
   let(:age) { double(:age) }

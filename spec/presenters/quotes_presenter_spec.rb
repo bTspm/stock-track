@@ -21,7 +21,7 @@ describe QuotesPresenter do
        open: open,
        previous_close: previous_close,
        previous_volume: previous_volume,
-       volume: volume,
+       volume: volume
       }
     end
     let(:change) { 100_000 }

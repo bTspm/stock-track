@@ -14,7 +14,7 @@ describe Api::TwelveData::Client do
        end_datetime: end_datetime,
        interval: "1day",
        start_datetime: start_datetime,
-       symbol: "ABC",
+       symbol: "ABC"
       }
     end
     let(:start_datetime) { "start" }

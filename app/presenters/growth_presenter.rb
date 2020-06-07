@@ -7,7 +7,7 @@ class GrowthPresenter
     def chart_data
       {
        data: _growth_details_ordered_by_time_desc.values,
-       xaxis_titles: _growth_details_ordered_by_time_desc.keys,
+       xaxis_titles: _growth_details_ordered_by_time_desc.keys
       }.to_json
     end
 

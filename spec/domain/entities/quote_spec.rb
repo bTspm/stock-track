@@ -22,7 +22,7 @@ describe Entities::Quote do
      open: open,
      previous_close: previous_close,
      previous_volume: previous_volume,
-     volume: volume,
+     volume: volume
     }
   end
   let(:change) { double(:change) }
@@ -64,7 +64,7 @@ describe Entities::Quote do
        open: 300.94,
        previous_close: 309.54,
        previous_volume: 39732269,
-       volume: 42108051,
+       volume: 42108051
       }
     end
     let(:converted_datetime) { DateTime.new(2020, 0o1, 0o1, 0o0, 0o0, 0o0) }

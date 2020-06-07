@@ -12,7 +12,7 @@ describe Entities::NewsArticle do
      related: related,
      source: source,
      summary: summary,
-     url: url,
+     url: url
     }
   end
   let(:datetime) { double(:datetime) }

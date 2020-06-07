@@ -20,7 +20,7 @@ describe Entities::Stats do
      volume_10_day_average: volume_10_day_average,
      volume_30_day_average: volume_30_day_average,
      week_52_high: week_52_high,
-     week_52_low: week_52_low,
+     week_52_low: week_52_low
     }
   end
   let(:beta) { double(:beta) }

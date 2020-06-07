@@ -30,7 +30,7 @@ class TimeSeriesRequest
      end_datetime: end_date,
      start_datetime: end_date - 6.years,
      interval: DAY1,
-     symbol: symbol,
+     symbol: symbol
     }
 
     new(args)

@@ -18,7 +18,7 @@ describe Entities::Company do
      security_name: security_name,
      sic_code: sic_code,
      symbol: symbol,
-     website: website,
+     website: website
     }
   end
   let(:address) { double(:address) }

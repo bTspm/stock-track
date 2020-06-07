@@ -40,7 +40,7 @@ module Entities
        open: response[:open],
        previous_close: response[:previousClose],
        previous_volume: response[:previousVolume],
-       volume: response[:volume],
+       volume: response[:volume]
       }
 
       new(args)
