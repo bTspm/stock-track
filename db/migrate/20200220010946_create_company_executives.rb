@@ -36,5 +36,4 @@ class CreateCompanyExecutives < ActiveRecord::Migration[5.2]
 
     drop_table :company_executives if table_exists? :company_executives
   end
-
 end
