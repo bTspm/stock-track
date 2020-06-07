@@ -35,7 +35,7 @@ describe CompanyBuilder do
        executives: executives,
        issuer_type_id: issuer_type_id,
        line_1: line_1,
-       )
+      )
     end
     let(:issuer_type_id) { double(:issuer_type_id) }
     let(:line_1) { double(:line_1) }

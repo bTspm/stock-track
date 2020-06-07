@@ -5,7 +5,7 @@ class BaseBuilder
     @db_entity = db_entity || _model_class.new
   end
 
-  def self.build(db_entity=nil)
+  def self.build(db_entity = nil)
     builder = new(db_entity)
     yield(builder)
     builder.db_entity

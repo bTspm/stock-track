@@ -5,7 +5,7 @@ class EarningsPresenter
 
   class Scalar < Btspm::Presenters::ScalarPresenter
     def chart_data
-      {actual: _eps_surprises.map(&:actual), categories: _categories, estimated: _estimated_earnings}.to_json
+      { actual: _eps_surprises.map(&:actual), categories: _categories, estimated: _estimated_earnings }.to_json
     end
 
     private

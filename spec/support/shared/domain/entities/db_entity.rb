@@ -1,5 +1,5 @@
 shared_examples_for 'Entities::DbEntity.from_db_entity' do
-  let(:attributes) { {test: 123} }
+  let(:attributes) { { test: 123 } }
   let(:entity) { double(:entity, attributes: attributes) }
 
   subject { described_class.from_db_entity(entity) }

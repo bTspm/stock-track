@@ -35,7 +35,7 @@ class PricePresenter
 
     def source
       badge_color = _extended? ? EXTENDED_BADGE : NOT_EXTENDED_BADGE
-      h.badge_format(content: data_object.source, options: {badge_color: badge_color})
+      h.badge_format(content: data_object.source, options: { badge_color: badge_color })
     end
 
     private

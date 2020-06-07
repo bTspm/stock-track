@@ -18,7 +18,7 @@ describe Entities::Exchange do
   let(:name) { double(:name) }
 
   describe ".from_iex_company_response" do
-    let(:response) { {exchange: name} }
+    let(:response) { { exchange: name } }
 
     subject { described_class.from_iex_company_response(response) }
 
@@ -28,7 +28,7 @@ describe Entities::Exchange do
   end
 
   describe ".from_iex_response" do
-    let(:args) { {code: "NYS", country: "US", name: "New York Stock Exchange"} }
+    let(:args) { { code: "NYS", country: "US", name: "New York Stock Exchange" } }
     let!(:response) { json_fixture("/api_responses/iex/exchanges.json").last }
 
     subject { described_class.from_iex_response(response) }

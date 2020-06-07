@@ -20,7 +20,7 @@ describe Api::TwelveData::RaiseHttpException do
 
     context "status - 200" do
       context "response error - data not found" do
-        let(:response) { {status: "error", message: "Error Message", code: 404} }
+        let(:response) { { status: "error", message: "Error Message", code: 404 } }
 
         it "expect to log and raise an error" do
           expect(Rails).to receive_message_chain(:logger, :error).with("Error: 404, http:/example_url: Error Message")
@@ -29,7 +29,7 @@ describe Api::TwelveData::RaiseHttpException do
       end
 
       context "response success" do
-        let(:response) { {status: "ok"}.with_indifferent_access }
+        let(:response) { { status: "ok" }.with_indifferent_access }
 
         subject { JSON.parse(conn.get(url).body) }
 

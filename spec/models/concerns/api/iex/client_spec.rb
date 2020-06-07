@@ -20,7 +20,7 @@ describe Api::Iex::Client do
   end
 
   describe "#information_by_symbols" do
-    let(:options) { {types: types} }
+    let(:options) { { types: types } }
     let(:symbols) { "ABC" }
     let(:types) { "Types" }
 

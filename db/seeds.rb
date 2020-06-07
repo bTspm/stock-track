@@ -1,22 +1,22 @@
 puts "Started Seeding - Issuer Types"
 
 issuer_types = {
-  ad: "ADR",
-  ce: "Closed end fund",
-  cef: "Closed Ended Fund",
-  cs: "Common Stock",
-  et: "ETF",
-  lp: "Limited Partnerships",
-  na: "N/A",
-  oef: "Open Ended Fund",
-  ps: "Preferred Stock",
-  re: "REIT",
-  rt: "Right",
-  si: "Secondary Issue",
-  struct: "Structured Product",
-  temp: "Temporary",
-  ut: "Unit",
-  wt: "Warrant"
+ ad: "ADR",
+ ce: "Closed end fund",
+ cef: "Closed Ended Fund",
+ cs: "Common Stock",
+ et: "ETF",
+ lp: "Limited Partnerships",
+ na: "N/A",
+ oef: "Open Ended Fund",
+ ps: "Preferred Stock",
+ re: "REIT",
+ rt: "Right",
+ si: "Secondary Issue",
+ struct: "Structured Product",
+ temp: "Temporary",
+ ut: "Unit",
+ wt: "Warrant"
 }
 
 issuer_types.each do |code, name|

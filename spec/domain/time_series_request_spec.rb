@@ -1,7 +1,7 @@
 require "rails_helper"
 
 describe TimeSeriesRequest do
-  let(:args) { {end_datetime: end_date, interval: interval, start_datetime: start_date, symbol: symbol} }
+  let(:args) { { end_datetime: end_date, interval: interval, start_datetime: start_date, symbol: symbol } }
   let(:date) { DateTime.new(2020, 01, 01) }
   let(:end_date) { date }
   let(:interval) { double(:interval) }

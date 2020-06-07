@@ -19,13 +19,13 @@ class RecommendationTrendsPresenter
 
   class Enum < Btspm::Presenters::EnumPresenter
     def chart_data
-      {categories: _categories, series: _ordered_series}.to_json
+      { categories: _categories, series: _ordered_series }.to_json
     end
 
     private
 
     def _buy_series
-      {data: _ordered_by_date_asc.map(&:buy), name: "Buy"}
+      { data: _ordered_by_date_asc.map(&:buy), name: "Buy" }
     end
 
     def _categories
@@ -33,7 +33,7 @@ class RecommendationTrendsPresenter
     end
 
     def _hold_series
-      {data: _ordered_by_date_asc.map(&:hold), name: "Hold"}
+      { data: _ordered_by_date_asc.map(&:hold), name: "Hold" }
     end
 
     def _ordered_by_date_asc
@@ -51,15 +51,15 @@ class RecommendationTrendsPresenter
     end
 
     def _sell_series
-      {data: _ordered_by_date_asc.map(&:sell), name: "Sell"}
+      { data: _ordered_by_date_asc.map(&:sell), name: "Sell" }
     end
 
     def _strong_buy_series
-      {data: _ordered_by_date_asc.map(&:strong_buy), name: "Strong Buy"}
+      { data: _ordered_by_date_asc.map(&:strong_buy), name: "Strong Buy" }
     end
 
     def _strong_sell_series
-      {data: _ordered_by_date_asc.map(&:strong_sell), name: "Strong Sell"}
+      { data: _ordered_by_date_asc.map(&:strong_sell), name: "Strong Sell" }
     end
   end
 end

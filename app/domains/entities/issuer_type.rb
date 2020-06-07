@@ -6,7 +6,7 @@ module Entities
     attr_reader *ATTRIBUTES
 
     def self.from_iex_company_response(response = {})
-      new({code: response[:issueType]})
+      new({ code: response[:issueType] })
     end
 
     def etf?

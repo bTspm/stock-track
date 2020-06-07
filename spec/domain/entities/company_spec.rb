@@ -74,14 +74,14 @@ describe Entities::Company do
          test: 123
         }
       end
-      let(:attributes) { {test: 123} }
+      let(:attributes) { { test: 123 } }
 
       it "expect to return company with properties" do
         expect(Entities::Address).to receive(:from_db_entity).with(address_entity) { address }
         expect(Entities::CompanyExecutive).to receive(:from_db_entity).with(executive_entity) { executive }
         expect(Entities::Exchange).to receive(:from_db_entity).with(exchange_entity) { exchange }
         expect(Entities::IssuerType).to receive(:from_db_entity).with(issuer_type_entity) { issuer_type }
-        expect(entity).to receive(:attributes)  { attributes }
+        expect(entity).to receive(:attributes) { attributes }
         expect(described_class).to receive(:new).with(args)
 
         subject

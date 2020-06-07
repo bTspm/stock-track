@@ -8,7 +8,7 @@ class AddressesPresenter
       text = ""
       text += h.content_tag(:div, line_1) if line_1.present?
       text += h.content_tag(:div, line_2) if line_2.present?
-      text +=  _city_state_country_and_zip
+      text += _city_state_country_and_zip
       text.html_safe
     end
 

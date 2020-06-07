@@ -11,7 +11,7 @@ describe EarningsPresenter do
     let(:eps_estimates) { [eps_estimate_1, eps_estimate_2] }
     let(:eps_surprise_1_actual) { 1_000 }
     let(:eps_surprise_1_date) { Date.new(2020, 01, 01) }
-    let(:eps_surprise_1_estimate) { 3_000}
+    let(:eps_surprise_1_estimate) { 3_000 }
     let(:eps_surprise_1) do
       double(
        :eps_surprise_1,
@@ -32,7 +32,7 @@ describe EarningsPresenter do
       )
     end
     let(:eps_surprises) { [eps_surprise_1, eps_surprise_2] }
-    let(:object) { {eps_estimates: eps_estimates, eps_surprises: eps_surprises} }
+    let(:object) { { eps_estimates: eps_estimates, eps_surprises: eps_surprises } }
 
     subject(:presenter) { described_class::Scalar.new(object, view_context) }
 
@@ -54,13 +54,13 @@ describe EarningsPresenter do
           result = subject
           expect(result[:actual]).to match_array [eps_surprise_1_actual, eps_surprise_2_actual]
           expect(result[:categories]).to match_array %w(Q1<br>2020 Q2<br>2020 Q3<br>2020 Q4<br>2020)
-          expect(result[:estimated]).to match_array [eps_estimate_1_average, 
+          expect(result[:estimated]).to match_array [eps_estimate_1_average,
                                                      eps_estimate_2_average,
-                                                     eps_surprise_1_estimate, 
+                                                     eps_surprise_1_estimate,
                                                      eps_surprise_2_estimate]
         end
       end
-      
+
       context "Max of 2 Estimates" do
         let(:eps_estimate_3_average) { 300 }
         let(:eps_estimate_3_date) { Date.new(3030, 07, 01) }
@@ -70,11 +70,11 @@ describe EarningsPresenter do
           expect(subject[:estimated]).not_to include eps_estimate_3_average
         end
       end
-      
+
       context "Max of 4 Surprises" do
         let(:eps_surprise_3_actual) { 3_000 }
         let(:eps_surprise_3_date) { eps_surprise_2_date + 3.months }
-        let(:eps_surprise_3_estimate) { 6_000}
+        let(:eps_surprise_3_estimate) { 6_000 }
         let(:eps_surprise_3) do
           double(
            :eps_surprise_3,
@@ -86,7 +86,7 @@ describe EarningsPresenter do
 
         let(:eps_surprise_4_actual) { 4_000 }
         let(:eps_surprise_4_date) { eps_surprise_3_date + 3.months }
-        let(:eps_surprise_4_estimate) { 8_000}
+        let(:eps_surprise_4_estimate) { 8_000 }
         let(:eps_surprise_4) do
           double(
            :eps_surprise_4,
@@ -98,7 +98,7 @@ describe EarningsPresenter do
 
         let(:eps_surprise_5_actual) { 5_000 }
         let(:eps_surprise_5_date) { eps_surprise_4_date + 3.months }
-        let(:eps_surprise_5_estimate) { 10_000}
+        let(:eps_surprise_5_estimate) { 10_000 }
         let(:eps_surprise_5) do
           double(
            :eps_surprise_5,
@@ -117,7 +117,7 @@ describe EarningsPresenter do
           expect(result[:estimated]).not_to include eps_surprise_1_estimate
         end
       end
-      
+
       context "Estimates are greater than Surprises" do
         let(:eps_estimate_3_average) { 300 }
         let(:eps_estimate_3_date) { eps_surprise_2_date - 10.years }

@@ -35,7 +35,7 @@ describe Api::Response do
       end
 
       context "body as hash" do
-        let(:body) { {a: "b"} }
+        let(:body) { { a: "b" } }
 
         it { is_expected.to include(a: "b") }
       end

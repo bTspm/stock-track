@@ -56,7 +56,7 @@ module Api
     private
 
     def _response_url(response)
-      url = response[:url] ||  response.env.url
+      url = response[:url] || response.env.url
       url.to_s
     end
   end

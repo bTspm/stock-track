@@ -7,7 +7,7 @@ describe Api::RaiseHttpException do
       builder.adapter :test, stubs
     }
   end
-  let(:response) { {error: "Error Message"} }
+  let(:response) { { error: "Error Message" } }
   let(:stubs) do
     Faraday::Adapter::Test::Stubs.new do |stub|
       stub.get(url) { |_env| [status, {}, response] }

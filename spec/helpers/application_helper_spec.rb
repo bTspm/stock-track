@@ -5,7 +5,7 @@ describe ApplicationHelper do
     let(:additional_classes) { double(:additional_classes) }
     let(:badge_color) { double(:badge_color) }
     let(:content) { double(:content) }
-    let(:options) { { badge_color: badge_color,  class: additional_classes} }
+    let(:options) { { badge_color: badge_color, class: additional_classes } }
 
     subject { helper.badge_format(content: content, options: options) }
 
@@ -38,7 +38,7 @@ describe ApplicationHelper do
     let(:additional_classes) { "abc" }
     let(:icon) { "icon_class" }
     let(:icon_right_flag) { false }
-    let(:options) { {class: additional_classes, icon_right: icon_right_flag} }
+    let(:options) { { class: additional_classes, icon_right: icon_right_flag } }
     let(:text) { "Text" }
 
     subject { helper.fontawesome_icon(name_icon_with_style: icon, options: options, text: text) }

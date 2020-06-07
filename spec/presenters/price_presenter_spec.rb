@@ -76,7 +76,7 @@ describe PricePresenter do
 
     describe "#source" do
       let(:badge_color) { "ABC" }
-      let(:options) { {badge_color: badge_color} }
+      let(:options) { { badge_color: badge_color } }
       subject { presenter.source }
 
       before :each do

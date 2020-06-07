@@ -49,7 +49,7 @@ class StatsPresenter
       return "N/A" if ttm_eps.blank?
 
       eps_date_content = h.content_tag :div, "next (#{_next_earnings_date})", class: "small"
-      (h.number_to_human(ttm_eps) +  eps_date_content).html_safe
+      (h.number_to_human(ttm_eps) + eps_date_content).html_safe
     end
 
     def volume_average
@@ -87,7 +87,7 @@ class StatsPresenter
     end
 
     def _next_dividend_date
-      readable_date(date:next_dividend_date)
+      readable_date(date: next_dividend_date)
     end
 
     def _next_earnings_date
@@ -108,8 +108,8 @@ class StatsPresenter
 
     def _no_week_52_range?
       week_52_low.blank? && week_52_high.blank?
-    end   
-    
+    end
+
     def _volume_10_day_average
       return "N/A" if volume_10_day_average.blank?
 

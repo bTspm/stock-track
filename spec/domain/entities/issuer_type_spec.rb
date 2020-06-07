@@ -4,7 +4,7 @@ describe Entities::IssuerType do
   it_behaves_like 'Entities::BaseEntity#initialize'
   it_behaves_like 'Entities::DbEntity.from_db_entity'
 
-  let(:args) { {code: code, id: id, name: name} }
+  let(:args) { { code: code, id: id, name: name } }
   let(:code) { double(:code) }
   let(:id) { double(:id) }
   let(:name) { double(:name) }
@@ -12,7 +12,7 @@ describe Entities::IssuerType do
   subject(:issuer_type) { described_class.new(args) }
 
   describe ".from_iex_company_response" do
-    let(:response) { {issueType: code} }
+    let(:response) { { issueType: code } }
 
     subject { described_class.from_iex_company_response(response) }
 
