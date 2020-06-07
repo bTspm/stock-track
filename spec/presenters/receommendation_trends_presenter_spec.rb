@@ -94,7 +94,11 @@ describe RecommendationTrendsPresenter do
     end
 
     def generate_object(args:, increment: 1)
-      args = args.transform_values { |v| v * increment rescue nil }
+      args = args.transform_values { |v| begin
+                                           v * increment
+                                         rescue
+                                           nil
+                                         end }
       args[:date] = Date.new(2025, 0o1, 0o1) + increment.years
       OpenStruct.new(args)
     end

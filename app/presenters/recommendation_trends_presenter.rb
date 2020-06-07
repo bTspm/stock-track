@@ -1,6 +1,6 @@
 class RecommendationTrendsPresenter
   include Btspm::Presenters::Presentable
-  MONTH_DATE_FORMAT = "%b"
+  MONTH_DATE_FORMAT = "%b".freeze
   TREND_COUNT = 5
 
   class Scalar < Btspm::Presenters::ScalarPresenter

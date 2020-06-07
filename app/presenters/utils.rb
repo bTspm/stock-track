@@ -1,7 +1,7 @@
 module Utils
-  DEFAULT_DATE_FORMAT = "%b %d, %Y"
-  DEFAULT_DATETIME_FORMAT = "%b %d, %Y %-l:%M:%S %p"
-  DEFAULT_TIME_ZONE = "Eastern Time (US & Canada)"
+  DEFAULT_DATE_FORMAT = "%b %d, %Y".freeze
+  DEFAULT_DATETIME_FORMAT = "%b %d, %Y %-l:%M:%S %p".freeze
+  DEFAULT_TIME_ZONE = "Eastern Time (US & Canada)".freeze
 
   def format_percentage(percentage)
     percentage.blank? ? "N/A" : "#{(percentage * 100).round(2)}%"

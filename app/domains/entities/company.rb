@@ -50,7 +50,7 @@ module Entities
         address: Entities::Address.from_db_entity(entity.address),
         exchange: Entities::Exchange.from_db_entity(entity.exchange),
         executives: entity.company_executives.map { |executive| Entities::CompanyExecutive.from_db_entity(executive) },
-        issuer_type: Entities::IssuerType.from_db_entity(entity.issuer_type),
+        issuer_type: Entities::IssuerType.from_db_entity(entity.issuer_type)
       ).with_indifferent_access
     end
   end

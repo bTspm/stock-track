@@ -1,6 +1,6 @@
 module StocksHelper
   def content_color_by_value(content: nil, value:)
-    content = content || value
+    content ||= value
     return negative_content(content) if value.negative?
     return positive_content(content) if value.positive?
 

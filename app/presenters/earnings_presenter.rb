@@ -13,7 +13,7 @@ class EarningsPresenter
     def _categories
       dates = _eps_surprises.map(&:date)
       dates += _eps_estimates.map(&:date) if _eps_estimates
-      dates.map { |date| "Q#{date.quarter}<br>#{date.year.to_s}" }
+      dates.map { |date| "Q#{date.quarter}<br>#{date.year}" }
     end
 
     def _eps_estimates

@@ -1,7 +1,6 @@
 module Services
   extend ActiveSupport::Concern
   included do
-
     def company_service
       @company_service ||= CompanyService.new
     end

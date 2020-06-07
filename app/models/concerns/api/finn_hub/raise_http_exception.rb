@@ -5,7 +5,11 @@ module Api
 
       def call(env)
         response = super
-        response_body = JSON.parse(response.body) rescue nil
+        response_body = begin
+                          JSON.parse(response.body)
+                        rescue
+                          nil
+                        end
         return response if response_body
 
         _error_based_on_response(response)

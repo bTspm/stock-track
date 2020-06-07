@@ -1,6 +1,6 @@
 class TimeSeriesRequest
   DAY1 = "1day".freeze
-  DATE_FORMAT = "%Y-%m-%d %H:%M:%S"
+  DATE_FORMAT = "%Y-%m-%d %H:%M:%S".freeze
   DEFAULT_INTERVAL = DAY1
 
   attr_reader :end_datetime,

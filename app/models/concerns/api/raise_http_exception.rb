@@ -34,7 +34,11 @@ module Api
 
     def _error_body(body)
       parsed_body = JSON.parse(body.to_json)
-      message = parsed_body["error"] rescue nil
+      message = begin
+                  parsed_body["error"]
+                rescue
+                  nil
+                end
       message.presence || parsed_body.to_s.presence || "Something went wrong"
     end
 

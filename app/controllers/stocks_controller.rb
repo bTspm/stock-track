@@ -1,6 +1,5 @@
 class StocksController < ApplicationController
-  def home
-  end
+  def home; end
 
   def news
     news = present(stock_service.news_by_symbol(params[:symbol]), NewsPresenter)

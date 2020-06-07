@@ -1,8 +1,8 @@
 class PricePresenter
   include Btspm::Presenters::Presentable
   EXTENDED = "Extended".freeze
-  EXTENDED_BADGE = "badge-warning"
-  NOT_EXTENDED_BADGE = "badge-info"
+  EXTENDED_BADGE = "badge-warning".freeze
+  NOT_EXTENDED_BADGE = "badge-info".freeze
 
   class Scalar < Btspm::Presenters::ScalarPresenter
     include Utils

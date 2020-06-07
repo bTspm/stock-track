@@ -34,7 +34,7 @@ describe CompanyBuilder do
         exchange_id: exchange_id,
         executives: executives,
         issuer_type_id: issuer_type_id,
-        line_1: line_1,
+        line_1: line_1
       )
     end
     let(:issuer_type_id) { double(:issuer_type_id) }

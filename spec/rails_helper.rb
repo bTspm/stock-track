@@ -73,7 +73,7 @@ RSpec.configure do |config|
   # config.filter_gems_from_backtrace("gem name)
 end
 
-FIXTURE_PATH = "#{::Rails.root}/spec/fixtures"
+FIXTURE_PATH = "#{::Rails.root}/spec/fixtures".freeze
 
 def json_fixture(path)
   file = File.read(File.join(FIXTURE_PATH, path))
