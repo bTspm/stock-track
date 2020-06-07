@@ -1,8 +1,8 @@
 require "rails_helper"
 
 describe Entities::IssuerType do
-  it_behaves_like 'Entities::BaseEntity#initialize'
-  it_behaves_like 'Entities::DbEntity.from_db_entity'
+  it_behaves_like "Entities::BaseEntity#initialize"
+  it_behaves_like "Entities::DbEntity.from_db_entity"
 
   let(:args) { { code: code, id: id, name: name } }
   let(:code) { double(:code) }

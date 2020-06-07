@@ -1,4 +1,4 @@
-shared_examples_for 'Entities::BaseEntity#initialize' do
+shared_examples_for "Entities::BaseEntity#initialize" do
   subject { described_class.new(args) }
 
   it { is_expected.to be_kind_of described_class }

@@ -13,7 +13,7 @@ module ApplicationHelper
     content_class << " #{options[:class]}" if options.key?(:class)
     options[:class] = content_class
     icon_right = options.delete(:icon_right)
-    html = ''
+    html = ""
 
     if icon_right
       html << text.to_s unless text.blank?

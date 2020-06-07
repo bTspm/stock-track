@@ -1,7 +1,7 @@
 require "rails_helper"
 
 describe Entities::EpsSurprise do
-  it_behaves_like 'Entities::BaseEntity#initialize'
+  it_behaves_like "Entities::BaseEntity#initialize"
 
   let(:args) { { actual: actual, date: date, estimate: estimate } }
   let(:actual) { double(:actual) }

@@ -1,9 +1,9 @@
 require "rails_helper"
 
 describe CompanyBuilder do
-  it_behaves_like 'BaseBuilder#initialize'
-  it_behaves_like 'BaseBuilder.build'
-  it_behaves_like 'BaseBuilder#build_base_entity_from_domain'
+  it_behaves_like "BaseBuilder#initialize"
+  it_behaves_like "BaseBuilder.build"
+  it_behaves_like "BaseBuilder#build_base_entity_from_domain"
 
   let(:builder) { double(:builder) }
   let(:db_address) { double(:db_address) }

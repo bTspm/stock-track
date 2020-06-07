@@ -62,10 +62,10 @@ gem "btspm"
 gem "elasticsearch"
 
 group :test do
-  gem 'capybara'
+  gem "capybara"
   gem "simplecov"
   gem "rspec-rails"
   gem "rspec"
 end
 
-gem 'sidekiq'
+gem "sidekiq"

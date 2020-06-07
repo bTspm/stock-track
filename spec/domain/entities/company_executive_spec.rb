@@ -1,8 +1,8 @@
 require "rails_helper"
 
 describe Entities::CompanyExecutive do
-  it_behaves_like 'Entities::BaseEntity#initialize'
-  it_behaves_like 'Entities::DbEntity.from_db_entity'
+  it_behaves_like "Entities::BaseEntity#initialize"
+  it_behaves_like "Entities::DbEntity.from_db_entity"
 
   let(:args) do
     {
@@ -23,8 +23,8 @@ describe Entities::CompanyExecutive do
 
   subject(:company_executive) { described_class.new(args) }
 
-  context 'properties' do
-    context 'when titles are nil' do
+  context "properties" do
+    context "when titles are nil" do
       let(:titles) { nil }
 
       subject { company_executive.titles }

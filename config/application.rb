@@ -1,4 +1,4 @@
-require_relative 'boot'
+require_relative "boot"
 
 require "rails"
 # Pick the frameworks you want:
@@ -18,12 +18,12 @@ require "sprockets/railtie"
 Bundler.require(*Rails.groups)
 
 if defined? Dotenv
-  require 'dotenv/load'
+  require "dotenv/load"
   Dotenv::Railtie.load
 end
 
 
-HOSTNAME = ENV['HOSTNAME']
+HOSTNAME = ENV["HOSTNAME"]
 
 RenderAsync.configuration.jquery = true
 
@@ -40,6 +40,6 @@ module StockTrack1
     # Don't generate system test files.
     config.generators.system_tests = nil
 
-    config.eager_load_paths << Rails.root.join('lib')
+    config.eager_load_paths << Rails.root.join("lib")
   end
 end

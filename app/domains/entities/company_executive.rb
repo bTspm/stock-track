@@ -31,7 +31,7 @@ module Entities
     def self._title_format(title_string)
       return [] if title_string.blank?
 
-      title_string.split(',').map(&:strip)
+      title_string.split(",").map(&:strip)
     end
 
     private_class_method :_title_format

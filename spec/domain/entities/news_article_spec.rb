@@ -1,7 +1,7 @@
 require "rails_helper"
 
 describe Entities::NewsArticle do
-  it_behaves_like 'Entities::BaseEntity#initialize'
+  it_behaves_like "Entities::BaseEntity#initialize"
 
   let(:args) do
     {
