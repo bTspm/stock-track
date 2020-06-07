@@ -2,10 +2,10 @@ require "rails_helper"
 
 describe Api::TwelveData::RaiseHttpException do
   let(:conn) do
-    Faraday.new { |builder|
+    Faraday.new do |builder|
       builder.use described_class
       builder.adapter :test, stubs
-    }
+    end
   end
   let(:status) { 200 }
   let(:stubs) do
