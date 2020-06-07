@@ -3,14 +3,14 @@ require "rails_helper"
 describe EarningsPresenter do
   describe ".scalar" do
     let(:eps_estimate_1_average) { 100 }
-    let(:eps_estimate_1_date) { Date.new(2020, 10, 01) }
+    let(:eps_estimate_1_date) { Date.new(2020, 10, 0o1) }
     let(:eps_estimate_1) { double(:eps_estimate_1, average: eps_estimate_1_average, date: eps_estimate_1_date) }
     let(:eps_estimate_2_average) { 200 }
-    let(:eps_estimate_2_date) { Date.new(2020, 07, 01) }
+    let(:eps_estimate_2_date) { Date.new(2020, 0o7, 0o1) }
     let(:eps_estimate_2) { double(:eps_estimate_2, average: eps_estimate_2_average, date: eps_estimate_2_date) }
     let(:eps_estimates) { [eps_estimate_1, eps_estimate_2] }
     let(:eps_surprise_1_actual) { 1_000 }
-    let(:eps_surprise_1_date) { Date.new(2020, 01, 01) }
+    let(:eps_surprise_1_date) { Date.new(2020, 0o1, 0o1) }
     let(:eps_surprise_1_estimate) { 3_000 }
     let(:eps_surprise_1) do
       double(
@@ -21,7 +21,7 @@ describe EarningsPresenter do
       )
     end
     let(:eps_surprise_2_actual) { 2_000 }
-    let(:eps_surprise_2_date) { Date.new(2020, 04, 01) }
+    let(:eps_surprise_2_date) { Date.new(2020, 0o4, 0o1) }
     let(:eps_surprise_2_estimate) { 4_000 }
     let(:eps_surprise_2) do
       double(
@@ -63,7 +63,7 @@ describe EarningsPresenter do
 
       context "Max of 2 Estimates" do
         let(:eps_estimate_3_average) { 300 }
-        let(:eps_estimate_3_date) { Date.new(3030, 07, 01) }
+        let(:eps_estimate_3_date) { Date.new(3030, 0o7, 0o1) }
         let(:eps_estimate_3) { double(:eps_estimate_3, average: eps_estimate_3_average, date: eps_estimate_3_date) }
         let(:eps_estimates) { [eps_estimate_1, eps_estimate_2, eps_estimate_3] }
         it "expect to return estimates only 2" do

@@ -31,7 +31,7 @@ describe Entities::RecommendationTrend do
        strong_sell: 0
       }
     end
-    let(:converted_date) { Date.new(2020, 04, 01) }
+    let(:converted_date) { Date.new(2020, 0o4, 0o1) }
     let!(:response) { json_fixture("/api_responses/finn_hub/recommendation_trends.json").last }
 
     subject { described_class.from_finn_hub_response(response) }

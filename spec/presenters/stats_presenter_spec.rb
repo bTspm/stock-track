@@ -29,8 +29,8 @@ describe StatsPresenter do
     let(:market_cap) { 300_000 }
     let(:moving_200_day_average) { 377_000 }
     let(:moving_50_day_average) { 277_000 }
-    let(:next_dividend_date) { Date.new(2020, 05, 01) }
-    let(:next_earnings_date) { Date.new(2020, 06, 01) }
+    let(:next_dividend_date) { Date.new(2020, 0o5, 0o1) }
+    let(:next_earnings_date) { Date.new(2020, 0o6, 0o1) }
     let(:pe_ratio) { double(:pe_ratio) }
     let(:shares_outstanding) { 2_000 }
     let(:ttm_dividend_rate) { 500.2345 }

@@ -37,7 +37,7 @@ describe Entities::NewsArticle do
        url: "https://cloud.iexapis.com/v1/news/article/4f8d347e-62b0-4a79-bd10-183fa469ce05"
       }
     end
-    let(:converted_datetime) { DateTime.new(2020, 01, 01, 00, 00, 00) }
+    let(:converted_datetime) { DateTime.new(2020, 0o1, 0o1, 0o0, 0o0, 0o0) }
     let!(:response) { json_fixture("/api_responses/iex/news.json").last }
 
     subject { described_class.from_iex_response(response) }

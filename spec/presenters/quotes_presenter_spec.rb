@@ -30,12 +30,12 @@ describe QuotesPresenter do
     let(:extended_change) { 1_000 }
     let(:extended_change_percent) { 2_000 }
     let(:extended_price) { 3_000 }
-    let(:extended_time) { DateTime.new(2020, 06, 01, 05, 00, 00) }
+    let(:extended_time) { DateTime.new(2020, 0o6, 0o1, 0o5, 0o0, 0o0) }
     let(:high) { 300_000 }
     let(:is_us_market_open) { true }
     let(:latest_price) { 400_000 }
     let(:latest_source) { "Source Name" }
-    let(:latest_update) { DateTime.new(2020, 05, 01, 05, 00, 00) }
+    let(:latest_update) { DateTime.new(2020, 0o5, 0o1, 0o5, 0o0, 0o0) }
     let(:latest_volume) { 500_000 }
     let(:low) { 600_000 }
     let(:object) { double(:object, args) }

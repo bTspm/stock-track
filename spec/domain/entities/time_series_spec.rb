@@ -31,7 +31,7 @@ describe Entities::TimeSeries do
        volume: 41818400
       }
     end
-    let(:converted_datetime) { DateTime.new(2020, 05, 14, 00, 00, 00) }
+    let(:converted_datetime) { DateTime.new(2020, 0o5, 14, 0o0, 0o0, 0o0) }
     let!(:response) { json_fixture("/api_responses/twelve_data/time_series.json").last }
 
     subject { described_class.from_twelve_data_response(response) }

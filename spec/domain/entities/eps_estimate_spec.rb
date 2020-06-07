@@ -28,7 +28,7 @@ describe Entities::EpsEstimate do
        low: 3.2046
       }
     end
-    let(:converted_date) { Date.new(2022, 06, 30) }
+    let(:converted_date) { Date.new(2022, 0o6, 30) }
     let!(:response) { json_fixture("/api_responses/finn_hub/eps_estimates.json").last }
 
     subject { described_class.from_finn_hub_response(response) }

@@ -2,10 +2,10 @@ require "rails_helper"
 
 describe TimeSeriesRequest do
   let(:args) { { end_datetime: end_date, interval: interval, start_datetime: start_date, symbol: symbol } }
-  let(:date) { DateTime.new(2020, 01, 01) }
+  let(:date) { DateTime.new(2020, 0o1, 0o1) }
   let(:end_date) { date }
   let(:interval) { double(:interval) }
-  let(:start_date) { DateTime.new(2010, 01, 01) }
+  let(:start_date) { DateTime.new(2010, 0o1, 0o1) }
   let(:symbol) { double(:symbol) }
 
   subject(:time_series_request) { described_class.new(args) }
@@ -30,7 +30,7 @@ describe TimeSeriesRequest do
 
       context "default args" do
         let(:default_end_date) { date.end_of_day }
-        let(:default_start_date) { DateTime.new(2019, 12, 01).end_of_day }
+        let(:default_start_date) { DateTime.new(2019, 12, 0o1).end_of_day }
         let(:end_date) { nil }
         let(:interval) { nil }
         let(:start_date) { nil }
@@ -59,7 +59,7 @@ describe TimeSeriesRequest do
   end
 
   describe ".five_year" do
-    let(:start_date) { DateTime.new(2014, 01, 01).end_of_day }
+    let(:start_date) { DateTime.new(2014, 0o1, 0o1).end_of_day }
     let(:symbol) { double(:symbol) }
 
     subject { described_class.five_year(symbol) }

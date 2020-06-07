@@ -61,7 +61,7 @@ describe Entities::Stats do
        week_52_low: 170.27
       }
     end
-    let(:converted_date) { Date.new(2020, 07, 28) }
+    let(:converted_date) { Date.new(2020, 0o7, 28) }
     let!(:response) { json_fixture("/api_responses/iex/stats.json") }
 
     subject { described_class.from_iex_response(response) }

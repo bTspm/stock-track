@@ -67,8 +67,8 @@ describe Entities::Quote do
        volume: 42108051,
       }
     end
-    let(:converted_datetime) { DateTime.new(2020, 01, 01, 00, 00, 00) }
-    let(:converted_date) { Date.new(2020, 01, 01) }
+    let(:converted_datetime) { DateTime.new(2020, 0o1, 0o1, 0o0, 0o0, 0o0) }
+    let(:converted_date) { Date.new(2020, 0o1, 0o1) }
     let!(:response) { json_fixture("/api_responses/iex/quote.json") }
 
     subject { described_class.from_iex_response(response) }

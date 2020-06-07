@@ -2,7 +2,7 @@ require "rails_helper"
 
 describe RecommendationTrendsPresenter do
   describe ".scalar" do
-    let(:date) { Date.new(2020, 05, 01) }
+    let(:date) { Date.new(2020, 0o5, 0o1) }
     let(:object) { double(:object, date: date) }
 
     subject(:presenter) { described_class::Scalar.new(object, view_context) }
@@ -26,7 +26,7 @@ describe RecommendationTrendsPresenter do
       }
     end
     let(:buy) { 100 }
-    let(:date) { Date.new(2020, 01, 01) }
+    let(:date) { Date.new(2020, 0o1, 0o1) }
     let(:object) { double(:object, args) }
     let(:hold) { 200 }
     let(:sell) { 300 }
@@ -44,7 +44,7 @@ describe RecommendationTrendsPresenter do
       }
     end
     let(:buy_1) { 1_000 }
-    let(:date_1) { Date.new(2021, 01, 01) }
+    let(:date_1) { Date.new(2021, 0o1, 0o1) }
     let(:hold_1) { 2_000 }
     let(:sell_1) { 3_000 }
     let(:strong_buy_1) { 4_000 }
@@ -95,7 +95,7 @@ describe RecommendationTrendsPresenter do
 
     def generate_object(args:, increment: 1)
       args = args.transform_values { |v| v * increment rescue nil }
-      args[:date] = Date.new(2025, 01, 01) + increment.years
+      args[:date] = Date.new(2025, 0o1, 0o1) + increment.years
       OpenStruct.new(args)
     end
   end

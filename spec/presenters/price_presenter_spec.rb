@@ -8,7 +8,7 @@ describe PricePresenter do
        change: change,
        change_percent: change_percent,
        source: source,
-       time: DateTime.new(2020, 05, 01)
+       time: DateTime.new(2020, 0o5, 0o1)
       }
     end
     let(:change) { 2_000 }

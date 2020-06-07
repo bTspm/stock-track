@@ -40,7 +40,7 @@ describe Utils do
   end
 
   describe "#readable_date" do
-    let(:date) { Date.new(2020, 05, 01) }
+    let(:date) { Date.new(2020, 0o5, 0o1) }
 
     subject { dummy_class.readable_date(date: date) }
 
@@ -66,7 +66,7 @@ describe Utils do
   end
 
   describe "#readable_datetime" do
-    let(:datetime) { DateTime.new(2020, 05, 01) }
+    let(:datetime) { DateTime.new(2020, 0o5, 0o1) }
 
     subject { dummy_class.readable_datetime(datetime: datetime) }
 

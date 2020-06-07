@@ -2,7 +2,7 @@ require "rails_helper"
 
 describe TimeSeriesPresenter do
   describe ".scalar" do
-    let(:args) { { close: 100, datetime: DateTime.new(2020, 05, 01) } }
+    let(:args) { { close: 100, datetime: DateTime.new(2020, 0o5, 0o1) } }
     let(:object) { double(:object, args) }
 
     subject(:presenter) { described_class::Scalar.new(object, view_context) }
@@ -15,8 +15,8 @@ describe TimeSeriesPresenter do
   end
 
   describe ".enum" do
-    let(:args) { { close: 200, datetime: DateTime.new(2020, 05, 01) } }
-    let(:args_1) { { close: 100, datetime: DateTime.new(2030, 05, 01) } }
+    let(:args) { { close: 200, datetime: DateTime.new(2020, 0o5, 0o1) } }
+    let(:args_1) { { close: 100, datetime: DateTime.new(2030, 0o5, 0o1) } }
     let(:object) { double(:object, args) }
     let(:object_1) { double(:object_1, args_1) }
     let(:objects) { [object, object_1] }
