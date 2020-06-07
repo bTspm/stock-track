@@ -1,23 +1,24 @@
 module Api
   module Iex
     class Client < ::Api::BaseClient
+      DEFAULT_NEWS_COUNT = 4
+
       def exchanges
         get "#{_ref_data_url}/exchanges?token=#{_key}"
       end
 
-      def information_by_symbols(symbols:, options: {})
+      def information_by_symbols(symbols:, options:)
         get _build_url(symbols: symbols, options: options)
       end
 
-      def news_by_symbol(symbol:, count: 4)
+      def news_by_symbol(symbol:, count: DEFAULT_NEWS_COUNT)
         get "#{_url}/#{symbol}/news/last/#{count}?token=#{_key}"
       end
 
       private
 
-      def _build_url(symbols:, options: {})
-        types = options[:types] || "quote,stats"
-        "#{_url}/market/batch?token=#{_key}&symbols=#{symbols}&types=#{types}"
+      def _build_url(symbols:, options:)
+        "#{_url}/market/batch?token=#{_key}&symbols=#{symbols}&types=#{options[:types]}"
       end
 
       def _key

@@ -4,6 +4,13 @@ require 'capybara/rspec'
 
 ENV['RAILS_ENV'] ||= 'test'
 
+require 'dotenv'
+Dotenv.load(
+ '.env.local',
+ '.env.test',
+ '.env'
+)
+
 require 'simplecov'
 SimpleCov.start do
   add_filter '/bin/'

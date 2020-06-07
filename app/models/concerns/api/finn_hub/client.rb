@@ -5,12 +5,12 @@ module Api
         get "#{_url}/executive?symbol=#{_format_symbol(symbol)}&token=#{_key}"
       end
 
-      def eps_surprises(symbol)
-        get "#{_url}/earnings?symbol=#{_format_symbol(symbol)}&token=#{_key}"
-      end
-
       def eps_estimates(symbol)
         get "#{_url}/eps-estimate?symbol=#{_format_symbol(symbol)}&token=#{_key}"
+      end
+
+      def eps_surprises(symbol)
+        get "#{_url}/earnings?symbol=#{_format_symbol(symbol)}&token=#{_key}"
       end
 
       def recommendation_trends(symbol)

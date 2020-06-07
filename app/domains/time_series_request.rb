@@ -3,23 +3,23 @@ class TimeSeriesRequest
   DATE_FORMAT = "%Y-%m-%d %H:%M:%S"
   DEFAULT_INTERVAL = DAY1
 
-  attr_reader :end_date_with_time,
+  attr_reader :end_datetime,
               :interval,
-              :start_date_with_time,
+              :start_datetime,
               :symbol
 
   def initialize(args = {})
-    @end_date_with_time = args[:end_date_with_time] || _default_end_time
+    @end_datetime = args[:end_datetime] || _default_end_time
     @interval = args[:interval] || DEFAULT_INTERVAL
-    @start_date_with_time = args[:start_date_with_time] || _default_start_date
+    @start_datetime = args[:start_datetime] || _default_start_date
     @symbol = args[:symbol]
   end
 
   def to_options
     {
-     end_date_with_time: @end_date_with_time.strftime(DATE_FORMAT),
+     end_datetime: @end_datetime.strftime(DATE_FORMAT),
      interval: @interval,
-     start_date_with_time: @start_date_with_time.strftime(DATE_FORMAT),
+     start_datetime: @start_datetime.strftime(DATE_FORMAT),
      symbol: @symbol
     }
   end
@@ -27,8 +27,8 @@ class TimeSeriesRequest
   def self.five_year(symbol)
     end_date = DateTime.now.end_of_day
     args = {
-     end_date_with_time: end_date,
-     start_date_with_time: end_date - 6.years,
+     end_datetime: end_date,
+     start_datetime: end_date - 6.years,
      interval: DAY1,
      symbol: symbol,
     }

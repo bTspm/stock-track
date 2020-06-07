@@ -1,7 +1,7 @@
 module Api
   module FinnHub
     class RaiseHttpException < Api::RaiseHttpException
-      PREMIUM_ERROR_MESSAGE = "You don't have access to this resource."
+      PREMIUM_ERROR_MESSAGE = "You don't have access to this resource.".freeze
 
       def call(env)
         response = super
@@ -14,8 +14,8 @@ module Api
       protected
 
       def _error_message(response)
-        message = _error_body(response.body)
-        Rails.logger.error("Error: #{response.env.url.to_s}: #{message}")
+        message = response.body
+        Rails.logger.error("Error: #{_response_url(response)}: #{message}")
         message
       end
 
@@ -23,7 +23,9 @@ module Api
 
       def _error_based_on_response(response)
         message = _error_body(response.body)
-        _error_premium_data(response) if message == PREMIUM_ERROR_MESSAGE
+        if message == PREMIUM_ERROR_MESSAGE
+          _error_by_status_response(response: response, exception: ApiExceptions::PremiumDataError)
+        end
       end
     end
   end

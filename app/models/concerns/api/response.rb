@@ -1,14 +1,12 @@
 module Api
   class Response
-
     attr_reader :body,
                 :headers,
                 :status,
                 :success
 
     def initialize(response)
-      @response = response
-      @body = _build_body
+      @body = _build_body(response.body)
       @headers = response.headers
       @status = response.status
       @success = response.success?
@@ -16,12 +14,11 @@ module Api
 
     private
 
-    def _build_body
-      body = JSON.parse(@response.body)
+    def _build_body(body)
       if body.is_a? Hash
         body.with_indifferent_access
       elsif body.is_a? Array
-        body.map(&:with_indifferent_access)
+        body.map { |datum| datum.is_a?(Hash) ? datum.with_indifferent_access : datum }
       else
         body
       end

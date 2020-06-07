@@ -1,7 +1,7 @@
 require "rails_helper"
 
 describe TimeSeriesRequest do
-  let(:args) { {end_date_with_time: end_date, interval: interval, start_date_with_time: start_date, symbol: symbol} }
+  let(:args) { {end_datetime: end_date, interval: interval, start_datetime: start_date, symbol: symbol} }
   let(:date) { DateTime.new(2020, 01, 01) }
   let(:end_date) { date }
   let(:interval) { double(:interval) }
@@ -21,9 +21,9 @@ describe TimeSeriesRequest do
       context "with args" do
         it "expect to return object with properties" do
           result = time_series_request
-          expect(result.end_date_with_time).to eq end_date
+          expect(result.end_datetime).to eq end_date
           expect(result.interval).to eq interval
-          expect(result.start_date_with_time).to eq start_date
+          expect(result.start_datetime).to eq start_date
           expect(result.symbol).to eq symbol
         end
       end
@@ -37,9 +37,9 @@ describe TimeSeriesRequest do
 
         it "expect to return object with default properties" do
           result = subject
-          expect(result.end_date_with_time).to eq default_end_date
+          expect(result.end_datetime).to eq default_end_date
           expect(result.interval).to eq described_class::DAY1
-          expect(result.start_date_with_time).to eq default_start_date
+          expect(result.start_datetime).to eq default_start_date
           expect(result.symbol).to eq symbol
         end
       end
@@ -51,9 +51,9 @@ describe TimeSeriesRequest do
 
     it "expect to return a hash with options" do
       result = subject
-      expect(result).to include(end_date_with_time: "2020-01-01 00:00:00")
+      expect(result).to include(end_datetime: "2020-01-01 00:00:00")
       expect(result).to include(interval: interval)
-      expect(result).to include(start_date_with_time: "2010-01-01 00:00:00")
+      expect(result).to include(start_datetime: "2010-01-01 00:00:00")
       expect(result).to include(symbol: symbol)
     end
   end
@@ -66,9 +66,9 @@ describe TimeSeriesRequest do
 
     it "expect to initialize a request" do
       result = subject
-      expect(result.end_date_with_time).to eq date.end_of_day
+      expect(result.end_datetime).to eq date.end_of_day
       expect(result.interval).to eq described_class::DAY1
-      expect(result.start_date_with_time).to eq start_date
+      expect(result.start_datetime).to eq start_date
       expect(result.symbol).to eq symbol
     end
   end

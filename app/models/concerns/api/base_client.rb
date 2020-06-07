@@ -1,17 +1,14 @@
 module Api
   class BaseClient
-    def initialize(&block)
-      @conn = if block_given?
-                Faraday.new(&block)
-              else
-                Faraday.new do |conn|
-                  conn.request :json
-                  # conn.request :url_encoded
-                  conn.response :logger
-                  conn.use _response_handler
-                  conn.adapter _adapter
-                end
-              end
+    def initialize
+      @conn = Faraday.new do |builder|
+        builder.request :json
+        builder.response :json
+        builder.request :url_encoded
+        builder.response :logger
+        builder.use _response_handler
+        builder.adapter _adapter
+      end
     end
 
     def get(url)
