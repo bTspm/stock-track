@@ -21,7 +21,6 @@ describe Api::TwelveData::Client do
 
     subject { client.time_series(options) }
 
-
     context "without start and end datetime" do
       let(:end_datetime) { nil }
       let(:start_datetime) { nil }

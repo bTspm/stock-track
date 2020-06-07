@@ -22,7 +22,6 @@ if defined? Dotenv
   Dotenv::Railtie.load
 end
 
-
 HOSTNAME = ENV["HOSTNAME"]
 
 RenderAsync.configuration.jquery = true
