@@ -15,13 +15,14 @@ module Api
     private
 
     def _build_body(body)
-      if body.is_a? Hash
-        body.with_indifferent_access
-      elsif body.is_a? Array
-        body.map { |datum| datum.is_a?(Hash) ? datum.with_indifferent_access : datum }
-      else
-        body
-      end
+      return body.with_indifferent_access if body.is_a? Hash
+      return _handle_array(body) if body.is_a? Array
+
+      body
+    end
+
+    def _handle_array(body)
+      body.map { |datum| datum.is_a?(Hash) ? datum.with_indifferent_access : datum }
     end
   end
 end
