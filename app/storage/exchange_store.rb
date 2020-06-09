@@ -1,5 +1,6 @@
 class ExchangeStore
   include Allocator::ApiClients
+  include Cacheable
 
   def create_or_update_exchanges
     exchanges_response = iex_client.exchanges
@@ -7,11 +8,15 @@ class ExchangeStore
   end
 
   def by_id(id)
-    Entities::Exchange.from_db_entity(Exchange.find(id))
+    fetch_cached(key: "#{self.class.name}/#{__method__}/#{id}") do
+      Entities::Exchange.from_db_entity(Exchange.find(id))
+    end
   end
 
   def by_name(name)
-    Entities::Exchange.from_db_entity(Exchange.where(name: name).first)
+    fetch_cached(key: "#{self.class.name}/#{__method__}/#{name}") do
+      Entities::Exchange.from_db_entity(Exchange.where(name: name).first)
+    end
   end
 
   private

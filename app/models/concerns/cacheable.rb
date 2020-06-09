@@ -1,10 +1,12 @@
 module Cacheable
-  def expiry
-    1.hour
+  def fetch_cached(key:, opts: {}, &block)
+    opts[:expires_in] ||= _expiry
+    Rails.cache.fetch(key, opts, &block)
   end
 
-  def fetch_cached(key, opts = {}, &block)
-    opts[:expires_in] ||= expiry
-    Rails.cache.fetch(key, opts, &block)
+  protected
+
+  def _expiry
+    8.hours
   end
 end
