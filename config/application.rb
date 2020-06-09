@@ -40,5 +40,8 @@ module StockTrack1
     config.generators.system_tests = nil
 
     config.eager_load_paths << Rails.root.join("lib")
+
+    #gzip
+    config.middleware.use Rack::Deflater
   end
 end
