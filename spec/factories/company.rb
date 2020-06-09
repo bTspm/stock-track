@@ -5,7 +5,7 @@ FactoryBot.define do
     issuer_type
 
     description { "Test" }
-    employees { 137000 }
+    employees { 137_000 }
     industry { "Telecommunications Equipment" }
     name { "Apple} Inc." }
     phone { "1.408.996.1010" }

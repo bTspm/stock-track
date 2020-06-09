@@ -1,7 +1,7 @@
 require "rails_helper"
 
 describe Exchange, type: :model do
-  describe 'associations' do
+  describe "associations" do
     context "belongs_to" do
       it { should have_many(:companies) }
     end

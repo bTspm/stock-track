@@ -1,7 +1,7 @@
 require "rails_helper"
 
 describe CompanyExecutive, type: :model do
-  describe 'associations' do
+  describe "associations" do
     context "belongs_to" do
       it { should belong_to(:company).required.dependent(:destroy) }
     end

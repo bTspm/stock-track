@@ -3,7 +3,7 @@ class TimeSeriesStore
   include Cacheable
 
   def by_symbol_from_twelve_data(options)
-    fetch_cached(key: "#{self.class.name}/#{__method__}/#{options.to_s}") do
+    fetch_cached(key: "#{self.class.name}/#{__method__}/#{options}") do
       response = twelve_data_client.time_series(options)
       response.body[:values].map do |time_series_response|
         Entities::TimeSeries.from_twelve_data_response(time_series_response)

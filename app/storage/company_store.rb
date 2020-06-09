@@ -16,8 +16,8 @@ class CompanyStore
   def by_symbol(symbol)
     fetch_cached(key: "#{self.class.name}/#{__method__}/#{symbol}") do
       company = ::Company.includes(:address, :company_executives, :exchange, :issuer_type)
-                  .references(:address, :company_executives, :exchange, :issuer_type)
-                  .where(symbol: symbol).first
+                         .references(:address, :company_executives, :exchange, :issuer_type)
+                         .where(symbol: symbol).first
       Entities::Company.from_db_entity(company)
     end
   end
