@@ -1,6 +1,7 @@
 # This file is copied to spec/ when you run 'rails generate rspec:install'
 require "spec_helper"
 require "capybara/rspec"
+require "factory_bot"
 
 ENV["RAILS_ENV"] ||= "test"
 
@@ -71,6 +72,19 @@ RSpec.configure do |config|
   config.filter_rails_from_backtrace!
   # arbitrary gems may also be filtered via:
   # config.filter_gems_from_backtrace("gem name)
+
+  config.include FactoryBot::Syntax::Methods
+
+  config.before(:suite) do
+    DatabaseCleaner.strategy = :transaction
+    DatabaseCleaner.clean_with(:truncation)
+  end
+
+  config.around(:each) do |example|
+    DatabaseCleaner.cleaning do
+      example.run
+    end
+  end
 end
 
 FIXTURE_PATH = "#{::Rails.root}/spec/fixtures".freeze
@@ -95,4 +109,11 @@ def view_context
   view_context.class.include(StocksHelper)
   view_context.class.include(Rails.application.routes.url_helpers)
   @view_context ||= view_context
+end
+
+Shoulda::Matchers.configure do |config|
+  config.integrate do |with|
+    with.test_framework :rspec
+    with.library :rails
+  end
 end
