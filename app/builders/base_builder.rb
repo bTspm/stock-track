@@ -1,14 +1,12 @@
 class BaseBuilder
-  attr_accessor :db_entity
 
   def initialize(db_entity = nil)
     @db_entity = db_entity || _model_class.new
   end
 
-  def self.build(db_entity = nil)
-    builder = new(db_entity)
-    yield(builder)
-    builder.db_entity
+  def build
+    yield(self)
+    @db_entity
   end
 
   def build_base_entity_from_domain(domain_entity)

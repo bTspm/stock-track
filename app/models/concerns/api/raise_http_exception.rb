@@ -1,20 +1,20 @@
 module Api
   class RaiseHttpException < Faraday::Middleware
     ERROR_STATUS_MAPPING = {
-      "400": ApiExceptions::BadRequest,
-      "401": ApiExceptions::Unauthorized,
-      "402": ApiExceptions::PremiumDataError,
-      "403": ApiExceptions::Forbidden,
-      "404": ApiExceptions::NotFound,
-      "413": ApiExceptions::RequestBig,
-      "414": ApiExceptions::RequestBig,
-      "429": ApiExceptions::TooManyRequests,
-      "500": ApiExceptions::InternalServerError
+      400 => ApiExceptions::BadRequest,
+      401 => ApiExceptions::Unauthorized,
+      402 => ApiExceptions::PremiumDataError,
+      403 => ApiExceptions::Forbidden,
+      404 => ApiExceptions::NotFound,
+      413 => ApiExceptions::RequestBig,
+      414 => ApiExceptions::RequestBig,
+      429 => ApiExceptions::TooManyRequests,
+      500 => ApiExceptions::InternalServerError
     }.with_indifferent_access
 
     def call(env)
       @app.call(env).on_complete do |response|
-        status = response[:status].to_s
+        status = response[:status].to_i
         if _error_status_codes.include? status
           _error_by_status_response(response: response, status: status)
         else
@@ -28,17 +28,17 @@ module Api
     def _error_by_status_response(response:, exception: nil, status: nil)
       return if status.blank? && exception.blank?
 
-      exception ||= _error_exception_mapping[status.to_s]
+      exception ||= _error_exception_mapping[status.to_i]
       raise exception, _error_message(response)
     end
 
     def _error_body(body)
       parsed_body = JSON.parse(body.to_json)
-      message = begin
-                  parsed_body["error"]
-                rescue
-                  nil
-                end
+      message =  begin
+                   parsed_body["error"]
+                 rescue
+                   nil
+                 end
       message.presence || parsed_body.to_s.presence || "Something went wrong"
     end
 
@@ -54,7 +54,7 @@ module Api
     end
 
     def _error_status_codes
-      _error_exception_mapping.keys.map(&:to_s)
+      _error_exception_mapping.keys
     end
 
     private

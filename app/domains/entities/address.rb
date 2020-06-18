@@ -2,12 +2,11 @@ module Entities
   class Address < DbEntity
     BASE_ATTRIBUTES = %i[city
                          country
-                         id
                          line_1
                          line_2
                          state
                          zip_code].freeze
-    ATTRIBUTES = BASE_ATTRIBUTES
+    ATTRIBUTES = %i[id] + BASE_ATTRIBUTES
 
     attr_reader *ATTRIBUTES
 

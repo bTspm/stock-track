@@ -13,12 +13,12 @@ class Allocator
     end
   end
 
-  def company_store
-    CompanyStore.new
-  end
-
   def company_executive_store
     CompanyExecutiveStore.new
+  end
+
+  def company_store
+    CompanyStore.new
   end
 
   def earnings_store
@@ -29,6 +29,10 @@ class Allocator
     ExchangeStore.new
   end
 
+  def growth_store
+    GrowthStore.new
+  end
+
   def issuer_type_store
     IssuerTypeStore.new
   end
@@ -37,24 +41,16 @@ class Allocator
     NewsStore.new
   end
 
-  def stats_store
-    StatsStore.new
-  end
-
   def quote_store
     QuoteStore.new
-  end
-
-  def growth_store
-    GrowthStore.new
   end
 
   def recommendation_trend_store
     RecommendationTrendStore.new
   end
 
-  def stock_store
-    StockStore.new
+  def stats_store
+    StatsStore.new
   end
 
   def time_series_store

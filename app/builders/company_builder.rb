@@ -1,16 +1,16 @@
 class CompanyBuilder < BaseBuilder
-  def self.build_full_company(db_entity:, domain_entity:)
-    build(db_entity) do |builder|
-      builder.build_base_entity_from_domain(domain_entity)
-      builder.set_address(domain_entity.address) if domain_entity.line_1
-      builder.set_company_executives(domain_entity.executives)
-      builder.set_exchange_id(domain_entity.exchange_id)
-      builder.set_issuer_type_id(domain_entity.issuer_type_id)
+  def build_full_company_from_domain(entity)
+    build do |builder|
+      builder.build_base_entity_from_domain(entity)
+      builder.set_address(entity.address) if entity.line_1
+      builder.set_company_executives(entity.executives)
+      builder.set_exchange_id(entity.exchange_id)
+      builder.set_issuer_type_id(entity.issuer_type_id)
     end
   end
 
   def set_address(address)
-    @db_entity.address = AddressBuilder.build(@db_entity.address) do |builder|
+    @db_entity.address = AddressBuilder.new(@db_entity.address).build do |builder|
       builder.build_base_entity_from_domain(address)
     end
   end
@@ -60,7 +60,7 @@ class CompanyBuilder < BaseBuilder
   def _update_or_add_company_executives(executives)
     executives.map do |executive|
       existing_executive = _saved_executives_grouped_by_name[executive.name]&.first
-      CompanyExecutiveBuilder.build(existing_executive) do |builder|
+      CompanyExecutiveBuilder.new(existing_executive).build do |builder|
         _add_to_association(builder.build_base_entity_from_domain(executive))
       end
     end

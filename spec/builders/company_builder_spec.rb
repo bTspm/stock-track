@@ -2,7 +2,7 @@ require "rails_helper"
 
 describe CompanyBuilder do
   it_behaves_like "BaseBuilder#initialize"
-  it_behaves_like "BaseBuilder.build"
+  it_behaves_like "BaseBuilder#build"
   it_behaves_like "BaseBuilder#build_base_entity_from_domain"
 
   let(:builder) { double(:builder) }
@@ -23,7 +23,7 @@ describe CompanyBuilder do
   let(:db_executive_name) { double(:db_executive_name) }
   subject(:company_builder) { described_class.new(db_entity) }
 
-  describe ".build_full_company" do
+  describe "#build_full_company_from_domain" do
     let(:address) { double(:address) }
     let(:exchange_id) { double(:exchange_id) }
     let(:executives) { double(:executives) }
@@ -40,10 +40,10 @@ describe CompanyBuilder do
     let(:issuer_type_id) { double(:issuer_type_id) }
     let(:line_1) { double(:line_1) }
 
-    subject { described_class.build_full_company(db_entity: db_entity, domain_entity: domain_entity) }
+    subject { company_builder.build_full_company_from_domain(domain_entity) }
 
     before :each do
-      expect(described_class).to receive(:build).with(db_entity).and_yield(builder)
+      expect(company_builder).to receive(:build).and_yield(builder)
       expect(builder).to receive(:build_base_entity_from_domain).with(domain_entity) { "Built with basic attributes" }
       expect(builder).to receive(:set_company_executives).with(executives) { "Built Executives" }
       expect(builder).to receive(:set_exchange_id).with(exchange_id) { "Built exchange_id" }
@@ -69,10 +69,12 @@ describe CompanyBuilder do
   end
 
   describe "#set_address" do
+    let(:address_builder) { double(:address_builder) }
     subject { company_builder.set_address(db_address) }
 
     it "expect to build address and assign to company" do
-      expect(AddressBuilder).to receive(:build).with(db_address).and_yield(builder)
+      expect(AddressBuilder).to receive(:new).with(db_address) { address_builder }
+      expect(address_builder).to receive(:build).and_yield(builder)
       expect(builder).to receive(:build_base_entity_from_domain).with(db_address) { "Built with basic attributes" }
 
       subject
@@ -98,10 +100,14 @@ describe CompanyBuilder do
     end
 
     context "with executives" do
+      let(:executive_builder) { double(:executive_builder) }
+
       context "executives needed to be deleted" do
         let(:executive_name) { db_executive_name }
+
         it "expect to add/update and nothing needed to be deleted" do
-          expect(CompanyExecutiveBuilder).to receive(:build).with(db_executive).and_yield(builder)
+          expect(CompanyExecutiveBuilder).to receive(:new).with(db_executive) { executive_builder }
+          expect(executive_builder).to receive(:build).and_yield(builder)
           expect(builder).to receive(:build_base_entity_from_domain).with(executive) { "Built Executive" }
           expect(company_builder).not_to receive(:_delete_company_executives)
           expect(company_builder).to receive(:_add_to_association).with("Built Executive") { "Added" }
@@ -112,7 +118,8 @@ describe CompanyBuilder do
 
       context "executives without needed to be deleted" do
         it "expect to add and delete the executives" do
-          expect(CompanyExecutiveBuilder).to receive(:build).with(nil).and_yield(builder)
+          expect(CompanyExecutiveBuilder).to receive(:new).with(nil) { executive_builder }
+          expect(executive_builder).to receive(:build).and_yield(builder)
           expect(builder).to receive(:build_base_entity_from_domain).with(executive) { "Built Executive" }
           expect(company_builder).to receive(:_delete_company_executives).with([db_executive_name]).and_call_original
           expect(company_builder).to receive(:_add_to_association).with("Built Executive") { "Added" }

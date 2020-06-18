@@ -1,9 +1,7 @@
 module Entities
   class Exchange < DbEntity
-    ATTRIBUTES = %i[code
-                    country
-                    id
-                    name].freeze
+    BASE_ATTRIBUTES = %i[code country name].freeze
+    ATTRIBUTES = %i[id] + BASE_ATTRIBUTES
 
     attr_reader *ATTRIBUTES
 

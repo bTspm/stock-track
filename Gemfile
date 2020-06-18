@@ -65,9 +65,9 @@ group :test do
   gem "capybara"
   gem "database_cleaner"
   gem "factory_bot_rails"
-  gem "shoulda-matchers"
   gem "rspec"
   gem "rspec-rails"
+  gem "shoulda-matchers"
   gem "simplecov"
 end
 

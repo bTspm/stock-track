@@ -1,9 +1,18 @@
 module Entities
   class DbEntity < BaseEntity
+    attr_reader :errors
+
+    def initialize(args = nil)
+      super
+      @errors = args[:errors]
+    end
+
     def self.from_db_entity(entity)
       return if entity.blank?
 
-      new(_db_entity_args(entity))
+      args = _db_entity_args(entity)
+      args[:errors] = entity.errors if entity.errors.any?
+      new(args)
     end
 
     protected

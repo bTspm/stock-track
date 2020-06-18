@@ -19,8 +19,8 @@ class StockService < BusinessService
 
   def earnings_by_symbol(symbol)
     {
-      eps_estimates: earnings_storage.eps_estimates_from_finn_hub(symbol),
-      eps_surprises: earnings_storage.eps_surprises_from_finn_hub(symbol)
+      eps_estimates: earnings_storage.eps_estimates_from_finn_hub_by_symbol(symbol),
+      eps_surprises: earnings_storage.eps_surprises_from_finn_hub_by_symbol(symbol)
     }
   end
 

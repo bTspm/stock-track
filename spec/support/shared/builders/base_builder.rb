@@ -22,10 +22,10 @@ shared_examples_for "BaseBuilder#initialize" do
   end
 end
 
-shared_examples_for "BaseBuilder.build" do
+shared_examples_for "BaseBuilder#build" do
   let(:db_entity) { double(:db_entity) }
 
-  subject { described_class.build(db_entity) { puts "ABC" } }
+  subject { described_class.new(db_entity).build { puts "ABC" } }
 
   it "expect to yield and return the passed entity" do
     expect(STDOUT).to receive(:puts).with("ABC")
@@ -35,10 +35,9 @@ shared_examples_for "BaseBuilder.build" do
 end
 
 shared_examples_for "BaseBuilder#build_base_entity_from_domain" do
+  let!(:builder) { described_class.new(db_entity) }
   let(:db_entity) { OpenStruct.new(test: "ABC") }
   let(:domain_entity) { double(:domain_entity) }
-
-  subject(:builder) { described_class.new(db_entity) }
   subject { builder.build_base_entity_from_domain(domain_entity).test }
 
   it "expect to assign attribute values to db_entity" do

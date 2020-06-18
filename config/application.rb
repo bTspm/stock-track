@@ -41,7 +41,7 @@ module StockTrack1
 
     config.eager_load_paths << Rails.root.join("lib")
 
-    #gzip
+    # gzip
     config.middleware.insert_after ActionDispatch::Static, Rack::Deflater
   end
 end

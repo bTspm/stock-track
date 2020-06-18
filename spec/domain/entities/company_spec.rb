@@ -46,10 +46,13 @@ describe Entities::Company do
         :entity,
         address: address_entity,
         company_executives: executive_entities,
+        errors: errors,
         exchange: exchange_entity,
         issuer_type: issuer_type_entity
       )
     end
+    let(:errors) { [error] }
+    let(:error) { double(:error) }
     let(:exchange_entity) { double(:exchange_entity) }
     let(:executive_entity) { double(:executive_entity) }
     let(:executive_entities) { [executive_entity] }
@@ -68,6 +71,7 @@ describe Entities::Company do
       let(:args) do
         {
           address: address,
+          errors: errors,
           exchange: exchange,
           executives: [executive],
           issuer_type: issuer_type,

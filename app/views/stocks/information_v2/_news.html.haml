@@ -7,7 +7,6 @@
           .col-lg.col-md-12
             - group.each do |news_article|
               .media.mb-3
-                %img.align-self-center.mr-2.news-icon(src="#{news_article.image}")
                 .media-body
                   %div= link_to news_article.headline, url_for(news_article.url), target: '_blank'
                   %small.text-muted

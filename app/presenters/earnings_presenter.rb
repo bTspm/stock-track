@@ -5,10 +5,14 @@ class EarningsPresenter
 
   class Scalar < Btspm::Presenters::ScalarPresenter
     def chart_data
-      { actual: _eps_surprises.map(&:actual), categories: _categories, estimated: _estimated_earnings }.to_json
+      { actual: _actual, categories: _categories, estimated: _estimated_earnings }.to_json
     end
 
     private
+
+    def _actual
+      _eps_surprises.map { |surprise| surprise.actual.round(2) }
+    end
 
     def _categories
       dates = _eps_surprises.map(&:date)
@@ -33,10 +37,10 @@ class EarningsPresenter
     end
 
     def _estimated_earnings
-      estimated_earnings = _eps_surprises.map(&:estimate)
+      estimated_earnings = _eps_surprises.map { |surprise| surprise.estimate.round(2) }
       return estimated_earnings if _eps_estimates.blank?
 
-      estimated_earnings + _eps_estimates.map(&:average)
+      estimated_earnings + _eps_estimates.map { |estimate| estimate.average.round(2) }
     end
   end
 end

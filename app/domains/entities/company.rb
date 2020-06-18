@@ -2,7 +2,6 @@ module Entities
   class Company < DbEntity
     BASE_ATTRIBUTES = %i[description
                          employees
-                         id
                          industry
                          name
                          phone
@@ -14,6 +13,7 @@ module Entities
     ATTRIBUTES = %i[address
                     executives
                     exchange
+                    id
                     issuer_type].freeze + BASE_ATTRIBUTES
 
     attr_accessor *ATTRIBUTES

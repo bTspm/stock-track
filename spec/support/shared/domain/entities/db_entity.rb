@@ -1,6 +1,8 @@
 shared_examples_for "Entities::DbEntity.from_db_entity" do
   let(:attributes) { { test: 123 } }
-  let(:entity) { double(:entity, attributes: attributes) }
+  let(:entity) { double(:entity, attributes: attributes, errors: errors) }
+  let(:errors) { [error] }
+  let(:error) { double(:error) }
 
   subject { described_class.from_db_entity(entity) }
 
@@ -11,10 +13,24 @@ shared_examples_for "Entities::DbEntity.from_db_entity" do
   end
 
   context "with entity" do
+    let(:input_args) { attributes.merge(errors: errors) }
     it "expect to create entity with the attributes" do
-      expect(described_class).to receive(:new).with(attributes) { "Entity" }
+      expect(described_class).to receive(:new).with(input_args) { "Entity" }
 
       expect(subject).to eq "Entity"
+    end
+
+    context "errors" do
+      subject { described_class.from_db_entity(entity).errors }
+      context "with errors" do
+        it  { is_expected.to eq errors }
+      end
+
+      context "without errors" do
+        let(:errors) { [] }
+
+        it  { is_expected.to be_nil }
+      end
     end
   end
 end
