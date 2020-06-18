@@ -14,7 +14,6 @@ class StocksController < ApplicationController
   end
 
   def information
-    # company_service.create_or_update_company_by_symbol("AAPL")
     @company = present(company_service.company_by_symbol(params[:symbol]), CompaniesPresenter)
   end
 
