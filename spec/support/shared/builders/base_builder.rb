@@ -1,12 +1,12 @@
 shared_examples_for "BaseBuilder#initialize" do
   let(:db_entity) { double(:db_entity) }
 
-  subject { described_class.new(db_entity).db_entity }
+  subject { described_class.new(db_entity) }
 
   context "properties" do
     context "with argument" do
-      it "expect to return the same instance" do
-        expect(subject).to eq db_entity
+      it "expect not to call initialize model" do
+        subject
       end
     end
 
