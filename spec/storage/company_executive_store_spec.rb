@@ -17,11 +17,25 @@ describe CompanyExecutiveStore do
 
     subject { store.by_symbol_from_finn_hub(symbol) }
 
-    it "expect to get response from finn_hub and build domain entity" do
-      expect(store).to receive_message_chain(:finn_hub_client, :company_executives).with(symbol) { response }
-      expect(domain_class).to receive(:from_finn_hub_response).with(executive_response) { "executive_object" }
+    context "with Premium Data error" do
+      it "expect to return empty error" do
+        expect(store).to receive_message_chain(
+                           :finn_hub_client,
+                           :company_executives
+                         ).with(symbol).and_raise(ApiExceptions::PremiumDataError)
+        expect(domain_class).not_to receive(:from_finn_hub_response)
 
-      expect(subject).to match_array %w[executive_object]
+        expect(subject).to eq []
+      end
+    end
+
+    context "without error" do
+      it "expect to get response from finn_hub and build domain entity" do
+        expect(store).to receive_message_chain(:finn_hub_client, :company_executives).with(symbol) { response }
+        expect(domain_class).to receive(:from_finn_hub_response).with(executive_response) { "executive_object" }
+
+        expect(subject).to match_array %w[executive_object]
+      end
     end
   end
 end

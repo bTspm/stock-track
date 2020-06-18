@@ -17,11 +17,25 @@ describe EarningsStore do
 
     subject { store.eps_estimates_from_finn_hub_by_symbol(symbol) }
 
-    it "expect to get response from finn_hub and build domain entity" do
-      expect(store).to receive_message_chain(:finn_hub_client, :eps_estimates).with(symbol) { response }
-      expect(domain_class).to receive(:from_finn_hub_response).with(estimate) { "estimate_object" }
+    context "with Premium Data error" do
+      it "expect to return empty error" do
+        expect(store).to receive_message_chain(
+                           :finn_hub_client,
+                           :eps_estimates
+                         ).with(symbol).and_raise(ApiExceptions::PremiumDataError)
+        expect(domain_class).not_to receive(:from_finn_hub_response)
 
-      expect(subject).to match_array %w[estimate_object]
+        expect(subject).to eq []
+      end
+    end
+
+    context "without error" do
+      it "expect to get response from finn_hub and build domain entity" do
+        expect(store).to receive_message_chain(:finn_hub_client, :eps_estimates).with(symbol) { response }
+        expect(domain_class).to receive(:from_finn_hub_response).with(estimate) { "estimate_object" }
+
+        expect(subject).to match_array %w[estimate_object]
+      end
     end
   end
 

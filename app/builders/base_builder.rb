@@ -1,5 +1,4 @@
 class BaseBuilder
-
   def initialize(db_entity = nil)
     @db_entity = db_entity || _model_class.new
   end
