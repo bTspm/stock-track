@@ -3,16 +3,14 @@ Rails.application.routes.draw do
   root "stocks#home"
 
   namespace :stocks do
+    get :earnings
+    get :growth
     get :home
     get :information
     get :news
-    get :company
-    get :create_or_update_company_by_symbol
-    get :time_series
-    get :earnings
-    get :recommendation_trends
     get :quote
+    get :recommendation_trends
     get :stats
-    get :growth
+    get :time_series
   end
 end
