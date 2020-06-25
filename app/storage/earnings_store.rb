@@ -1,5 +1,5 @@
 class EarningsStore
-  include Allocator::ApiClients
+  include ApiClients
   include Cacheable
 
   def eps_estimates_from_finn_hub_by_symbol(symbol)

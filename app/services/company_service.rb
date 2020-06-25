@@ -14,12 +14,12 @@ class CompanyService < BusinessService
     company_storage.save_company(company)
   end
 
-  def create
-    symbols = company_executive_storage.symbols_by_exchange("US").first(5)
-    symbols.each_with_index do |s, i|
-      t = i * 1
-      create_or_update_company_by_symbol(s)
-      # CompanyWorker.perform_in(t, s)
-    end
-  end
+  # def create
+  #   symbols = company_executive_storage.symbols_by_exchange("US").first(5)
+  #   symbols.each_with_index do |s, i|
+  #     t = i * 1
+  #     create_or_update_company_by_symbol(s)
+  #     # CompanyWorker.perform_in(t, s)
+  #   end
+  # end
 end

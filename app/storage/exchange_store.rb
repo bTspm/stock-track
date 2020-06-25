@@ -1,5 +1,5 @@
 class ExchangeStore
-  include Allocator::ApiClients
+  include ApiClients
   include Cacheable
 
   def by_id(id)

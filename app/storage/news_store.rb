@@ -1,5 +1,5 @@
 class NewsStore
-  include Allocator::ApiClients
+  include ApiClients
   include Cacheable
 
   DEFAULT_NEWS_ARTICLES_COUNT = 4

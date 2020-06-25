@@ -1,5 +1,5 @@
 class RecommendationTrendStore
-  include Allocator::ApiClients
+  include ApiClients
   include Cacheable
 
   def by_symbol_from_finn_hub(symbol)

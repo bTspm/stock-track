@@ -1,5 +1,5 @@
 class TimeSeriesStore
-  include Allocator::ApiClients
+  include ApiClients
   include Cacheable
 
   def by_symbol_from_twelve_data(options)

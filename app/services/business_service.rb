@@ -1,13 +1,7 @@
 class BusinessService
-  def initialize(engine = nil)
-    @engine = engine
-  end
-
   def engine
     @engine ||= Allocator.new
   end
-
-  # Stores
 
   def company_executive_storage
     engine.company_executive_store
@@ -47,10 +41,6 @@ class BusinessService
 
   def recommendation_trend_storage
     engine.recommendation_trend_store
-  end
-
-  def stock_storage
-    engine.stock_store
   end
 
   def time_series_storage
