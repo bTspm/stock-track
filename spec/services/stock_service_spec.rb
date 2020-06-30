@@ -6,11 +6,11 @@ describe StockService do
   let(:service) { described_class.new }
   let(:symbol) { double(:symbol) }
 
-  describe "#create_or_update_exchanges" do
-    subject { service.create_or_update_exchanges }
+  describe "#save_exchanges" do
+    subject { service.save_exchanges }
 
-    it "expect to call exchange_store and create_or_update_exchanges" do
-      expect(service).to receive_message_chain(:exchange_storage, :create_or_update_exchanges) { "Created/Updated" }
+    it "expect to call exchange_store and save_exchanges" do
+      expect(service).to receive_message_chain(:exchange_storage, :save_exchanges) { "Created/Updated" }
 
       expect(subject).to eq "Created/Updated"
     end

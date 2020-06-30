@@ -1,6 +1,6 @@
 module Api
   module TwelveData
-    class RaiseHttpException < Api::RaiseHttpException
+    class RaiseHttpException < ::RaiseHttpException
       SUCCESS_TEXT = "ok".freeze
 
       def call(env)

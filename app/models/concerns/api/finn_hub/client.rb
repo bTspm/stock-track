@@ -1,6 +1,6 @@
 module Api
   module FinnHub
-    class Client < ::Api::BaseClient
+    class Client < ::BaseClient
       def company_executives(symbol)
         get "#{_url}/executive?symbol=#{_format_symbol(symbol)}&token=#{_key}"
       end

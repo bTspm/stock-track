@@ -1,6 +1,6 @@
 module Api
   module TwelveData
-    class Client < ::Api::BaseClient
+    class Client < ::BaseClient
       def time_series(options)
         url = "#{_url}/time_series?symbol=#{options[:symbol]}"
         url += "&interval=#{options[:interval]}"

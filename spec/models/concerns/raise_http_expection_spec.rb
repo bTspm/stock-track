@@ -1,6 +1,6 @@
 require "rails_helper"
 
-describe Api::RaiseHttpException do
+describe ::RaiseHttpException do
   let(:conn) do
     Faraday.new do |builder|
       builder.use described_class

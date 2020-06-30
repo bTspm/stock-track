@@ -1,6 +1,6 @@
 require "rails_helper"
 
-describe Api::BaseClient do
+describe ::BaseClient do
   let(:conn) { Faraday.new { |builder| builder.adapter :test, stubs } }
   let(:stubs) do
     Faraday::Adapter::Test::Stubs.new do |stub|
@@ -29,7 +29,7 @@ describe Api::BaseClient do
 
     it "expect to init a Response" do
       expect(conn).to receive(:get).with(url) { response }
-      expect(Api::Response).to receive(:new).with(response) { "Parsed Response" }
+      expect(Response).to receive(:new).with(response) { "Parsed Response" }
 
       subject
     end

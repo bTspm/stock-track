@@ -41,7 +41,7 @@ describe ExchangeStore do
     end
   end
 
-  describe "#create_or_update_exchanges" do
+  describe "#save_exchanges" do
     let(:builder) { double(:builder) }
     let(:exchanges) { [exchange] }
     let(:exchange_response) { double(:exchange_response) }
@@ -50,7 +50,7 @@ describe ExchangeStore do
     let(:name) { "New York Stock Exchange" }
     let(:response) { double(:response, body: [exchange_response]) }
 
-    subject { store.create_or_update_exchanges }
+    subject { store.save_exchanges }
 
     before do
       expect(store).to receive_message_chain(:iex_client, :exchanges) { response }

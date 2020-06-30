@@ -1,6 +1,6 @@
 require "rails_helper"
 
-describe Api::Response do
+describe Response do
   let(:body) { "Body" }
   let(:headers) { double(:headers) }
   let(:response_object) do

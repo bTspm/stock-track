@@ -1,8 +1,8 @@
 class StockService < BusinessService
   include Services
 
-  def create_or_update_exchanges
-    exchange_storage.create_or_update_exchanges
+  def save_exchanges
+    exchange_storage.save_exchanges
   end
 
   def earnings_by_symbol(symbol)

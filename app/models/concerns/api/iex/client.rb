@@ -1,6 +1,6 @@
 module Api
   module Iex
-    class Client < ::Api::BaseClient
+    class Client < ::BaseClient
       DEFAULT_NEWS_COUNT = 4
 
       def exchanges

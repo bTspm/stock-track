@@ -41,4 +41,9 @@ class CompanyStore
     company = Entities::Company.from_db_entity(e.record)
     raise AppExceptions::RecordInvalid.new(company)
   end
+
+  def snp500_company_symbols_from_github
+    response = Scraper::Github::Client.new.snp500_symbols
+    response.body.split
+  end
 end

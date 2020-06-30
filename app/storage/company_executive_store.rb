@@ -7,7 +7,8 @@ class CompanyExecutiveStore
       response = finn_hub_client.company_executives(symbol)
       response.body[:executive].map { |datum| Entities::CompanyExecutive.from_finn_hub_response(datum) }
     end
-  rescue ApiExceptions::PremiumDataError
+  rescue StandardError => e
+    Rails.logger.error("Error while retrieving Executives for #{symbol} with error: #{e.message}")
     []
   end
 end

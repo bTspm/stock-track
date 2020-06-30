@@ -20,18 +20,18 @@ describe CompanyService do
       let(:company) { nil }
 
       it "expect to call and create company" do
-        expect(service).to receive(:create_or_update_company_by_symbol).with(symbol) { "Company Created" }
+        expect(service).to receive(:save_company_by_symbol).with(symbol) { "Company Created" }
 
         expect(subject).to eq "Company Created"
       end
     end
   end
 
-  describe "#create_or_update_company_by_symbol" do
+  describe "#save_company_by_symbol" do
     let(:company) { OpenStruct.new(executives: nil) }
     let(:company_store) { double(:company_store) }
 
-    subject { service.create_or_update_company_by_symbol(symbol) }
+    subject { service.save_company_by_symbol(symbol) }
 
     it "expect to get company from iex and finn hub and save company" do
       expect(service).to receive(:company_storage).ordered { company_store }

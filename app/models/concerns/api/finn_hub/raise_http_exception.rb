@@ -1,6 +1,6 @@
 module Api
   module FinnHub
-    class RaiseHttpException < Api::RaiseHttpException
+    class RaiseHttpException < ::RaiseHttpException
       PREMIUM_ERROR_MESSAGE = "You don't have access to this resource.".freeze
 
       def call(env)
