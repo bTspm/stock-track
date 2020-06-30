@@ -45,4 +45,14 @@ describe CompanyService do
       expect(subject).to eq "Saved"
     end
   end
+
+  describe "#snp500_company_symbols" do
+    subject { service.snp500_company_symbols }
+
+    it "expect to call exchange_store and get snp500 company symbols" do
+      expect(service).to receive_message_chain(:company_storage, :snp500_company_symbols_from_github) { "SNP500" }
+
+      expect(subject).to eq "SNP500"
+    end
+  end
 end

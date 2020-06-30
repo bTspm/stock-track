@@ -43,7 +43,7 @@ class CompanyStore
   end
 
   def snp500_company_symbols_from_github
-    response = Scraper::Github::Client.new.snp500_symbols
+    response = Scraper::GithubClient.new.snp500_symbols
     response.body.split
   end
 end

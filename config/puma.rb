@@ -31,7 +31,7 @@ workers ENV.fetch("WEB_CONCURRENCY") { 2 }
 preload_app!
 
 before_fork do
-  @sidekiq_pid ||= spawn('bundle exec sidekiq -t 25')
+  @sidekiq_pid ||= spawn("bundle exec sidekiq -t 25")
 end
 
 on_worker_boot do

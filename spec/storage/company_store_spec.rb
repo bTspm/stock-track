@@ -106,4 +106,15 @@ describe CompanyStore do
       end
     end
   end
+
+  describe "#snp500_company_symbols_from_github" do
+    let(:response) { double(:response, body: "ABC\nDEF") }
+    subject { store.snp500_company_symbols_from_github }
+
+    it "expect to call information_by_symbols and build growth" do
+      expect(Scraper::GithubClient).to receive_message_chain(:new, :snp500_symbols) { response }
+
+      expect(subject).to eq %w[ABC DEF]
+    end
+  end
 end

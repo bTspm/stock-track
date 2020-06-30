@@ -13,4 +13,4 @@ production:
   snp500_companies:
     cron: '0 20 * * 1-5 America/New_York'   # Runs every week-day at 8PM ET
     class: Snp500Worker
-    description: "Create or Update S & P 500 Companies every week-day at 8PM ET"
+    description: "Save S & P 500 Companies every week-day at 8PM ET"

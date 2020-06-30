@@ -2,6 +2,7 @@
 require "spec_helper"
 require "capybara/rspec"
 require "factory_bot"
+require "sidekiq/testing"
 
 ENV["RAILS_ENV"] ||= "test"
 
