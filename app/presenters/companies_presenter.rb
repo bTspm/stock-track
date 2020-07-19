@@ -3,11 +3,15 @@ class CompaniesPresenter
 
   class Scalar < Btspm::Presenters::ScalarPresenter
     delegate :formatted, to: :address, prefix: true
-    delegate :country, :name_with_country, to: :exchange, prefix: true
+    delegate :country_alpha2, :name_with_country_code, to: :exchange, prefix: true
     delegate :name_with_code, to: :issuer_type, prefix: true
 
     def address
       ::AddressesPresenter.present(data_object.address, h)
+    end
+
+    def search_display
+      [description, name, security_name, symbol].join(" ")
     end
 
     def employees
@@ -36,6 +40,26 @@ class CompaniesPresenter
 
     def name_with_symbol
       "#{name} - (#{symbol.upcase})"
+    end
+
+    def security_name_with_symbol
+      "#{security_name} - #{symbol.upcase}"
+    end
+
+    def search_response
+      {
+        exchange_name_with_country_code: exchange_name_with_country_code,
+        id: symbol,
+        logo_url: logo_url,
+        security_name_with_symbol: security_name_with_symbol,
+        value: search_display
+      }
+    end
+  end
+
+  class Enum < Btspm::Presenters::EnumPresenter
+    def search_response
+      map(&:search_response)
     end
   end
 end

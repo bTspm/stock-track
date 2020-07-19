@@ -1,5 +1,7 @@
 module Entities
   class Company < DbEntity
+    include HasElasticsearch
+
     BASE_ATTRIBUTES = %i[description
                          employees
                          industry
@@ -17,7 +19,6 @@ module Entities
                     issuer_type].freeze + BASE_ATTRIBUTES
 
     attr_accessor *ATTRIBUTES
-
     delegate :line_1, to: :address, allow_nil: true
     delegate :code, :id, :name, to: :exchange, allow_nil: true, prefix: true
     delegate :etf?, to: :issuer_type, allow_nil: true
@@ -45,6 +46,10 @@ module Entities
 
     protected
 
+    def self._after_extract_from_es(args)
+      super.merge(executives: args[:executives]&.map { |executive| Entities::CompanyExecutive.new(executive) })
+    end
+
     def self._db_entity_args(entity)
       super.merge(
         address: Entities::Address.from_db_entity(entity.address),
@@ -52,6 +57,10 @@ module Entities
         executives: entity.company_executives.map { |executive| Entities::CompanyExecutive.from_db_entity(executive) },
         issuer_type: Entities::IssuerType.from_db_entity(entity.issuer_type)
       ).with_indifferent_access
+    end
+
+    def self._es_key_prefix
+      ""
     end
   end
 end

@@ -1,5 +1,7 @@
 module Entities
   class IssuerType < DbEntity
+    include HasElasticsearch
+
     ETF_CODE = "ET".freeze
     ATTRIBUTES = %i[code id name].freeze
 

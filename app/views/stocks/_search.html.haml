@@ -1,0 +1,7 @@
+%input#search-field.form-control.form-control{placeholder: "Symbol/company - Ex: AAPL/Apple",
+                                              autocomplete: "off",
+                                              type: "text",
+                                              data: {"redirect-path": stocks_information_path(symbol: "")}}
+
+:javascript
+  Search.init().render();

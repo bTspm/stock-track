@@ -11,7 +11,6 @@ class QuotesPresenter
                        price_color
                        price_icon
                        source].freeze
-
     delegate *PRICE_METHODS, to: :extended_price_info, prefix: true
     delegate *PRICE_METHODS, to: :latest_price_info, prefix: true
 

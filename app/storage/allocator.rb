@@ -1,4 +1,6 @@
 class Allocator
+  include RemoteClients
+
   def company_executive_store
     CompanyExecutiveStore.new
   end

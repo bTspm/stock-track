@@ -1,31 +1,42 @@
 class CompanyStore
-  include ApiClients
   include Cacheable
+  include Elasticsearch::Searchable
+
+  SEARCH_RESULTS_COUNT = 15
+
+  def basic_search_from_es(search_text)
+    query = Matchers::BasicSearch.new(search_text).build_query
+    companies = search(query: query, options: { size: SEARCH_RESULTS_COUNT })
+    companies.map { |company| _domain.from_es_response(company.with_indifferent_access) }
+  end
 
   def by_symbol(symbol)
     fetch_cached(key: "#{self.class.name}/#{__method__}/#{symbol}") do
-      company = Company.includes(:address, :company_executives, :exchange, :issuer_type)
-                       .references(:address, :company_executives, :exchange, :issuer_type)
-                       .where(symbol: symbol).first
-      Entities::Company.from_db_entity(company)
+      _domain.from_db_entity(_full_companies.where(symbol: symbol).first)
     end
   end
 
   def by_symbol_from_iex(symbol)
-    fetch_cached(key: "#{self.class.name}/#{__method__}/#{symbol}") do
-      by_symbols_from_iex(symbol).first
-    end
+    fetch_cached(key: "#{self.class.name}/#{__method__}/#{symbol}") { by_symbols_from_iex(symbol).first }
   end
 
   def by_symbols_from_iex(symbols)
     symbols = Array.wrap(symbols)
-    companies = iex_client.information_by_symbols(symbols: symbols, options: { types: "company" })
+    companies = Allocator.iex_client.information_by_symbols(symbols: symbols, options: { types: "company" })
     companies.body.values.map do |company_response|
-      company = Entities::Company.from_iex_response(company_response[:company])
+      company = _domain.from_iex_response(company_response[:company])
       company.exchange = ExchangeStore.new.by_name(company.exchange_name)
       company.issuer_type = IssuerTypeStore.new.by_code(company.issuer_type_code)
       company
     end
+  end
+
+  def index_companies_by_offset_limit(offset:, limit:)
+    payload = _full_companies.offset(offset).limit(limit).map do |company|
+      serializer = Elasticsearch::CompanySerializer.from_entity(_domain.from_db_entity(company))
+      _index_bulk_payload(data: serializer.as_json, id: "#{_index_alias}-#{company.id}")
+    end
+    bulk_index(payload)
   end
 
   def save_company(company_entity)
@@ -35,15 +46,25 @@ class CompanyStore
     company = CompanyBuilder.new(company).build_full_company_from_domain(company_entity)
     company.save!
     Rails.logger.info("Company saved: #{company_entity.symbol}")
-    Entities::Company.from_db_entity(company)
+    _domain.from_db_entity(company)
   rescue ActiveRecord::RecordInvalid => e
-    Rails.logger.error("Company save failed: #{e.record.symbol} with errors: #{e.message}")
-    company = Entities::Company.from_db_entity(e.record)
+    Rails.logger.error("Company save failed: #{company_entity.symbol} with errors: #{e.message}")
+    company = _domain.from_db_entity(e.record)
     raise AppExceptions::RecordInvalid.new(company)
   end
 
   def snp500_company_symbols_from_github
-    response = Scraper::GithubClient.new.snp500_symbols
-    response.body.split
+    Allocator.github_client.snp500_symbols.body.split
+  end
+
+  private
+
+  def _domain
+    Entities::Company
+  end
+
+  def _full_companies
+    associations = %i[address company_executives exchange issuer_type]
+    Company.includes(associations).references(associations)
   end
 end

@@ -9,3 +9,11 @@ table tr:first-child td {
 table tr:first-child th {
   border-top: none;
 }
+
+.table > tbody > tr > td {
+  vertical-align: middle;
+
+  td {
+    font-weight: bold;
+  }
+}

@@ -1,11 +1,19 @@
 class CompanyService < BusinessService
   include Services
 
+  def basic_search(search_text)
+    company_storage.basic_search_from_es(search_text)
+  end
+
   def company_by_symbol(symbol)
     company = company_storage.by_symbol(symbol)
     return company if company
 
     save_company_by_symbol(symbol)
+  end
+
+  def index_companies(offset:, limit:)
+    company_storage.index_companies_by_offset_limit(offset: offset, limit: limit)
   end
 
   def save_company_by_symbol(symbol)

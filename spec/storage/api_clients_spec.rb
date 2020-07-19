@@ -2,7 +2,6 @@ require "rails_helper"
 
 describe ApiClients do
   class DummyClass
-    include ApiClients
   end
 
   subject(:dummy_class) { DummyClass.new }

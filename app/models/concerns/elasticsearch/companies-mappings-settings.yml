@@ -1,0 +1,118 @@
+---
+mappings:
+  properties:
+    address_city:
+      type: text
+      analyzer: text_basic
+    address_country_alpha2:
+      type: keyword
+      normalizer: keyword_lowercase
+    address_country_code:
+      type: keyword
+      normalizer: keyword_lowercase
+    address_country_name:
+      type: text
+      analyzer: text_basic
+    address_state_code:
+      type: keyword
+      normalizer: keyword_lowercase
+    address_state_name:
+      type: text
+      analyzer: text_basic
+    description:
+      type: text
+      analyzer: text_basic
+      copy_to: name_symbol
+    exchange_code:
+      type: keyword
+      normalizer: keyword_lowercase
+    exchange_country_alpha2:
+      type: keyword
+      normalizer: keyword_lowercase
+    exchange_country_code:
+      type: keyword
+      normalizer: keyword_lowercase
+    exchange_country_name:
+      type: text
+      analyzer: text_basic
+    exchange_name:
+      type: text
+      analyzer: text_basic
+    executives:
+      type: nested
+      properties:
+        name:
+          type: text
+          analyzer: text_basic
+        age:
+          type: integer
+        since:
+          type: integer
+        compensation:
+          type: integer
+        currency:
+          type: keyword
+          normalizer: keyword_lowercase
+    industry:
+      type: text
+      analyzer: name
+    issuer_type_code:
+      type: keyword
+      normalizer: keyword_lowercase
+    issuer_type_name:
+      type: text
+      analyzer: text_basic
+    name:
+      type: text
+      analyzer: name
+      copy_to: name_symbol
+    name_symbol:
+      type: text
+      analyzer: name
+    sector:
+      type: text
+      analyzer: name
+    security_name:
+      type: text
+      analyzer: name
+      copy_to: name_symbol
+    sic_code:
+      type: keyword
+    symbol:
+      type: keyword
+      normalizer: keyword_lowercase
+      copy_to: name_symbol
+settings:
+  analysis:
+    analyzer:
+      name:
+        type: custom
+        tokenizer: standard
+        filter:
+          - autocomplete_filter
+          - lowercase
+          - snowball
+        char_filter:
+          - ampersand_char_filter
+      text_basic:
+        type: custom
+        tokenizer: standard
+        filter:
+          - lowercase
+        char_filter:
+          - ampersand_char_filter
+    filter:
+      autocomplete_filter:
+        type: edge_ngram
+        min_gram: 1
+        max_gram: 20
+    normalizer:
+      keyword_lowercase:
+        type: custom
+        filter:
+          - lowercase
+    char_filter:
+      ampersand_char_filter:
+        type: mapping
+        mappings:
+          - "& => and"

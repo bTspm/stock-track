@@ -14,6 +14,10 @@ Rails.application.routes.draw do
     get :time_series
   end
 
+  namespace :search do
+    get :basic
+  end
+
   require "sidekiq/web"
   require "sidekiq-scheduler/web"
   mount Sidekiq::Web => "/sidekiq"

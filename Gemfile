@@ -73,3 +73,5 @@ end
 
 gem "sidekiq"
 gem "sidekiq-scheduler"
+
+gem "countries"

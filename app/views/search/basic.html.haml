@@ -1,0 +1,24 @@
+.stock-information
+  .container-fluid
+    .card
+      .card-header Company Executives
+      .card-body
+        %table#search-results.table.table-sm.table-hover.table-striped.w-100
+          %thead
+            %tr
+              %th Name
+              %th Title
+              %th Age
+              %th Since
+              %th Compensation
+
+
+:javascript
+  $(document).ready( function () {
+    $('#search-results').DataTable({
+            paging: false,
+            scrollX: true,
+            scrollCollapse: true,
+            scrollY: "40vh",
+            });
+  } );

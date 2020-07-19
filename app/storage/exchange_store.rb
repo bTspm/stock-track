@@ -1,5 +1,4 @@
 class ExchangeStore
-  include ApiClients
   include Cacheable
 
   def by_id(id)
@@ -15,7 +14,7 @@ class ExchangeStore
   end
 
   def save_exchanges
-    exchanges_response = iex_client.exchanges
+    exchanges_response = Allocator.iex_client.exchanges
     exchanges_response.body.each do |exchange_response|
       _save_exchange(Entities::Exchange.from_iex_response(exchange_response))
     end
