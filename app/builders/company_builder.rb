@@ -11,7 +11,7 @@ class CompanyBuilder < BaseBuilder
 
   def set_address(address)
     @db_entity.address = AddressBuilder.new(@db_entity.address).build do |builder|
-      builder.build_base_entity_from_domain(address)
+      builder.build_full_address_from_domain(address)
     end
   end
 

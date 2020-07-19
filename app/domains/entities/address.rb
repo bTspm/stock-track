@@ -3,12 +3,10 @@ module Entities
     include HasElasticsearch
 
     BASE_ATTRIBUTES = %i[city
-                         country
                          line_1
                          line_2
-                         state
                          zip_code].freeze
-    ATTRIBUTES = %i[id] + BASE_ATTRIBUTES
+    ATTRIBUTES = %i[id country state] + BASE_ATTRIBUTES
 
     attr_reader *ATTRIBUTES
     delegate :alpha2, :name, :code, to: :country, prefix: true

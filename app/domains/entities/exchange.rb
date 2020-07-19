@@ -2,8 +2,8 @@ module Entities
   class Exchange < DbEntity
     include HasElasticsearch
 
-    BASE_ATTRIBUTES = %i[code country name].freeze
-    ATTRIBUTES = %i[id] + BASE_ATTRIBUTES
+    BASE_ATTRIBUTES = %i[code name].freeze
+    ATTRIBUTES = %i[id country] + BASE_ATTRIBUTES
 
     attr_reader *ATTRIBUTES
     delegate :alpha2, :code, :name, to: :country, prefix: true

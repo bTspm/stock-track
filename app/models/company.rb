@@ -1,5 +1,5 @@
 class Company < ApplicationRecord
-  belongs_to :address, optional: true
+  belongs_to :address, optional: true, autosave: true
   belongs_to :exchange, required: true
   belongs_to :issuer_type, required: true
   has_many :company_executives, autosave: true

@@ -24,7 +24,7 @@ class ExchangeStore
 
   def _save_exchange(exchange_entity)
     exchange = Exchange.where(name: exchange_entity.name).first
-    exchange = ExchangeBuilder.new(exchange).build_base_entity_from_domain(exchange_entity)
+    exchange = ExchangeBuilder.new(exchange).build_full_exchange_from_domain(exchange_entity)
     exchange.save!
     Rails.logger.info("Exchange saved: #{exchange.code}")
     Entities::Exchange.from_db_entity(exchange)
