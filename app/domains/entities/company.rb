@@ -56,9 +56,5 @@ module Entities
         executives: entity.company_executives.map { |executive| Entities::CompanyExecutive.from_db_entity(executive) }
       ).with_indifferent_access
     end
-
-    def self._es_key_prefix
-      ""
-    end
   end
 end

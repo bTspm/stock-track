@@ -5,7 +5,11 @@ module Entities
     end
 
     module ClassMethods
-      ASSOCIATED_ATTRIBUTES = %i[address country exchange issuer_type state]
+      ASSOCIATED_ATTRIBUTES = %i[address
+                                 country
+                                 exchange
+                                 issuer_type
+                                 state].freeze
 
       def from_es_response(response = {})
         args = _args_from_es_response(response)
@@ -33,7 +37,18 @@ module Entities
       end
 
       def _es_key_prefix
-        "#{name.demodulize.underscore.downcase}_"
+        _es_key_prefix_mapping["#{name.demodulize.underscore}"]
+      end
+
+      def _es_key_prefix_mapping
+        {
+          address: "address_",
+          company: "",
+          country: "country_",
+          exchange: "exchange_",
+          issuer_type: "issuer_type_",
+          state: "state_"
+        }.with_indifferent_access
       end
 
       private

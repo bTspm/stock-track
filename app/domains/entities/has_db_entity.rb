@@ -33,7 +33,6 @@ module Entities
           value = Entities::const_get(attribute.to_s.classify).from_db_entity(entity.send(attribute))
           args.merge!("#{attribute}": value)
         end
-
         args.with_indifferent_access
       end
 
