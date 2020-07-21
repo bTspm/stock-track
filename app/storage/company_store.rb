@@ -33,7 +33,7 @@ class CompanyStore
 
   def index_companies_by_offset_limit(offset:, limit:)
     companies = _full_companies.offset(offset).limit(limit)
-    _index_companies(companies)
+    _index_to_elasticsearch(companies)
   end
 
   def save_company(company_entity)
@@ -43,7 +43,7 @@ class CompanyStore
     company = CompanyBuilder.new(company).build_full_company_from_domain(company_entity)
     company.save!
     Rails.logger.info("Company saved: #{company_entity.symbol}")
-    _index_companies(company)
+    _index_to_elasticsearch(company)
     _domain.from_db_entity(company)
   rescue ActiveRecord::RecordInvalid => e
     Rails.logger.error("Company save failed: #{company_entity.symbol} with errors: #{e.message}")
@@ -66,7 +66,7 @@ class CompanyStore
     Company.includes(associations).references(associations)
   end
 
-  def _index_companies(companies)
+  def _index_to_elasticsearch(companies)
     companies = Array.wrap(companies)
     payload = companies.map do |company|
       entity = _domain.from_db_entity(company)
