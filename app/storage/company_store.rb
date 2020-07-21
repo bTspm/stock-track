@@ -32,11 +32,8 @@ class CompanyStore
   end
 
   def index_companies_by_offset_limit(offset:, limit:)
-    payload = _full_companies.offset(offset).limit(limit).map do |company|
-      serializer = Elasticsearch::CompanySerializer.from_entity(_domain.from_db_entity(company))
-      _index_bulk_payload(data: serializer.as_json, id: "#{_index_alias}-#{company.id}")
-    end
-    bulk_index(payload)
+    companies = _full_companies.offset(offset).limit(limit)
+    _index_companies(companies)
   end
 
   def save_company(company_entity)
@@ -46,6 +43,7 @@ class CompanyStore
     company = CompanyBuilder.new(company).build_full_company_from_domain(company_entity)
     company.save!
     Rails.logger.info("Company saved: #{company_entity.symbol}")
+    _index_companies(company)
     _domain.from_db_entity(company)
   rescue ActiveRecord::RecordInvalid => e
     Rails.logger.error("Company save failed: #{company_entity.symbol} with errors: #{e.message}")
@@ -66,5 +64,15 @@ class CompanyStore
   def _full_companies
     associations = %i[address company_executives exchange issuer_type]
     Company.includes(associations).references(associations)
+  end
+
+  def _index_companies(companies)
+    companies = Array.wrap(companies)
+    payload = companies.map do |company|
+      entity = _domain.from_db_entity(company)
+      serializer = Elasticsearch::CompanySerializer.from_entity(entity)
+      _index_bulk_payload(data: serializer.as_json, id: "#{_index_alias}-#{company.id}")
+    end
+    bulk_index(payload)
   end
 end
