@@ -1,5 +1,6 @@
 module Entities
-  class Company < DbEntity
+  class Company < BaseEntity
+    include HasDbEntity
     include HasElasticsearch
 
     BASE_ATTRIBUTES = %i[description
@@ -50,12 +51,9 @@ module Entities
       super.merge(executives: args[:executives]&.map { |executive| Entities::CompanyExecutive.new(executive) })
     end
 
-    def self._db_entity_args(entity)
+    def self._after_extract_args_from_db_entity(entity)
       super.merge(
-        address: Entities::Address.from_db_entity(entity.address),
-        exchange: Entities::Exchange.from_db_entity(entity.exchange),
-        executives: entity.company_executives.map { |executive| Entities::CompanyExecutive.from_db_entity(executive) },
-        issuer_type: Entities::IssuerType.from_db_entity(entity.issuer_type)
+        executives: entity.company_executives.map { |executive| Entities::CompanyExecutive.from_db_entity(executive) }
       ).with_indifferent_access
     end
 

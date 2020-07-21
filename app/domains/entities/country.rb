@@ -1,6 +1,7 @@
 module Entities
   class Country < BaseEntity
     include HasElasticsearch
+
     ATTRIBUTES = %i[alpha2 code name].freeze
 
     attr_accessor *ATTRIBUTES

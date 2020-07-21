@@ -1,5 +1,5 @@
 module Entities
-  class Exchange < DbEntity
+  class Exchange < BaseEntity
     include HasElasticsearch
 
     BASE_ATTRIBUTES = %i[code name].freeze
@@ -15,7 +15,7 @@ module Entities
     def self.from_iex_response(response)
       args = {
         code: response[:exchange],
-        country: response[:region],
+        country: Entities::Country.from_code(response[:region]),
         name: response[:description]
       }
 
@@ -24,7 +24,7 @@ module Entities
 
     protected
 
-    def self._db_entity_args(entity)
+    def self._after_extract_args_from_db_entity(entity)
       super.merge(country: Entities::Country.from_code(entity.country)).with_indifferent_access
     end
   end

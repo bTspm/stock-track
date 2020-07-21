@@ -1,5 +1,5 @@
 module Entities
-  class CompanyExecutive < DbEntity
+  class CompanyExecutive < BaseEntity
     BASE_ATTRIBUTES = %i[age
                          compensation
                          currency

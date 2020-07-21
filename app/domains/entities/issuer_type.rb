@@ -1,5 +1,5 @@
 module Entities
-  class IssuerType < DbEntity
+  class IssuerType < BaseEntity
     include HasElasticsearch
 
     ETF_CODE = "ET".freeze

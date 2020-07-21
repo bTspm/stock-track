@@ -1,5 +1,6 @@
 module Entities
-  class Address < DbEntity
+  class Address < BaseEntity
+    include HasDbEntity
     include HasElasticsearch
 
     BASE_ATTRIBUTES = %i[city
@@ -27,7 +28,7 @@ module Entities
 
     protected
 
-    def self._db_entity_args(entity)
+    def self._after_extract_args_from_db_entity(entity)
       super.merge(
         country: Entities::Country.from_code(entity.country),
         state: Entities::State.from_code(code: entity.state, country_code: entity.country),
