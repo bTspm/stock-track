@@ -1,5 +1,6 @@
 module Entities
   class Exchange < BaseEntity
+    include HasDbEntity
     include HasElasticsearch
 
     BASE_ATTRIBUTES = %i[code name].freeze
