@@ -31,10 +31,12 @@ module Entities
       end
 
       def _args_from_es_response(response)
-        args = _extract_response(response: response, key_prefix: _es_key_prefix)
+        args = _extract_response(response)
         _after_extract_from_es(args)
         args
       end
+
+      private
 
       def _es_key_prefix
         _es_key_prefix_mapping["#{name.demodulize.underscore}"]
@@ -51,10 +53,9 @@ module Entities
         }.with_indifferent_access
       end
 
-      private
-
-      def _extract_response(response:, key_prefix:)
+      def _extract_response(response)
         hash = {}
+        key_prefix = _es_key_prefix_mapping["#{name.demodulize.underscore}"]
         response.each { |k, v| hash[k.gsub(key_prefix, "")] = v if k.to_s.include? key_prefix }
         hash
       end
