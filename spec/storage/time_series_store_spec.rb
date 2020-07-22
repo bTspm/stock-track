@@ -18,7 +18,7 @@ describe TimeSeriesStore do
     subject { store.by_symbol_from_twelve_data(options) }
 
     it "expect to call time_series and build growth" do
-      expect(store).to receive_message_chain(:twelve_data_client, :time_series).with(options) { response }
+      expect(Allocator).to receive_message_chain(:twelve_data_client, :time_series).with(options) { response }
       expect(domain_class).to receive(:from_twelve_data_response).with(time_series_response) { "TimeSeries Domain" }
 
       expect(subject).to eq ["TimeSeries Domain"]

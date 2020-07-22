@@ -19,7 +19,7 @@ describe GrowthStore do
     subject { store.by_symbol_from_iex(symbol) }
 
     it "expect to call information_by_symbols and build growth" do
-      expect(store).to receive_message_chain(
+      expect(Allocator).to receive_message_chain(
                          :iex_client, :information_by_symbols
                        ).with(symbols: symbol, options: {types: "stats"}) { response }
       expect(domain_class).to receive(:from_iex_response).with(stats_response) { "Growth Domain" }

@@ -19,7 +19,7 @@ describe CompanyExecutiveStore do
 
     context "with Premium Data error" do
       it "expect to return empty error" do
-        expect(store).to receive_message_chain(
+        expect(Allocator).to receive_message_chain(
                            :finn_hub_client,
                            :company_executives
                          ).with(symbol).and_raise(ApiExceptions::PremiumDataError)
@@ -31,7 +31,7 @@ describe CompanyExecutiveStore do
 
     context "without error" do
       it "expect to get response from finn_hub and build domain entity" do
-        expect(store).to receive_message_chain(:finn_hub_client, :company_executives).with(symbol) { response }
+        expect(Allocator).to receive_message_chain(:finn_hub_client, :company_executives).with(symbol) { response }
         expect(domain_class).to receive(:from_finn_hub_response).with(executive_response) { "executive_object" }
 
         expect(subject).to match_array %w[executive_object]

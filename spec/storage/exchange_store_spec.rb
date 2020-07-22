@@ -53,11 +53,11 @@ describe ExchangeStore do
     subject { store.save_exchanges }
 
     before do
-      expect(store).to receive_message_chain(:iex_client, :exchanges) { response }
+      expect(Allocator).to receive_message_chain(:iex_client, :exchanges) { response }
       expect(domain_class).to receive(:from_iex_response).with(exchange_response) { exchange_entity }
       expect(Exchange).to receive(:where).with(name: name) { exchanges }
       expect(ExchangeBuilder).to receive(:new).with(exchange) { builder }
-      expect(builder).to receive(:build_base_entity_from_domain).with(exchange_entity) { exchange }
+      expect(builder).to receive(:build_full_exchange_from_domain).with(exchange_entity) { exchange }
       expect(domain_class).to receive(:from_db_entity).with(exchange) { "Exchange" }
     end
 

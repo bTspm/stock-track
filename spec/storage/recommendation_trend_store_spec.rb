@@ -19,7 +19,7 @@ describe RecommendationTrendStore do
     subject { store.by_symbol_from_finn_hub(symbol) }
 
     it "expect to call information_by_symbols and build recommendation_trend" do
-      expect(store).to receive_message_chain(:finn_hub_client, :recommendation_trends ).with(symbol) { response }
+      expect(Allocator).to receive_message_chain(:finn_hub_client, :recommendation_trends ).with(symbol) { response }
       expect(
         domain_class
       ).to receive(:from_finn_hub_response).with(recommendation_trend_response) { "RecommendationTrend Domain" }

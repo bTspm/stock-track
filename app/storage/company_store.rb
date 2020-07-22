@@ -7,7 +7,7 @@ class CompanyStore
   def basic_search_from_es(search_text)
     query = Matchers::BasicSearch.new(search_text).build_query
     companies = search(query: query, options: { size: SEARCH_RESULTS_COUNT })
-    companies.map { |company| _domain.from_es_response(company.with_indifferent_access) }
+    companies.map { |company| _domain.from_es_response(company) }
   end
 
   def by_symbol(symbol)

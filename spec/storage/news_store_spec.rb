@@ -18,7 +18,7 @@ describe NewsStore do
 
     before do
       expect(
-        store
+        Allocator
       ).to receive_message_chain(:iex_client, :news_by_symbol).with(symbol: symbol, count: count) { response }
       expect(domain_class).to receive(:from_iex_response).with(news_article) { "News Domain" }
     end

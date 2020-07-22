@@ -19,7 +19,7 @@ describe QuoteStore do
     subject { store.by_symbol_from_iex(symbol) }
 
     it "expect to call information_by_symbols and build quote" do
-      expect(store).to receive_message_chain(
+      expect(Allocator).to receive_message_chain(
                          :iex_client, :information_by_symbols
                        ).with(symbols: symbol, options: {types: "quote"}) { response }
       expect(domain_class).to receive(:from_iex_response).with(quote_response) { "Quote Domain" }

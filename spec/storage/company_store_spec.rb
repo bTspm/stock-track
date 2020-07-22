@@ -10,6 +10,22 @@ describe CompanyStore do
     allow_any_instance_of(described_class).to receive(:fetch_cached).with(key: cache_key).and_call_original
   end
 
+  describe "#basic_search_from_es" do
+    let(:company) { double(:company) }
+    let(:matcher) { double(:matcher) }
+    let(:search_text) { "ABC" }
+    subject { store.basic_search_from_es(search_text) }
+
+    it "expect to build query and search elastisearch" do
+      expect(Matchers::BasicSearch).to receive(:new).with(search_text) { matcher }
+      expect(matcher).to receive(:build_query) { "query" }
+      expect(store).to receive(:search).with(query: "query", options: {size: 15}) { [company] }
+      expect(Entities::Company).to receive(:from_es_response).with(company) { "Company" }
+
+      expect(subject).to eq %w[Company]
+    end
+  end
+
   describe "#by_symbol" do
     let(:cache_key) { "CompanyStore/by_symbol/ABC" }
     let(:companies) { [company] }
@@ -59,7 +75,7 @@ describe CompanyStore do
     subject { store.by_symbols_from_iex(symbol) }
 
     it "expect to get response from iex and build domain entity" do
-      expect(store).to receive_message_chain(:iex_client, :information_by_symbols).with(
+      expect(Allocator).to receive_message_chain(:iex_client, :information_by_symbols).with(
         symbols: %w[ABC], options: { types: "company" }
       ) { response }
       expect(domain_class).to receive(:from_iex_response).with(company_response) { company }
@@ -67,6 +83,27 @@ describe CompanyStore do
       expect(IssuerTypeStore).to receive_message_chain(:new, :by_code).with("issuer_type_code") { "Issuer Type" }
 
       expect(subject).to eq [company]
+    end
+  end
+
+  describe "#index_companies_by_offset_limit" do
+    let(:company) { double(:company, id: 123) }
+    let(:entity) { double(:entity) }
+    let(:offset) { 123 }
+    let(:limit) { 456 }
+    let(:serializer) { double(:serializer) }
+    subject { store.index_companies_by_offset_limit(offset: offset, limit: limit) }
+
+    it "expect to retrieve companies and index to elasticsearch" do
+      expect(store).to receive_message_chain(:_full_companies, :offset, :limit) { [company] }
+      expect(Entities::Company).to receive(:from_db_entity).with(company) { entity }
+      expect(Elasticsearch::CompanySerializer).to receive(:from_entity).with(entity) { serializer }
+      expect(serializer).to receive(:as_json) { "JSON" }
+      expect(store).to receive(:bulk_index).with(
+        [{:index=>{:_index=>"companies", :_id=>"companies-123", :data=>"JSON"}}]
+      ) { "Indexed" }
+
+      expect(subject).to eq "Indexed"
     end
   end
 
@@ -89,6 +126,7 @@ describe CompanyStore do
     context "save successful" do
       it "expect to save company and return domain entity" do
         expect(company).to receive(:save!) { "Saved" }
+        expect(store).to receive(:_index_to_elasticsearch).with(company) { "Indexed" }
         expect(Rails).to receive_message_chain(:logger, :info).with("Company saved: AAPL") { "Logged" }
 
         subject
