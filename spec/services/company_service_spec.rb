@@ -7,6 +7,19 @@ describe CompanyService do
   let(:service) { described_class.new }
   let(:symbol) { double(:symbol) }
 
+  describe "#basic_search" do
+    let(:search_text) { double(:search_text) }
+    subject { service.basic_search(search_text) }
+
+    it "expect to call store and retrieve companies" do
+      expect(
+        service
+      ).to receive_message_chain(:company_storage, :basic_search_from_es).with(search_text) { "Companies" }
+
+      expect(subject).to eq "Companies"
+    end
+  end
+
   describe "#company_by_symbol" do
     subject { service.company_by_symbol(symbol) }
 
@@ -24,6 +37,21 @@ describe CompanyService do
 
         expect(subject).to eq "Company Created"
       end
+    end
+  end
+
+  describe "#index_companies" do
+    let(:offset) { double(:offset) }
+    let(:limit) { double(:limit) }
+    subject { service.index_companies(offset: offset, limit: limit) }
+
+    it "expect to call store and retrieve companies" do
+      expect(service).to receive_message_chain(
+                           :company_storage,
+                           :index_companies_by_offset_limit
+                         ).with(offset: offset, limit: limit) { "Companies" }
+
+      expect(subject).to eq "Companies"
     end
   end
 
