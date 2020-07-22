@@ -100,7 +100,7 @@ describe CompanyStore do
       expect(Elasticsearch::CompanySerializer).to receive(:from_entity).with(entity) { serializer }
       expect(serializer).to receive(:as_json) { "JSON" }
       expect(store).to receive(:bulk_index).with(
-        [{:index=>{:_index=>"companies", :_id=>"companies-123", :data=>"JSON"}}]
+        [{index: {_index: "companies", _id: "companies-123", data: "JSON"}}]
       ) { "Indexed" }
 
       expect(subject).to eq "Indexed"
