@@ -9,7 +9,7 @@ FactoryBot.define do
           id: 200,
           line_1: "231 Abc Avenue",
           line_2: "Suite 200",
-          zip_code: "03145-01234",
+          zip_code: "03145-01234"
         }
       end
     end

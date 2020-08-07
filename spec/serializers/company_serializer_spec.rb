@@ -25,12 +25,12 @@ describe CompanySerializer do
       sector: "sector",
       security_name: "security_name",
       sic_code: "sic_code",
-      symbol: "symbol",
+      symbol: "symbol"
     }
   end
   subject(:serializer) { described_class.new(args) }
 
-  describe '#initialize' do
+  describe "#initialize" do
     it { is_expected.to be_kind_of described_class }
 
     context "properties" do

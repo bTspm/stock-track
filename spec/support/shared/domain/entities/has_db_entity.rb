@@ -12,7 +12,7 @@ shared_examples_for "Entities::HasDbEntity.from_db_entity" do |input_args|
   context "with entity" do
     let(:errors) { [] }
     it "expect to create entity with the attributes" do
-      input_args = input_args || { id: 123 }
+      input_args ||= { id: 123 }
       expect(described_class).to receive(:new).with(input_args) { "Entity" }
 
       expect(subject).to eq "Entity"

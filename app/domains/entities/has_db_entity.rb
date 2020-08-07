@@ -15,9 +15,9 @@ module Entities
       ASSOCIATED_ATTRIBUTES = %i[address
                                  company_executives
                                  exchange
-                                 issuer_type]
+                                 issuer_type].freeze
       COUNTRY = :country
-      REGION_ATTRIBUTES = %i[country state]
+      REGION_ATTRIBUTES = %i[country state].freeze
       STATE = :state
 
       def from_db_entity(entity)
@@ -52,7 +52,7 @@ module Entities
 
       def _db_entity_args(entity)
         entity.attributes.with_indifferent_access
-          .merge(_after_extract_args_from_db_entity(entity))
+              .merge(_after_extract_args_from_db_entity(entity))
       end
 
       private

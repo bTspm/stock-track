@@ -13,7 +13,7 @@ module Elasticsearch
 
     def bulk_index(body)
       response = _client.bulk({ body: body }).with_indifferent_access
-      Rails.logger.error("[ElasticSearch] Failed to bulk #{response.to_s}") if response[:errors]
+      Rails.logger.error("[ElasticSearch] Failed to bulk #{response}") if response[:errors]
       response
     end
 

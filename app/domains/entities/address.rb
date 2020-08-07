@@ -9,7 +9,7 @@ module Entities
                     line_1
                     line_2
                     state
-                    zip_code]
+                    zip_code].freeze
 
     attr_accessor *ATTRIBUTES
     delegate :alpha2, :name, :code, to: :country, prefix: true
