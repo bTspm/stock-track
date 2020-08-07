@@ -26,13 +26,13 @@ describe CompanyBuilder do
   describe "#build_full_company_from_domain" do
     let(:address) { double(:address) }
     let(:exchange_id) { double(:exchange_id) }
-    let(:executives) { double(:executives) }
+    let(:company_executives) { double(:company_executives) }
     let(:domain_entity) do
       double(
         :domain_entity,
         address: address,
+        company_executives: company_executives,
         exchange_id: exchange_id,
-        executives: executives,
         issuer_type_id: issuer_type_id,
         line_1: line_1
       )
@@ -45,7 +45,7 @@ describe CompanyBuilder do
     before :each do
       expect(company_builder).to receive(:build).and_yield(builder)
       expect(builder).to receive(:build_base_entity_from_domain).with(domain_entity) { "Built with basic attributes" }
-      expect(builder).to receive(:set_company_executives).with(executives) { "Built Executives" }
+      expect(builder).to receive(:set_company_executives).with(company_executives) { "Built Executives" }
       expect(builder).to receive(:set_exchange_id).with(exchange_id) { "Built exchange_id" }
       expect(builder).to receive(:set_issuer_type_id).with(issuer_type_id) { "Built issuer_type_id" }
     end
@@ -61,7 +61,7 @@ describe CompanyBuilder do
     context "without line_1" do
       let(:line_1) { nil }
       it "expect to build a full company object without address" do
-        expect(builder).not_to receive(:set_address).with(address) { "Built Address" }
+        expect(builder).not_to receive(:set_address)
 
         subject
       end
@@ -75,7 +75,7 @@ describe CompanyBuilder do
     it "expect to build address and assign to company" do
       expect(AddressBuilder).to receive(:new).with(db_address) { address_builder }
       expect(address_builder).to receive(:build).and_yield(builder)
-      expect(builder).to receive(:build_base_entity_from_domain).with(db_address) { "Built with basic attributes" }
+      expect(builder).to receive(:build_full_address_from_domain).with(db_address) { "Built with basic attributes" }
 
       subject
     end

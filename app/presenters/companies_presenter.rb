@@ -10,8 +10,10 @@ class CompaniesPresenter
       ::AddressesPresenter.present(data_object.address, h)
     end
 
-    def search_display
-      [description, name, security_name, symbol].join(" ")
+    def company_executives
+      return [] if data_object.company_executives.blank?
+
+      ::CompanyExecutivesPresenter.present(data_object.company_executives, h)
     end
 
     def employees
@@ -22,12 +24,6 @@ class CompaniesPresenter
 
     def exchange
       ::ExchangesPresenter.present(data_object.exchange, h)
-    end
-
-    def executives
-      return [] if data_object.executives.blank?
-
-      ::CompanyExecutivesPresenter.present(data_object.executives, h)
     end
 
     def issuer_type
@@ -42,18 +38,24 @@ class CompaniesPresenter
       "#{name} - (#{symbol.upcase})"
     end
 
-    def security_name_with_symbol
-      "#{security_name} - #{symbol.upcase}"
-    end
-
     def search_response
       {
         exchange_name_with_country_code: exchange_name_with_country_code,
         id: symbol,
         logo_url: logo_url,
-        security_name_with_symbol: security_name_with_symbol,
-        value: search_display
+        security_name_with_symbol: _security_name_with_symbol,
+        value: _search_display
       }
+    end
+
+    private
+
+    def _search_display
+      [description, name, security_name, symbol].join(" ")
+    end
+
+    def _security_name_with_symbol
+      "#{security_name} - #{symbol.upcase}"
     end
   end
 

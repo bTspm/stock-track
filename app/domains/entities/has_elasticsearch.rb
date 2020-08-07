@@ -22,10 +22,8 @@ module Entities
         return args if args.blank?
 
         common_attributes = ASSOCIATED_ATTRIBUTES & self::ATTRIBUTES
-        return args if common_attributes.blank?
-
         common_attributes.each do |attribute|
-          args.merge!("#{attribute}": Entities::const_get(attribute.to_s.classify).from_es_response(args))
+          args.merge!("#{attribute}": Object.const_get("Entities::#{attribute.to_s.classify}").from_es_response(args))
         end
         args.with_indifferent_access
       end
@@ -37,10 +35,6 @@ module Entities
       end
 
       private
-
-      def _es_key_prefix
-        _es_key_prefix_mapping["#{name.demodulize.underscore}"]
-      end
 
       def _es_key_prefix_mapping
         {
@@ -56,7 +50,7 @@ module Entities
       def _extract_response(response)
         hash = {}
         key_prefix = _es_key_prefix_mapping["#{name.demodulize.underscore}"]
-        response.each { |k, v| hash[k.gsub(key_prefix, "")] = v if k.to_s.include? key_prefix }
+        response.each { |k, v| hash[k.to_s.gsub(key_prefix, "")] = v if k.to_s.include? key_prefix }
         hash
       end
     end

@@ -2,7 +2,12 @@ class CompanyExecutiveBuilder < BaseBuilder
   protected
 
   def _base_column_names
-    Entities::CompanyExecutive::BASE_ATTRIBUTES
+    %i[age
+       compensation
+       currency
+       name
+       since
+       titles].freeze
   end
 
   def _model_class

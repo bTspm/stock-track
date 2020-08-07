@@ -2,14 +2,12 @@ module Entities
   class CompanyExecutive < BaseEntity
     include HasDbEntity
 
-    BASE_ATTRIBUTES = %i[age
-                         compensation
-                         currency
-                         name
-                         since
-                         titles].freeze
-    ATTRIBUTES = BASE_ATTRIBUTES
-
+    ATTRIBUTES = %i[age
+                    compensation
+                    currency
+                    name
+                    since
+                    titles].freeze
     attr_reader *ATTRIBUTES
 
     def initialize(args = {})

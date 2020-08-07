@@ -13,8 +13,7 @@ module Entities
       return if country.blank?
 
       state = country.states[code]
-      args = { code: code, name: state&.name }
-      new(args)
+      new({ code: code, name: (state&.name || code) })
     end
   end
 end

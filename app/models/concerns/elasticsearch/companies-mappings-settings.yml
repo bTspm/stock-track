@@ -22,7 +22,6 @@ mappings:
     description:
       type: text
       analyzer: text_basic
-      copy_to: name_symbol
     exchange_code:
       type: keyword
       normalizer: keyword_lowercase
@@ -38,7 +37,7 @@ mappings:
     exchange_name:
       type: text
       analyzer: text_basic
-    executives:
+    company_executives:
       type: nested
       properties:
         name:

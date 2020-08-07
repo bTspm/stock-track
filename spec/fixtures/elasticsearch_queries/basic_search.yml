@@ -1,0 +1,22 @@
+---
+query:
+  bool:
+    should:
+      - match:
+          name_symbol:
+            query: ABC
+            boost: 1.5
+            analyzer: standard
+      - match:
+          symbol:
+            query: ABC
+            boost: 500
+_source:
+  - exchange_code
+  - exchange_country_alpha2
+  - exchange_country_code
+  - exchange_country_name
+  - exchange_name
+  - name
+  - security_name
+  - symbol

@@ -3,13 +3,15 @@ module Entities
     include HasDbEntity
     include HasElasticsearch
 
-    BASE_ATTRIBUTES = %i[city
-                         line_1
-                         line_2
-                         zip_code].freeze
-    ATTRIBUTES = %i[id country state] + BASE_ATTRIBUTES
+    ATTRIBUTES = %i[city
+                    country
+                    id
+                    line_1
+                    line_2
+                    state
+                    zip_code]
 
-    attr_reader *ATTRIBUTES
+    attr_accessor *ATTRIBUTES
     delegate :alpha2, :name, :code, to: :country, prefix: true
     delegate :name, :code, to: :state, allow_nil: true, prefix: true
 
@@ -24,15 +26,6 @@ module Entities
       }
 
       new(args)
-    end
-
-    protected
-
-    def self._after_extract_args_from_db_entity(entity)
-      super.merge(
-        country: Entities::Country.from_code(entity.country),
-        state: Entities::State.from_code(code: entity.state, country_code: entity.country),
-      ).with_indifferent_access
     end
   end
 end

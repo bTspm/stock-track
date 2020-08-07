@@ -18,7 +18,10 @@ class AddressBuilder < BaseBuilder
   protected
 
   def _base_column_names
-    Entities::Address::BASE_ATTRIBUTES
+    %i[city
+       line_1
+       line_2
+       zip_code].freeze
   end
 
   def _model_class

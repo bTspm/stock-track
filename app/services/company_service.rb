@@ -18,7 +18,7 @@ class CompanyService < BusinessService
 
   def save_company_by_symbol(symbol)
     company = company_storage.by_symbol_from_iex(symbol)
-    company.executives = company_executive_storage.by_symbol_from_finn_hub(symbol)
+    company.company_executives = company_executive_storage.by_symbol_from_finn_hub(symbol)
     company_storage.save_company(company)
   end
 

@@ -2,7 +2,7 @@ class AddressesPresenter
   include Btspm::Presenters::Presentable
 
   class Scalar < Btspm::Presenters::ScalarPresenter
-    delegate  :code, to: :country, prefix: true
+    delegate  :name, to: :country, prefix: true
     delegate  :name, to: :state, prefix: true, allow_nil: true
 
     def formatted
@@ -11,17 +11,21 @@ class AddressesPresenter
       text = ""
       text += h.content_tag(:div, line_1) if line_1.present?
       text += h.content_tag(:div, line_2) if line_2.present?
-      text += _city_state_country_and_zip
+      text += _city_and_state
+      text += _country_and_zip
       text.html_safe
     end
 
     private
 
-    def _city_state_country_and_zip
-      return "" if state.blank? && country.blank? && zip_code.blank?
+    def _city_and_state
+      return "" if state.blank? && city.blank?
 
-      address = [city, state_name, country_code, zip_code].compact.join(", ")
-      h.content_tag(:div, address)
+      h.content_tag(:div, [city, state_name].compact.join(", "))
+    end
+
+    def _country_and_zip
+      h.content_tag(:div, [country_name, zip_code].compact.join(", "))
     end
   end
 end

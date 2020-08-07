@@ -2,14 +2,35 @@ require "rails_helper"
 
 describe Entities::Company do
   it_behaves_like "Entities::BaseEntity#initialize"
+  input_args = {address: "Address", company_executives: ["Company Executive"], exchange: "Exchange", id: 123, issuer_type: "Issuer Type"}
+  it_behaves_like("Entities::HasDbEntity.from_db_entity", input_args) do
+    before :each do
+      allow(entity).to receive(:address) { "address" }
+      allow(Entities::Address).to receive(:from_db_entity).with("address") { "Address" }
+      allow(entity).to receive(:company_executives) { ["company_executive"] }
+      allow(Entities::CompanyExecutive).to receive(:from_db_entity).with("company_executive") { "Company Executive" }
+      allow(entity).to receive(:exchange) { "exchange" }
+      allow(Entities::Exchange).to receive(:from_db_entity).with("exchange") { "Exchange" }
+      allow(entity).to receive(:issuer_type) { "issuer_type" }
+      allow(Entities::IssuerType).to receive(:from_db_entity).with("issuer_type") { "Issuer Type" }
+    end
+  end
+  es_args = { address: "Address", exchange: "Exchange", issuer_type: "Issuer Type" }
+  it_behaves_like("Entities::HasElasticsearch.from_es_response", es_args) do
+    before :each do
+      allow(Entities::Address).to receive(:from_es_response) { "Address" }
+      allow(Entities::Exchange).to receive(:from_es_response) { "Exchange" }
+      allow(Entities::IssuerType).to receive(:from_es_response) { "Issuer Type" }
+    end
+  end
 
   let(:args) do
     {
       address: address,
+      company_executives: company_executives,
       description: description,
       employees: employees,
       exchange: exchange,
-      executives: executives,
       id: id,
       industry: industry,
       issuer_type: issuer_type,
@@ -22,10 +43,10 @@ describe Entities::Company do
     }
   end
   let(:address) { double(:address) }
+  let(:company_executives) { double(:company_executives) }
   let(:description) { double(:description) }
   let(:employees) { double(:employees) }
   let(:exchange) { double(:exchange) }
-  let(:executives) { double(:executives) }
   let(:id) { double(:id) }
   let(:industry) { double(:industry) }
   let(:issuer_type) { double(:issuer_type) }
@@ -71,9 +92,9 @@ describe Entities::Company do
       let(:args) do
         {
           address: address,
+          company_executives: [executive],
           errors: errors,
           exchange: exchange,
-          executives: [executive],
           issuer_type: issuer_type,
           test: 123
         }

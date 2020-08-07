@@ -3,8 +3,7 @@ module Entities
     include HasDbEntity
     include HasElasticsearch
 
-    BASE_ATTRIBUTES = %i[code name].freeze
-    ATTRIBUTES = %i[id country] + BASE_ATTRIBUTES
+    ATTRIBUTES = %i[code country id name].freeze
 
     attr_reader *ATTRIBUTES
     delegate :alpha2, :code, :name, to: :country, prefix: true
@@ -21,12 +20,6 @@ module Entities
       }
 
       new(args)
-    end
-
-    protected
-
-    def self._after_extract_args_from_db_entity(entity)
-      super.merge(country: Entities::Country.from_code(entity.country)).with_indifferent_access
     end
   end
 end

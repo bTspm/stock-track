@@ -3,10 +3,12 @@ require "rails_helper"
 describe AddressesPresenter do
   describe ".scalar" do
     let(:city) { "City" }
-    let(:country) { "Country" }
+    let(:country_name) { "Country Name" }
+    let(:country) { double(:country, name: country_name) }
     let(:line_1) { "Line 1" }
     let(:line_2) { "Line 2" }
-    let(:state) { "State" }
+    let(:state_name) { "State Name" }
+    let(:state) { double(:state, name: state_name) }
     let(:zip_code) { 12_345 }
     let(:object) do
       double(
@@ -48,12 +50,7 @@ describe AddressesPresenter do
 
         context "with out state" do
           let(:state) { nil }
-          it { is_expected.not_to include "State" }
-        end
-
-        context "with out country" do
-          let(:country) { nil }
-          it { is_expected.not_to include "Country" }
+          it { is_expected.not_to include "State Name" }
         end
 
         context "with out zip_code" do

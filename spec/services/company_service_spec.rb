@@ -56,7 +56,7 @@ describe CompanyService do
   end
 
   describe "#save_company_by_symbol" do
-    let(:company) { OpenStruct.new(executives: nil) }
+    let(:company) { OpenStruct.new(company_executives: nil) }
     let(:company_store) { double(:company_store) }
 
     subject { service.save_company_by_symbol(symbol) }

@@ -5,7 +5,7 @@ class CompanyStore
   SEARCH_RESULTS_COUNT = 15
 
   def basic_search_from_es(search_text)
-    query = Matchers::BasicSearch.new(search_text).build_query
+    query = BasicSearchMatcher.new(search_text).build_query
     companies = search(query: query, options: { size: SEARCH_RESULTS_COUNT })
     companies.map { |company| _domain.from_es_response(company) }
   end
@@ -70,7 +70,7 @@ class CompanyStore
     companies = Array.wrap(companies)
     payload = companies.map do |company|
       entity = _domain.from_db_entity(company)
-      serializer = Elasticsearch::CompanySerializer.from_entity(entity)
+      serializer = CompanySerializer.from_domain_entity(entity)
       _index_bulk_payload(data: serializer.as_json, id: "#{_index_alias}-#{company.id}")
     end
     bulk_index(payload)

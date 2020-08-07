@@ -3,7 +3,7 @@ class CompanyBuilder < BaseBuilder
     build do |builder|
       builder.build_base_entity_from_domain(entity)
       builder.set_address(entity.address) if entity.line_1
-      builder.set_company_executives(entity.executives)
+      builder.set_company_executives(entity.company_executives)
       builder.set_exchange_id(entity.exchange_id)
       builder.set_issuer_type_id(entity.issuer_type_id)
     end
@@ -34,7 +34,16 @@ class CompanyBuilder < BaseBuilder
   protected
 
   def _base_column_names
-    Entities::Company::BASE_ATTRIBUTES
+    %i[description
+       employees
+       industry
+       name
+       phone
+       sector
+       security_name
+       sic_code
+       symbol
+       website].freeze
   end
 
   def _model_class

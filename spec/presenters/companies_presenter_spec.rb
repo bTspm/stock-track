@@ -4,28 +4,46 @@ describe CompaniesPresenter do
   describe ".scalar" do
     let(:address) { double(:address) }
     let(:address_presenter) { double(:address_presenter) }
+    let(:company_executives) { double(:company_executives) }
+    let(:description) { "Description" }
     let(:employees) { 2_000 }
     let(:exchange) { double(:exchange) }
     let(:exchange_presenter) { double(:exchange_presenter) }
-    let(:executives) { double(:executives) }
     let(:issuer_type) { double(:issuer_type) }
     let(:issuer_type_presenter) { double(:issuer_type_presenter) }
     let(:name) { "Name" }
-    let(:symbol) { "Symbol" }
     let(:object) do
       double(
         :object,
         address: address,
+        company_executives: company_executives,
+        description: description,
         employees: employees,
         exchange: exchange,
-        executives: executives,
         issuer_type: issuer_type,
         name: name,
+        security_name: security_name,
         symbol: symbol
       )
     end
-
+    let(:security_name) { "Security Name" }
+    let(:symbol) { "Symbol" }
     subject(:presenter) { described_class::Scalar.new(object, view_context) }
+
+    context "delegate" do
+      context "address" do
+        it { should delegate_method(:formatted).to(:address).with_prefix(true) }
+      end
+
+      context "exchange" do
+        it { should delegate_method(:country_alpha2).to(:exchange).with_prefix(true) }
+        it { should delegate_method(:name_with_country_code).to(:exchange).with_prefix(true) }
+      end
+
+      context "issuer_type" do
+        it { should delegate_method(:name_with_code).to(:issuer_type).with_prefix(true) }
+      end
+    end
 
     describe "#address" do
       subject { presenter.address }
@@ -62,17 +80,17 @@ describe CompaniesPresenter do
       end
     end
 
-    describe "#executives" do
-      subject { presenter.executives }
+    describe "#company_executives" do
+      subject { presenter.company_executives }
 
-      context "without executives" do
-        let(:executives) { nil }
+      context "without company_executives" do
+        let(:company_executives) { nil }
         it { is_expected.to match_array [] }
       end
 
-      context "with executives" do
+      context "with company_executives" do
         it "expect to return exchange presenter" do
-          expect(CompanyExecutivesPresenter).to receive(:present).with(executives, view_context) { "Executives" }
+          expect(CompanyExecutivesPresenter).to receive(:present).with(company_executives, view_context) { "Executives" }
 
           expect(subject).to eq "Executives"
         end
@@ -105,47 +123,35 @@ describe CompaniesPresenter do
       end
     end
 
-    describe "#formatted" do
-      subject { presenter.address_formatted }
+    describe "#search_response" do
+      subject { presenter.search_response }
 
-      it "delegates to address's formatted" do
-        expect(AddressesPresenter).to receive(:present).with(address, view_context) { address_presenter }
-        expect(address_presenter).to receive(:formatted) { "Formatted Address" }
-
-        expect(subject).to eq "Formatted Address"
-      end
-    end
-
-    describe "#country" do
-      subject { presenter.exchange_country }
-
-      it "delegates to exchange's country" do
+      it "expect to return a hash with search response" do
         expect(ExchangesPresenter).to receive(:present).with(exchange, view_context) { exchange_presenter }
-        expect(exchange_presenter).to receive(:country) { "Exchange Country" }
+        expect(exchange_presenter).to receive(:name_with_country_code) { "NYSE (USA)" }
 
-        expect(subject).to eq "Exchange Country"
+        expect(subject).to eq(
+                             exchange_name_with_country_code: "NYSE (USA)",
+                             id: "Symbol",
+                             logo_url: "https://storage.googleapis.com/iexcloud-hl37opg/api/logos/Symbol.png",
+                             security_name_with_symbol: "Security Name - SYMBOL",
+                             value: "Description Name Security Name Symbol"
+                           )
       end
     end
+  end
 
-    describe "#name_with_country" do
-      subject { presenter.exchange_name_with_country }
+  describe ".enum" do
+    let(:object) { double(:object) }
+    subject(:presenter) { described_class::Enum.new([object], view_context) }
 
-      it "delegates to exchange's name_with_country" do
-        expect(ExchangesPresenter).to receive(:present).with(exchange, view_context) { exchange_presenter }
-        expect(exchange_presenter).to receive(:name_with_country) { "Exchange name_with_country" }
+    describe "#search_response" do
+      subject { presenter.search_response }
 
-        expect(subject).to eq "Exchange name_with_country"
-      end
-    end
+      it "expect to return search response" do
+        expect_any_instance_of(described_class::Scalar).to receive(:search_response) { "Search Response" }
 
-    describe "#name_with_code" do
-      subject { presenter.issuer_type_name_with_code }
-
-      it "delegates to issuer_type_name's name_with_code" do
-        expect(IssuerTypesPresenter).to receive(:present).with(issuer_type, view_context) { issuer_type_presenter }
-        expect(issuer_type_presenter).to receive(:name_with_code) { "Issuer Type name_with_code" }
-
-        expect(subject).to eq "Issuer Type name_with_code"
+        expect(subject).to match_array ["Search Response"]
       end
     end
   end

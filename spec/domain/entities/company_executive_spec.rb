@@ -2,7 +2,7 @@ require "rails_helper"
 
 describe Entities::CompanyExecutive do
   it_behaves_like "Entities::BaseEntity#initialize"
-  it_behaves_like "Entities::DbEntity.from_db_entity"
+  it_behaves_like "Entities::HasDbEntity.from_db_entity"
 
   let(:args) do
     {

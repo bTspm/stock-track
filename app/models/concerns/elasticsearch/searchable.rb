@@ -12,9 +12,9 @@ module Elasticsearch
     end
 
     def bulk_index(body)
-      response = _client.bulk({ body: body })
-      Rails.logger.error("[ElasticSearch] Failed to bulk #{response.to_s}") if response["errors"]
-      response.with_indifferent_access
+      response = _client.bulk({ body: body }).with_indifferent_access
+      Rails.logger.error("[ElasticSearch] Failed to bulk #{response.to_s}") if response[:errors]
+      response
     end
 
     def create_index(index_name = nil)
@@ -22,12 +22,10 @@ module Elasticsearch
       args = { body: _mappings_and_settings, index: index_name }
       _client.indices.create(args)
       add_alias(index_name)
-    rescue StandardError => e
-      Rails.logger.error("Index creation failed - #{index_name} with error - #{e.message}")
     end
 
-    def delete_index(name)
-      _client.indices.delete({ index: name }) rescue nil
+    def delete_index(index_name)
+      _client.indices.delete({ index: index_name })
     end
 
     def delete_all_indices_by_alias
@@ -39,8 +37,13 @@ module Elasticsearch
     end
 
     def reindex(source)
-      destination = _new_index_name
-      args = { body: { source: { index: source }, dest: { index: destination } }, wait_for_completion: false }
+      args = {
+        body: {
+          source: { index: source },
+          dest: { index: _new_index_name }
+        },
+        wait_for_completion: false
+      }
       _client.reindex(args)
     end
 
@@ -52,16 +55,14 @@ module Elasticsearch
       index = options.dig(:index) || _index_alias
       size = options.dig(:size) || _default_limit
       payload = { index: index, size: size, body: query }
-      response = _client.search(payload)
-      return response if options[:return_raw]
-
+      response = _client.search(payload).with_indifferent_access
       response["hits"]["hits"].map { |datum| datum["_source"] }
     end
 
     protected
 
     def _client
-      @_client ||= Allocator.company_index_client
+      Allocator.company_index_client
     end
 
     def _default_limit
@@ -93,7 +94,7 @@ module Elasticsearch
     end
 
     def _index_bulk_payload(data:, id:)
-      { index: { _index: _index_alias, _id: id, data: data, } }
+      { index: { _index: _index_alias, _id: id, data: data } }
     end
   end
 end

@@ -1,6 +1,32 @@
 require "rails_helper"
 
 describe CompanyStore do
+  it_behaves_like "Elasticsearch::Searchable#add_alias" do
+    let(:alias_body) { {body: {actions: [{add: {alias: "companies", index: index_name}}]}} }
+  end
+  it_behaves_like "Elasticsearch::Searchable#all_indices_by_alias" do
+    let(:index_with_alias) { { "companies-123" => 123 } }
+    let(:index_without_alias) { { "abc" => 123 } }
+  end
+  it_behaves_like "Elasticsearch::Searchable#bulk_index"
+  it_behaves_like "Elasticsearch::Searchable#create_index" do
+    let(:index_alias) { "companies" }
+    let(:path) { "companies-mappings-settings.yml" }
+  end
+  it_behaves_like "Elasticsearch::Searchable#delete_index"
+  it_behaves_like "Elasticsearch::Searchable#delete_all_indices_by_alias"
+  it_behaves_like "Elasticsearch::Searchable#indices_list"
+  it_behaves_like "Elasticsearch::Searchable#reindex" do
+    let(:index_alias) { "companies" }
+  end
+  it_behaves_like "Elasticsearch::Searchable#remove_alias" do
+    let(:alias_body) { {body: {actions: [{remove: {alias: "companies", index: index_name}}]}} }
+  end
+  it_behaves_like "Elasticsearch::Searchable#search" do
+    let(:default_limit) { 50 }
+    let(:index_alias) { "companies" }
+  end
+
   let(:cache_key) { "cache" }
   let(:domain_class) { Entities::Company }
   subject(:store) { CompanyStore.new }
@@ -8,6 +34,7 @@ describe CompanyStore do
   before do
     Rails.cache.clear
     allow_any_instance_of(described_class).to receive(:fetch_cached).with(key: cache_key).and_call_original
+    allow(Allocator).to receive(:company_index_client) { client }
   end
 
   describe "#basic_search_from_es" do
@@ -16,8 +43,8 @@ describe CompanyStore do
     let(:search_text) { "ABC" }
     subject { store.basic_search_from_es(search_text) }
 
-    it "expect to build query and search elastisearch" do
-      expect(Matchers::BasicSearch).to receive(:new).with(search_text) { matcher }
+    it "expect to build query and search elasticsearch" do
+      expect(BasicSearchMatcher).to receive(:new).with(search_text) { matcher }
       expect(matcher).to receive(:build_query) { "query" }
       expect(store).to receive(:search).with(query: "query", options: {size: 15}) { [company] }
       expect(Entities::Company).to receive(:from_es_response).with(company) { "Company" }
@@ -97,7 +124,7 @@ describe CompanyStore do
     it "expect to retrieve companies and index to elasticsearch" do
       expect(store).to receive_message_chain(:_full_companies, :offset, :limit) { [company] }
       expect(Entities::Company).to receive(:from_db_entity).with(company) { entity }
-      expect(Elasticsearch::CompanySerializer).to receive(:from_entity).with(entity) { serializer }
+      expect(CompanySerializer).to receive(:from_domain_entity).with(entity) { serializer }
       expect(serializer).to receive(:as_json) { "JSON" }
       expect(store).to receive(:bulk_index).with(
         [{index: {_index: "companies", _id: "companies-123", data: "JSON"}}]

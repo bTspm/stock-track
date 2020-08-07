@@ -92,13 +92,20 @@ FIXTURE_PATH = "#{::Rails.root}/spec/fixtures".freeze
 
 def json_fixture(path)
   file = File.read(File.join(FIXTURE_PATH, path))
-  response = JSON.parse(file)
-  if response.is_a? Hash
-    response.with_indifferent_access
-  elsif response.is_a? Array
-    response.map(&:with_indifferent_access)
+  parse_content(JSON.parse(file))
+end
+
+def yaml_fixture(path)
+  parse_content(YAML.load_file(File.join(FIXTURE_PATH, path)))
+end
+
+def parse_content(content)
+  if content.is_a? Hash
+    content.with_indifferent_access
+  elsif content.is_a? Array
+    content.map(&:with_indifferent_access)
   else
-    response
+    content
   end
 end
 

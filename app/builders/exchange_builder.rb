@@ -13,7 +13,7 @@ class ExchangeBuilder < BaseBuilder
   protected
 
   def _base_column_names
-    Entities::Exchange::BASE_ATTRIBUTES
+    %i[code name].freeze
   end
 
   def _model_class
