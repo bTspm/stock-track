@@ -1,18 +1,24 @@
 %nav.navbar.navbar-expand-lg.navbar-dark.bg-dark.fixed-top
-  .navbar-brand= link_to 'StockTrack', root_path, class: "text-uppercase font-weight-bold text-white"
+  .navbar-brand= link_to 'ST', root_path, class: "text-uppercase font-weight-bold text-white"
   %button.navbar-toggler{"data-target" => "#navbar5", "data-toggle" => "collapse", type: "button"}
     %span.navbar-toggler-icon
   #navbar5.navbar-collapse.collapse
     %ul.navbar-nav
       %li.nav-item.active
-        %a.nav-link{href: "#"}
-          Link
-          %span.sr-only Home
+        %a.nav-link Home
       %li.nav-item
-        %a.nav-link{href: "#"} Link
+        %a.nav-link About Me
       %li.nav-item
-        %a.nav-link{href: "#"} Link
+        %a.nav-link Work
       %li.nav-item
-        %a.nav-link{href: "#"} Link
+        %a.nav-link Freebies
     .mx-2.my-auto.d-inline.w-50
-      = render partial: "search"
+      = render partial: "stocks/search"
+    %ul.navbar-nav.ml-auto.mt-2.mt-lg-0
+      - if signed_in?
+        %li.btn.btn-outline-warning
+          %span= current_user.email
+        %li.ml-2.btn.btn-outline-warning= link_to 'Sign out', sign_out_path, method: :delete
+      - else
+        %li.btn.btn-outline-warning= link_to 'Sign in', sign_in_path
+        %li.ml-2.btn.btn-outline-warning= link_to 'Sign Up', sign_up_path

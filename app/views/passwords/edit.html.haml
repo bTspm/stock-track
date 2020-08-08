@@ -1,0 +1,14 @@
+.jumbotron.jumbotron-fluid
+  .container
+    .row
+      .col-12.col-sm-8.col-md-6.col-lg-4.offset-sm-2.offset-md-3.offset-lg-4
+        #clearance.password-reset
+          %h2= t(".title")
+          %p= t(".description")
+          = form_for :password_reset, url: user_password_path(@user, token: @user.confirmation_token),
+                                      html: { method: :put } do |form|
+            .password-field.form-group
+              = form.label :password
+              = form.password_field :password, class: "form-control", required: true
+            .submit-field
+              = form.submit "Update Password", class: "form-control btn btn-primary btn-block mb-3"

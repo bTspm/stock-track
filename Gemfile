@@ -46,6 +46,7 @@ group :development do
   # Access an interactive console on exception pages or by calling "console" anywhere in the code.
   gem "rubocop", require: false
   gem "web-console", ">= 3.3.0"
+  gem "erb2haml" #converts all erb to haml files.
 end
 
 # Windows does not include zoneinfo files, so bundle the tzinfo-data gem
@@ -75,3 +76,5 @@ gem "sidekiq"
 gem "sidekiq-scheduler"
 
 gem "countries"
+
+gem "clearance"

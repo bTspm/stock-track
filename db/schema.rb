@@ -1,5 +1,3 @@
-# frozen_string_literal: true
-
 # This file is auto-generated from the current state of the database. Instead
 # of editing this file, please use the migrations feature of Active Record to
 # incrementally modify your database, and then regenerate this schema definition.
@@ -8,11 +6,12 @@
 # database schema. If you need to create the application database on another
 # system, you should be using db:schema:load, not running all the migrations
 # from scratch. The latter is a flawed and unsustainable approach (the more migrations
-# you"ll amass, the slower it"ll run and the greater likelihood for issues).
+# you'll amass, the slower it'll run and the greater likelihood for issues).
 #
-# It"s strongly recommended that you check this file into your version control system.
+# It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20_200_220_010_946) do
+ActiveRecord::Schema.define(version: 2020_08_08_163431) do
+
   # These are extensions that must be enabled in order to support this database
   enable_extension "citext"
   enable_extension "plpgsql"
@@ -51,7 +50,7 @@ ActiveRecord::Schema.define(version: 20_200_220_010_946) do
     t.index ["industry"], name: "index_companies_on_industry"
     t.index ["issuer_type_id"], name: "index_companies_on_issuer_type_id"
     t.index ["sector"], name: "index_companies_on_sector"
-    t.index %w[symbol exchange_id], name: "index_companies_on_symbol_and_exchange_id", unique: true
+    t.index ["symbol", "exchange_id"], name: "index_companies_on_symbol_and_exchange_id", unique: true
   end
 
   create_table "company_executives", force: :cascade do |t|
@@ -75,7 +74,7 @@ ActiveRecord::Schema.define(version: 20_200_220_010_946) do
     t.citext "code", null: false
     t.citext "country", null: false
     t.citext "name", null: false
-    t.index %w[code country], name: "index_exchanges_on_code_and_country", unique: true
+    t.index ["code", "country"], name: "index_exchanges_on_code_and_country", unique: true
     t.index ["country"], name: "index_exchanges_on_country"
   end
 
@@ -84,6 +83,17 @@ ActiveRecord::Schema.define(version: 20_200_220_010_946) do
     t.citext "name", null: false
     t.index ["code"], name: "index_issuer_types_on_code", unique: true
     t.index ["name"], name: "index_issuer_types_on_name", unique: true
+  end
+
+  create_table "users", force: :cascade do |t|
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.string "email", null: false
+    t.string "encrypted_password", limit: 128, null: false
+    t.string "confirmation_token", limit: 128
+    t.string "remember_token", limit: 128, null: false
+    t.index ["email"], name: "index_users_on_email"
+    t.index ["remember_token"], name: "index_users_on_remember_token"
   end
 
   add_foreign_key "companies", "addresses"
