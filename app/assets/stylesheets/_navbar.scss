@@ -3,7 +3,41 @@
   font-weight: 400;
 }
 
-
 .navbar-nav .nav-item {
   margin: 0 20px;
+}
+
+.navbar a, .navbar a:active {
+  color: #888;
+  padding: 8px 20px;
+  background: transparent;
+  line-height: normal;
+}
+.navbar .navbar-form {
+  border: none;
+}
+.navbar .action-form {
+  width: 280px;
+  padding: 20px;
+  left: auto;
+  right: 0;
+  font-size: 14px;
+}
+
+.navbar .action-buttons .dropdown-toggle::after {
+  display: none;
+}
+@media (min-width: 1200px){
+  .form-inline .input-group {
+    width: 300px;
+    margin-left: 30px;
+  }
+}
+@media (max-width: 768px){
+  .navbar .dropdown-menu.action-form {
+    width: 100%;
+    padding: 10px 15px;
+    background: transparent;
+    border: none;
+  }
 }

@@ -1,24 +1,27 @@
 %nav.navbar.navbar-expand-lg.navbar-dark.bg-dark.fixed-top
-  .navbar-brand= link_to 'ST', root_path, class: "text-uppercase font-weight-bold text-white"
-  %button.navbar-toggler{"data-target" => "#navbar5", "data-toggle" => "collapse", type: "button"}
+  %a.navbar-brand= link_to 'ST', root_path, class: "text-uppercase font-weight-bold text-white"
+  %button.navbar-toggler{"data-target" => "#navbarCollapse", "data-toggle" => "collapse", type: "button"}
     %span.navbar-toggler-icon
-  #navbar5.navbar-collapse.collapse
-    %ul.navbar-nav
-      %li.nav-item.active
-        %a.nav-link Home
-      %li.nav-item
-        %a.nav-link About Me
-      %li.nav-item
-        %a.nav-link Work
-      %li.nav-item
-        %a.nav-link Freebies
-    .mx-2.my-auto.d-inline.w-50
+  #navbarCollapse.collapse.navbar-collapse.justify-content-start
+    .navbar-nav
+      %a.nav-item.nav-link{href: "#"} Home
+      %a.nav-item.nav-link{href: "#"} About
+      %a.nav-item.nav-link{href: "#"} Blog
+      %a.nav-item.nav-link{href: "#"} Contact
+    .navbar-form.d-inline.w-50
       = render partial: "stocks/search"
-    %ul.navbar-nav.ml-auto.mt-2.mt-lg-0
+    .navbar-nav.ml-auto
       - if signed_in?
         %li.btn.btn-outline-warning
           %span= current_user.email
         %li.ml-2.btn.btn-outline-warning= link_to 'Sign out', sign_out_path, method: :delete
       - else
-        %li.btn.btn-outline-warning= link_to 'Sign in', sign_in_path
-        %li.ml-2.btn.btn-outline-warning= link_to 'Sign Up', sign_up_path
+        .nav-item.dropdown
+          %a.nav-link.dropdown-toggle.mr-4{"data-toggle" => "dropdown", href: "#"} Login
+          .dropdown-menu.action-form
+            = render partial: "sessions/form"
+
+        .nav-item.dropdown
+          %a.btn.btn-primary.dropdown-toggle{"data-toggle" => "dropdown", href: "#"} Sign up
+          .dropdown-menu.action-form
+            = render partial: "users/form", locals: {user: @user || User.new}
