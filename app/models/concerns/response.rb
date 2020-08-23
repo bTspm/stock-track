@@ -1,8 +1,8 @@
 class Response
-  attr_reader :body,
-              :headers,
-              :status,
-              :success
+  attr_accessor :body,
+                :headers,
+                :status,
+                :success
 
   def initialize(response)
     @body = _build_body(response.body)

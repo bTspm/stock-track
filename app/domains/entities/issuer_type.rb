@@ -6,7 +6,7 @@ module Entities
     ETF_CODE = "ET".freeze
     ATTRIBUTES = %i[code id name].freeze
 
-    attr_reader *ATTRIBUTES
+    attr_accessor *ATTRIBUTES
 
     def self.from_iex_company_response(response = {})
       new({ code: response[:issueType] })

@@ -10,6 +10,16 @@ class CompaniesPresenter
       ::AddressesPresenter.present(data_object.address, h)
     end
 
+    def autocomplete_response
+      {
+        exchange_name_with_country_code: exchange_name_with_country_code,
+        id: symbol,
+        logo_url: logo_url,
+        security_name_with_symbol: _security_name_with_symbol,
+        value: _search_display
+      }
+    end
+
     def company_executives
       return [] if data_object.company_executives.blank?
 
@@ -38,14 +48,8 @@ class CompaniesPresenter
       "#{name} - (#{symbol.upcase})"
     end
 
-    def search_response
-      {
-        exchange_name_with_country_code: exchange_name_with_country_code,
-        id: symbol,
-        logo_url: logo_url,
-        security_name_with_symbol: _security_name_with_symbol,
-        value: _search_display
-      }
+    def select_picker_response
+      { id: symbol, text: security_name }
     end
 
     private
@@ -60,8 +64,16 @@ class CompaniesPresenter
   end
 
   class Enum < Btspm::Presenters::EnumPresenter
-    def search_response
-      map(&:search_response)
+    def autocomplete_response
+      return [] if data_object.blank?
+
+      map(&:autocomplete_response)
+    end
+
+    def select_picker_response
+      return [] if data_object.blank?
+
+      map(&:select_picker_response)
     end
   end
 end

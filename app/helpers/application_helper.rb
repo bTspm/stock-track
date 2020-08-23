@@ -1,7 +1,7 @@
 module ApplicationHelper
   def badge_format(content:, options: {})
     badge_color = options[:badge_color] || "badge-info"
-    content_tag :div, content, class: "badge #{badge_color} #{options[:class]}"
+    content_tag :span, content, class: "badge #{badge_color} #{options[:class]}"
   end
 
   def elements_in_single(elements)

@@ -5,6 +5,10 @@ class CompanyService < BusinessService
     company_storage.basic_search_from_es(search_text)
   end
 
+  def by_symbols(symbols)
+    company_storage.by_symbols(symbols)
+  end
+
   def company_by_symbol(symbol)
     company = company_storage.by_symbol(symbol)
     return company if company

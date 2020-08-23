@@ -16,6 +16,10 @@ class CompanyStore
     end
   end
 
+  def by_symbols(symbols)
+    _full_companies.where(symbol: symbols).map { |company| _domain.from_db_entity(company) }
+  end
+
   def by_symbol_from_iex(symbol)
     fetch_cached(key: "#{self.class.name}/#{__method__}/#{symbol}") { by_symbols_from_iex(symbol).first }
   end

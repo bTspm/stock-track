@@ -5,7 +5,7 @@ module Entities
 
     ATTRIBUTES = %i[code country id name].freeze
 
-    attr_reader *ATTRIBUTES
+    attr_accessor *ATTRIBUTES
     delegate :alpha2, :code, :name, to: :country, prefix: true
 
     def self.from_iex_company_response(response)

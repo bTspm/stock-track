@@ -7,7 +7,7 @@ module Entities
                     strong_buy
                     strong_sell].freeze
 
-    attr_reader *ATTRIBUTES
+    attr_accessor *ATTRIBUTES
 
     def self.from_finn_hub_response(response)
       args = {

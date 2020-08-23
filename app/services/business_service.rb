@@ -1,6 +1,13 @@
 class BusinessService
+  attr_accessor :user
+
+  def initialize(engine: nil, user: nil)
+    @engine = engine
+    @user = user
+  end
+
   def engine
-    @engine ||= Allocator.new
+    @engine ||= Allocator.new(user)
   end
 
   def company_executive_storage
@@ -45,5 +52,9 @@ class BusinessService
 
   def time_series_storage
     engine.time_series_store
+  end
+
+  def watch_list_storage
+    engine.watch_list_store
   end
 end

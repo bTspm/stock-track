@@ -4,6 +4,8 @@ class CreateExchanges < ActiveRecord::Migration[5.2]
       t.citext :code, null: false, uniq: true
       t.citext :country, null: false
       t.citext :name, null: false
+
+      t.timestamps
     end
 
     add_index :exchanges, :country

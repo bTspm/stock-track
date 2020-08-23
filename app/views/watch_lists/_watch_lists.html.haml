@@ -1,0 +1,15 @@
+.row
+  .col-lg-4.col-md-6.col-sm-12.mb-3
+    #watch-lists-dropdown-container
+      = render partial: "watch_lists/dropdown", locals: { watch_lists: watch_lists }
+
+  .col-lg-4
+
+  .col-lg-4.col-md-6.col-sm-12.mb-3.text-md-right
+    = button_tag fontawesome_icon(name_icon_with_style: "fas fa-plus", text: "Add New Watch List"),
+                 class: "btn btn-sm btn-primary",
+                 id: "watch-list-new-button",
+                 data: { "form-path": new_watch_list_path,
+                         "modal-title": fontawesome_icon(name_icon_with_style: "fas fa-plus",
+                                                         text: "Add New Watch List")},
+                 type: "button"

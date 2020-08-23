@@ -9,7 +9,7 @@ module Entities
                     summary
                     url].freeze
 
-    attr_reader *ATTRIBUTES
+    attr_accessor *ATTRIBUTES
 
     def self.from_iex_response(response)
       args = {

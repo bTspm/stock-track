@@ -4,7 +4,10 @@ module Utils
   DEFAULT_TIME_ZONE = "Eastern Time (US & Canada)".freeze
 
   def format_percentage(percentage)
-    percentage.blank? ? "N/A" : "#{(percentage * 100).round(2)}%"
+    return "N/A" if percentage.blank?
+
+    value = percentage_value(percentage)
+    h.number_to_percentage(value, precision: 2, delimiter: ',', separator: '.', strip_insignificant_zeros: true)
   end
 
   def percentage_value(percentage)

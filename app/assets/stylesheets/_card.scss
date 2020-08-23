@@ -1,0 +1,75 @@
+//Colours
+$background-gray: #eeeeee;
+$background-light: #fdfdfd;
+$text-color: #333333;
+$workbench-navy: #002663;
+$lm-blue: #002663;
+$lm-orange: #d97a23;
+$lm-red: #ff0000;
+$lm-yellow: #f1c140;
+$lm-green: #91b06d;
+$lm-gray: #89898C;
+$lm-blue-light: #8093B1;
+$lm-blue-hyperlink:   #004D9C;
+$toolbar-gray: #89898c;
+$toolbar-lightgray: #999;
+$loss-color: #c9282d;
+$profit-color: #6c953c;
+
+$workbench-card-shadow: 0px 7px 0px -4px rgba(0, 0, 0, 0.05);
+$workbench-card-left-shadow: -6px 0px 0px -4px rgba(0, 0, 0, 0.05);
+$workbench-dashed-border: 1px dashed rgba(0, 0, 0, 0.2);
+
+$workbench-form-input-shadow: 0px 1px 0px 0px #f6f6f6;
+
+$default-form-control-background: #fff;
+$default-form-control-border: 1px solid #ced4da;
+$default-form-control-text-color: #495057;
+
+$lm-icon-path: 'wb_common/wb-icons.png';
+
+$breadcrumb-separator: ">";
+
+
+.card {
+  background-color: $background-light;
+  border-radius: 2px;
+  box-shadow: $workbench-card-shadow;
+  margin-bottom: 10px;
+
+  .breadcrumb {
+    background: none;
+    margin-bottom: 0px;
+  }
+
+  .card-header {
+    border-top: 3px solid $workbench-navy;
+    background-color: $background-light;
+    border-bottom: $workbench-dashed-border;
+
+    * { margin-bottom: 0px; }
+  }
+
+  .card-body + .card-body {
+    border-top: $workbench-dashed-border;
+    margin: -2rem;
+    padding-top: 0.5rem;
+    padding-bottom: 0.5rem;
+  }
+
+  h1, h2, h3, h4, h5, h6 {
+    color: $workbench-navy;
+  }
+
+  .card-body {
+    padding: 1rem;
+  }
+
+  /* Form button gray border to match form control border */
+  .input-group-append {
+    background: $default-form-control-background;
+    .btn-outline-secondary {
+      border: $default-form-control-border;
+    }
+  }
+}

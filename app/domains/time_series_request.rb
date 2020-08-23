@@ -3,10 +3,10 @@ class TimeSeriesRequest
   DATE_FORMAT = "%Y-%m-%d %H:%M:%S".freeze
   DEFAULT_INTERVAL = DAY1
 
-  attr_reader :end_datetime,
-              :interval,
-              :start_datetime,
-              :symbol
+  attr_accessor :end_datetime,
+                :interval,
+                :start_datetime,
+                :symbol
 
   def initialize(args = {})
     @end_datetime = args[:end_datetime] || _default_end_time

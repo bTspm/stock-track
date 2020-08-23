@@ -17,15 +17,27 @@ class QuotesPresenter
     def day_range
       return "N/A" if data_object.low.blank? && data_object.high.blank?
 
-      "#{_low} - #{_high}".html_safe
+      "#{low} - #{high}".html_safe
     end
 
     def extended_price_info
       @extended_price_info ||= _extended_price_info
     end
 
+    def high
+      return "N/A" if data_object.high.blank?
+
+      h.positive_content(h.number_with_delimiter(data_object.high))
+    end
+
     def latest_price_info
       @latest_price_info ||= _latest_price_info
+    end
+
+    def low
+      return "N/A" if data_object.low.blank?
+
+      h.negative_content(h.number_with_delimiter(data_object.low))
     end
 
     def open
@@ -67,12 +79,6 @@ class QuotesPresenter
         extended_price
     end
 
-    def _high
-      return "N/A" if high.blank?
-
-      h.positive_content(h.number_with_delimiter(high))
-    end
-
     def _latest_price_info
       latest = OpenStruct.new(
         amount: latest_price,
@@ -82,12 +88,6 @@ class QuotesPresenter
         time: latest_update
       )
       PricePresenter.present(latest, h)
-    end
-
-    def _low
-      return "N/A" if low.blank?
-
-      h.negative_content(h.number_with_delimiter(low))
     end
 
     def _extended_price_info

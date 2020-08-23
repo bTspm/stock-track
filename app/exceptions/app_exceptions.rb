@@ -1,6 +1,6 @@
 module AppExceptions
   class RecordInvalid < StandardError
-    attr_reader :error_message, :record
+    attr_accessor :error_message, :record
 
     def initialize(record)
       @record = record

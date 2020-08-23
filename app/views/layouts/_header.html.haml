@@ -1,13 +1,10 @@
 %nav.navbar.navbar-expand-lg.navbar-dark.bg-dark.fixed-top
-  %a.navbar-brand= link_to 'ST', root_path, class: "text-uppercase font-weight-bold text-white"
+  .navbar-brand= link_to 'ST', root_path, class: "text-uppercase font-weight-bold text-white"
   %button.navbar-toggler{"data-target" => "#navbarCollapse", "data-toggle" => "collapse", type: "button"}
     %span.navbar-toggler-icon
   #navbarCollapse.collapse.navbar-collapse.justify-content-start
     .navbar-nav
-      %a.nav-item.nav-link{href: "#"} Home
-      %a.nav-item.nav-link{href: "#"} About
-      %a.nav-item.nav-link{href: "#"} Blog
-      %a.nav-item.nav-link{href: "#"} Contact
+      .nav-item.nav-link= link_to "Watch Lists", watch_lists_path
     .navbar-form.d-inline.w-50
       = render partial: "stocks/search"
     .navbar-nav.ml-auto

@@ -1,0 +1,49 @@
+.table-responsive.mb-3
+  %table#data-table.table.table-hover.w-100.table-sm.table-striped.datatable-workbench
+    %thead
+      %tr.small
+        %th Symbol/Name
+        %th Price
+        %th Chg
+        %th % Chg
+        %th Open
+        %th Prev. Close
+        %th Day Range
+        %th Volume
+        %th Prev. Volume
+
+    %tbody
+      - stocks.each do |stock|
+        %tr
+          %td
+            = link_to stock.symbol, stocks_information_path(symbol: stock.symbol), target: "_blank", class: "font-weight-bold"
+            %div= stock.security_name
+          %td.font-weight-bold= stock.latest_price_info_amount
+          %td.font-weight-bold= stock.latest_price_info_change
+          %td.font-weight-bold= stock.latest_price_info_change_percent
+          %td= stock.open
+          %td= stock.previous_close
+          %td
+            = stock.low
+            %div= stock.high
+          %td= stock.volume
+          %td= stock.previous_volume
+
+
+:javascript
+  $(document).ready(function() {
+    $('#data-table').DataTable({
+            bInfo: true,
+            // No Intial sort
+            aaSorting: [],
+            paging: false,
+            scrollCollapse: true,
+            scrollY: "100vh",
+            scrollX: true,
+            columnDefs: [
+            { responsivePriority: 1, targets: 0 },
+            { responsivePriority: 10001, targets: 4 },
+            { responsivePriority: 2, targets: -2 }
+        ]
+    });
+  });

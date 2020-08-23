@@ -19,8 +19,7 @@ module Entities
                     symbol
                     website].freeze
 
-    attr_reader *ATTRIBUTES
-    attr_writer :company_executives
+    attr_accessor *ATTRIBUTES
     delegate :line_1, to: :address, allow_nil: true
     delegate :code, :id, :name, to: :exchange, allow_nil: true, prefix: true
     delegate :etf?, to: :issuer_type, allow_nil: true

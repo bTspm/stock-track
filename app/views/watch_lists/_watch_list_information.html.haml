@@ -1,0 +1,30 @@
+.row
+  .col-xl-8.col-lg-12
+    .card
+      .card-header
+        %span= watch_list.name
+        .float-right
+          %span
+            = button_tag fontawesome_icon(name_icon_with_style: "far fa-edit", text: "Edit Watch List"),
+                         class: "btn btn-sm btn-info",
+                         id: "watch-list-edit-button",
+                         data: { "form-path": edit_watch_list_path(id: watch_list.id),
+                                 "modal-title": fontawesome_icon(name_icon_with_style: "far fa-edit", text: "Edit Watch List")},
+                         type: "button"
+
+      .card-body
+        = render partial: "stocks_table", locals: { stocks: stocks }
+
+  .col-xl-4.col-lg-12.col-md-12
+    .row
+      .col-xl-12.col-lg-6.col-md-12
+        .card
+          .card-header Sector Allocation
+          .card-body
+      .col-xl-12.col-lg-6.col-md-12
+        .card
+          .card-header Industry Allocation
+          .card-body
+
+:javascript
+  WatchListSave.init();

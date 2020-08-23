@@ -36,6 +36,16 @@ class StockService < BusinessService
     time_series_storage.by_symbol_from_twelve_data(_time_series_5year_options(symbol))
   end
 
+  def stocks_by_symbols(symbols)
+    return [] if symbols.blank?
+
+    companies = company_storage.by_symbols(symbols).group_by(&:symbol)
+    symbols.map do |symbol|
+      args = { company: companies[symbol].first, quote: quote_storage.by_symbol_from_iex(symbol) }
+      Entities::Stock.new(args)
+    end
+  end
+
   private
 
   def _time_series_5year_options(symbol)

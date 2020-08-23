@@ -16,9 +16,10 @@ class PricePresenter
       h.content_color_by_value(content: content, value: data_object.change)
     end
 
-    def change_percent
+    def change_percent(options={})
       content = format_percentage(data_object.change_percent)
-      h.content_color_by_value(content: "(#{content})", value: data_object.change_percent)
+      content = "(#{content})" unless options[:no_wrap]
+      h.content_color_by_value(content: content, value: data_object.change_percent)
     end
 
     def last_updated

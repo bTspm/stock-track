@@ -10,4 +10,8 @@ class Company < ApplicationRecord
                         :security_name,
                         :symbol
   validates_uniqueness_of :symbol, scope: :exchange_id, case_sensitive: false
+
+  def security_name_with_symbol
+    "#{security_name} - #{symbol.upcase}"
+  end
 end

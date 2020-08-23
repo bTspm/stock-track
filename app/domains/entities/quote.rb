@@ -19,7 +19,7 @@ module Entities
                     previous_volume
                     volume].freeze
 
-    attr_reader *ATTRIBUTES
+    attr_accessor *ATTRIBUTES
 
     def self.from_iex_response(response)
       args = {

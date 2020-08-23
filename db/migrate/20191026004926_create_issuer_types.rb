@@ -3,6 +3,8 @@ class CreateIssuerTypes < ActiveRecord::Migration[5.2]
     create_table :issuer_types do |t|
       t.citext :code, null: false, uniq: true
       t.citext :name, null: false, uniq: true
+
+      t.timestamps
     end
 
     add_index :issuer_types, :code, unique: true

@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2020_08_08_163431) do
+ActiveRecord::Schema.define(version: 2020_08_09_221404) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "citext"
@@ -74,6 +74,8 @@ ActiveRecord::Schema.define(version: 2020_08_08_163431) do
     t.citext "code", null: false
     t.citext "country", null: false
     t.citext "name", null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
     t.index ["code", "country"], name: "index_exchanges_on_code_and_country", unique: true
     t.index ["country"], name: "index_exchanges_on_country"
   end
@@ -81,6 +83,8 @@ ActiveRecord::Schema.define(version: 2020_08_08_163431) do
   create_table "issuer_types", force: :cascade do |t|
     t.citext "code", null: false
     t.citext "name", null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
     t.index ["code"], name: "index_issuer_types_on_code", unique: true
     t.index ["name"], name: "index_issuer_types_on_name", unique: true
   end
@@ -92,12 +96,24 @@ ActiveRecord::Schema.define(version: 2020_08_08_163431) do
     t.string "encrypted_password", limit: 128, null: false
     t.string "confirmation_token", limit: 128
     t.string "remember_token", limit: 128, null: false
+    t.boolean "is_admin", default: false, null: false
     t.index ["email"], name: "index_users_on_email"
     t.index ["remember_token"], name: "index_users_on_remember_token"
+  end
+
+  create_table "watch_lists", force: :cascade do |t|
+    t.string "name", null: false
+    t.text "symbols", default: [], array: true
+    t.bigint "user_id", null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["name", "user_id"], name: "index_watch_lists_on_name_and_user_id", unique: true
+    t.index ["user_id"], name: "index_watch_lists_on_user_id"
   end
 
   add_foreign_key "companies", "addresses"
   add_foreign_key "companies", "exchanges"
   add_foreign_key "companies", "issuer_types"
   add_foreign_key "company_executives", "companies"
+  add_foreign_key "watch_lists", "users"
 end

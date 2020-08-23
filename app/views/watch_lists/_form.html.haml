@@ -1,0 +1,26 @@
+- companies = local_assigns.fetch(:companies, Array.new)
+- watch_list = local_assigns.fetch(:watch_list, nil)
+
+%form#watch-list-form.needs-validation
+  .form-group
+    = label_tag "Name"
+    = text_field_tag :name, watch_list&.name, class: "form-control", required: true
+
+  .form-group
+    = label_tag "Symbols"
+    = select_tag("symbols[]",
+                  options_from_collection_for_select(companies, :symbol, :security_name, watch_list&.symbols),
+                  prompt: "",
+                  class: "form-control",
+                  id: "company-select",
+                  required: true,
+                  multiple: true)
+    = hidden_field_tag :id, watch_list&.id
+
+  .form-group.text-right
+    = button_tag "Cancel", type: "button", class: "btn btn-secondary", id: "watch-list-form-cancel-button"
+    = button_tag "Save", data: {path: path, method: method},
+                         type: "button", class: "btn btn-primary", id: "watch-list-form-save-button"
+
+:javascript
+  CompanyPicker.init().render();

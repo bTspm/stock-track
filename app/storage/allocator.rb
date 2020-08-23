@@ -1,6 +1,12 @@
 class Allocator
   include RemoteClients
 
+  attr_accessor :user
+
+  def initialize(user=nil)
+    @user = user
+  end
+
   def company_executive_store
     CompanyExecutiveStore.new
   end
@@ -43,5 +49,9 @@ class Allocator
 
   def time_series_store
     TimeSeriesStore.new
+  end
+
+  def watch_list_store
+    WatchListStore.new(user)
   end
 end

@@ -8,7 +8,7 @@ module Entities
                     name
                     since
                     titles].freeze
-    attr_reader *ATTRIBUTES
+    attr_accessor *ATTRIBUTES
 
     def initialize(args = {})
       super

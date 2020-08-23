@@ -1,0 +1,6 @@
+- selected_id = local_assigns.fetch(:selected_id, watch_lists.selected_watch_list_id)
+
+= select_tag('', options_for_select(watch_lists.for_select, selected_id),
+                           prompt: "",
+                           class: "form-control w-100",
+                           id: "watch-lists-dropdown")

@@ -1,0 +1,21 @@
+.container-fluid
+  .container.mt-5
+    .card
+      .card-header Watch Lists
+      .card-body
+        = render partial: "watch_lists/watch_lists", locals: { watch_lists: @watch_lists }
+
+  #watch-list-information
+    - if @watch_lists.selected_watch_list_id
+      = render_async watch_list_path(id: @watch_lists.selected_watch_list_id) do
+        = render partial: "stocks/loading_card"
+
+  #loader.d-none
+    = render partial: "stocks/loading_card"
+
+= render partial: "watch_lists/modal"
+
+:javascript
+  $(document).ready(function() {
+    WatchList.init();
+  });

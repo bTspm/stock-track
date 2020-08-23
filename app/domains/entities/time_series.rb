@@ -7,7 +7,7 @@ module Entities
                     open
                     volume].freeze
 
-    attr_reader *ATTRIBUTES
+    attr_accessor *ATTRIBUTES
 
     def self.from_twelve_data_response(response)
       args = {

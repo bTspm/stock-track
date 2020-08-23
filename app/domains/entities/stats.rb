@@ -17,7 +17,7 @@ module Entities
                     week_52_high
                     week_52_low].freeze
 
-    attr_reader *ATTRIBUTES
+    attr_accessor *ATTRIBUTES
 
     def self.from_iex_response(response)
       args = {

@@ -6,7 +6,7 @@ module Entities
                     high
                     low].freeze
 
-    attr_reader *ATTRIBUTES
+    attr_accessor *ATTRIBUTES
 
     def self.from_finn_hub_response(response)
       args = {

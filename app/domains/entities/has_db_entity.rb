@@ -1,10 +1,12 @@
 module Entities
   module HasDbEntity
-    attr_reader :errors
+    attr_accessor :created_at, :errors, :updated_at
 
     def initialize(args = {})
       super
+      @created_at = args[:created_at]
       @errors = args[:errors]
+      @updated_at = args[:updated_at]
     end
 
     def self.included(base)
@@ -24,7 +26,11 @@ module Entities
         return if entity.blank?
 
         args = _db_entity_args(entity)
-        args[:errors] = entity.errors if entity.errors.any?
+        args.merge!(
+          created_at: entity.created_at,
+          errors: entity.errors,
+          updated_at: entity.updated_at,
+        )
         new(args)
       end
 

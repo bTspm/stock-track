@@ -23,7 +23,7 @@ class CompanySerializer
                   sic_code
                   symbol].freeze
 
-  attr_reader *ATTRIBUTES
+  attr_accessor *ATTRIBUTES
 
   def initialize(args = {})
     args = args.with_indifferent_access

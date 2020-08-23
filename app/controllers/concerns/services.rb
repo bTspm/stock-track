@@ -8,5 +8,9 @@ module Services
     def stock_service
       @stock_service ||= StockService.new
     end
+
+    def watch_list_service
+      @watch_list_service ||= WatchListService.new(user: current_user)
+    end
   end
 end

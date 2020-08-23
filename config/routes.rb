@@ -16,6 +16,13 @@ Rails.application.routes.draw do
 
   namespace :search do
     get :basic
+    get :search_for_dropdown
+  end
+
+  resources :watch_lists do
+    collection do
+      get :update_dropdown
+    end
   end
 
   require "sidekiq/web"
