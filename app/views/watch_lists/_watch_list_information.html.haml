@@ -16,15 +16,19 @@
         = render partial: "stocks_table", locals: { stocks: stocks }
 
   .col-xl-4.col-lg-12.col-md-12
+
     .row
       .col-xl-12.col-lg-6.col-md-12
         .card
           .card-header Sector Allocation
           .card-body
+            = render partial: "watch_lists/sector", locals: {chart_data: stocks.sector_allocation_chart_data}
+
       .col-xl-12.col-lg-6.col-md-12
         .card
           .card-header Industry Allocation
           .card-body
+            = render partial: "watch_lists/issuer_type", locals: {chart_data: stocks.issuer_type_allocation_chart_data}
 
 :javascript
   WatchListSave.init();

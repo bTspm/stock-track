@@ -4,7 +4,7 @@ class CompaniesPresenter
   class Scalar < Btspm::Presenters::ScalarPresenter
     delegate :formatted, to: :address, prefix: true
     delegate :country_alpha2, :name_with_country_code, to: :exchange, prefix: true
-    delegate :name_with_code, to: :issuer_type, prefix: true
+    delegate :name_with_code, :name, to: :issuer_type, prefix: true
 
     def address
       ::AddressesPresenter.present(data_object.address, h)
@@ -70,10 +70,24 @@ class CompaniesPresenter
       map(&:autocomplete_response)
     end
 
+    def issuer_type_allocation_chart_data
+      { data: _pie_chart_response(:issuer_type_name), title: 'Issuer Type Allocation' }.to_json
+    end
+
+    def sector_allocation_chart_data
+      { data: _pie_chart_response(:sector), title: 'Sector Allocation' }.to_json
+    end
+
     def select_picker_response
       return [] if data_object.blank?
 
       map(&:select_picker_response)
+    end
+
+    private
+
+    def _pie_chart_response(key)
+      map(&key).tally.sort_by {|k, v| [-v, k] }.to_h.map { |k, v| { name: k, y: v } }
     end
   end
 end

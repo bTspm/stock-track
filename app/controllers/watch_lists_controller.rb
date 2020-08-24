@@ -31,8 +31,8 @@ class WatchListsController < ApplicationController
     watch_list = present(watch_list_service.user_watch_list_by_id(params[:id]), WatchListsPresenter)
     stocks = present(stock_service.stocks_by_symbols(watch_list.symbols), StocksPresenters)
     render partial: "watch_lists/watch_list_information", locals: { stocks: stocks, watch_list: watch_list }
-  # rescue StandardError => e
-  #   render partial: "watch_lists/error", locals: { error: e.message }
+  rescue StandardError => e
+    render partial: "watch_lists/error", locals: { error: e.message }
   end
 
   def index

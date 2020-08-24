@@ -28,5 +28,10 @@ class StocksPresenters
   end
 
   class Enum < Btspm::Presenters::EnumPresenter
+    delegate :issuer_type_allocation_chart_data, :sector_allocation_chart_data, to: :companies
+
+    def companies
+      @companies ||= ::CompaniesPresenter.present(data_object.map(&:company), h)
+    end
   end
 end

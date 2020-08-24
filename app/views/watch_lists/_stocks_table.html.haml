@@ -1,5 +1,5 @@
 .table-responsive.mb-3
-  %table#data-table.table.table-hover.w-100.table-sm.table-striped.datatable-workbench
+  %table#data-table.table.table-hover.w-100.table-sm.table-striped
     %thead
       %tr.small
         %th Symbol/Name
@@ -29,7 +29,6 @@
           %td= stock.volume
           %td= stock.previous_volume
 
-
 :javascript
   $(document).ready(function() {
     $('#data-table').DataTable({
@@ -39,11 +38,7 @@
             paging: false,
             scrollCollapse: true,
             scrollY: "100vh",
-            scrollX: true,
-            columnDefs: [
-            { responsivePriority: 1, targets: 0 },
-            { responsivePriority: 10001, targets: 4 },
-            { responsivePriority: 2, targets: -2 }
+            scrollX: true
         ]
     });
   });
