@@ -11,6 +11,6 @@ class StatsStore
   protected
 
   def _expiry
-    15.minutes
+    5.hours
   end
 end

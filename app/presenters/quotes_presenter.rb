@@ -17,7 +17,9 @@ class QuotesPresenter
     def day_range
       return "N/A" if data_object.low.blank? && data_object.high.blank?
 
-      "#{low} - #{high}".html_safe
+      formatted_high = h.positive_content(high)
+      formatted_low = h.negative_content(low)
+      "#{formatted_low} - #{formatted_high}".html_safe
     end
 
     def extended_price_info
@@ -27,7 +29,7 @@ class QuotesPresenter
     def high
       return "N/A" if data_object.high.blank?
 
-      h.positive_content(h.number_with_delimiter(data_object.high))
+      h.number_with_delimiter(data_object.high)
     end
 
     def latest_price_info
@@ -37,7 +39,7 @@ class QuotesPresenter
     def low
       return "N/A" if data_object.low.blank?
 
-      h.negative_content(h.number_with_delimiter(data_object.low))
+      h.number_with_delimiter(data_object.low)
     end
 
     def open
@@ -52,10 +54,10 @@ class QuotesPresenter
       h.number_with_delimiter data_object.previous_close
     end
 
-    def previous_volume
-      return "N/A" if data_object.previous_volume.blank?
+    def formatted_previous_volume
+      return "N/A" if previous_volume.blank?
 
-      h.number_with_delimiter data_object.previous_volume
+      h.number_to_human previous_volume
     end
 
     def show_extended_info?
@@ -65,10 +67,10 @@ class QuotesPresenter
       true
     end
 
-    def volume
-      return "N/A" if data_object.volume.blank?
+    def formatted_volume
+      return "N/A" if volume.blank?
 
-      h.number_with_delimiter data_object.volume
+      h.number_to_human volume
     end
 
     private

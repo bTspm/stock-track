@@ -55,6 +55,23 @@ describe CompaniesPresenter do
       end
     end
 
+    describe "#autocomplete_response" do
+      subject { presenter.autocomplete_response }
+
+      it "expect to return a hash with search response" do
+        expect(ExchangesPresenter).to receive(:present).with(exchange, view_context) { exchange_presenter }
+        expect(exchange_presenter).to receive(:name_with_country_code) { "NYSE (USA)" }
+
+        expect(subject).to eq(
+                             exchange_name_with_country_code: "NYSE (USA)",
+                             id: "Symbol",
+                             logo_url: "https://storage.googleapis.com/iexcloud-hl37opg/api/logos/Symbol.png",
+                             security_name_with_symbol: "Security Name - SYMBOL",
+                             value: "Description Name Security Name Symbol"
+                           )
+      end
+    end
+
     describe "#employees" do
       subject { presenter.employees }
 
@@ -122,34 +139,17 @@ describe CompaniesPresenter do
         expect(subject).to eq "Name - (SYMBOL)"
       end
     end
-
-    describe "#search_response" do
-      subject { presenter.search_response }
-
-      it "expect to return a hash with search response" do
-        expect(ExchangesPresenter).to receive(:present).with(exchange, view_context) { exchange_presenter }
-        expect(exchange_presenter).to receive(:name_with_country_code) { "NYSE (USA)" }
-
-        expect(subject).to eq(
-                             exchange_name_with_country_code: "NYSE (USA)",
-                             id: "Symbol",
-                             logo_url: "https://storage.googleapis.com/iexcloud-hl37opg/api/logos/Symbol.png",
-                             security_name_with_symbol: "Security Name - SYMBOL",
-                             value: "Description Name Security Name Symbol"
-                           )
-      end
-    end
   end
 
   describe ".enum" do
     let(:object) { double(:object) }
     subject(:presenter) { described_class::Enum.new([object], view_context) }
 
-    describe "#search_response" do
-      subject { presenter.search_response }
+    describe "#autocomplete_response" do
+      subject { presenter.autocomplete_response }
 
-      it "expect to return search response" do
-        expect_any_instance_of(described_class::Scalar).to receive(:search_response) { "Search Response" }
+      it "expect to return autocomplete response" do
+        expect_any_instance_of(described_class::Scalar).to receive(:autocomplete_response) { "Search Response" }
 
         expect(subject).to match_array ["Search Response"]
       end

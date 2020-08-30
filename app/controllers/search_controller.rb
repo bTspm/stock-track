@@ -1,8 +1,6 @@
 class SearchController < ApplicationController
   def basic
-    respond_to do |format|
-      format.json { render json: { suggestions: _results.autocomplete_response } }
-    end
+    render json: { suggestions: _results.autocomplete_response }
   end
 
   def search_for_dropdown

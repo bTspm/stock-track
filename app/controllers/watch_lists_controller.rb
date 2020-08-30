@@ -29,7 +29,7 @@ class WatchListsController < ApplicationController
 
   def show
     watch_list = present(watch_list_service.user_watch_list_by_id(params[:id]), WatchListsPresenter)
-    stocks = present(stock_service.stocks_by_symbols(watch_list.symbols), StocksPresenters)
+    stocks = present(stock_service.stocks_by_symbols(watch_list.symbols), StocksPresenter)
     render partial: "watch_lists/watch_list_information", locals: { stocks: stocks, watch_list: watch_list }
   rescue StandardError => e
     render partial: "watch_lists/error", locals: { error: e.message }
@@ -42,6 +42,11 @@ class WatchListsController < ApplicationController
   def update_dropdown
     watch_lists = present(watch_list_service.user_watch_lists, WatchListsPresenter)
     render partial: "watch_lists/dropdown", locals: { watch_lists: watch_lists, selected_id: params[:selected_id] }
+  end
+
+  def destroy
+    WatchList.where(id: params[:id], user_id: current_user.id).first&.destroy
+    redirect_to watch_lists_path
   end
 
   private

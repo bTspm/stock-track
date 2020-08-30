@@ -41,7 +41,13 @@ class StockService < BusinessService
 
     companies = company_storage.by_symbols(symbols).group_by(&:symbol)
     symbols.map do |symbol|
-      args = { company: companies[symbol].first, quote: quote_storage.by_symbol_from_iex(symbol) }
+      args = {
+        company: companies[symbol].first,
+        growth: growth_by_symbol(symbol),
+        quote: quote_by_symbol(symbol),
+        stats: stats_by_symbol(symbol)
+      }
+
       Entities::Stock.new(args)
     end
   end

@@ -1,8 +1,15 @@
 class WatchListStore < BaseStore
   def create_or_update(params)
-    watch_list = WatchList.where(id: params[:id]).first
+    watch_list = WatchList.where(id: params[:id], user_id: user.id).first
     params.merge!(user_id: user.id, symbols: (params[:symbols] || []))
     watch_list = WatchListBuilder.new(watch_list).build_base_entity_from_params(params)
+    watch_list.save!
+    Entities::WatchList.from_db_entity(watch_list.reload)
+  end
+
+  def delete_symbol(params)
+    watch_list = WatchList.where(id: params[:id], user_id: user.id).first
+    watch_list = WatchListBuilder.new(watch_list).remove_symbol(params[:symbol])
     watch_list.save!
     Entities::WatchList.from_db_entity(watch_list.reload)
   end

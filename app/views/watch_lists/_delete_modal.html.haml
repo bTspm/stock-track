@@ -1,0 +1,15 @@
+.modal.fade{"aria-hidden": "true", tabindex: "-1", id: "watch-list-delete-modal"}
+  .modal-dialog
+    .modal-content
+      .modal-header
+        %h5= fontawesome_icon(name_icon_with_style: "fas fa-trash", text: "Delete Watch List")
+        %button.close{"aria-label": "Close", "data-dismiss": "modal", type: "button"}
+          %span{"aria-hidden": "true"} ×
+      .modal-body.text-center
+        %h1= fontawesome_icon(name_icon_with_style: "text-danger fas fa-exclamation-circle")
+        Are you sure you want to delete this watchlist?
+        %div This action is irreversible.
+      .modal-footer
+        = button_tag "Cancel", type: "button", class: "btn btn-secondary", data: {dismiss: "modal"}
+        = button_to "Delete", { controller: :watch_lists, action: :destroy, id: watch_list_id },
+          method: :delete, class: "btn btn-danger"

@@ -15,6 +15,10 @@ module StocksHelper
     content_tag :span, content, class: "text-success"
   end
 
+  def neutral_content(content)
+    content_tag :span, content, class: "text-warning"
+  end
+
   def price_color_class(value)
     return "loss" if value.negative?
     return "profit" if value.positive?

@@ -2,6 +2,8 @@ const WatchListSave = {
     init: function () {
         this.elements = {
             editButton: $("#watch-list-edit-button"),
+            deleteButton: $("#watch-list-delete-button"),
+            deleteModal: $("#watch-list-delete-modal"),
             formCancelButton: $("#watch-list-form-cancel-button"),
             formSaveButton: $("#watch-list-form-save-button"),
             newButton: $("#watch-list-new-button"),
@@ -27,6 +29,9 @@ const WatchListSave = {
         WatchListSave.elements.editButton
             .off()
             .click(WatchListSave._actionButtonOnClick);
+        WatchListSave.elements.deleteButton
+            .off()
+            .click(WatchListSave._deleteButtonClick);
         WatchListSave.elements.newButton
             .off()
             .click(WatchListSave._actionButtonOnClick);
@@ -34,6 +39,10 @@ const WatchListSave = {
             .off()
             .click(WatchListSave._hideModal);
         WatchListSave.elements.formSaveButton.off().click(WatchListSave._submit);
+    },
+
+    _deleteButtonClick: function(){
+        WatchListSave.elements.deleteModal.modal("show");
     },
 
     _getFormData: function (path) {

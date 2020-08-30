@@ -78,3 +78,7 @@ gem "sidekiq-scheduler"
 gem "countries"
 
 gem "clearance"
+
+
+gem 'watir'
+gem 'webdrivers'
