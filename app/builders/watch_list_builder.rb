@@ -1,6 +1,6 @@
 class WatchListBuilder < BaseBuilder
-  def remove_symbol(symbol)
-    @db_entity.symbols - Array.wrap(symbol)
+  def delete_symbol(symbol)
+    @db_entity.symbols = @db_entity.symbols - Array.wrap(symbol)
   end
 
   protected

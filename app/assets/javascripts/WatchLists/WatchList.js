@@ -36,7 +36,6 @@ const WatchList = {
     _bindEvents: function () {
         WatchList._initDropdown();
         WatchList._onSelection();
-        WatchListSave.init();
     },
 
     _hideLoader: function () {

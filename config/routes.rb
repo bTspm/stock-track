@@ -23,6 +23,10 @@ Rails.application.routes.draw do
     collection do
       get :update_dropdown
     end
+
+    member do
+      delete :delete_symbol
+    end
   end
 
   require "sidekiq/web"

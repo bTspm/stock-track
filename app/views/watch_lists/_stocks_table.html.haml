@@ -1,0 +1,52 @@
+.table-responsive.mb-3
+  %table#watch-list-stocks-table.table.table-hover.w-100.table-sm.table-striped
+    %thead
+      %tr
+        %th Symbol/Name
+        %th Price
+        %th Chg
+        %th % Chg
+        %th Open
+        %th High
+        %th Low
+        %th Prev. Close
+        %th Volume
+        %th Div Yield
+        %th.d-none Div Yield Actual Number
+        %th Mkt Cap
+        %th.d-none Mkt Cap Actual Number
+        %th Ytd %
+        %th Sector
+        %th.no-sort
+
+    %tbody
+      - stocks.each do |stock|
+        %tr{id: "#{stock.symbol}-#{watch_list.id}"}
+          %td
+            = link_to stock.symbol, stocks_information_path(symbol: stock.symbol),
+                      target: "_blank", class: "font-weight-bold"
+            %div= stock.security_name
+          %td.font-weight-bold= stock.latest_price_info_amount
+          %td.font-weight-bold= stock.latest_price_info_change
+          %td.font-weight-bold= stock.latest_price_info_change_percent
+          %td= stock.open
+          %td= stock.high
+          %td= stock.low
+          %td= stock.previous_close
+          %td= stock.formatted_volume
+          %td= stock.formatted_dividend_yield
+          %td.d-none= stock.dividend_yield
+          %td= stock.formatted_market_cap
+          %td.d-none= stock.market_cap
+          %td= stock.formatted_ytd
+          %td= stock.sector
+          %td.text-center= symbol_delete_button(watch_list_id: watch_list.id, symbol: stock.symbol)
+
+= render partial: "watch_lists/delete_modal", locals: { watch_list_id: watch_list.id }
+
+:javascript
+  $(document).ready(function () {
+    WatchListStocksTable.init().render(JSON.parse('#{raw(watch_list_table_buttons(watch_list.id))}'));
+    WatchListActions.init();
+    $('[data-toggle="tooltip"]').tooltip();
+  });
