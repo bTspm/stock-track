@@ -1,5 +1,9 @@
 class WatchListService < BusinessService
   include Services
+  def add_symbol_to_watch_list(id:, symbol:)
+    watch_list_storage.add_symbol_to_watch_list(id: id, symbol: symbol)
+  end
+  
   def create_or_update(params)
     watch_list_storage.create_or_update(params)
   end

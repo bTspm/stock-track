@@ -1,4 +1,8 @@
 class WatchListBuilder < BaseBuilder
+  def add_symbol(symbol)
+    @db_entity.symbols = (@db_entity.symbols + Array.wrap(symbol)).compact.uniq
+  end
+
   def delete_symbol(symbol)
     @db_entity.symbols = @db_entity.symbols - Array.wrap(symbol)
   end

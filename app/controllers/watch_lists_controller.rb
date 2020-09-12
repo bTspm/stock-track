@@ -44,9 +44,28 @@ class WatchListsController < ApplicationController
     redirect_to watch_lists_path
   end
 
+  def add_symbol
+    watch_list = watch_list_service.add_symbol_to_watch_list(id: params[:id], symbol: params[:symbol])
+    render json: { message: "#{params[:symbol]} is added to #{watch_list.name}", watch_list_id: watch_list.id },
+           status: :ok
+  rescue StandardError => e
+    render json: { message: "Failed adding #{params[:symbol]}. Error: #{e.message}"},
+           status: :internal_server_error
+  end
+
+  def add_to_watch_lists
+    watch_lists = present(watch_list_service.user_watch_lists, WatchListsPresenter)
+    render partial: "watch_lists/add_to_watch_lists_content",
+           locals: { symbol: params[:symbol], watch_lists: watch_lists }
+  end
+
   def delete_symbol
-    watch_list_service.delete_symbol_from_watch_list(id: params[:id], symbol: params[:symbol])
-    render json: "#{params[:symbol]} has been deleted from WatchList", status: :ok
+    watch_list = watch_list_service.delete_symbol_from_watch_list(id: params[:id], symbol: params[:symbol])
+    render json: { message: "#{params[:symbol]} is deleted from #{watch_list.name}", watch_list_id: watch_list.id},
+           status: :ok
+  rescue StandardError => e
+    render json: { message: "Failed deleting #{params[:symbol]}. Error: #{e.message}"},
+           status: :internal_server_error
   end
 
   def update_dropdown

@@ -21,7 +21,7 @@
 
     %tbody
       - stocks.each do |stock|
-        %tr{id: "#{stock.symbol}-#{watch_list.id}"}
+        %tr{id: "#{stock.symbol.gsub(".", "0")}-#{watch_list.id}"}
           %td
             = link_to stock.symbol, stocks_information_path(symbol: stock.symbol),
                       target: "_blank", class: "font-weight-bold"

@@ -1,21 +1,38 @@
 module WatchListsHelper
-  def watch_list_table_buttons(watch_list_id)
-    [_edit_button(watch_list_id), _delete_button].to_json
+  def add_symbol_to_watch_list_link(symbol:, watch_list:)
+    formatted_symbol = symbol.gsub(".", "0")
+    link_to fontawesome_icon(name_icon_with_style: "far fa-star text-info", text: watch_list.name),
+            "javascript:void(0)",
+            class: "symbol-add mt-3 text-secondary watch-list-id-#{watch_list.id}-#{formatted_symbol}",
+            data: { "watch-list-id": watch_list.id }
+  end
+
+  def delete_symbol_from_watch_list_link(symbol:, watch_list:)
+    formatted_symbol = symbol.gsub(".", "0")
+    link_to fontawesome_icon(name_icon_with_style: "fas fa-star text-info", text: watch_list.name),
+            "javascript:void(0)",
+            class: "symbol-delete mt-3 text-secondary watch-list-id-#{watch_list.id}-#{formatted_symbol}",
+            data: { "watch-list-id": watch_list.id }
   end
 
   def symbol_delete_button(watch_list_id:, symbol:)
     data_attrs = {
       path: delete_symbol_watch_list_path(id: watch_list_id, symbol: symbol),
-      "row-element-id": "#{symbol}-#{watch_list_id}",
+      "row-element-id": "#{symbol.gsub(".", "0")}-#{watch_list_id}",
       symbol: symbol,
       toggle: "tooltip",
-      placement: "top"
+      placement: "left"
     }
 
-    link_to fontawesome_icon(name_icon_with_style: "fas fa-minus-circle symbol-delete",
-                             options: { data: data_attrs, title: "Delete from Watch List" }),
-            "javascript:void(0)",
-            class: "text-danger"
+    content = fontawesome_icon(
+      name_icon_with_style: "fas fa-minus-circle symbol-delete",
+      options: { data: data_attrs, title: "Delete from Watch List" }
+    )
+    link_to content, "javascript:void(0)", class: "text-danger"
+  end
+
+  def watch_list_table_buttons(watch_list_id)
+    [_edit_button(watch_list_id), _delete_button].to_json
   end
 
   private

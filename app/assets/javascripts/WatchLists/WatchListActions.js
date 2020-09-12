@@ -3,7 +3,7 @@ const WatchListActions = {
         this.elements = {
             deleteButton: $("#watch-list-delete-button"),
             deleteModal: $("#watch-list-delete-modal"),
-            deleteSymbolButtons: $("#watch-list-stocks-table").find(".symbol-delete"),
+            deleteSymbolButtons: $(".symbol-delete"),
             editButton: $("#watch-list-edit-button"),
             formBody: $("#watch-list-form-body"),
             formCancelButton: $("#watch-list-form-cancel-button"),
@@ -46,7 +46,10 @@ const WatchListActions = {
                 type: "DELETE",
                 dataType: "JSON",
                 url: $(this).data('path'),
-            }).done(rowElement.addClass("d-none"))
+            }).done(function(){
+                rowElement.addClass("d-none");
+                Notifications.success("Deleted from Watchlist.")
+            })
         });
     },
 

@@ -1,0 +1,10 @@
+= button_tag fontawesome_icon(name_icon_with_style: "far fa-star", text: "Add to Watch Lists"),
+             type: "button",
+             class: "btn btn-outline-info btn-sm add-to-watch-list-popover",
+             data: {container: "body", toggle: "popover", placement: "bottom", symbol: symbol,
+             path: add_to_watch_lists_watch_lists_path(symbol: symbol)}
+
+:javascript
+  $(document).ready(function () {
+    AddToWatchList.init('#{symbol}').render();
+  });

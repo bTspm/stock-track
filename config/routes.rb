@@ -21,10 +21,12 @@ Rails.application.routes.draw do
 
   resources :watch_lists do
     collection do
+      get :add_to_watch_lists
       get :update_dropdown
     end
 
     member do
+      patch :add_symbol
       delete :delete_symbol
     end
   end

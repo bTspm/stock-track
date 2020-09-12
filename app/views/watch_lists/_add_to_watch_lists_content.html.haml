@@ -1,0 +1,3 @@
+.p-3{id: "popover-content-#{symbol}" }
+  - watch_lists.ordered_by_name_asc.each do |watch_list|
+    %div= watch_list.add_or_delete_symbol_link(symbol)
