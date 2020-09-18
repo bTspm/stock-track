@@ -1,3 +1,5 @@
+= watch_list_delete_edit_buttons(watch_list.id)
+
 .table-responsive.mb-3
   %table#watch-list-stocks-table.table.table-hover.w-100.table-sm.table-striped
     %thead
@@ -11,6 +13,7 @@
         %th Low
         %th Prev. Close
         %th Volume
+        %th.d-none Volume Actual Number
         %th Div Yield
         %th.d-none Div Yield Actual Number
         %th Mkt Cap
@@ -22,10 +25,7 @@
     %tbody
       - stocks.each do |stock|
         %tr{id: "#{stock.symbol.gsub(".", "0")}-#{watch_list.id}"}
-          %td
-            = link_to stock.symbol, stocks_information_path(symbol: stock.symbol),
-                      target: "_blank", class: "font-weight-bold"
-            %div= stock.security_name
+          %td= stock_information_link_with_company_name(stock.company)
           %td.font-weight-bold= stock.latest_price_info_amount
           %td.font-weight-bold= stock.latest_price_info_change
           %td.font-weight-bold= stock.latest_price_info_change_percent
@@ -34,6 +34,7 @@
           %td= stock.low
           %td= stock.previous_close
           %td= stock.formatted_volume
+          %td.d-none= stock.volume
           %td= stock.formatted_dividend_yield
           %td.d-none= stock.dividend_yield
           %td= stock.formatted_market_cap
@@ -46,7 +47,8 @@
 
 :javascript
   $(document).ready(function () {
-    WatchListStocksTable.init().render(JSON.parse('#{raw(watch_list_table_buttons(watch_list.id))}'));
+    WatchListStocksTable.init().render();
     WatchListActions.init();
+    AddSymbolToWatchList.init().render();
     $('[data-toggle="tooltip"]').tooltip();
   });

@@ -1,4 +1,13 @@
 module WatchListsHelper
+  def add_watch_list_button
+    button_tag fontawesome_icon(name_icon_with_style: "fas fa-plus", text: "Add Watch List"),
+               class: "btn btn-sm btn-primary",
+               id: "watch-list-new-button",
+               data: { "form-path": new_watch_list_path,
+                       "modal-title": fontawesome_icon(name_icon_with_style: "fas fa-plus", text: "Add Watch List") },
+               type: "button"
+  end
+
   def add_symbol_to_watch_list_link(symbol:, watch_list:)
     formatted_symbol = symbol.gsub(".", "0")
     link_to fontawesome_icon(name_icon_with_style: "far fa-star text-info", text: watch_list.name),
@@ -13,6 +22,13 @@ module WatchListsHelper
             "javascript:void(0)",
             class: "symbol-delete mt-3 text-secondary watch-list-id-#{watch_list.id}-#{formatted_symbol}",
             data: { "watch-list-id": watch_list.id }
+  end
+
+  def watch_list_delete_edit_buttons(watch_list_id)
+    content_tag(:span, class: "d.none", id: "watch-list-delete-edit-buttons") do
+      concat _edit_watch_list_button(watch_list_id)
+      concat _delete_watch_list_button
+    end
   end
 
   def symbol_delete_button(watch_list_id:, symbol:)
@@ -31,33 +47,28 @@ module WatchListsHelper
     link_to content, "javascript:void(0)", class: "text-danger"
   end
 
-  def watch_list_table_buttons(watch_list_id)
-    [_edit_button(watch_list_id), _delete_button].to_json
+  def watch_list_information(watch_list_id)
+    return render_async watch_list_path(id: watch_list_id) { render partial: "stocks/loading_card" } if watch_list_id
+
+    content_tag(:span, "No Watch Lists, please add.")
   end
 
   private
 
-  #TODO: Fix JavaScript escaping characters issue to use fontawesome icons on buttons.
-  def _edit_button(watch_list_id)
-    {
-      className: "btn-info",
-      # text: fontawesome_icon(name_icon_with_style: "far fa-edit", text: "Edit"),
-      text: "Edit Watch List",
-      attr: {
-        id: "watch-list-edit-button",
-        "data-form-path": edit_watch_list_path(id: watch_list_id),
-        # "data-modal-title": fontawesome_icon(name_icon_with_style: "far fa-edit", text: "Edit Watch List")
-        "data-modal-title": "Edit Watch List"
-      }
-    }
+  def _delete_watch_list_button
+    button_tag fontawesome_icon(name_icon_with_style: "fas fa-trash", text: "Delete Watch List"),
+               class: "btn btn-sm btn-danger ml-2",
+               id: "watch-list-delete-button",
+               "data-modal-title": fontawesome_icon(name_icon_with_style: "fas fa-trash", text: "Delete Watch List"),
+               type: "button"
   end
 
-  def _delete_button
-    {
-      # text: fontawesome_icon(name_icon_with_style: "fas fa-trash", text: "Delete"),
-      text: "Delete Watch List",
-      className: "btn-danger ",
-      attr: { id: "watch-list-delete-button" }
-    }
+  def _edit_watch_list_button(watch_list_id)
+    button_tag fontawesome_icon(name_icon_with_style: "far fa-edit", text: "Edit Watch List"),
+               class: "btn btn-sm btn-info",
+               id: "watch-list-edit-button",
+               data: { "form-path": edit_watch_list_path(id: watch_list_id),
+                       "modal-title": fontawesome_icon(name_icon_with_style: "far fa-edit", text: "Edit Watch List") },
+               type: "button"
   end
 end

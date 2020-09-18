@@ -11,6 +11,7 @@ class StocksPresenter
              :high,
              :low,
              :formatted_volume,
+             :volume,
              :previous_volume,
              :previous_close,
              to: :quote
