@@ -8,10 +8,10 @@
         %th Price
         %th Chg
         %th % Chg
-        %th Open
-        %th High
-        %th Low
-        %th Prev. Close
+        %th.no-sort Open
+        %th.no-sort High
+        %th.no-sort Low
+        %th.no-sort Prev Close
         %th Volume
         %th.d-none Volume Actual Number
         %th Div Yield
@@ -49,6 +49,5 @@
   $(document).ready(function () {
     WatchListStocksTable.init().render();
     WatchListActions.init();
-    AddSymbolToWatchList.init().render();
     $('[data-toggle="tooltip"]').tooltip();
   });

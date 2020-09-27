@@ -3,7 +3,12 @@
     .card
       .card-header
         %span Watch Lists
-        .float-right= add_watch_list_button
+        .float-right
+          = button_tag add_watch_list_title,
+            class: "btn btn-sm btn-primary",
+            id: "watch-list-new-button",
+            data: { "form-path": new_watch_list_path, "modal-title": add_watch_list_title },
+            type: "button"
 
       .card-body
         = render partial: "watch_lists/watch_lists", locals: { watch_lists: @watch_lists }
@@ -19,5 +24,5 @@
 :javascript
   $(document).ready(function() {
     WatchList.init();
-    WatchListActions.init();
+    WatchListActions.init().render('#{params[:for_new]}');
   });

@@ -49,35 +49,38 @@ class WatchListsController < ApplicationController
     render json: { message: "#{params[:symbol]} is added to #{watch_list.name}", watch_list_id: watch_list.id },
            status: :ok
   rescue StandardError => e
-    render json: { message: "Failed adding #{params[:symbol]}. Error: #{e.message}"},
+    render json: { message: "Failed adding #{params[:symbol]}. Error: #{e.message}" },
            status: :internal_server_error
   end
 
   def add_to_watch_lists
     watch_lists = present(watch_list_service.user_watch_lists, WatchListsPresenter)
-    render partial: "watch_lists/add_to_watch_lists_content",
-           locals: { symbol: params[:symbol], watch_lists: watch_lists }
+    render partial: "watch_lists/add_to_watch_lists_content", locals: { watch_lists: watch_lists }
   end
 
   def delete_symbol
     watch_list = watch_list_service.delete_symbol_from_watch_list(id: params[:id], symbol: params[:symbol])
-    render json: { message: "#{params[:symbol]} is deleted from #{watch_list.name}", watch_list_id: watch_list.id},
+    render json: { message: "#{params[:symbol]} is deleted from #{watch_list.name}", watch_list_id: watch_list.id },
            status: :ok
   rescue StandardError => e
-    render json: { message: "Failed deleting #{params[:symbol]}. Error: #{e.message}"},
-           status: :internal_server_error
+    render json: { message: "Failed deleting #{params[:symbol]}. Error: #{e.message}" }, status: :internal_server_error
   end
 
   def update_dropdown
     watch_lists = present(watch_list_service.user_watch_lists, WatchListsPresenter)
-    render partial: "watch_lists/dropdown", locals: { watch_lists: watch_lists, selected_id: params[:selected_id] }
+    render partial: "watch_lists/dropdown", locals: { watch_lists: watch_lists }
   end
 
   private
 
   def _create_or_update
     watch_list = watch_list_service.create_or_update(_watch_list_params)
-    render json: { watch_list: watch_list, path: watch_list_path(id: watch_list.id) }, status: :ok
+    render json: { watch_list: watch_list, path: watch_list_path(id: watch_list.id), message: "Save Successful" },
+           status: :ok
+  rescue AppExceptions::RecordInvalid => e
+    render json: { validation_errors: e.error_messages }, status: :unprocessable_entity
+  rescue StandardError => e
+    render json: { message: "Error saving watchlist. Error: #{e.message}" }, status: :internal_server_error
   end
 
   def _watch_list_params

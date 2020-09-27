@@ -50,8 +50,8 @@ const WatchListStocksTable = {
                     "orderable": false,
                 }
             ],
-            dom: "<'row'<'col-sm-12 col-md-6 d-flex align-self-center watch-list-delete-edit-buttons'>"+
-                "<'col-sm-12 col-md-6'f>>" +
+            dom: "<'row'<'col-sm-12 col-md-6 mt-3 d-flex align-self-center watch-list-delete-edit-buttons'>"+
+                "<'col-sm-12 col-md-6 mt-3'f>>" +
                 "<'row'<'col-sm-12'tr>>" +
                 "<'row'<'col-sm-12 col-md-5'i><'col-sm-12 col-md-7'p>>",
             paging: false,

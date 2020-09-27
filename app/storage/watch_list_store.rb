@@ -7,11 +7,15 @@ class WatchListStore < BaseStore
   end
 
   def create_or_update(params)
-    watch_list = WatchList.find_or_initialize_by(id: params[:id], user_id: user.id)
+    watch_list = params[:id].blank? ? nil : WatchList.find_by!(id: params[:id], user_id: user.id)
     params.merge!(symbols: (params[:symbols] || []))
     watch_list = WatchListBuilder.new(watch_list).build_base_entity_from_params(params)
     watch_list.save!
     Entities::WatchList.from_db_entity(watch_list)
+  rescue ActiveRecord::RecordInvalid => e
+    Rails.logger.error("Watchlist save failed: #{watch_list.id}, #{watch_list.name} with errors: #{e.message}")
+    watch_list = Entities::WatchList.from_db_entity(e.record)
+    raise AppExceptions::RecordInvalid.new(watch_list)
   end
 
   def delete(id)
@@ -26,7 +30,7 @@ class WatchListStore < BaseStore
   end
 
   def user_watch_list_by_id(id)
-    Entities::WatchList.from_db_entity(WatchList.find_by(id: id, user_id: user.id))
+    Entities::WatchList.from_db_entity(WatchList.find_by!(id: id, user_id: user.id))
   end
 
   def user_watch_lists

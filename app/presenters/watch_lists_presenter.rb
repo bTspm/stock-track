@@ -2,12 +2,6 @@ class WatchListsPresenter
   include Btspm::Presenters::Presentable
 
   class Scalar < Btspm::Presenters::ScalarPresenter
-    def add_or_delete_symbol_link(symbol)
-      return h.delete_symbol_from_watch_list_link(symbol: symbol, watch_list: data_object) if in_list?(symbol)
-
-      h.add_symbol_to_watch_list_link(symbol: symbol, watch_list: data_object)
-    end
-
     def for_select
       [name, id, { "data-watch-list-path": h.watch_list_path(id: id) }]
     end

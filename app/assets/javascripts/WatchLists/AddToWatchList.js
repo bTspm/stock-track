@@ -4,6 +4,7 @@ const AddToWatchList = {
             addSymbolClass: ".symbol-add",
             deleteSymbolClass: ".symbol-delete",
             popover: $(".add-to-watch-list-popover"),
+            guestPopover: $(".add-to-watch-list-popover-for-guest"),
         };
 
         this.inputs = {
@@ -21,6 +22,10 @@ const AddToWatchList = {
             content: function () {
                 return AddToWatchList._watchListsLinks();
             },
+        });
+
+        AddToWatchList.elements.guestPopover.popover({
+            html: true
         });
     },
 

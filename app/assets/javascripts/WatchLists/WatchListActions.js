@@ -5,8 +5,11 @@ const WatchListActions = {
             deleteModal: $("#watch-list-delete-modal"),
             deleteSymbolButtons: $(".symbol-delete"),
             editButton: $("#watch-list-edit-button"),
+            errorMessagesContainer: $("#watch-list-form-error-messages"),
             formBody: $("#watch-list-form-body"),
             formCancelButton: $("#watch-list-form-cancel-button"),
+            formNameInput: $("#watch-list-name-input"),
+            formSymbolsInput: $("#company-select"),
             formModal: $("#watch-list-form-modal"),
             formModalTitle: $("#watch-list-form-modal #modal-title"),
             formSaveButton: $("#watch-list-form-save-button"),
@@ -16,6 +19,12 @@ const WatchListActions = {
         };
         WatchListActions._bindEvents();
         return this;
+    },
+
+    render: function (forNew) {
+        if (forNew) {
+            return WatchListActions.elements.newButton.click();
+        }
     },
 
     _actionButtonOnClick: function () {
@@ -46,11 +55,16 @@ const WatchListActions = {
                 type: "DELETE",
                 dataType: "JSON",
                 url: $(this).data('path'),
-            }).done(function(){
+            }).done(function () {
                 rowElement.addClass("d-none");
                 Notifications.success("Deleted from Watchlist.")
             })
         });
+    },
+
+    _displayFormError: function(message){
+        WatchListActions.elements.errorMessagesContainer.empty().html(message);
+        WatchListActions.elements.errorMessagesContainer.removeClass('d-none');
     },
 
     _getFormData: function (path) {
@@ -71,10 +85,25 @@ const WatchListActions = {
         WatchListActions.elements.formModal.modal("hide");
     },
 
+    _onSaveError: function abc(data) {
+        let validationErrors = data.responseJSON.validation_errors;
+
+        if (validationErrors) {
+            let errors = "";
+            for (let i = 0; i < validationErrors.length; i++) {
+                errors += "<li>" + validationErrors[i] + "</li>";
+            }
+            return WatchListActions._displayFormError(errors);
+        } else {
+            return WatchListActions._displayFormError(data.responseJSON.message);
+        }
+    },
+
     _onSaveSuccess: function (data) {
         WatchListActions._hideModal();
         const watchList = WatchList.init();
         watchList.updateWatchListDropdown(data.watch_list.id);
+        Notifications.success(data.message);
         watchList.stocksView(data.path);
         WatchListActions.init();
     },
@@ -87,6 +116,7 @@ const WatchListActions = {
             url: $(this).data("path"),
         })
             .done(WatchListActions._onSaveSuccess)
+            .fail(WatchListActions._onSaveError)
             .always(WatchListActions._hideLoader);
         event.preventDefault();
         event.stopPropagation();

@@ -7,6 +7,14 @@ class WatchListBuilder < BaseBuilder
     @db_entity.symbols = @db_entity.symbols - Array.wrap(symbol)
   end
 
+  def set_name(name)
+    @db_entity.name = name
+  end
+
+  def set_user_id(user_id)
+    @db_entity.user_id = user_id
+  end
+
   protected
 
   def _base_column_names
