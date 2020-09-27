@@ -85,7 +85,7 @@ const WatchListActions = {
         WatchListActions.elements.formModal.modal("hide");
     },
 
-    _onSaveError: function abc(data) {
+    _onSaveError: function(data) {
         let validationErrors = data.responseJSON.validation_errors;
 
         if (validationErrors) {
