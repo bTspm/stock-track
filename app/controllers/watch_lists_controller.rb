@@ -18,7 +18,7 @@ class WatchListsController < ApplicationController
            locals: { companies: company_service.by_symbols(params[:symbol]),
                      method: "POST",
                      path: url_for(action: :create, controller: controller_name),
-                     watch_list: Entities::WatchList.new({ symbols: Array.wrap(params[:symbol]) })}
+                     watch_list: Entities::WatchList.new({ symbols: Array.wrap(params[:symbol]&.upcase) })}
   rescue StandardError => e
     render partial: "watch_lists/error", locals: { error: e.message }
   end
