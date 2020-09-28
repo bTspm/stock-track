@@ -102,7 +102,9 @@ module WatchListsHelper
   def _no_watch_lists_popover_content
     content_tag :span, class: "text-center" do
       concat content_tag :div, "No watchlists found, please create.", class: "mb-2"
-      concat link_to add_watch_list_title, watch_lists_path(for_new: true), class: "btn btn-sm btn-primary btn-block"
+      concat link_to add_watch_list_title,
+                     watch_lists_path(for_new: true, symbol: params[:symbol]),
+                     class: "btn btn-sm btn-primary btn-block"
     end
   end
 end

@@ -15,7 +15,10 @@ class WatchListsController < ApplicationController
 
   def new
     render partial: "watch_lists/form",
-           locals: { method: "POST", path: url_for(action: :create, controller: controller_name) }
+           locals: { companies: company_service.by_symbols(params[:symbol]),
+                     method: "POST",
+                     path: url_for(action: :create, controller: controller_name),
+                     watch_list: Entities::WatchList.new({ symbols: Array.wrap(params[:symbol]) })}
   rescue StandardError => e
     render partial: "watch_lists/error", locals: { error: e.message }
   end
@@ -49,8 +52,7 @@ class WatchListsController < ApplicationController
     render json: { message: "#{params[:symbol]} is added to #{watch_list.name}", watch_list_id: watch_list.id },
            status: :ok
   rescue StandardError => e
-    render json: { message: "Failed adding #{params[:symbol]}. Error: #{e.message}" },
-           status: :internal_server_error
+    render json: { message: "Failed adding #{params[:symbol]}. Error: #{e.message}" }, status: :internal_server_error
   end
 
   def add_to_watch_lists

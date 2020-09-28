@@ -21,9 +21,11 @@ const WatchListActions = {
         return this;
     },
 
-    render: function (forNew) {
+    render: function (forNew, selectedSymbol) {
         if (forNew) {
-            return WatchListActions.elements.newButton.click();
+            let path = WatchListActions.elements.newButton.data("form-path") + "?symbol=" + selectedSymbol;
+            WatchListActions.elements.newButton.data("form-path", path);
+            WatchListActions.elements.newButton.click();
         }
     },
 
