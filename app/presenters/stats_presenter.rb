@@ -14,11 +14,11 @@ class StatsPresenter
       return "N/A" if _no_dividends?
 
       dividend_date_content = h.content_tag :div, "next (#{_next_dividend_date})", class: "small"
-      ("#{_dividend_rate} / #{formatted_dividend_yield}" + dividend_date_content).html_safe
+      ("#{_dividend_rate} / #{dividend_yield}" + dividend_date_content).html_safe
     end
 
-    def formatted_dividend_yield
-      format_percentage dividend_yield
+    def dividend_yield
+      format_percentage data_object.dividend_yield
     end
 
     def float
@@ -27,10 +27,10 @@ class StatsPresenter
       h.number_to_human data_object.float, precision: 10
     end
 
-    def formatted_market_cap
-      return "N/A" if market_cap.blank?
+    def market_cap
+      return "N/A" if data_object.market_cap.blank?
 
-      h.number_to_human market_cap, precision: 3
+      h.number_to_human data_object.market_cap, precision: 3
     end
 
     def moving_average
@@ -95,7 +95,7 @@ class StatsPresenter
     end
 
     def _no_dividends?
-      ttm_dividend_rate.blank? && dividend_yield.blank?
+      ttm_dividend_rate.blank? && data_object.dividend_yield.blank?
     end
 
     def _no_moving_average?

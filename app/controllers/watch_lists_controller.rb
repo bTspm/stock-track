@@ -6,7 +6,7 @@ class WatchListsController < ApplicationController
   end
 
   def show
-    watch_list = present(watch_list_service.user_watch_list_by_id(params[:id]), WatchListsPresenter)
+    watch_list = present(watch_list_service.watch_list_by_id(params[:id]), WatchListsPresenter)
     stocks = present(stock_service.stocks_by_symbols(watch_list.symbols), StocksPresenter)
     render partial: "watch_lists/stocks_table", locals: { stocks: stocks, watch_list: watch_list }
   rescue StandardError => e
@@ -15,7 +15,7 @@ class WatchListsController < ApplicationController
 
   def new
     render partial: "watch_lists/form",
-           locals: { companies: company_service.by_symbols(params[:symbol]),
+           locals: { companies: company_service.companies_by_symbols(params[:symbol]),
                      method: "POST",
                      path: url_for(action: :create, controller: controller_name),
                      watch_list: Entities::WatchList.new({ symbols: Array.wrap(params[:symbol]&.upcase) })}
@@ -24,13 +24,13 @@ class WatchListsController < ApplicationController
   end
 
   def create
-    _create_or_update
+    _save_watch_list
   end
 
   def edit
-    watch_list = watch_list_service.user_watch_list_by_id(params[:id])
+    watch_list = watch_list_service.watch_list_by_id(params[:id])
     render partial: "watch_lists/form",
-           locals: { companies: company_service.by_symbols(watch_list.symbols),
+           locals: { companies: company_service.companies_by_symbols(watch_list.symbols),
                      method: "PATCH",
                      path: url_for(action: :update, controller: controller_name, id: watch_list.id),
                      watch_list: watch_list }
@@ -39,7 +39,7 @@ class WatchListsController < ApplicationController
   end
 
   def update
-    _create_or_update
+    _save_watch_list
   end
 
   def destroy
@@ -75,8 +75,8 @@ class WatchListsController < ApplicationController
 
   private
 
-  def _create_or_update
-    watch_list = watch_list_service.create_or_update(_watch_list_params)
+  def _save_watch_list
+    watch_list = watch_list_service.save_watch_list(_watch_list_params)
     render json: { watch_list: watch_list, path: watch_list_path(id: watch_list.id), message: "Save Successful" },
            status: :ok
   rescue AppExceptions::RecordInvalid => e

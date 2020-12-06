@@ -1,8 +1,6 @@
 require "rails_helper"
 
 describe CompanyService do
-  it_behaves_like "Services#stock_service"
-
   let(:company) { double(:company) }
   let(:service) { described_class.new }
   let(:symbol) { double(:symbol) }
@@ -18,6 +16,15 @@ describe CompanyService do
 
       expect(subject).to eq "Companies"
     end
+  end
+
+  describe "#by_symbols" do
+    let(:symbols) { double(:symbols) }
+    subject { service.companies_by_symbols(symbols) }
+
+    before { expect(service).to receive_message_chain(:company_storage, :by_symbols).with(symbols) { "companies" } }
+
+    it { is_expected.to eq "companies" }
   end
 
   describe "#company_by_symbol" do
@@ -84,3 +91,6 @@ describe CompanyService do
     end
   end
 end
+
+
+

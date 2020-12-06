@@ -3,10 +3,6 @@ class WatchListService < BusinessService
   def add_symbol_to_watch_list(id:, symbol:)
     watch_list_storage.add_symbol_to_watch_list(id: id, symbol: symbol)
   end
-  
-  def create_or_update(params)
-    watch_list_storage.create_or_update(params)
-  end
 
   def delete_symbol_from_watch_list(id:, symbol:)
     watch_list_storage.delete_symbol_from_watch_list(id: id, symbol: symbol)
@@ -16,8 +12,12 @@ class WatchListService < BusinessService
     watch_list_storage.delete(id)
   end
 
-  def user_watch_list_by_id(id)
-    watch_list_storage.user_watch_list_by_id(id)
+  def save_watch_list(params)
+    watch_list_storage.save_watch_list(params)
+  end
+
+  def watch_list_by_id(id)
+    watch_list_storage.by_id(id)
   end
 
   def user_watch_lists

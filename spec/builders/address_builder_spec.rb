@@ -4,6 +4,7 @@ describe AddressBuilder do
   it_behaves_like "BaseBuilder#initialize"
   it_behaves_like "BaseBuilder#build"
   it_behaves_like "BaseBuilder#build_base_entity_from_domain"
+  it_behaves_like "BaseBuilder#build_base_entity_from_params"
 
   let(:builder) { double(:builder) }
   let(:db_entity) { OpenStruct.new({ country: nil, state: nil }) }

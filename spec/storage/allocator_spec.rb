@@ -123,4 +123,15 @@ describe Allocator do
       expect(subject).to be_kind_of(store)
     end
   end
+
+  describe "#watch_list_store" do
+    let(:store) { WatchListStore }
+    subject { allocator.watch_list_store }
+
+    it "expect to initialize the store" do
+      expect(store).to receive(:new).and_call_original
+
+      expect(subject).to be_kind_of(store)
+    end
+  end
 end

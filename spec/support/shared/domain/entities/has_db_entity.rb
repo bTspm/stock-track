@@ -30,5 +30,10 @@ shared_examples_for "Entities::HasDbEntity.from_db_entity" do |input_args|
         it { is_expected.to be_nil }
       end
     end
+
+    context "properties" do
+      it { is_expected.to respond_to :created_at }
+      it { is_expected.to respond_to :updated_at }
+    end
   end
 end

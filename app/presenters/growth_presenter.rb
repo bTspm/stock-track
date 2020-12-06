@@ -4,17 +4,17 @@ class GrowthPresenter
   class Scalar < Btspm::Presenters::ScalarPresenter
     include Utils
 
-    def formatted_ytd
-      return "N/A" if ytd.blank?
-
-      h.content_color_by_value(content: format_percentage(ytd), value: percentage_value(ytd))
-    end
-
     def chart_data
       {
         data: _growth_details_ordered_by_time_desc.values,
         xaxis_titles: _growth_details_ordered_by_time_desc.keys
       }.to_json
+    end
+
+    def formatted_ytd
+      return "N/A" if ytd.blank?
+
+      h.content_color_by_value(content: format_percentage(ytd), value: percentage_value(ytd))
     end
 
     private

@@ -3,7 +3,7 @@ module WatchListsHelper
     data_options = { container: "body", toggle: "popover", placement: "bottom" }
     html_class = "btn btn-outline-info btn-sm"
 
-    if current_user
+    if signed_in?
       html_class = "#{html_class} add-to-watch-list-popover"
       data_options.merge!(symbol: params[:symbol], path: add_to_watch_lists_watch_lists_path(symbol: params[:symbol]))
     else
@@ -43,13 +43,13 @@ module WatchListsHelper
   end
 
   def watch_list_information(watch_list_id)
-    return render_async watch_list_path(id: watch_list_id) { render partial: "stocks/loading_card" } if watch_list_id
+    return content_tag(:span, "No Watch Lists, please add.") if watch_list_id.blank?
 
-    content_tag(:span, "No Watch Lists, please add.")
+    render_async watch_list_path(id: watch_list_id) { render partial: "stocks/loading_card" }
   end
 
   def watch_lists_popover_content(watch_lists)
-    return _no_watch_lists_popover_content unless watch_lists.any?
+    return _no_watch_lists_popover_content if watch_lists.blank?
 
     watch_lists.ordered_by_name_asc.map do |watch_list|
       content_tag(:div, _add_or_delete_symbol_link(watch_list), class: "dropdown-item")

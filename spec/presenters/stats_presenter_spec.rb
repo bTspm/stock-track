@@ -115,7 +115,7 @@ describe StatsPresenter do
       end
 
       context "with float" do
-        it { is_expected.to eq "200 Thousand" }
+        it { is_expected.to eq "200 K" }
       end
     end
 
@@ -129,7 +129,7 @@ describe StatsPresenter do
       end
 
       context "with market_cap" do
-        it { is_expected.to eq "300 Thousand" }
+        it { is_expected.to eq "300 K" }
       end
     end
 
@@ -146,17 +146,17 @@ describe StatsPresenter do
       context "without 50day and with 200day moving average" do
         let(:moving_50_day_average) { nil }
 
-        it { is_expected.to eq "N/A / 377 Thousand" }
+        it { is_expected.to eq "N/A / 377 K" }
       end
 
       context "without 200day and with 50day moving average" do
         let(:moving_200_day_average) { nil }
 
-        it { is_expected.to eq "277 Thousand / N/A" }
+        it { is_expected.to eq "277 K / N/A" }
       end
 
       context "with 50day and with 200day moving average" do
-        it { is_expected.to eq "277 Thousand / 377 Thousand" }
+        it { is_expected.to eq "277 K / 377 K" }
       end
     end
 
@@ -184,7 +184,7 @@ describe StatsPresenter do
       end
 
       context "with shares_outstanding" do
-        it { is_expected.to eq "2 Thousand" }
+        it { is_expected.to eq "2 K" }
       end
     end
 
@@ -227,17 +227,17 @@ describe StatsPresenter do
       context "without 10day and with 30day volume average" do
         let(:volume_10_day_average) { nil }
 
-        it { is_expected.to eq "N/A / 298 Thousand" }
+        it { is_expected.to eq "N/A / 298 K" }
       end
 
       context "without 30day and 10days volume average" do
         let(:volume_30_day_average) { nil }
 
-        it { is_expected.to eq "177 Thousand / N/A" }
+        it { is_expected.to eq "177 K / N/A" }
       end
 
       context "with 10day and with 30day volume average" do
-        it { is_expected.to eq "177 Thousand / 298 Thousand" }
+        it { is_expected.to eq "177 K / 298 K" }
       end
     end
 

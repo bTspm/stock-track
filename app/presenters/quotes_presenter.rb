@@ -54,10 +54,10 @@ class QuotesPresenter
       h.number_with_delimiter data_object.previous_close
     end
 
-    def formatted_previous_volume
-      return "N/A" if previous_volume.blank?
+    def previous_volume
+      return "N/A" if data_object.previous_volume.blank?
 
-      h.number_to_human previous_volume
+      h.number_to_human data_object.previous_volume
     end
 
     def show_extended_info?
@@ -67,10 +67,10 @@ class QuotesPresenter
       true
     end
 
-    def formatted_volume
-      return "N/A" if volume.blank?
+    def volume
+      return "N/A" if data_object.volume.blank?
 
-      h.number_to_human volume
+      h.number_to_human data_object.volume
     end
 
     private

@@ -3,6 +3,8 @@ require "rails_helper"
 describe Utils do
   class DummyClass
     include Utils
+
+    alias_method :h, :view_context
   end
 
   subject(:dummy_class) { DummyClass.new }

@@ -47,3 +47,16 @@ shared_examples_for "BaseBuilder#build_base_entity_from_domain" do
     expect(subject).to eq "XYZ"
   end
 end
+
+shared_examples_for "BaseBuilder#build_base_entity_from_params" do
+  let!(:builder) { described_class.new(db_entity) }
+  let(:domain_entity) { double(:domain_entity) }
+  let(:params) { { test: "XYZ" } }
+  subject { builder.build_base_entity_from_params(params).test }
+
+  it "expect to assign params to db_entity" do
+    expect(builder).to receive(:_base_column_names) { %i[test] }
+
+    expect(subject).to eq "XYZ"
+  end
+end

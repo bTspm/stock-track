@@ -11,13 +11,13 @@ describe ApplicationHelper do
 
     context "with content" do
       context "with options" do
-        it { is_expected.to have_css("div", class: "badge #{badge_color} #{additional_classes}") }
+        it { is_expected.to have_css("span", class: "badge #{badge_color} #{additional_classes}") }
       end
 
       context "without options" do
         let(:options) { {} }
 
-        it { is_expected.to have_css("div", class: "badge badge-info") }
+        it { is_expected.to have_css("span", class: "badge badge-info") }
       end
     end
   end

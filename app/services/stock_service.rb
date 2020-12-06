@@ -32,14 +32,11 @@ class StockService < BusinessService
     stats_storage.by_symbol_from_iex(symbol)
   end
 
-  def time_series_by_symbol(symbol)
-    time_series_storage.by_symbol_from_twelve_data(_time_series_5year_options(symbol))
-  end
-
   def stocks_by_symbols(symbols)
-    return [] if symbols.blank?
+    companies = company_storage.by_symbols(symbols)
+    return [] if companies.blank?
 
-    companies = company_storage.by_symbols(symbols).group_by(&:symbol)
+    companies = companies.group_by(&:symbol)
     symbols.map do |symbol|
       args = {
         company: companies[symbol].first,
@@ -50,6 +47,10 @@ class StockService < BusinessService
 
       Entities::Stock.new(args)
     end
+  end
+
+  def time_series_by_symbol(symbol)
+    time_series_storage.by_symbol_from_twelve_data(_time_series_5year_options(symbol))
   end
 
   private

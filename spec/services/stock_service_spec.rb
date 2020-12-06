@@ -1,8 +1,6 @@
 require "rails_helper"
 
 describe StockService do
-  it_behaves_like "Services#company_service"
-
   let(:service) { described_class.new }
   let(:symbol) { double(:symbol) }
 
@@ -65,7 +63,7 @@ describe StockService do
 
     it "expect to call recommendation_trend_store and get information" do
       expect(service).to receive_message_chain(
-                           :recommendation_trend_storage, 
+                           :recommendation_trend_storage,
                            :by_symbol_from_finn_hub).with(symbol) { "recommendation_trend" }
 
       expect(subject).to eq "recommendation_trend"
@@ -81,6 +79,43 @@ describe StockService do
       expect(subject).to eq "stats"
     end
   end
+
+  describe "#stocks_by_symbols" do
+    let(:args) do
+      {
+        company: company,
+        growth: "Growth",
+        quote: "Quote",
+        stats: "Stats"
+      }
+    end
+    let(:companies) { [company] }
+    let(:company) { build(:company) }
+    let(:symbols) { Array.wrap(symbol) }
+    let(:symbol) { company.symbol }
+    subject { service.stocks_by_symbols(symbols) }
+
+    before do
+      expect(service).to receive_message_chain(:company_storage, :by_symbols).with(symbols) { companies }
+    end
+
+    context "without companies" do
+      let(:companies) { [] }
+      it { is_expected.to match_array [] }
+    end
+
+    context "with companies" do
+      it "expected to get stock with company, growth, quote and stats" do
+        expect(service).to receive(:growth_by_symbol).with(symbol) { "Growth" }
+        expect(service).to receive(:quote_by_symbol).with(symbol) { "Quote" }
+        expect(service).to receive(:stats_by_symbol).with(symbol) { "Stats" }
+        expect(Entities::Stock).to receive(:new).with(args) { "Stock" }
+
+        expect(subject).to match_array ["Stock"]
+      end
+    end
+  end
+
 
   describe "#time_series_by_symbol" do
     let(:request) { double(:request) }

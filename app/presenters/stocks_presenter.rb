@@ -10,12 +10,11 @@ class StocksPresenter
              :open,
              :high,
              :low,
-             :formatted_volume,
              :volume,
              :previous_volume,
              :previous_close,
              to: :quote
-    delegate :dividend_yield, :formatted_dividend_yield, :formatted_market_cap, :market_cap, to: :stats
+    delegate :dividend_yield, :market_cap, to: :stats
 
     def company
       @company ||= ::CompaniesPresenter.present(data_object.company, h)

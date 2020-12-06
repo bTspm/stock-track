@@ -7,16 +7,6 @@ module StocksHelper
     content
   end
 
-  def stock_information_link_with_company_name(company)
-    content_tag(:span) do
-      link = link_to company.symbol, stocks_information_path(symbol: company.symbol),
-                     target: "_blank", class: "font-weight-bold"
-
-      concat content_tag(:span, link)
-      concat content_tag(:div, company.security_name)
-    end
-  end
-
   def negative_content(content)
     content_tag :span, content, class: "text-danger"
   end
@@ -30,6 +20,16 @@ module StocksHelper
     return "profit" if value.positive?
 
     ""
+  end
+
+  def stock_information_link_with_company_name(company)
+    content_tag(:span) do
+      link = link_to company.symbol, stocks_information_path(symbol: company.symbol),
+                     target: "_blank", class: "font-weight-bold"
+
+      concat content_tag(:span, link)
+      concat content_tag(:div, company.security_name)
+    end
   end
 
   def price_icon(value)

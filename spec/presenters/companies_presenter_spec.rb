@@ -107,7 +107,9 @@ describe CompaniesPresenter do
 
       context "with company_executives" do
         it "expect to return exchange presenter" do
-          expect(CompanyExecutivesPresenter).to receive(:present).with(company_executives, view_context) { "Executives" }
+          expect(
+            CompanyExecutivesPresenter
+          ).to receive(:present).with(company_executives, view_context) { "Executives" }
 
           expect(subject).to eq "Executives"
         end
@@ -139,19 +141,54 @@ describe CompaniesPresenter do
         expect(subject).to eq "Name - (SYMBOL)"
       end
     end
+
+    describe "#select_picker_response" do
+      subject { presenter.select_picker_response }
+
+      it "expect to return has with id and text" do
+        expect(subject).to eq(id: "Symbol", text: "Security Name")
+      end
+    end
   end
 
   describe ".enum" do
     let(:object) { double(:object) }
-    subject(:presenter) { described_class::Enum.new([object], view_context) }
+    let(:objects) { [object] }
+    subject(:presenter) { described_class::Enum.new(objects, view_context) }
 
     describe "#autocomplete_response" do
       subject { presenter.autocomplete_response }
 
-      it "expect to return autocomplete response" do
-        expect_any_instance_of(described_class::Scalar).to receive(:autocomplete_response) { "Search Response" }
+      context "with companies" do
+        it "expect to return autocomplete response" do
+          expect_any_instance_of(described_class::Scalar).to receive(:autocomplete_response) { "Search Response" }
 
-        expect(subject).to match_array ["Search Response"]
+          expect(subject).to match_array ["Search Response"]
+        end
+      end
+
+      context "without companies" do
+        let(:objects) { nil }
+
+        it { is_expected.to eq [] }
+      end
+    end
+
+    describe "#select_picker_response" do
+      subject { presenter.select_picker_response }
+
+      context "with companies" do
+        it "expect to return select picker response" do
+          expect_any_instance_of(described_class::Scalar).to receive(:select_picker_response) { "Picker Response" }
+
+          expect(subject).to match_array ["Picker Response"]
+        end
+      end
+
+      context "without companies" do
+        let(:objects) { nil }
+
+        it { is_expected.to eq [] }
       end
     end
   end

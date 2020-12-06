@@ -29,7 +29,7 @@ describe CompanyStore do
 
   let(:cache_key) { "cache" }
   let(:domain_class) { Entities::Company }
-  subject(:store) { CompanyStore.new }
+  subject(:store) { described_class.new }
 
   before do
     Rails.cache.clear
@@ -66,6 +66,21 @@ describe CompanyStore do
       expect(domain_class).to receive(:from_db_entity).with(company) { "company_object" }
 
       expect(subject).to eq "company_object"
+    end
+  end
+
+  describe "#by_symbols" do
+    let(:companies) { [company] }
+    let(:company) { double(:company) }
+    let(:symbols) { ["ABC", "DEF"] }
+
+    subject { store.by_symbols(symbols) }
+
+    it "expect to get response from db and build domain entities" do
+      expect(Company).to receive_message_chain(:includes, :references, :where).with(symbol: symbols) { companies }
+      expect(domain_class).to receive(:from_db_entity).with(company) { "company_object" }
+
+      expect(subject).to match_array ["company_object"]
     end
   end
 
@@ -135,8 +150,8 @@ describe CompanyStore do
   end
 
   describe "#save_company" do
-    let(:builder) { double(:builder) }
     let(:companies) { [company] }
+    let(:company_builder) { double(:company_builder) }
     let(:company_entity) { double(:company_entity, symbol: symbol) }
     let(:company) { build(:company) }
     let(:symbol) { "AAPL" }
@@ -145,8 +160,8 @@ describe CompanyStore do
 
     before do
       expect(Company).to receive_message_chain(:includes, :references, :where).with(symbol: symbol) { companies }
-      expect(CompanyBuilder).to receive(:new).with(company) { builder }
-      expect(builder).to receive(:build_full_company_from_domain).with(company_entity) { company }
+      expect(CompanyBuilder).to receive(:new).with(company) { company_builder }
+      expect(company_builder).to receive(:build_full_company_from_domain).with(company_entity) { company }
       expect(domain_class).to receive(:from_db_entity).with(company) { "Company" }
     end
 

@@ -134,4 +134,15 @@ describe BusinessService do
       expect(subject).to eq "time_series_storage"
     end
   end
+
+  describe "#watch_list_storage" do
+    subject { service.watch_list_storage }
+
+    it "expect to call engine and get the store" do
+      expect(service).to receive(:engine) { allocator }
+      expect(allocator).to receive(:watch_list_store) { "watch_list_storage" }
+
+      expect(subject).to eq "watch_list_storage"
+    end
+  end
 end

@@ -138,4 +138,15 @@ describe StocksHelper do
       it { is_expected.to eq "Price Icon" }
     end
   end
+
+  describe "#stock_information_link_with_company_name" do
+    let(:company) { build(:entity_company) }
+    subject { helper.stock_information_link_with_company_name(company) }
+
+    it "expect to return stock information link" do
+      expect(subject).to have_css(".font-weight-bold")
+      expect(subject).to include company.symbol
+      expect(subject).to include company.security_name
+    end
+  end
 end

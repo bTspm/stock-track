@@ -70,7 +70,7 @@ describe QuotesPresenter do
 
         it "expect to return high and low as N/A" do
           expect(view_context).to receive(:positive_content).with("300,000") { "High" }
-          expect(view_context).not_to receive(:negative_content)
+          expect(view_context).to receive(:negative_content).with("N/A") { "N/A" }
 
           expect(subject).to eq "N/A - High"
         end
@@ -80,7 +80,7 @@ describe QuotesPresenter do
         let(:high) { nil }
 
         it "expect to return high as N/A and low" do
-          expect(view_context).not_to receive(:positive_content)
+          expect(view_context).to receive(:positive_content).with("N/A") { "N/A" }
           expect(view_context).to receive(:negative_content).with("600,000") { "Low" }
 
           expect(subject).to eq "Low - N/A"
@@ -164,7 +164,7 @@ describe QuotesPresenter do
       end
 
       context "with previous_volume" do
-        it { is_expected.to eq "900,000" }
+        it { is_expected.to eq "900 K" }
       end
     end
 
@@ -202,7 +202,7 @@ describe QuotesPresenter do
       end
 
       context "with volume" do
-        it { is_expected.to eq "1,000,000" }
+        it { is_expected.to eq "1 M" }
       end
     end
   end

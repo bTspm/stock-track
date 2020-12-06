@@ -21,7 +21,7 @@
           %dd.small= quote.day_range
         .col-lg.col-md-3.col-sm-6
           %dt Volume
-          %dd.small= quote.formatted_volume
+          %dd.small= quote.volume
         .col-lg.col-md-3.col-sm-6
           %dt Open
           %dd.small= quote.open
@@ -30,7 +30,7 @@
           %dd.small= quote.previous_close
         .col-lg.col-md-6.col-sm-6
           %dt Previous Volume
-          %dd.small= quote.formatted_previous_volume
+          %dd.small= quote.previous_volume
     - if quote.show_extended_info?
       .price-information{class: quote.extended_price_info_price_color}
         %div.mb-2
