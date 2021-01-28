@@ -47,6 +47,10 @@ class Allocator
     StatsStore.new
   end
 
+  def stock_store
+    StockStore.new
+  end
+
   def time_series_store
     TimeSeriesStore.new
   end

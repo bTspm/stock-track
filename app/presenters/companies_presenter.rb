@@ -52,6 +52,10 @@ class CompaniesPresenter
       { id: symbol, text: security_name }
     end
 
+    def stock_info_link_with_name
+      h.stock_information_link_with_company_name(self)
+    end
+
     private
 
     def _search_display

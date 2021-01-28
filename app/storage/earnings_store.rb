@@ -6,7 +6,7 @@ class EarningsStore
       response = Allocator.finn_hub_client.eps_estimates(symbol)
       response.body[:data].map { |datum| Entities::EpsEstimate.from_finn_hub_response(datum) }
     end
-  rescue ApiExceptions::PremiumDataError
+  rescue ApiExceptions::PremiumDataError, ApiExceptions::Unauthorized
     []
   end
 

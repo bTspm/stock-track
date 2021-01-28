@@ -16,6 +16,14 @@ class StockService < BusinessService
     growth_storage.by_symbol_from_iex(symbol)
   end
 
+  def market_movers_by_key(key)
+    if StConstants::CNN_MARKET_MOVER_KEYS.include? key
+      stock_storage.market_movers_by_key_from_cnn(key)
+    else
+      stock_storage.market_movers_by_key_from_trading_view(key)
+    end
+  end
+
   def news_by_symbol(symbol)
     news_storage.by_symbol_from_iex(symbol: symbol)
   end
@@ -33,20 +41,7 @@ class StockService < BusinessService
   end
 
   def stocks_by_symbols(symbols)
-    companies = company_storage.by_symbols(symbols)
-    return [] if companies.blank?
-
-    companies = companies.group_by(&:symbol)
-    symbols.map do |symbol|
-      args = {
-        company: companies[symbol].first,
-        growth: growth_by_symbol(symbol),
-        quote: quote_by_symbol(symbol),
-        stats: stats_by_symbol(symbol)
-      }
-
-      Entities::Stock.new(args)
-    end
+    stock_storage.by_symbols(symbols)
   end
 
   def time_series_by_symbol(symbol)

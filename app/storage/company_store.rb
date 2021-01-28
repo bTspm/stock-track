@@ -29,7 +29,7 @@ class CompanyStore
     companies = Allocator.iex_client.information_by_symbols(symbols: symbols, options: { types: "company" })
     companies.body.values.map do |company_response|
       company = _domain.from_iex_response(company_response[:company])
-      company.exchange = ExchangeStore.new.by_name(company.exchange_name)
+      company.exchange = ExchangeStore.new.by_id(company.exchange_id)
       company.issuer_type = IssuerTypeStore.new.by_code(company.issuer_type_code)
       company
     end

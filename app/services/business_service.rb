@@ -23,6 +23,10 @@ class BusinessService
     engine.exchange_store
   end
 
+  def growth_storage
+    engine.growth_store
+  end
+
   def issuer_type_storage
     engine.issuer_type_store
   end
@@ -31,20 +35,20 @@ class BusinessService
     engine.news_store
   end
 
-  def stats_storage
-    engine.stats_store
-  end
-
   def quote_storage
     engine.quote_store
   end
 
-  def growth_storage
-    engine.growth_store
-  end
-
   def recommendation_trend_storage
     engine.recommendation_trend_store
+  end
+
+  def stats_storage
+    engine.stats_store
+  end
+
+  def stock_storage
+    engine.stock_store
   end
 
   def time_series_storage

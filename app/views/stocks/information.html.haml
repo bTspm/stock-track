@@ -5,31 +5,31 @@
 
       .mt-3
         = render_async stocks_quote_path(symbol: @company.symbol) do
-          = render partial: "loading_card", locals: { header: "Quote" }
+          = render partial: "layouts/loading_card", locals: { header: "Quote" }
         .row
           .col-lg-8.col-md-12.col-sm-12.col.xs-12
             = render_async stocks_time_series_path(symbol: @company.symbol) do
-              = render partial: "loading_card", locals: { header: "Time Series" }
+              = render partial: "layouts/loading_card", locals: { header: "Time Series" }
 
           .col-lg-4.col-md-12.col-sm-12.col-xs-12
             = render_async stocks_stats_path(symbol: @company.symbol) do
-              = render partial: "loading_card", locals: { header: "Stats" }
+              = render partial: "layouts/loading_card", locals: { header: "Stats" }
 
         = render_async stocks_news_path(symbol: @company.symbol) do
-          = render partial: "loading_card", locals: { header: "News" }
+          = render partial: "layouts/loading_card", locals: { header: "News" }
 
         .row
           - unless @company.etf?
             .col-lg-4.col-md-6.col-sm-12
               = render_async stocks_earnings_path(symbol: @company.symbol) do
-                = render partial: "loading_card", locals: { header: "Earnings" }
+                = render partial: "layouts/loading_card", locals: { header: "Earnings" }
 
             .col-lg-4.col-md-6.col-sm-12
               = render_async stocks_recommendation_trends_path(symbol: @company.symbol) do
-                = render partial: "loading_card", locals: { header: "Recommendation Trends" }
+                = render partial: "layouts/loading_card", locals: { header: "Recommendation Trends" }
           .col-lg-4.col-md-6.col-sm-12
             = render_async stocks_growth_path(symbol: @company.symbol) do
-              = render partial: "loading_card", locals: { header: "Growth" }
+              = render partial: "layouts/loading_card", locals: { header: "Growth" }
 
         = render partial: 'stocks/information_v2/company', locals: { company: @company }
 

@@ -38,5 +38,6 @@ class StocksPresenter
   end
 
   class Enum < Btspm::Presenters::EnumPresenter
+    include Utils
   end
 end

@@ -1,0 +1,21 @@
+.table-responsive.mb-3
+  %table.table.table-hover.w-100.table-sm.table-striped
+    %thead
+      %tr
+        %th Symbol/Name
+        %th Price
+        %th Chg
+        %th= "%Chg"
+
+    %tbody
+      - stocks.each do |stock|
+        %tr
+          %td= stock_information_link_with_company_name(stock.company)
+          %td.font-weight-bold= stock.latest_price_info_amount
+          %td.font-weight-bold= stock.latest_price_info_change
+          %td.font-weight-bold= stock.latest_price_info_change_percent
+
+    %tfoot
+      %tr
+        %td.text-right{colspan: "4"}= "As of #{stocks.readable_datetime(datetime: DateTime.now)}"
+

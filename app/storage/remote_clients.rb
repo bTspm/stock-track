@@ -8,6 +8,10 @@ module RemoteClients
       Elasticsearch::Client.new(url: ENV["ELASTICSEARCH_URL"])
     end
 
+    def cnn_client
+      Scraper::CnnClient.new
+    end
+
     def finn_hub_client
       Api::FinnHub::Client.new
     end
@@ -18,6 +22,10 @@ module RemoteClients
 
     def iex_client
       Api::Iex::Client.new
+    end
+
+    def trading_view_client
+      Scraper::TradingView.new
     end
 
     def twelve_data_client
