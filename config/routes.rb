@@ -3,7 +3,6 @@ Rails.application.routes.draw do
   root "stocks#home"
 
   namespace :market_movers do
-    get :index
     get :mover
   end
 
