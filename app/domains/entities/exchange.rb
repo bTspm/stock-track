@@ -29,10 +29,10 @@ module Entities
 
       def _iex_exchange_mapping
         {
-          "NEW YORK STOCK EXCHANGE, INC.": ::Exchange::NYS,
-          "NASDAQ/NGS (GLOBAL SELECT MARKET)": ::Exchange::NMS,
-          "NASDAQ CAPITAL MARKET": ::Exchange::NAS,
-          "NASDAQ/NMS (GLOBAL MARKET)": ::Exchange::NMS
+          "NEW YORK STOCK EXCHANGE, INC.": ::Exchange::NEW_YORK_STOCK_EXCHANGE_ID,
+          "NASDAQ/NGS (GLOBAL SELECT MARKET)": ::Exchange::NASDAQ_GLOBAl_MARKET_ID,
+          "NASDAQ CAPITAL MARKET": ::Exchange::NASDAQ_CAPITAL_MARKET_ID,
+          "NASDAQ/NMS (GLOBAL MARKET)": ::Exchange::NASDAQ_GLOBAl_MARKET_ID
         }.with_indifferent_access
       end
     end

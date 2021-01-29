@@ -18,6 +18,17 @@ describe RemoteClients do
     end
   end
 
+  describe "#cnn_client" do
+    let(:client) { Scraper::CnnClient }
+    subject { dummy_class.cnn_client }
+
+    it "expect to initialize the client" do
+      expect(client).to receive(:new) { "Client" }
+
+      expect(subject).to eq "Client"
+    end
+  end
+
   describe "#finn_hub_client" do
     let(:client) { Api::FinnHub::Client }
     subject { dummy_class.finn_hub_client }
@@ -43,6 +54,17 @@ describe RemoteClients do
   describe "#iex_client" do
     let(:client) { Api::Iex::Client }
     subject { dummy_class.iex_client }
+
+    it "expect to initialize the client" do
+      expect(client).to receive(:new) { "Client" }
+
+      expect(subject).to eq "Client"
+    end
+  end
+
+  describe "#trading_view_client" do
+    let(:client) { Scraper::TradingViewClient }
+    subject { dummy_class.trading_view_client }
 
     it "expect to initialize the client" do
       expect(client).to receive(:new) { "Client" }

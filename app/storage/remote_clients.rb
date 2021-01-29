@@ -25,7 +25,7 @@ module RemoteClients
     end
 
     def trading_view_client
-      Scraper::TradingView.new
+      Scraper::TradingViewClient.new
     end
 
     def twelve_data_client

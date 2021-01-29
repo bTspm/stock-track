@@ -29,12 +29,14 @@ describe Entities::Exchange do
   let(:name) { double(:name) }
 
   describe ".from_iex_company_response" do
-    let(:response) { { exchange: name } }
+    let(:response) { { exchange: "NEW YORK STOCK EXCHANGE, INC." } }
 
     subject { described_class.from_iex_company_response(response) }
 
     it "expect to return exchange with properties" do
-      expect(subject.name).to eq name
+      expect(described_class).to receive(:new).with({ id: ::Exchange::NEW_YORK_STOCK_EXCHANGE_ID }) { "Exchange" }
+
+      expect(subject).to eq"Exchange"
     end
   end
 

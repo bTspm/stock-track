@@ -113,6 +113,17 @@ describe Allocator do
     end
   end
 
+  describe "#stock_store" do
+    let(:store) { StockStore }
+    subject { allocator.stock_store }
+
+    it "expect to initialize the store" do
+      expect(store).to receive(:new).and_call_original
+
+      expect(subject).to be_kind_of(store)
+    end
+  end
+
   describe "#time_series_store" do
     let(:store) { TimeSeriesStore }
     subject { allocator.time_series_store }

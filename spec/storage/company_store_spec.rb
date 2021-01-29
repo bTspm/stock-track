@@ -104,7 +104,7 @@ describe CompanyStore do
       OpenStruct.new(
         {
           exchange: nil,
-          exchange_name: "exchange_name",
+          exchange_id: "exchange_id",
           issuer_type: nil,
           issuer_type_code: "issuer_type_code"
         }
@@ -121,7 +121,7 @@ describe CompanyStore do
         symbols: %w[ABC], options: { types: "company" }
       ) { response }
       expect(domain_class).to receive(:from_iex_response).with(company_response) { company }
-      expect(ExchangeStore).to receive_message_chain(:new, :by_name).with("exchange_name") { "Exchange" }
+      expect(ExchangeStore).to receive_message_chain(:new, :by_id).with("exchange_id") { "Exchange" }
       expect(IssuerTypeStore).to receive_message_chain(:new, :by_code).with("issuer_type_code") { "Issuer Type" }
 
       expect(subject).to eq [company]
@@ -191,7 +191,7 @@ describe CompanyStore do
     let(:response) { double(:response, body: "ABC\nDEF") }
     subject { store.snp500_company_symbols_from_github }
 
-    it "expect to call information_by_symbols and build growth" do
+    it "expect to call github_client and get snp500 symbols" do
       expect(Scraper::GithubClient).to receive_message_chain(:new, :snp500_symbols) { response }
 
       expect(subject).to eq %w[ABC DEF]

@@ -1,10 +1,5 @@
 class StockService < BusinessService
   include Services
-
-  def save_exchanges
-    exchange_storage.save_exchanges
-  end
-
   def earnings_by_symbol(symbol)
     {
       eps_estimates: earnings_storage.eps_estimates_from_finn_hub_by_symbol(symbol),
@@ -34,6 +29,10 @@ class StockService < BusinessService
 
   def recommendation_trends_by_symbol(symbol)
     recommendation_trend_storage.by_symbol_from_finn_hub(symbol)
+  end
+
+  def save_exchanges
+    exchange_storage.save_exchanges
   end
 
   def stats_by_symbol(symbol)

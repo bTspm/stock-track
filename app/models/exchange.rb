@@ -4,7 +4,7 @@ class Exchange < ApplicationRecord
   validates_presence_of :code, :country, :name, case_sensitive: false
   validates_uniqueness_of :code, scope: :country
 
-  NAS = 2
-  NMS = 7
-  NYS = 11
+  NASDAQ_CAPITAL_MARKET_ID = 2
+  NASDAQ_GLOBAl_MARKET_ID = 7
+  NEW_YORK_STOCK_EXCHANGE_ID = 11
 end

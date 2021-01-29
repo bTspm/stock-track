@@ -11,6 +11,16 @@ FactoryBot.define do
       end
     end
 
+    trait :non_usa do
+      transient do
+        args do
+          {
+            country: build(:entity_country, :ind),
+          }
+        end
+      end
+    end
+
     initialize_with { new(args) }
   end
 end

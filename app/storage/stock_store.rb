@@ -29,7 +29,7 @@ class StockStore
   end
 
   def market_movers_by_key_from_trading_view(key)
-    symbols = Allocator.trading_view_client.market_movers_by_key(key).first(10)
+    symbols = Allocator.trading_view_client.market_movers_by_key(key)
     by_symbols(symbols)
   end
 end

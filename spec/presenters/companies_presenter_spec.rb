@@ -149,6 +149,16 @@ describe CompaniesPresenter do
         expect(subject).to eq(id: "Symbol", text: "Security Name")
       end
     end
+
+    describe "#stock_info_link_with_name" do
+      subject { presenter.stock_info_link_with_name }
+
+      it "expect to call view context and generate link" do
+        expect(view_context).to receive(:stock_information_link_with_company_name).with(presenter) { "Company Link" }
+
+        expect(subject).to eq "Company Link"
+      end
+    end
   end
 
   describe ".enum" do

@@ -15,9 +15,7 @@ describe Company, type: :model do
 
   describe "validations" do
     context "presence" do
-      it { should validate_presence_of(:industry) }
       it { should validate_presence_of(:name) }
-      it { should validate_presence_of(:sector) }
       it { should validate_presence_of(:security_name) }
       it { should validate_presence_of(:symbol) }
     end
