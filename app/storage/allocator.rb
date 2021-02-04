@@ -39,6 +39,10 @@ class Allocator
     QuoteStore.new
   end
 
+  def ratings_store
+    RatingsStore.new
+  end
+
   def recommendation_trend_store
     RecommendationTrendStore.new
   end

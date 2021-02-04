@@ -39,6 +39,10 @@ class BusinessService
     engine.quote_store
   end
 
+  def rating_storage
+    engine.ratings_store
+  end
+
   def recommendation_trend_storage
     engine.recommendation_trend_store
   end

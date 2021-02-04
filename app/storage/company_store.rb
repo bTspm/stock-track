@@ -11,9 +11,7 @@ class CompanyStore
   end
 
   def by_symbol(symbol)
-    fetch_cached(key: "#{self.class.name}/#{__method__}/#{symbol}") do
-      _domain.from_db_entity(_full_companies.where(symbol: symbol).first)
-    end
+    _domain.from_db_entity(_full_companies.find_by(symbol: symbol))
   end
 
   def by_symbols(symbols)
@@ -42,8 +40,8 @@ class CompanyStore
 
   def save_company(company_entity)
     company = Company.includes(:address, :company_executives)
-                     .references(:address, :company_executives)
-                     .where(symbol: company_entity.symbol).first
+                .references(:address, :company_executives)
+                .where(symbol: company_entity.symbol).first
     company = CompanyBuilder.new(company).build_full_company_from_domain(company_entity)
     company.save!
     Rails.logger.info("Company saved: #{company_entity.symbol}")
