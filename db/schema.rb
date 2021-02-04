@@ -41,6 +41,7 @@ ActiveRecord::Schema.define(version: 2020_08_09_221404) do
     t.citext "website"
     t.text "description"
     t.integer "sic_code"
+    t.json "ratings"
     t.bigint "exchange_id", null: false
     t.bigint "issuer_type_id", null: false
     t.datetime "created_at", null: false

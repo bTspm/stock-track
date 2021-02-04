@@ -12,6 +12,7 @@ class CreateCompanies < ActiveRecord::Migration[5.2]
       t.citext :website
       t.text :description
       t.integer :sic_code
+      t.json :ratings
 
       t.references :address, null: true, index: true, foreign_key: true
       t.references :exchange, null: false, index: true, foreign_key: true
