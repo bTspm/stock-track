@@ -91,6 +91,17 @@ describe Allocator do
     end
   end
 
+  describe "#ratings_store" do
+    let(:store) { RatingsStore }
+    subject { allocator.ratings_store }
+
+    it "expect to initialize the store" do
+      expect(store).to receive(:new).and_call_original
+
+      expect(subject).to be_kind_of(store)
+    end
+  end
+
   describe "#recommendation_trend_store" do
     let(:store) { RecommendationTrendStore }
     subject { allocator.recommendation_trend_store }

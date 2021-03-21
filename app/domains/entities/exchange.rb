@@ -4,6 +4,10 @@ module Entities
     include HasElasticsearch
 
     ATTRIBUTES = %i[code country id name].freeze
+    NASDAQ_CAPITAL_MARKET_ID = 2
+    NASDAQ_GLOBAL_MARKET_ID = 7
+    NEW_YORK_STOCK_EXCHANGE_ID = 11
+    NASDAQ_IDS = [NASDAQ_CAPITAL_MARKET_ID, NASDAQ_GLOBAL_MARKET_ID]
 
     attr_accessor *ATTRIBUTES
 
@@ -29,12 +33,20 @@ module Entities
 
       def _iex_exchange_mapping
         {
-          "NEW YORK STOCK EXCHANGE, INC.": ::Exchange::NEW_YORK_STOCK_EXCHANGE_ID,
-          "NASDAQ/NGS (GLOBAL SELECT MARKET)": ::Exchange::NASDAQ_GLOBAl_MARKET_ID,
-          "NASDAQ CAPITAL MARKET": ::Exchange::NASDAQ_CAPITAL_MARKET_ID,
-          "NASDAQ/NMS (GLOBAL MARKET)": ::Exchange::NASDAQ_GLOBAl_MARKET_ID
+          "NEW YORK STOCK EXCHANGE, INC.": NEW_YORK_STOCK_EXCHANGE_ID,
+          "NASDAQ/NGS (GLOBAL SELECT MARKET)": NASDAQ_GLOBAL_MARKET_ID,
+          "NASDAQ CAPITAL MARKET": NASDAQ_CAPITAL_MARKET_ID,
+          "NASDAQ/NMS (GLOBAL MARKET)": NASDAQ_GLOBAL_MARKET_ID
         }.with_indifferent_access
       end
+    end
+
+    def nasdaq?
+      Exchange::NASDAQ_IDS.include? id
+    end
+    
+    def nyse?
+      id == Exchange::NEW_YORK_STOCK_EXCHANGE_ID
     end
   end
 end

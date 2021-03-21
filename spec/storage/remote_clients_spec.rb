@@ -7,6 +7,17 @@ describe RemoteClients do
 
   subject(:dummy_class) { DummyClass }
 
+  describe "#bar_chart_client" do
+    let(:client) { Scraper::BarChartClient }
+    subject { dummy_class.bar_chart_client }
+
+    it "expect to initialize the client" do
+      expect(client).to receive(:new) { "Client" }
+
+      expect(subject).to eq "Client"
+    end
+  end
+
   describe "#company_index_client" do
     let(:client) { Elasticsearch::Client }
     subject { dummy_class.company_index_client }
@@ -62,6 +73,39 @@ describe RemoteClients do
     end
   end
 
+  describe "#nasdaq_client" do
+    let(:client) { Scraper::NasdaqClient }
+    subject { dummy_class.nasdaq_client }
+
+    it "expect to initialize the client" do
+      expect(client).to receive(:new) { "Client" }
+
+      expect(subject).to eq "Client"
+    end
+  end
+
+  describe "#the_street_client" do
+    let(:client) { Scraper::TheStreetClient }
+    subject { dummy_class.the_street_client }
+
+    it "expect to initialize the client" do
+      expect(client).to receive(:new) { "Client" }
+
+      expect(subject).to eq "Client"
+    end
+  end
+
+  describe "#tip_ranks_client" do
+    let(:client) { Scraper::TipRanksClient }
+    subject { dummy_class.tip_ranks_client }
+
+    it "expect to initialize the client" do
+      expect(client).to receive(:new) { "Client" }
+
+      expect(subject).to eq "Client"
+    end
+  end
+
   describe "#trading_view_client" do
     let(:client) { Scraper::TradingViewClient }
     subject { dummy_class.trading_view_client }
@@ -76,6 +120,28 @@ describe RemoteClients do
   describe "#twelve_data_client" do
     let(:client) { Api::TwelveData::Client }
     subject { dummy_class.twelve_data_client }
+
+    it "expect to initialize the client" do
+      expect(client).to receive(:new) { "Client" }
+
+      expect(subject).to eq "Client"
+    end
+  end
+
+  describe "#we_bull_client" do
+    let(:client) { Scraper::WeBullClient }
+    subject { dummy_class.we_bull_client }
+
+    it "expect to initialize the client" do
+      expect(client).to receive(:new) { "Client" }
+
+      expect(subject).to eq "Client"
+    end
+  end
+
+  describe "#zacks_client" do
+    let(:client) { Scraper::ZacksClient }
+    subject { dummy_class.zacks_client }
 
     it "expect to initialize the client" do
       expect(client).to receive(:new) { "Client" }

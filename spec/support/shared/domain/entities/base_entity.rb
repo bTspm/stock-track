@@ -6,7 +6,7 @@ shared_examples_for "Entities::BaseEntity#initialize" do
   context "properties" do
     it "expect to create an object" do
       described_class::ATTRIBUTES.each do |key|
-        expect(subject.send(key)).to eq args[key]
+        expect(subject.public_send(key)).to eq args[key]
       end
     end
   end

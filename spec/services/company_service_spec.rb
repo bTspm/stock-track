@@ -63,8 +63,9 @@ describe CompanyService do
   end
 
   describe "#save_company_by_symbol" do
-    let(:company) { OpenStruct.new(company_executives: nil) }
+    let(:company) { build :entity_company, symbol: symbol }
     let(:company_store) { double(:company_store) }
+    let(:ratings_store) { double(:ratings_store) }
 
     subject { service.save_company_by_symbol(symbol) }
 
@@ -74,10 +75,30 @@ describe CompanyService do
       expect(
         service
       ).to receive_message_chain(:company_executive_storage, :by_symbol_from_finn_hub).with(symbol) { "Executives" }
+      expect(service).to receive(:rating_storage).exactly(2).times { ratings_store }
+      expect(ratings_store).to receive(:by_symbol).with(symbol) { "Ratings By Symbol" }
+      expect(ratings_store).to receive(:by_company).with(company) { "Ratings By Company" }
       expect(service).to receive(:company_storage).ordered { company_store }
       expect(company_store).to receive(:save_company).with(company) { "Saved" }
 
       expect(subject).to eq "Saved"
+    end
+
+    context "when company is etf" do
+      let(:company) { build :entity_company, :etf, symbol: symbol }
+
+      it "expect not to get ratings" do
+        expect(service).to receive(:company_storage).ordered { company_store }
+        expect(company_store).to receive(:by_symbol_from_iex).with(symbol) { company }
+        expect(
+          service
+        ).to receive_message_chain(:company_executive_storage, :by_symbol_from_finn_hub).with(symbol) { "Executives" }
+        expect(service).not_to receive(:rating_storage)
+        expect(service).to receive(:company_storage).ordered { company_store }
+        expect(company_store).to receive(:save_company).with(company) { "Saved" }
+
+        expect(subject).to eq "Saved"
+      end
     end
   end
 
@@ -91,6 +112,3 @@ describe CompanyService do
     end
   end
 end
-
-
-

@@ -28,7 +28,9 @@ class RaiseHttpException < Faraday::Middleware
     return if status.blank? && exception.blank?
 
     exception ||= _error_exception_mapping[status.to_i]
-    raise exception, _error_message(response)
+    message = _error_message(response)
+    Rails.logger.error("Error: #{_response_url(response)}: #{message}")
+    raise exception, message
   end
 
   def _error_body(body)
@@ -46,10 +48,7 @@ class RaiseHttpException < Faraday::Middleware
   end
 
   def _error_message(response)
-    message = "#{response[:status]}, "
-    message += _error_body(response[:body])
-    Rails.logger.error("Error: #{_response_url(response)}: #{message}")
-    message
+    "#{response[:status]}, #{_error_body(response[:body])}"
   end
 
   def _error_status_codes

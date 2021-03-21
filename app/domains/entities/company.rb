@@ -23,6 +23,7 @@ module Entities
     attr_accessor *ATTRIBUTES
     delegate :line_1, to: :address, allow_nil: true
     delegate :code, :id, :name, to: :exchange, allow_nil: true, prefix: true
+    delegate :nyse?, :nasdaq?, to: :exchange, allow_nil: true
     delegate :etf?, to: :issuer_type, allow_nil: true
     delegate :code, :id, :name, to: :issuer_type, allow_nil: true, prefix: true
 

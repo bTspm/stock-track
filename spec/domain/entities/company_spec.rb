@@ -2,7 +2,14 @@ require "rails_helper"
 
 describe Entities::Company do
   it_behaves_like "Entities::BaseEntity#initialize"
-  input_args = {address: "Address", company_executives: ["Company Executive"], exchange: "Exchange", id: 123, issuer_type: "Issuer Type"}
+  input_args = {
+    address: "Address",
+    company_executives: ["Company Executive"],
+    exchange: "Exchange",
+    id: 123,
+    issuer_type: "Issuer Type",
+    ratings: ["Rating"]
+  }
   it_behaves_like("Entities::HasDbEntity.from_db_entity", input_args) do
     before :each do
       allow(entity).to receive(:address) { "address" }
@@ -13,6 +20,8 @@ describe Entities::Company do
       allow(Entities::Exchange).to receive(:from_db_entity).with("exchange") { "Exchange" }
       allow(entity).to receive(:issuer_type) { "issuer_type" }
       allow(Entities::IssuerType).to receive(:from_db_entity).with("issuer_type") { "Issuer Type" }
+      allow(entity).to receive(:ratings) { ratings_entity }
+      allow(Entities::Rating).to receive(:new).with(rating_entity) { "Rating" }
     end
   end
   es_args = { address: "Address", exchange: "Exchange", issuer_type: "Issuer Type" }
@@ -35,6 +44,8 @@ describe Entities::Company do
       industry: industry,
       issuer_type: issuer_type,
       name: name,
+      phone: phone,
+      ratings: ratings,
       sector: sector,
       security_name: security_name,
       sic_code: sic_code,
@@ -52,6 +63,9 @@ describe Entities::Company do
   let(:issuer_type) { double(:issuer_type) }
   let(:name) { double(:name) }
   let(:phone) { double(:phone) }
+  let(:ratings) { double(:ratings) }
+  let(:rating_entity) { {rating: "Buy"}.with_indifferent_access }
+  let(:ratings_entity) { Array.wrap(rating_entity).to_json }
   let(:sector) { double(:sector) }
   let(:security_name) { double(:security_name) }
   let(:sic_code) { double(:sic_code) }
@@ -69,7 +83,8 @@ describe Entities::Company do
         company_executives: executive_entities,
         errors: errors,
         exchange: exchange_entity,
-        issuer_type: issuer_type_entity
+        issuer_type: issuer_type_entity,
+        ratings: ratings_entity
       )
     end
     let(:errors) { [error] }
@@ -96,16 +111,19 @@ describe Entities::Company do
           errors: errors,
           exchange: exchange,
           issuer_type: issuer_type,
+          ratings: [rating],
           test: 123
         }
       end
       let(:attributes) { { test: 123 } }
+      let(:rating) { double(:rating) }
 
       it "expect to return company with properties" do
         expect(Entities::Address).to receive(:from_db_entity).with(address_entity) { address }
         expect(Entities::CompanyExecutive).to receive(:from_db_entity).with(executive_entity) { executive }
         expect(Entities::Exchange).to receive(:from_db_entity).with(exchange_entity) { exchange }
         expect(Entities::IssuerType).to receive(:from_db_entity).with(issuer_type_entity) { issuer_type }
+        expect(Entities::Rating).to receive(:new).with(rating_entity) { rating }
         expect(entity).to receive(:attributes) { attributes }
         expect(described_class).to receive(:new).with(args)
 

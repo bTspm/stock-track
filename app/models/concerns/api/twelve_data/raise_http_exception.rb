@@ -15,9 +15,7 @@ module Api
 
       def _error_message(response)
         response_body = JSON.parse(response.body).with_indifferent_access
-        message = response_body[:message]
-        Rails.logger.error("Error: #{response_body[:code]}, #{_response_url(response)}: #{message}")
-        message
+        response_body[:message]
       end
     end
   end

@@ -11,7 +11,7 @@ class BaseBuilder
   def build_base_entity_from_domain(domain_entity)
     @db_entity.tap do |d|
       _base_column_names.each do |column_name|
-        d.send("#{column_name}=", domain_entity.send(column_name))
+        d.public_send("#{column_name}=", domain_entity.public_send(column_name))
       end
     end
   end
@@ -19,7 +19,7 @@ class BaseBuilder
   def build_base_entity_from_params(params)
     @db_entity.tap do |d|
       _base_column_names.each do |column_name|
-        d.send("#{column_name}=", params[column_name])
+        d.public_send("#{column_name}=", params[column_name])
       end
     end
   end

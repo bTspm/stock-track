@@ -97,7 +97,7 @@ describe CompanySerializer do
     end
 
     context "without address" do
-      let(:company) { build :entity_company, :company_without_address }
+      let(:company) { build :entity_company, :without_address }
       it "expect to return a serializer object" do
         result_hash = {
           address_city: nil,

@@ -9,7 +9,7 @@ describe Snp500Worker do
 
     it "expect to call service and create workers" do
       expect(CompanyService).to receive_message_chain(:new, :snp500_company_symbols) { symbols }
-      expect(CompanyWorker).to receive(:perform_async).with("ABC") { "Worker" }
+      expect(CompanyWorker).to receive(:perform_in).with(anything, "ABC") { "Worker" }
 
       subject
     end

@@ -4,7 +4,6 @@ module Entities
       :rating,
       :source
     ].freeze
-    attr_reader *ATTRIBUTES
 
     BAR_CHART = "Bar Chart"
     NASDAQ_COM = "NASDAQ.com"
@@ -13,5 +12,7 @@ module Entities
     WE_BULL = "We Bull"
     YAHOO = "Yahoo"
     ZACKS = "Zacks"
+
+    attr_reader *ATTRIBUTES
   end
 end

@@ -91,7 +91,7 @@ module Entities
       end
 
       def _value(attribute:, entity:)
-        entity.send(attribute)
+        entity.public_send(attribute)
       end
     end
   end

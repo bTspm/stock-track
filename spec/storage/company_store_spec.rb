@@ -55,14 +55,13 @@ describe CompanyStore do
 
   describe "#by_symbol" do
     let(:cache_key) { "CompanyStore/by_symbol/ABC" }
-    let(:companies) { [company] }
     let(:company) { double(:company) }
     let(:symbol) { "ABC" }
 
     subject { store.by_symbol(symbol) }
 
     it "expect to get response from db and build domain entity" do
-      expect(Company).to receive_message_chain(:includes, :references, :where).with(symbol: symbol) { companies }
+      expect(Company).to receive_message_chain(:includes, :references, :find_by).with(symbol: symbol) { company }
       expect(domain_class).to receive(:from_db_entity).with(company) { "company_object" }
 
       expect(subject).to eq "company_object"

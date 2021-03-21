@@ -34,11 +34,13 @@ describe CompanyBuilder do
         company_executives: company_executives,
         exchange_id: exchange_id,
         issuer_type_id: issuer_type_id,
-        line_1: line_1
+        line_1: line_1,
+        ratings: ratings
       )
     end
     let(:issuer_type_id) { double(:issuer_type_id) }
     let(:line_1) { double(:line_1) }
+    let(:ratings) { double(:ratings) }
 
     subject { company_builder.build_full_company_from_domain(domain_entity) }
 
@@ -48,6 +50,7 @@ describe CompanyBuilder do
       expect(builder).to receive(:set_company_executives).with(company_executives) { "Built Executives" }
       expect(builder).to receive(:set_exchange_id).with(exchange_id) { "Built exchange_id" }
       expect(builder).to receive(:set_issuer_type_id).with(issuer_type_id) { "Built issuer_type_id" }
+      expect(builder).to receive(:set_ratings).with(ratings) { "Built ratings" }
     end
 
     context "with line_1" do
@@ -146,6 +149,15 @@ describe CompanyBuilder do
     it "expect to assign issuer_type_id" do
       subject
       expect(db_entity.issuer_type_id).to eq 100
+    end
+  end
+
+  describe "#set_ratings" do
+    subject { company_builder.set_ratings("ratings") }
+
+    it "expect to assign ratings" do
+      subject
+      expect(JSON.parse(db_entity.ratings)).to eq "ratings"
     end
   end
 end

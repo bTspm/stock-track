@@ -21,6 +21,26 @@ FactoryBot.define do
       end
     end
 
+    trait :nasdaq do
+      transient do
+        args do
+          {
+            id: Entities::Exchange::NASDAQ_CAPITAL_MARKET_ID,
+          }
+        end
+      end
+    end
+
+    trait :nyse do
+      transient do
+        args do
+          {
+            id: Entities::Exchange::NEW_YORK_STOCK_EXCHANGE_ID,
+          }
+        end
+      end
+    end
+
     initialize_with { new(args) }
   end
 end

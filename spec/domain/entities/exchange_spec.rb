@@ -27,6 +27,7 @@ describe Entities::Exchange do
   let(:country) { double(:country) }
   let(:id) { double(:id) }
   let(:name) { double(:name) }
+  subject(:exchange) { described_class.new(args) }
 
   describe ".from_iex_company_response" do
     let(:response) { { exchange: "NEW YORK STOCK EXCHANGE, INC." } }
@@ -34,7 +35,9 @@ describe Entities::Exchange do
     subject { described_class.from_iex_company_response(response) }
 
     it "expect to return exchange with properties" do
-      expect(described_class).to receive(:new).with({ id: ::Exchange::NEW_YORK_STOCK_EXCHANGE_ID }) { "Exchange" }
+      expect(
+        described_class
+      ).to receive(:new).with({ id: Entities::Exchange::NEW_YORK_STOCK_EXCHANGE_ID }) { "Exchange" }
 
       expect(subject).to eq"Exchange"
     end
@@ -51,6 +54,36 @@ describe Entities::Exchange do
       expect(described_class).to receive(:new).with(args)
 
       subject
+    end
+  end
+
+  describe "#nasdaq?" do
+    let(:id) { Entities::Exchange::NASDAQ_CAPITAL_MARKET_ID }
+    subject { exchange.nasdaq? }
+
+    context "when id is nasdaq" do
+      it { is_expected.to be true }
+    end
+
+    context "when id is not not nasdaq" do
+      let(:id) { Entities::Exchange::NASDAQ_CAPITAL_MARKET_ID + 25 }
+
+      it { is_expected.to be false }
+    end
+  end
+
+  describe "#nyse?" do
+    let(:id) { Entities::Exchange::NEW_YORK_STOCK_EXCHANGE_ID }
+    subject { exchange.nyse? }
+
+    context "when id is nyse" do
+      it { is_expected.to be true }
+    end
+
+    context "when id is not not nyse" do
+      let(:id) { Entities::Exchange::NEW_YORK_STOCK_EXCHANGE_ID + 25 }
+
+      it { is_expected.to be false }
     end
   end
 end

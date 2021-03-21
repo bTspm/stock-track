@@ -102,6 +102,17 @@ describe BusinessService do
     end
   end
 
+  describe "#rating_storage" do
+    subject { service.rating_storage }
+
+    it "expect to call engine and get the store" do
+      expect(service).to receive(:engine) { allocator }
+      expect(allocator).to receive(:ratings_store) { "rating_storage" }
+
+      expect(subject).to eq "rating_storage"
+    end
+  end
+
   describe "#recommendation_trend_storage" do
     subject { service.recommendation_trend_storage }
 

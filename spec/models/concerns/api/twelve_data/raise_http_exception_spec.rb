@@ -23,7 +23,7 @@ describe Api::TwelveData::RaiseHttpException do
         let(:response) { { status: "error", message: "Error Message", code: 404 } }
 
         it "expect to log and raise an error" do
-          expect(Rails).to receive_message_chain(:logger, :error).with("Error: 404, http:/example_url: Error Message")
+          expect(Rails).to receive_message_chain(:logger, :error).with("Error: http:/example_url: Error Message")
           expect { subject }.to raise_error ApiExceptions::NotFound, "Error Message"
         end
       end
