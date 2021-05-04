@@ -2,7 +2,7 @@ module Scraper
   class BarChartClient < ::BaseClient
     CURRENT_RATING_INDEX = 3
 
-    def rating_by_symbol(symbol)
+    def analysis_by_symbol(symbol)
       url = "https://www.barchart.com/stocks/quotes/#{symbol}/analyst-ratings"
       response = Nokogiri::HTML(get(url).body).css("div.average-column")[CURRENT_RATING_INDEX].children
 

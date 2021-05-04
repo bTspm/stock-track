@@ -27,8 +27,8 @@ describe ExternalAnalysisStore do
       let(:analyses) { ["Analysis by Symbol", "Analysis by Company"] }
 
       it "expect to build rating" do
-        expect(source_by_company_client).to receive(:rating_by_company).with(company) { "Analysis by Company" }
-        expect(source_by_symbol_client).to receive(:rating_by_symbol).with(company.symbol) { "Analysis by Symbol" }
+        expect(source_by_company_client).to receive(:analysis_by_company).with(company) { "Analysis by Company" }
+        expect(source_by_symbol_client).to receive(:analysis_by_symbol).with(company.symbol) { "Analysis by Symbol" }
         expect(Rails).not_to receive(:logger)
 
         expect(subject).to eq "External Analysis"
@@ -43,8 +43,8 @@ describe ExternalAnalysisStore do
 
       context "when rating client call by symbol is a failure" do
         it "expect to return analysis for call by company and empty analysis for by symbol" do
-          expect(source_by_company_client).to receive(:rating_by_company).with(company) { "Analysis by Company" }
-          expect(source_by_symbol_client).to receive(:rating_by_symbol).with(company.symbol).and_raise(exception)
+          expect(source_by_company_client).to receive(:analysis_by_company).with(company) { "Analysis by Company" }
+          expect(source_by_symbol_client).to receive(:analysis_by_symbol).with(company.symbol).and_raise(exception)
           expect(Rails).to receive_message_chain(:logger, :error).with(source_by_symbol_error)
           expect(
             Entities::ExternalAnalyses::Analysis
@@ -58,8 +58,8 @@ describe ExternalAnalysisStore do
         let(:analyses) { ["Analysis by Symbol", "Empty By Company Analysis"] }
 
         it "expect to return analysis for call by symbol and empty analysis for by company" do
-          expect(source_by_company_client).to receive(:rating_by_company).with(company).and_raise(exception)
-          expect(source_by_symbol_client).to receive(:rating_by_symbol).with(company.symbol) { "Analysis by Symbol" }
+          expect(source_by_company_client).to receive(:analysis_by_company).with(company).and_raise(exception)
+          expect(source_by_symbol_client).to receive(:analysis_by_symbol).with(company.symbol) { "Analysis by Symbol" }
           expect(Rails).to receive_message_chain(:logger, :error).with(source_by_company_error)
           expect(
             Entities::ExternalAnalyses::Analysis
@@ -75,8 +75,8 @@ describe ExternalAnalysisStore do
         let(:logger) { double(:logger) }
 
         it "expect to return empty analysis for both calls by company and by symbol" do
-          expect(source_by_company_client).to receive(:rating_by_company).with(company).and_raise(exception)
-          expect(source_by_symbol_client).to receive(:rating_by_symbol).with(company.symbol).and_raise(exception)
+          expect(source_by_company_client).to receive(:analysis_by_company).with(company).and_raise(exception)
+          expect(source_by_symbol_client).to receive(:analysis_by_symbol).with(company.symbol).and_raise(exception)
           expect(Rails).to receive(:logger).exactly(2).times { logger }
           expect(logger).to receive(:error).with(source_by_company_error)
           expect(logger).to receive(:error).with(source_by_symbol_error)

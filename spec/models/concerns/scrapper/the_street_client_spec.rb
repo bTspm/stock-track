@@ -5,7 +5,7 @@ describe Scraper::TheStreetClient do
   let(:response) { double(:response, body: body) }
   subject(:client) { described_class.new }
 
-  describe "#rating_by_symbol" do
+  describe "#analysis_by_symbol" do
     let(:analysis_args) do
       {
         custom: custom_args,
@@ -32,7 +32,7 @@ describe Scraper::TheStreetClient do
     let(:symbol) { double(:symbol) }
     let(:url_rating) { "https://www.thestreet.com/r/ratings/reports/summary/#{symbol}.html" }
     let(:url_summary) { "https://www.thestreet.com/r/ratings/reports/detail/#{symbol}.html" }
-    subject { client.rating_by_symbol(symbol) }
+    subject { client.analysis_by_symbol(symbol) }
 
     before do
       allow(Faraday).to receive(:new) { conn }

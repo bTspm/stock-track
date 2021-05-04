@@ -10,11 +10,11 @@ describe Scraper::WeBullClient do
     allow(client).to receive(:get).with(url) { response }
   end
 
-  describe "#rating_by_company" do
+  describe "#analysis_by_company" do
     let(:company) { build :entity_company }
     let(:body) { html_fixture("/external_analyses/we_bull.html") }
     let(:url) { "" }
-    subject { client.rating_by_company(company) }
+    subject { client.analysis_by_company(company) }
 
     context "when the exchange is valid" do
       let(:analysis_args) do
@@ -26,7 +26,6 @@ describe Scraper::WeBullClient do
           url: url
         }
       end
-      let(:price_target_args) {  }
 
       before do
         expect(Entities::ExternalAnalyses::Analysis).to receive(:new).with(analysis_args) { "Analysis" }

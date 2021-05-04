@@ -10,7 +10,7 @@ describe Scraper::BarChartClient do
     expect(client).to receive(:get).with(url) { response }
   end
 
-  describe "#rating_by_symbol" do
+  describe "#analysis_by_symbol" do
     let(:symbol) { "AAPL" }
     let(:url) { "https://www.barchart.com/stocks/quotes/#{symbol}/analyst-ratings" }
     let(:analysis_args) do
@@ -22,7 +22,7 @@ describe Scraper::BarChartClient do
       }
     end
     let(:body) { html_fixture("/external_analyses/bar_chart.html") }
-    subject { client.rating_by_symbol(symbol) }
+    subject { client.analysis_by_symbol(symbol) }
 
     it "expect to init analysis" do
       expect(Entities::ExternalAnalyses::Analysis).to receive(:new).with(analysis_args) { "Analysis" }

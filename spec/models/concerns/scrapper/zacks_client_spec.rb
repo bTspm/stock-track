@@ -10,10 +10,10 @@ describe Scraper::ZacksClient do
     expect(client).to receive(:get).with(url) { response }
   end
 
-  describe "#rating_by_symbol" do
+  describe "#analysis_by_symbol" do
     let(:symbol) { "AAPL" }
     let(:url) { "https://www.zacks.com/stock/quote/#{symbol}/" }
-    subject { client.rating_by_symbol(symbol) }
+    subject { client.analysis_by_symbol(symbol) }
 
     context "when rating is available" do
       let(:analysis_args) do

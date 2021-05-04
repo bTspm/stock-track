@@ -6,7 +6,7 @@ module Scraper
       low: "low",
     }
 
-    def rating_by_symbol(symbol)
+    def analysis_by_symbol(symbol)
       get_response do
         @browser.goto("https://www.tipranks.com/stocks/#{symbol}/forecast")
         @browser

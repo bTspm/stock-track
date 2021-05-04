@@ -1,6 +1,6 @@
 module Scraper
   class TheStreetClient < ::BaseClient
-    def rating_by_symbol(symbol)
+    def analysis_by_symbol(symbol)
       args = {
         custom: _custom(symbol),
         original_rating: _rating(symbol),

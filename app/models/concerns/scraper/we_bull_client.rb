@@ -3,7 +3,7 @@ module Scraper
     NASADAQ = "nasdaq".freeze
     NYSE = "nyse".freeze
 
-    def rating_by_company(company)
+    def analysis_by_company(company)
       url = "https://www.webull.com/quote/#{_url_key(company)}"
       response = Nokogiri::HTML(get(url).body)
       args = {

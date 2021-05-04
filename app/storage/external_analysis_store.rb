@@ -20,7 +20,7 @@ class ExternalAnalysisStore
 
   def _rating_from_source_by_company(source:, company:)
     client = _source_to_client(source)
-    Allocator.public_send(client).rating_by_company(company)
+    Allocator.public_send(client).analysis_by_company(company)
   rescue StandardError => e
     Rails.logger.error("Analysis failed for client: #{source.to_s}. Symbol: #{company.symbol}. Error: #{e.message}")
     Entities::ExternalAnalyses::Analysis.null_object_with_source(source)
@@ -28,7 +28,7 @@ class ExternalAnalysisStore
 
   def _rating_from_source_by_symbol(source:, symbol:)
     client = _source_to_client(source)
-    Allocator.public_send(client).rating_by_symbol(symbol)
+    Allocator.public_send(client).analysis_by_symbol(symbol)
   rescue StandardError => e
     Rails.logger.error("Analysis failed for client: #{source.to_s}. Symbol: #{symbol}. Error: #{e.message}")
     Entities::ExternalAnalyses::Analysis.null_object_with_source(source)

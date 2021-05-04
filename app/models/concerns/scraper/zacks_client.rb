@@ -1,6 +1,6 @@
 module Scraper
   class ZacksClient < ::BaseClient
-    def rating_by_symbol(symbol)
+    def analysis_by_symbol(symbol)
       url = "https://www.zacks.com/stock/quote/#{symbol}/"
       response = Nokogiri::HTML(get(url).body).css("p.rank_view").map(&:text)
 

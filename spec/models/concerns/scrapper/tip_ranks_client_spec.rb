@@ -9,7 +9,7 @@ describe Scraper::TipRanksClient do
     allow(browser).to receive(:goto).with(url) { "Browser Call" }
   end
 
-  describe "#rating_by_symbol" do
+  describe "#analysis_by_symbol" do
     let(:analysis_args) do
       {
         analysts_count: 31,
@@ -23,7 +23,7 @@ describe Scraper::TipRanksClient do
     let(:html) { html_fixture("/external_analyses/tip_ranks.html") }
     let(:symbol) { double(:symbol) }
     let(:url) { "https://www.tipranks.com/stocks/#{symbol}/forecast" }
-    subject { client.rating_by_symbol(symbol) }
+    subject { client.analysis_by_symbol(symbol) }
 
     context "when call is successful" do
       it "expect to initialize an analysis" do
@@ -42,7 +42,7 @@ describe Scraper::TipRanksClient do
 
     context "when call is a failure" do
       subject do
-        client.rating_by_symbol(symbol)
+        client.analysis_by_symbol(symbol)
       rescue StandardError
         "Browser closed after exception"
       end
