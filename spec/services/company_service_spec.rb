@@ -65,7 +65,6 @@ describe CompanyService do
   describe "#save_company_by_symbol" do
     let(:company) { build :entity_company, symbol: symbol }
     let(:company_store) { double(:company_store) }
-    let(:ratings_store) { double(:ratings_store) }
 
     subject { service.save_company_by_symbol(symbol) }
 
@@ -75,9 +74,7 @@ describe CompanyService do
       expect(
         service
       ).to receive_message_chain(:company_executive_storage, :by_symbol_from_finn_hub).with(symbol) { "Executives" }
-      expect(service).to receive(:rating_storage).exactly(2).times { ratings_store }
-      expect(ratings_store).to receive(:by_symbol).with(symbol) { "Ratings By Symbol" }
-      expect(ratings_store).to receive(:by_company).with(company) { "Ratings By Company" }
+      expect(service).to receive_message_chain(:external_analysis_storage, :by_company) { "Analysis" }
       expect(service).to receive(:company_storage).ordered { company_store }
       expect(company_store).to receive(:save_company).with(company) { "Saved" }
 
@@ -87,13 +84,13 @@ describe CompanyService do
     context "when company is etf" do
       let(:company) { build :entity_company, :etf, symbol: symbol }
 
-      it "expect not to get ratings" do
+      it "expect not to get analysis" do
         expect(service).to receive(:company_storage).ordered { company_store }
         expect(company_store).to receive(:by_symbol_from_iex).with(symbol) { company }
         expect(
           service
         ).to receive_message_chain(:company_executive_storage, :by_symbol_from_finn_hub).with(symbol) { "Executives" }
-        expect(service).not_to receive(:rating_storage)
+        expect(service).not_to receive(:external_analysis_storage)
         expect(service).to receive(:company_storage).ordered { company_store }
         expect(company_store).to receive(:save_company).with(company) { "Saved" }
 

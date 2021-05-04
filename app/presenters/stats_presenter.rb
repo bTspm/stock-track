@@ -87,11 +87,11 @@ class StatsPresenter
     end
 
     def _next_dividend_date
-      readable_date(date: next_dividend_date)
+      h.readable_date(date: next_dividend_date)
     end
 
     def _next_earnings_date
-      readable_date(date: next_earnings_date)
+      h.readable_date(date: next_earnings_date)
     end
 
     def _no_dividends?

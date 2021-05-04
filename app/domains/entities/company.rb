@@ -8,12 +8,12 @@ module Entities
                     description
                     employees
                     exchange
+                    external_analysis
                     id
                     industry
                     issuer_type
                     name
                     phone
-                    ratings
                     sector
                     security_name
                     sic_code
@@ -52,8 +52,7 @@ module Entities
 
       def _after_extract_args_from_db_entity(entity)
         args = super
-        ratings = entity.ratings.blank? ? [] : JSON.parse(entity.ratings).map { |rating| Entities::Rating.new(rating) }
-        args.merge!(ratings: ratings)
+        args.merge(external_analysis: Entities::ExternalAnalysis.from_json(entity.external_analysis))
       end
     end
   end

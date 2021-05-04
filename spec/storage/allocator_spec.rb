@@ -47,6 +47,17 @@ describe Allocator do
     end
   end
 
+  describe "#external_analysis_store" do
+    let(:store) { ExternalAnalysisStore }
+    subject { allocator.external_analysis_store }
+
+    it "expect to initialize the store" do
+      expect(store).to receive(:new).and_call_original
+
+      expect(subject).to be_kind_of(store)
+    end
+  end
+
   describe "#growth_store" do
     let(:store) { GrowthStore }
     subject { allocator.growth_store }
@@ -83,17 +94,6 @@ describe Allocator do
   describe "#quote_store" do
     let(:store) { QuoteStore }
     subject { allocator.quote_store }
-
-    it "expect to initialize the store" do
-      expect(store).to receive(:new).and_call_original
-
-      expect(subject).to be_kind_of(store)
-    end
-  end
-
-  describe "#ratings_store" do
-    let(:store) { RatingsStore }
-    subject { allocator.ratings_store }
 
     it "expect to initialize the store" do
       expect(store).to receive(:new).and_call_original

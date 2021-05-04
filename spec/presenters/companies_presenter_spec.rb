@@ -8,6 +8,7 @@ describe CompaniesPresenter do
     let(:description) { "Description" }
     let(:employees) { 2_000 }
     let(:exchange) { double(:exchange) }
+    let(:external_analysis) { double(:external_analysis) }
     let(:exchange_presenter) { double(:exchange_presenter) }
     let(:issuer_type) { double(:issuer_type) }
     let(:issuer_type_presenter) { double(:issuer_type_presenter) }
@@ -20,6 +21,7 @@ describe CompaniesPresenter do
         description: description,
         employees: employees,
         exchange: exchange,
+        external_analysis: external_analysis,
         issuer_type: issuer_type,
         name: name,
         security_name: security_name,
@@ -94,6 +96,18 @@ describe CompaniesPresenter do
         expect(ExchangesPresenter).to receive(:present).with(exchange, view_context) { "Exchange" }
 
         expect(subject).to eq "Exchange"
+      end
+    end
+
+    describe "#external_analysis" do
+      subject { presenter.external_analysis }
+
+      it "expect to return external_analysis presenter" do
+        expect(
+          ExternalAnalysisPresenter
+        ).to receive(:present).with(external_analysis, view_context) { "External Analysis" }
+
+        expect(subject).to eq "External Analysis"
       end
     end
 

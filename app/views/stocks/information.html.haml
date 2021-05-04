@@ -31,6 +31,8 @@
             = render_async stocks_growth_path(symbol: @company.symbol) do
               = render partial: "layouts/loading_card", locals: { header: "Growth" }
 
+        = render partial: 'stocks/information_v2/external_analyses', locals: { external_analysis: @company.external_analysis }
+
         = render partial: 'stocks/information_v2/company', locals: { company: @company }
 
         - if @company.company_executives.any?

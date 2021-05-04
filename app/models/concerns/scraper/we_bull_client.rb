@@ -4,8 +4,17 @@ module Scraper
     NYSE = "nyse".freeze
 
     def rating_by_company(company)
-      response = get("https://www.webull.com/quote/#{_url_key(company)}").body
-      Nokogiri::HTML(response).css("div.jss19ghvuu").map(&:text).join
+      url = "https://www.webull.com/quote/#{_url_key(company)}"
+      response = Nokogiri::HTML(get(url).body)
+      args = {
+        analysts_count: response.css("p.jss1ape2j4").map(&:text).join.to_integer,
+        original_rating: response.css("div.jss19ghvuu").map(&:text).join,
+        price_target: _price_target(response),
+        source: Entities::ExternalAnalyses::Analysis::WE_BULL,
+        url: url
+      }
+
+      Entities::ExternalAnalyses::Analysis.new(args)
     end
 
     private
@@ -19,6 +28,18 @@ module Scraper
       return NYSE if company.nyse?
 
       raise StandardError, "Exchange Not Identified: #{company.exchange_id}. Symbol: #{company.symbol}."
+    end
+
+    def _price_target(response)
+      prince_target_string = response.css("div.jss3lf6pl")
+      return if prince_target_string.blank?
+
+      average, high, low = prince_target_string.map(&:text).join.to_floats
+      {
+        average: average,
+        high: high,
+        low: low
+      }
     end
   end
 end

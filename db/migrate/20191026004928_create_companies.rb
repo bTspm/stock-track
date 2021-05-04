@@ -12,7 +12,7 @@ class CreateCompanies < ActiveRecord::Migration[5.2]
       t.citext :website
       t.text :description
       t.integer :sic_code
-      t.json :ratings
+      t.json :external_analysis
 
       t.references :address, null: true, index: true, foreign_key: true
       t.references :exchange, null: false, index: true, foreign_key: true
@@ -36,7 +36,7 @@ class CreateCompanies < ActiveRecord::Migration[5.2]
       remove_index :companies, name: :index_companies_on_symbol
     end
 
-    remove_reference :companies, :address, index: true, foreign_key: truec
+    remove_reference :companies, :address, index: true, foreign_key: true
     remove_reference :companies, :exchange, index: true, foreign_key: true
     remove_reference :companies, :issuer_type, index: true, foreign_key: true
 

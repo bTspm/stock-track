@@ -27,6 +27,12 @@
     padding: 1rem;
   }
 
+  .card-footer {
+    background-color: #fdfdfd;
+
+    * { margin-bottom: 0px; }
+  }
+
   .input-group-append {
     background: #fff;
     .btn-outline-secondary {

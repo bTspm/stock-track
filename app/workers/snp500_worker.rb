@@ -6,7 +6,7 @@ class Snp500Worker
     symbols = CompanyService.new.snp500_company_symbols
     symbols.each_with_index do |symbol, index|
       time = (index * INTERVAL_TIME_IN_SECONDS).seconds
-      CompanyWorker.perform_in(time, symbol)
+      CompanyWorker.perform_async(symbol)
     end
   end
 end

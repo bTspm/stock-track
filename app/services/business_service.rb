@@ -7,6 +7,10 @@ class BusinessService
     @user = user
   end
 
+  def external_analysis_storage
+    engine.external_analysis_store
+  end
+
   def company_executive_storage
     engine.company_executive_store
   end
@@ -37,10 +41,6 @@ class BusinessService
 
   def quote_storage
     engine.quote_store
-  end
-
-  def rating_storage
-    engine.ratings_store
   end
 
   def recommendation_trend_storage

@@ -90,6 +90,10 @@ end
 
 FIXTURE_PATH = "#{::Rails.root}/spec/fixtures".freeze
 
+def html_fixture(path)
+  File.read(File.join(FIXTURE_PATH, path))
+end
+
 def json_fixture(path)
   file = File.read(File.join(FIXTURE_PATH, path))
   parse_content(JSON.parse(file))
@@ -110,13 +114,13 @@ def parse_content(content)
 end
 
 def view_context
-  return @view_context if @view_context.present?
+  return @view_context if defined? @view_context
 
   view_context = ActionController::Base.new.send(:view_context)
   view_context.class.include(ApplicationHelper)
   view_context.class.include(StocksHelper)
   view_context.class.include(Rails.application.routes.url_helpers)
-  @view_context ||= view_context
+  @view_context = view_context
 end
 
 Shoulda::Matchers.configure do |config|

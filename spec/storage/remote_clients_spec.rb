@@ -2,7 +2,7 @@ require "rails_helper"
 
 describe RemoteClients do
   class DummyClass
-    include RemoteClients
+    extend RemoteClients
   end
 
   subject(:dummy_class) { DummyClass }
@@ -65,17 +65,6 @@ describe RemoteClients do
   describe "#iex_client" do
     let(:client) { Api::Iex::Client }
     subject { dummy_class.iex_client }
-
-    it "expect to initialize the client" do
-      expect(client).to receive(:new) { "Client" }
-
-      expect(subject).to eq "Client"
-    end
-  end
-
-  describe "#nasdaq_client" do
-    let(:client) { Scraper::NasdaqClient }
-    subject { dummy_class.nasdaq_client }
 
     it "expect to initialize the client" do
       expect(client).to receive(:new) { "Client" }

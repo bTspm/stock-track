@@ -23,19 +23,11 @@ class CompanyService < BusinessService
   def save_company_by_symbol(symbol)
     company = company_storage.by_symbol_from_iex(symbol)
     company.company_executives = company_executive_storage.by_symbol_from_finn_hub(symbol)
-    company.ratings = _ratings(company)
+    company.external_analysis = company.etf? ? [] : external_analysis_storage.by_company(company)
     company_storage.save_company(company)
   end
 
   def snp500_company_symbols
     company_storage.snp500_company_symbols_from_github
-  end
-
-  private
-
-  def _ratings(company)
-    return [] if company.etf?
-
-    rating_storage.by_symbol(company.symbol) + rating_storage.by_company(company)
   end
 end

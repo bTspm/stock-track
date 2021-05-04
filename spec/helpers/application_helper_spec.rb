@@ -7,7 +7,7 @@ describe ApplicationHelper do
     let(:content) { double(:content) }
     let(:options) { { badge_color: badge_color, class: additional_classes } }
 
-    subject { helper.badge_format(content: content, options: options) }
+    subject { badge_format(content: content, options: options) }
 
     context "with content" do
       context "with options" do
@@ -27,7 +27,7 @@ describe ApplicationHelper do
     let(:element_1) { "Element 1" }
     let(:elements) { [element, element_1] }
 
-    subject { helper.elements_in_single(elements) }
+    subject { elements_in_single(elements) }
 
     it "expect to return the elements with br tag" do
       expect(subject).to eq "Element<br>Element 1"
@@ -41,7 +41,7 @@ describe ApplicationHelper do
     let(:options) { { class: additional_classes, icon_right: icon_right_flag } }
     let(:text) { "Text" }
 
-    subject { helper.fontawesome_icon(name_icon_with_style: icon, options: options, text: text) }
+    subject { fontawesome_icon(name_icon_with_style: icon, options: options, text: text) }
 
     context "without options and text" do
       let(:options) { {} }
@@ -68,10 +68,62 @@ describe ApplicationHelper do
     end
   end
 
+  describe "#readable_date" do
+    let(:date) { Date.new(2020, 0o5, 0o1) }
+
+    subject { readable_date(date: date) }
+
+    context "without date" do
+      let(:date) { nil }
+
+      it { is_expected.to eq "N/A" }
+    end
+
+    context "with date" do
+      context "with format" do
+        it { is_expected.to eq "May 01, 2020" }
+      end
+
+      context "with default format" do
+        let(:format) { "%b %d" }
+
+        subject { readable_date(date: date, format: format) }
+
+        it { is_expected.to eq "May 01" }
+      end
+    end
+  end
+
+  describe "#readable_datetime" do
+    let(:datetime) { DateTime.new(2020, 0o5, 0o1) }
+
+    subject { readable_datetime(datetime: datetime) }
+
+    context "without datetime" do
+      let(:datetime) { nil }
+
+      it { is_expected.to eq "N/A" }
+    end
+
+    context "with datetime" do
+      context "with format" do
+        it { is_expected.to eq "Apr 30, 2020 8:00:00 PM" }
+      end
+
+      context "with default format" do
+        let(:format) { "%b %d" }
+
+        subject { readable_datetime(datetime: datetime, format: format) }
+
+        it { is_expected.to eq "Apr 30" }
+      end
+    end
+  end
+
   describe "#show_or_hide" do
     let(:value) { double(:value) }
 
-    subject { helper.show_or_hide(value) }
+    subject { show_or_hide(value) }
 
     context "without value" do
       let(:value) { nil }
@@ -81,6 +133,19 @@ describe ApplicationHelper do
 
     context "with value" do
       it { is_expected.to eq "" }
+    end
+  end
+  
+  describe "#time_ago" do
+    let(:datetime) { "datetime" }
+    subject { time_ago(datetime) }
+    
+    it "expect to wrap timeago class" do
+      expect_any_instance_of(
+        ApplicationHelper
+      ).to receive(:readable_datetime).with(datetime: datetime) { "Readable Time" }
+
+      expect(subject).to have_css("span", class: "timeago")
     end
   end
 end

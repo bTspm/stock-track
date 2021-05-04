@@ -1,10 +1,14 @@
 class Allocator
-  include RemoteClients
+  extend RemoteClients
 
   attr_accessor :user
 
   def initialize(user=nil)
     @user = user
+  end
+
+  def external_analysis_store
+    ExternalAnalysisStore.new
   end
 
   def company_executive_store
@@ -37,10 +41,6 @@ class Allocator
 
   def quote_store
     QuoteStore.new
-  end
-
-  def ratings_store
-    RatingsStore.new
   end
 
   def recommendation_trend_store

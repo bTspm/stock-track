@@ -13,7 +13,7 @@ class RecommendationTrendsPresenter
     private
 
     def _date_with_month
-      readable_date(date: date, format: MONTH_DATE_FORMAT)
+      h.readable_date(date: date, format: MONTH_DATE_FORMAT)
     end
   end
 

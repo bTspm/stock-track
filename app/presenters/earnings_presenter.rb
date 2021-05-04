@@ -11,7 +11,7 @@ class EarningsPresenter
     private
 
     def _actual
-      _eps_surprises.map { |surprise| surprise.actual.round(2) }
+      _eps_surprises.map { |surprise| surprise.actual&.round(2) }
     end
 
     def _categories

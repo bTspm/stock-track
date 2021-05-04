@@ -6,9 +6,9 @@ describe Entities::Company do
     address: "Address",
     company_executives: ["Company Executive"],
     exchange: "Exchange",
+    external_analysis: "External Analysis",
     id: 123,
-    issuer_type: "Issuer Type",
-    ratings: ["Rating"]
+    issuer_type: "Issuer Type"
   }
   it_behaves_like("Entities::HasDbEntity.from_db_entity", input_args) do
     before :each do
@@ -20,8 +20,8 @@ describe Entities::Company do
       allow(Entities::Exchange).to receive(:from_db_entity).with("exchange") { "Exchange" }
       allow(entity).to receive(:issuer_type) { "issuer_type" }
       allow(Entities::IssuerType).to receive(:from_db_entity).with("issuer_type") { "Issuer Type" }
-      allow(entity).to receive(:ratings) { ratings_entity }
-      allow(Entities::Rating).to receive(:new).with(rating_entity) { "Rating" }
+      allow(entity).to receive(:external_analysis) { "external_analysis" }
+      allow(Entities::ExternalAnalysis).to receive(:from_json).with("external_analysis") { "External Analysis" }
     end
   end
   es_args = { address: "Address", exchange: "Exchange", issuer_type: "Issuer Type" }
@@ -40,12 +40,12 @@ describe Entities::Company do
       description: description,
       employees: employees,
       exchange: exchange,
+      external_analysis: external_analysis,
       id: id,
       industry: industry,
       issuer_type: issuer_type,
       name: name,
       phone: phone,
-      ratings: ratings,
       sector: sector,
       security_name: security_name,
       sic_code: sic_code,
@@ -58,14 +58,12 @@ describe Entities::Company do
   let(:description) { double(:description) }
   let(:employees) { double(:employees) }
   let(:exchange) { double(:exchange) }
+  let(:external_analysis) { double(:external_analysis) }
   let(:id) { double(:id) }
   let(:industry) { double(:industry) }
   let(:issuer_type) { double(:issuer_type) }
   let(:name) { double(:name) }
   let(:phone) { double(:phone) }
-  let(:ratings) { double(:ratings) }
-  let(:rating_entity) { {rating: "Buy"}.with_indifferent_access }
-  let(:ratings_entity) { Array.wrap(rating_entity).to_json }
   let(:sector) { double(:sector) }
   let(:security_name) { double(:security_name) }
   let(:sic_code) { double(:sic_code) }
@@ -73,64 +71,6 @@ describe Entities::Company do
   let(:website) { double(:website) }
 
   subject(:company) { described_class.new(args) }
-
-  describe ".from_db_entity" do
-    let(:address_entity) { double(:address_entity) }
-    let(:entity) do
-      double(
-        :entity,
-        address: address_entity,
-        company_executives: executive_entities,
-        errors: errors,
-        exchange: exchange_entity,
-        issuer_type: issuer_type_entity,
-        ratings: ratings_entity
-      )
-    end
-    let(:errors) { [error] }
-    let(:error) { double(:error) }
-    let(:exchange_entity) { double(:exchange_entity) }
-    let(:executive_entity) { double(:executive_entity) }
-    let(:executive_entities) { [executive_entity] }
-    let(:executive) { double(:executive) }
-    let(:issuer_type_entity) { double(:issuer_type_entity) }
-
-    subject { described_class.from_db_entity(entity) }
-
-    context "without entity" do
-      let(:entity) { nil }
-
-      it { is_expected.to be_nil }
-    end
-
-    context "with entity" do
-      let(:args) do
-        {
-          address: address,
-          company_executives: [executive],
-          errors: errors,
-          exchange: exchange,
-          issuer_type: issuer_type,
-          ratings: [rating],
-          test: 123
-        }
-      end
-      let(:attributes) { { test: 123 } }
-      let(:rating) { double(:rating) }
-
-      it "expect to return company with properties" do
-        expect(Entities::Address).to receive(:from_db_entity).with(address_entity) { address }
-        expect(Entities::CompanyExecutive).to receive(:from_db_entity).with(executive_entity) { executive }
-        expect(Entities::Exchange).to receive(:from_db_entity).with(exchange_entity) { exchange }
-        expect(Entities::IssuerType).to receive(:from_db_entity).with(issuer_type_entity) { issuer_type }
-        expect(Entities::Rating).to receive(:new).with(rating_entity) { rating }
-        expect(entity).to receive(:attributes) { attributes }
-        expect(described_class).to receive(:new).with(args)
-
-        subject
-      end
-    end
-  end
 
   describe ".from_iex_response" do
     let(:args) do

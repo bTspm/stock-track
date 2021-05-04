@@ -5,8 +5,8 @@ class CompanyBuilder < BaseBuilder
       builder.set_address(entity.address) if entity.line_1
       builder.set_company_executives(entity.company_executives)
       builder.set_exchange_id(entity.exchange_id)
+      builder.set_external_analysis(entity.external_analysis)
       builder.set_issuer_type_id(entity.issuer_type_id)
-      builder.set_ratings(entity.ratings)
     end
   end
 
@@ -28,12 +28,12 @@ class CompanyBuilder < BaseBuilder
     @db_entity.exchange_id = exchange_id
   end
 
-  def set_issuer_type_id(issuer_type_id)
-    @db_entity.issuer_type_id = issuer_type_id
+  def set_external_analysis(external_analysis)
+    @db_entity.external_analysis = external_analysis.to_json
   end
 
-  def set_ratings(ratings)
-    @db_entity.ratings = ratings.to_json
+  def set_issuer_type_id(issuer_type_id)
+    @db_entity.issuer_type_id = issuer_type_id
   end
 
   protected

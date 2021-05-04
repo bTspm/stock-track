@@ -1,33 +1,58 @@
 require "rails_helper"
 
 describe Scraper::BarChartClient do
-  let!(:conn) { double(:conn) }
-  let(:response) { double(:response, body: body) }
+  let!(:browser) { double(:browser) }
   subject(:client) { described_class.new }
 
   before do
-    allow(Faraday).to receive(:new) { conn }
-    allow(client).to receive(:get).with(url) { response }
+    allow(Watir::Browser).to receive(:new) { browser }
+    allow(browser).to receive(:goto).with(url) { "Browser Call" }
   end
 
   describe "#rating_by_symbol" do
-    let(:symbol) { double(:symbol) }
-    let(:body) do
-      <<-EOS
-        <html>
-          <head><title>Some Title</title></head>
-          <body>
-            <div class="opinion-status">
-              <span>Buy</span>
-              <span>90</span>
-            </div>
-          </body>
-        </html>
-      EOS
+    let(:analysis_args) do
+      {
+        analysts_count: 31,
+        original_rating: "Strong Buy",
+        price_target: { average: 2417.9, high: 2953.0, low: 2056.0 },
+        source: Entities::ExternalAnalyses::Analysis::BAR_CHART,
+        url: "URL"
+      }
     end
-    let(:url) { "https://www.barchart.com/stocks/quotes/#{symbol}/opinion" }
+    let(:class_element) { double(:class_element) }
+    let(:html) { html_fixture("/external_analyses/bar_chart.html") }
+    let(:symbol) { double(:symbol) }
+    let(:url) { "https://www.barchart.com/stocks/quotes/#{symbol}/analyst-ratings" }
     subject { client.rating_by_symbol(symbol) }
 
-    it { is_expected.to eq "Buy 90" }
+    context "when call is successful" do
+      it "expect to initialize an analysis" do
+        expect(browser).to receive(:element).with(
+          class: "chart-header"
+        ) { class_element }
+        expect(class_element).to receive(:wait_until)
+        expect(browser).to receive(:html) { html }
+        expect(Entities::ExternalAnalyses::Analysis).to receive(:new).with(analysis_args) { "Analysis" }
+        expect(browser).to receive(:url) { "URL" }
+        expect(browser).to receive(:close) { "Closed" }
+
+        expect(subject).to eq "Analysis"
+      end
+    end
+
+    context "when call is a failure" do
+      subject do
+        client.rating_by_symbol(symbol)
+      rescue StandardError
+        "Browser closed after exception"
+      end
+
+      it "expect to close the browser when an exception is raised" do
+        expect(browser).to receive(:element).and_raise StandardError
+        expect(browser).to receive(:close) { "Closed" }
+
+        subject
+      end
+    end
   end
 end

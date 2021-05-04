@@ -24,4 +24,6 @@ document.addEventListener("DOMContentLoaded", function() {
             }
         });
     });
+
+    $(".timeago").timeago();
 });

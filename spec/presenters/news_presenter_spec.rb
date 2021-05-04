@@ -13,7 +13,7 @@ describe NewsPresenter do
       it "expect to return chart data" do
         expect(view_context).to receive(:fontawesome_icon).with(name_icon_with_style: "fas fa-user text-info",
                                                                 text: source) { "Formatted Source" }
-        expect(presenter).to receive(:readable_datetime).with(datetime: datetime) { "DateTime" }
+        expect(view_context).to receive(:readable_datetime).with(datetime: datetime) { "DateTime" }
         expect(view_context).to receive(:fontawesome_icon).with(name_icon_with_style: "fas fa-clock text-warning",
                                                                 text: "DateTime") { "Formatted DateTime" }
 

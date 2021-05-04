@@ -19,7 +19,7 @@ class NewsPresenter
     end
 
     def _posted_datetime
-      readable_datetime(datetime: datetime)
+      h.readable_datetime(datetime: datetime)
     end
 
     def _source_with_fontawesome_icon

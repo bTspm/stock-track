@@ -36,6 +36,10 @@ class CompaniesPresenter
       ::ExchangesPresenter.present(data_object.exchange, h)
     end
 
+    def external_analysis
+      ExternalAnalysisPresenter.present(data_object.external_analysis, h)
+    end
+
     def issuer_type
       ::IssuerTypesPresenter.present(data_object.issuer_type, h)
     end

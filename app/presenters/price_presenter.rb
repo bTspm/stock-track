@@ -23,7 +23,7 @@ class PricePresenter
     end
 
     def last_updated
-      readable_datetime(datetime: data_object.time)
+      h.readable_datetime(datetime: data_object.time)
     end
 
     def price_color

@@ -14,6 +14,7 @@ describe CompanyBuilder do
         address: db_address,
         company_executives: db_executives,
         exchange_id: nil,
+        external_analysis: nil,
         issuer_type_id: nil
       }
     )
@@ -26,6 +27,7 @@ describe CompanyBuilder do
   describe "#build_full_company_from_domain" do
     let(:address) { double(:address) }
     let(:exchange_id) { double(:exchange_id) }
+    let(:external_analysis) { double(:external_analysis) }
     let(:company_executives) { double(:company_executives) }
     let(:domain_entity) do
       double(
@@ -33,14 +35,13 @@ describe CompanyBuilder do
         address: address,
         company_executives: company_executives,
         exchange_id: exchange_id,
+        external_analysis: external_analysis,
         issuer_type_id: issuer_type_id,
-        line_1: line_1,
-        ratings: ratings
+        line_1: line_1
       )
     end
     let(:issuer_type_id) { double(:issuer_type_id) }
     let(:line_1) { double(:line_1) }
-    let(:ratings) { double(:ratings) }
 
     subject { company_builder.build_full_company_from_domain(domain_entity) }
 
@@ -49,8 +50,8 @@ describe CompanyBuilder do
       expect(builder).to receive(:build_base_entity_from_domain).with(domain_entity) { "Built with basic attributes" }
       expect(builder).to receive(:set_company_executives).with(company_executives) { "Built Executives" }
       expect(builder).to receive(:set_exchange_id).with(exchange_id) { "Built exchange_id" }
+      expect(builder).to receive(:set_external_analysis).with(external_analysis) { "Built External Analysis" }
       expect(builder).to receive(:set_issuer_type_id).with(issuer_type_id) { "Built issuer_type_id" }
-      expect(builder).to receive(:set_ratings).with(ratings) { "Built ratings" }
     end
 
     context "with line_1" do
@@ -143,21 +144,21 @@ describe CompanyBuilder do
     end
   end
 
+  describe "#set_external_analysis" do
+    subject { company_builder.set_external_analysis("external_analysis") }
+
+    it "expect to assign external analysis" do
+      subject
+      expect(JSON.parse(db_entity.external_analysis)).to eq "external_analysis"
+    end
+  end
+
   describe "#set_issuer_type_id" do
     subject { company_builder.set_issuer_type_id(100) }
 
     it "expect to assign issuer_type_id" do
       subject
       expect(db_entity.issuer_type_id).to eq 100
-    end
-  end
-
-  describe "#set_ratings" do
-    subject { company_builder.set_ratings("ratings") }
-
-    it "expect to assign ratings" do
-      subject
-      expect(JSON.parse(db_entity.ratings)).to eq "ratings"
     end
   end
 end

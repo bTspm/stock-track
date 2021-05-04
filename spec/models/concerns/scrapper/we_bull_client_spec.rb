@@ -12,36 +12,44 @@ describe Scraper::WeBullClient do
 
   describe "#rating_by_company" do
     let(:company) { build :entity_company }
-    let(:body) do
-      <<-EOS
-        <html>
-          <head><title>Some Title</title></head>
-          <body>
-            <div class="jss19ghvuu">Buy</div>
-          </body>
-        </html>
-      EOS
-    end
+    let(:body) { html_fixture("/external_analyses/we_bull.html") }
     let(:url) { "" }
     subject { client.rating_by_company(company) }
 
-    context "when company is nasdaq" do
-      let(:company) { build :entity_company, :nasdaq }
-      let(:url) { "https://www.webull.com/quote/nasdaq-aapl" }
+    context "when the exchange is valid" do
+      let(:analysis_args) do
+        {
+          analysts_count: 31,
+          original_rating: "Strong Buy",
+          price_target: { average: 2417.9, high: 2953.0, low: 2056.0 },
+          source: Entities::ExternalAnalyses::Analysis::WE_BULL,
+          url: url
+        }
+      end
+      let(:price_target_args) {  }
 
-      it { is_expected.to eq "Buy" }
+      before do
+        expect(Entities::ExternalAnalyses::Analysis).to receive(:new).with(analysis_args) { "Analysis" }
+      end
+
+      context "when company is nasdaq" do
+        let(:company) { build :entity_company, :nasdaq }
+        let(:url) { "https://www.webull.com/quote/nasdaq-aapl" }
+
+        it { is_expected.to eq "Analysis" }
+      end
+
+      context "when company is nyse" do
+        let(:company) { build :entity_company, :nyse }
+        let(:url) { "https://www.webull.com/quote/nyse-aapl" }
+
+        it { is_expected.to eq "Analysis" }
+      end
     end
 
-    context "when company is nyse" do
-      let(:company) { build :entity_company, :nyse }
-      let(:url) { "https://www.webull.com/quote/nyse-aapl" }
-
-      it { is_expected.to eq "Buy" }
-    end
-
-    context "when company is neither nyse nor nasdaq" do
+    context "when the exchange is not valid" do
       it "expect to raise an error" do
-        expect{ subject }.to raise_error StandardError
+        expect { subject }.to raise_error StandardError
       end
     end
   end

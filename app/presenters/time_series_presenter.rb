@@ -50,8 +50,8 @@ class TimeSeriesPresenter
     end
 
     def _subtitle
-      start_year = readable_date(date: _ordered_by_datetime_asc.first.datetime)
-      end_year = readable_date(date: _ordered_by_datetime_asc.last.datetime)
+      start_year = h.readable_date(date: _ordered_by_datetime_asc.first.datetime)
+      end_year = h.readable_date(date: _ordered_by_datetime_asc.last.datetime)
       "Between #{start_year} to #{end_year}"
     end
   end
