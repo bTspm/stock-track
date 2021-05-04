@@ -12,6 +12,7 @@ module Entities
       ]
 
       BAR_CHART = "bar_chart"
+      CNN = "cnn"
       TIP_RANKS = "tip_ranks"
       THE_STREET = "the_street"
       WE_BULL = "we_bull"

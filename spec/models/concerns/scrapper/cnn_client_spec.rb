@@ -7,7 +7,35 @@ describe Scraper::CnnClient do
 
   before do
     allow(Faraday).to receive(:new) { conn }
-    expect(client).to receive(:get).with("https://money.cnn.com/data/hotstocks/") { response }
+    expect(client).to receive(:get).with(url) { response }
+  end
+
+  describe "#analysis_by_symbol" do
+    let(:symbol) { "AAPL" }
+    let(:url) { "https://money.cnn.com/quote/forecast/forecast.html?symb=AAPL" }
+    let(:analysis_args) do
+      {
+        analysts_count: 31,
+        original_rating: "Strong Buy",
+        price_target: { average: 2417.9, high: 2953.0, low: 2056.0 },
+        source: Entities::ExternalAnalyses::Analysis::CNN,
+        url: url
+      }
+    end
+    let(:body) { html_fixture("/external_analyses/cnn.html") }
+    subject { client.analysis_by_symbol(symbol) }
+
+    before { expect(Entities::ExternalAnalyses::Analysis).to receive(:new).with(analysis_args) { "Analysis" } }
+
+    context "when symbol has period" do
+      let(:symbol) { "AAP.L" }
+
+      it { is_expected.to eq "Analysis" }
+    end
+
+    context "when symbol does not have period" do
+      it { is_expected.to eq "Analysis" }
+    end
   end
 
   describe "#market_movers_by_key" do
@@ -23,6 +51,7 @@ describe Scraper::CnnClient do
         </html>
       EOS
     end
+    let(:url) { "https://money.cnn.com/data/hotstocks/" }
     subject { client.market_movers_by_key(key) }
     
     context "active" do
