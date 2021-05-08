@@ -5,6 +5,7 @@ class ExternalAnalysisStore
   SOURCES_BY_SYMBOL = [
     Entities::ExternalAnalyses::Analysis::BAR_CHART,
     Entities::ExternalAnalyses::Analysis::CNN,
+    Entities::ExternalAnalyses::Analysis::ROBIN_HOOD,
     Entities::ExternalAnalyses::Analysis::TIP_RANKS,
     Entities::ExternalAnalyses::Analysis::THE_STREET,
     Entities::ExternalAnalyses::Analysis::ZACKS,

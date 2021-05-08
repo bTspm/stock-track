@@ -73,6 +73,17 @@ describe RemoteClients do
     end
   end
 
+  describe "#robin_hood_client" do
+    let(:client) { Scraper::RobinHoodClient }
+    subject { dummy_class.robin_hood_client }
+
+    it "expect to initialize the client" do
+      expect(client).to receive(:new) { "Client" }
+
+      expect(subject).to eq "Client"
+    end
+  end
+
   describe "#the_street_client" do
     let(:client) { Scraper::TheStreetClient }
     subject { dummy_class.the_street_client }

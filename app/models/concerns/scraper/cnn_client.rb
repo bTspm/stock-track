@@ -5,7 +5,7 @@ module Scraper
       StConstants::GAINERS => 1,
       StConstants::LOSERS => 2
     }.with_indifferent_access
-    PRICE_TARGET_INDEX = 3
+    PRICE_TARGET_RANGE = 2..4
 
     def analysis_by_symbol(symbol)
       url = "https://money.cnn.com/quote/forecast/forecast.html?symb=#{symbol.gsub(".", "")}"
@@ -35,7 +35,7 @@ module Scraper
     private
 
     def _price_target(response)
-      average, high, low = response.text.to_floats.first(PRICE_TARGET_INDEX)
+      average, high, low = response.text.to_floats[PRICE_TARGET_RANGE]
 
       {
         low: low,

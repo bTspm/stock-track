@@ -23,6 +23,10 @@ module RemoteClients
     Api::Iex::Client.new
   end
 
+  def robin_hood_client
+    Scraper::RobinHoodClient.new
+  end
+
   def the_street_client
     Scraper::TheStreetClient.new
   end
