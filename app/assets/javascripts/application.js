@@ -26,4 +26,5 @@ document.addEventListener("DOMContentLoaded", function() {
     });
 
     $(".timeago").timeago();
+    $("[data-tooltip='tooltip']").tooltip();
 });

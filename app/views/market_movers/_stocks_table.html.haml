@@ -17,5 +17,7 @@
 
     %tfoot
       %tr
-        %td.text-right{colspan: "4"}= "As of #{readable_datetime(datetime: DateTime.now)}"
+        %td.text-right{colspan: "7"}= "Generated #{time_ago(DateTime.now)}".html_safe
 
+:javascript
+  $(".timeago").timeago();
