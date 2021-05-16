@@ -1,4 +1,10 @@
 %footer
-  .text-center
-    2018  All rights reserved. Made by
-    %a.external-links(href="http://templune.com/" target="blank") Templune
+  .container.text-white.text-center
+    Copyright
+    = link_to fontawesome_icon(name_icon_with_style: "fab fa-github", text: "bTspm"),
+      "https://github.com/bTspm/stock-track",
+      target: "_blank"
+    = Time.now.year
+    %div
+      Built with
+      = link_to("HighCharts", "https://highcharts.com", target: "_blank")
