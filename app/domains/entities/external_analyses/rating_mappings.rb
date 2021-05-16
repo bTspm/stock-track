@@ -1,12 +1,6 @@
 module Entities
   module ExternalAnalyses
     module RatingMappings
-      STRONG_BUYS = ["Strong Buy", "A+ (Buy)", "A (Buy)", "A- (Buy)"]
-      BUYS = ["Buy", "Moderate Buy", "B+ (Buy)", "B (Buy)", "B- (Buy)"]
-      HOLDS = ["Hold", "C+ (Hold)", "C(Hold)", "C- (Hold)"]
-      SELLS = ["Sell", "Moderate Sell", "D+ (Sell)", "D (Sell)", "D-(Sell)", "Underperform"]
-      STRONG_SELLS = ["Strong Sell", "E+ (Sell)", "E (Sell)", "E-(Sell)", "F (Sell)"]
-
       DEFAULT_MAPPING = {
         strong_buy: ["Strong Buy"],
         buy: ["Buy"],
@@ -48,7 +42,9 @@ module Entities
           strong_sell: ["Sell"]
         },
 
-        Entities::ExternalAnalyses::Analysis::ZACKS => Entities::ExternalAnalyses::RatingMappings::DEFAULT_MAPPING
+        Entities::ExternalAnalyses::Analysis::ZACKS => Entities::ExternalAnalyses::RatingMappings::DEFAULT_MAPPING,
+        Entities::ExternalAnalyses::Analysis::CNN => Entities::ExternalAnalyses::RatingMappings::DEFAULT_MAPPING,
+        Entities::ExternalAnalyses::Analysis::ROBIN_HOOD => Entities::ExternalAnalyses::RatingMappings::DEFAULT_MAPPING
       }
     end
   end

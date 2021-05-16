@@ -12,13 +12,7 @@
           %tbody
             - external_analysis.analyses.ordered_by_source_asc_with_no_ratings_last.each do |analysis|
               %tr
-                %td
-                  = link_to_if analysis.original_rating.present?,
-                               fontawesome_icon(name_icon_with_style: "fas fa-external-link-alt"),
-                               analysis.url, target: "_blank",
-                               title: "Navigate to #{analysis.formatted_source}",
-                               data: {tooltip: :tooltip}
-                  = analysis.formatted_source
+                %td= source_with_external_link(analysis)
                 %td= analysis.formatted_original_rating
                 %td= analysis.analysts_count
           %tfoot
@@ -26,10 +20,7 @@
               %td{colspan: "3"}= external_analysis.formatted_refreshed_at
 
   .col-lg-8.col-md-6
-    .card
-      .card-header Price Targets
-      .card-body
-        #container{style: 'height:300px; width:100%'}
+    = render partial: "stocks/information_v2/price_targets", locals: { analyses: external_analysis.analyses }
 
     .row.mt-3
       - external_analysis.analyses.custom_analyses_sorted_by_source_asc.each do |analysis|
@@ -41,29 +32,3 @@
                                locals: { custom: analysis.custom }
 
 
-:javascript
-  $("[data-tooltip='tooltip']").tooltip();
-
-  Highcharts.chart("container", {
-    title: {
-      text: ""
-    },
-    yAxis: {
-      title: {
-        enabled: false
-      }
-    },
-    lang: {
-      noData: "No Data Available"
-    },
-
-    credits: {
-      enabled: false
-    },
-
-    xAxis: {
-      categories: JSON.parse('#{raw(ExternalAnalyses::AnalysesPresenter::PRICE_TARGET_CHART_CATEGORIES.to_json)}')
-    },
-
-    series: JSON.parse('#{raw(external_analysis.analyses.price_targets_chart_data)}')
-  });

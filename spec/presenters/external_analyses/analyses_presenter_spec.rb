@@ -42,6 +42,26 @@ describe ExternalAnalyses::AnalysesPresenter do
 
       it { is_expected.to eq "We Bull" }
     end
+
+    describe "#price_target" do
+      subject { presenter.price_target }
+
+      context "when analysis does not have price_target" do
+        let(:analysis) { build :entity_external_analyses_analysis, price_target: nil }
+
+        it { is_expected.to be_nil }
+      end
+
+      context "when analysis has price_target" do
+        it "expect to return exchange presenter" do
+          expect(
+            ExternalAnalyses::PriceTargetPresenter
+          ).to receive(:present).with(analysis.price_target, view_context) { "Price Target" }
+
+          expect(subject).to eq "Price Target"
+        end
+      end
+    end
   end
 
   describe ".enum" do
@@ -85,6 +105,20 @@ describe ExternalAnalyses::AnalysesPresenter do
         expect(analysis_scalar).to receive(:chart_data) { "Chart Data" }
 
         expect(subject).to eq ["Chart Data"]
+      end
+    end
+
+    describe "#with_price_targets" do
+      subject { presenter.with_price_targets }
+
+      context "analyses with no price_target" do
+        let(:analysis) { build :entity_external_analyses_analysis, price_target: nil }
+
+        it { is_expected.to eq [] }
+      end
+
+      context "analyses with price_target" do
+        it { is_expected.to eq [analysis] }
       end
     end
   end

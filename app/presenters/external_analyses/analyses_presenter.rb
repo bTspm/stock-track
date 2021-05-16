@@ -1,7 +1,5 @@
 module ExternalAnalyses
   class AnalysesPresenter
-    PRICE_TARGET_CHART_CATEGORIES = ["Low", "Average", "High"]
-
     include Btspm::Presenters::Presentable
 
     class Scalar < Btspm::Presenters::ScalarPresenter
@@ -12,7 +10,7 @@ module ExternalAnalyses
 
         {
           name: formatted_source,
-          data: [price_target.low, price_target.average, price_target.high]
+          data: price_target.chart_data
         }
       end
 
@@ -22,6 +20,12 @@ module ExternalAnalyses
 
       def formatted_source
         source.gsub("_", " ").titleize
+      end
+
+      def price_target
+        return if data_object.price_target.blank?
+
+        ExternalAnalyses::PriceTargetPresenter.present(data_object.price_target, h)
       end
     end
 
@@ -36,6 +40,10 @@ module ExternalAnalyses
 
       def price_targets_chart_data
         map(&:chart_data).compact.to_json
+      end
+
+      def with_price_targets
+        reject { |analysis| analysis.price_target.blank? }
       end
     end
   end
