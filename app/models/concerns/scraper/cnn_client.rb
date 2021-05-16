@@ -8,7 +8,7 @@ module Scraper
     PRICE_TARGET_RANGE = 2..4
 
     def analysis_by_symbol(symbol)
-      url = "https://money.cnn.com/quote/forecast/forecast.html?symb=#{symbol.gsub(".", "")}"
+      url = "http://markets.money.cnn.com/research/quote/forecasts.asp?symb=#{symbol.gsub(".", "")}"
       response = Nokogiri::HTML(get(url).body)
       price_target_response, rating_response = response.css(".wsod_twoCol")
 

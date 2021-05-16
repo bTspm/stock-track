@@ -12,7 +12,7 @@ describe Scraper::CnnClient do
 
   describe "#analysis_by_symbol" do
     let(:symbol) { "AAPL" }
-    let(:url) { "https://money.cnn.com/quote/forecast/forecast.html?symb=AAPL" }
+    let(:url) { "http://markets.money.cnn.com/research/quote/forecasts.asp?symb=AAPL" }
     let(:analysis_args) do
       {
         analysts_count: 31,
