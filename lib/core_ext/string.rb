@@ -2,7 +2,7 @@ class String
   def to_float
     return if blank?
 
-    delete(',').match(/\d+\.\d+/)[0]&.to_f
+    delete(',').scan(/[+-]?[0-9]*\.?[0-9]+(?:[eE][-+]?[0-9]+)?/)&.first&.to_f
   end
 
   def to_integer
@@ -14,6 +14,6 @@ class String
   def to_floats
     return if blank?
 
-    scan(/\d+[,.]\d+/).map(&:to_float)
+    delete(',').scan(/[+-]?[0-9]*\.?[0-9]+(?:[eE][-+]?[0-9]+)?/).map(&:to_float)
   end
 end
