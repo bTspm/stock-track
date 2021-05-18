@@ -139,6 +139,17 @@ describe RemoteClients do
     end
   end
 
+  describe "#wsj_client" do
+    let(:client) { Scraper::WsjClient }
+    subject { dummy_class.wsj_client }
+
+    it "expect to initialize the client" do
+      expect(client).to receive(:new) { "Client" }
+
+      expect(subject).to eq "Client"
+    end
+  end
+
   describe "#zacks_client" do
     let(:client) { Scraper::ZacksClient }
     subject { dummy_class.zacks_client }

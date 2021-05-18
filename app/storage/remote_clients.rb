@@ -47,6 +47,10 @@ module RemoteClients
     Scraper::WeBullClient.new
   end
 
+  def wsj_client
+    Scraper::WsjClient.new
+  end
+
   def zacks_client
     Scraper::ZacksClient.new
   end

@@ -8,6 +8,7 @@ class ExternalAnalysisStore
     Entities::ExternalAnalyses::Analysis::ROBIN_HOOD,
     Entities::ExternalAnalyses::Analysis::TIP_RANKS,
     Entities::ExternalAnalyses::Analysis::THE_STREET,
+    Entities::ExternalAnalyses::Analysis::WSJ,
     Entities::ExternalAnalyses::Analysis::ZACKS,
   ]
 

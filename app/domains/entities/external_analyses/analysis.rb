@@ -17,6 +17,7 @@ module Entities
       TIP_RANKS = "tip_ranks"
       THE_STREET = "the_street"
       WE_BULL = "we_bull"
+      WSJ = "wsj"
       ZACKS = "zacks"
 
       STRONG_BUYS_RANK = 1
