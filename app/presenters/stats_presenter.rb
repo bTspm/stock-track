@@ -7,30 +7,28 @@ class StatsPresenter
     def beta
       return "N/A" if data_object.beta.blank?
 
-      data_object.beta.round(3)
+      data_object.beta.round(StConstants::DEFAULT_DECIMALS_COUNT)
     end
 
     def dividend_rate_and_yield_with_next_date
       return "N/A" if _no_dividends?
 
       dividend_date_content = h.content_tag :div, "next (#{_next_dividend_date})", class: "small"
-      ("#{_dividend_rate} / #{dividend_yield}" + dividend_date_content).html_safe
+      ("#{_dividend_rate} / #{dividend_yield}  #{dividend_date_content}").html_safe
     end
 
     def dividend_yield
-      format_percentage data_object.dividend_yield
+      return "N/A" if data_object.dividend_yield.blank?
+
+      h.st_number_to_percentage(data_object.dividend_yield * 100)
     end
 
     def float
-      return "N/A" if data_object.float.blank?
-
-      h.number_to_human data_object.float, precision: 10
+      h.st_number_to_human data_object.float, precision: 10
     end
 
     def market_cap
-      return "N/A" if data_object.market_cap.blank?
-
-      h.number_to_human data_object.market_cap, precision: 3
+      h.st_number_to_human data_object.market_cap, precision: 3
     end
 
     def moving_average
@@ -40,20 +38,20 @@ class StatsPresenter
     end
 
     def pe_ratio
-      value_or_na data_object.pe_ratio
+      return "N/A" if data_object.pe_ratio.blank?
+
+      data_object.pe_ratio&.round(StConstants::DEFAULT_DECIMALS_COUNT)
     end
 
     def shares_outstanding
-      return "N/A" if data_object.shares_outstanding.blank?
-
-      h.number_to_human data_object.shares_outstanding, precision: 3
+      h.st_number_to_human data_object.shares_outstanding, precision: 3
     end
 
     def ttm_eps_with_next_date
       return "N/A" if ttm_eps.blank?
 
       eps_date_content = h.content_tag :div, "next (#{_next_earnings_date})", class: "small"
-      (h.number_to_human(ttm_eps) + eps_date_content).html_safe
+      ("#{h.st_number_to_human(ttm_eps, precision: 3)}  #{eps_date_content}").html_safe
     end
 
     def volume_average
@@ -71,19 +69,15 @@ class StatsPresenter
     private
 
     def _dividend_rate
-      value_or_na ttm_dividend_rate&.round(3)
+      value_or_na ttm_dividend_rate&.round(StConstants::DEFAULT_DECIMALS_COUNT)
     end
 
     def _moving_200_day_average
-      return "N/A" if moving_200_day_average.blank?
-
-      h.number_to_human moving_200_day_average
+      h.st_number_to_human moving_200_day_average, precision: 5
     end
 
     def _moving_50_day_average
-      return "N/A" if moving_50_day_average.blank?
-
-      h.number_to_human moving_50_day_average
+      h.st_number_to_human moving_50_day_average, precision: 5
     end
 
     def _next_dividend_date
@@ -111,27 +105,23 @@ class StatsPresenter
     end
 
     def _volume_10_day_average
-      return "N/A" if volume_10_day_average.blank?
-
-      h.number_to_human volume_10_day_average
+      h.st_number_to_human volume_10_day_average, precision: 5
     end
 
     def _volume_30_day_average
-      return "N/A" if volume_30_day_average.blank?
-
-      h.number_to_human volume_30_day_average
+      h.st_number_to_human volume_30_day_average, precision: 5
     end
 
     def _week_52_high
       return "N/A" if week_52_high.blank?
 
-      h.positive_content(h.number_with_delimiter(week_52_high))
+      h.positive_content(h.st_number_with_delimiter(week_52_high))
     end
 
     def _week_52_low
       return "N/A" if week_52_low.blank?
 
-      h.negative_content(h.number_with_delimiter(week_52_low))
+      h.negative_content(h.st_number_with_delimiter(week_52_low))
     end
   end
 end

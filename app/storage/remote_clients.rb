@@ -27,6 +27,10 @@ module RemoteClients
     Scraper::RobinHoodClient.new
   end
 
+  def tradier_client
+    Api::Tradier::Client.new
+  end
+
   def the_street_client
     Scraper::TheStreetClient.new
   end

@@ -10,15 +10,15 @@ module ExternalAnalyses
       end
 
       def low
-        h.number_with_delimiter data_object.low
+        h.st_number_with_delimiter data_object.low
       end
 
       def average
-        h.number_with_delimiter data_object.average
+        h.st_number_with_delimiter data_object.average
       end
 
       def high
-        h.number_with_delimiter data_object.high
+        h.st_number_with_delimiter data_object.high
       end
     end
   end

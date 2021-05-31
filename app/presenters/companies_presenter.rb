@@ -29,7 +29,7 @@ class CompaniesPresenter
     def employees
       return "N/A" if data_object.employees.blank?
 
-      "~#{h.number_with_delimiter(data_object.employees)}"
+      "~#{h.st_number_with_delimiter(data_object.employees)}"
     end
 
     def exchange

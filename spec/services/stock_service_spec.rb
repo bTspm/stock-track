@@ -68,7 +68,7 @@ describe StockService do
     subject { service.quote_by_symbol(symbol) }
 
     it "expect to call quote_store and get information" do
-      expect(service).to receive_message_chain(:quote_storage, :by_symbol_from_iex).with(symbol) { "quote" }
+      expect(service).to receive_message_chain(:quote_storage, :by_symbol_from_tradier).with(symbol) { "quote" }
 
       expect(subject).to eq "quote"
     end

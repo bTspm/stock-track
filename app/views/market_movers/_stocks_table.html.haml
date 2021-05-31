@@ -6,14 +6,16 @@
         %th Price
         %th Chg
         %th= "%Chg"
+        %th Vol
 
     %tbody
       - stocks.each do |stock|
         %tr
           %td= stock_information_link_with_company_name(stock.company)
-          %td.font-weight-bold= stock.latest_price_info_amount
-          %td.font-weight-bold= stock.latest_price_info_change
-          %td.font-weight-bold= stock.latest_price_info_change_percent
+          %td.font-weight-bold= stock.price
+          %td.font-weight-bold= stock.change
+          %td.font-weight-bold= stock.change_percent
+          %td= stock.volume
 
     %tfoot
       %tr

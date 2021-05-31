@@ -11,7 +11,7 @@ class CompanyExecutivesPresenter
     def compensation_with_currency
       return "N/A" if compensation.blank? && currency.blank?
 
-      compensation = h.number_with_delimiter data_object.compensation
+      compensation = h.st_number_with_delimiter data_object.compensation
       return compensation if currency.blank?
 
       "#{compensation} (#{currency.upcase})"

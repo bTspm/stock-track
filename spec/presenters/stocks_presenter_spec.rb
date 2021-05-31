@@ -17,14 +17,14 @@ describe StocksPresenter do
       end
 
       context "quote" do
-        it { should delegate_method(:latest_price_info_amount).to(:quote) }
-        it { should delegate_method(:latest_price_info_change).to(:quote) }
-        it { should delegate_method(:latest_price_info_last_updated).to(:quote) }
+        it { should delegate_method(:price).to(:quote) }
+        it { should delegate_method(:change).to(:quote) }
+        it { should delegate_method(:change_percent).to(:quote) }
+        it { should delegate_method(:updated_at).to(:quote) }
         it { should delegate_method(:open).to(:quote) }
         it { should delegate_method(:high).to(:quote) }
         it { should delegate_method(:low).to(:quote) }
         it { should delegate_method(:volume).to(:quote) }
-        it { should delegate_method(:previous_volume).to(:quote) }
         it { should delegate_method(:previous_close).to(:quote) }
       end
 
@@ -52,12 +52,6 @@ describe StocksPresenter do
 
         expect(subject).to eq "Growth"
       end
-    end
-
-    describe "#latest_price_info_change_percent" do
-      subject { presenter.latest_price_info_change_percent }
-
-      it { is_expected.to include "1,000%" }
     end
 
     describe "#quote" do

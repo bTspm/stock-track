@@ -1,6 +1,14 @@
 class BaseClient
-  def initialize
+  BEARER = "Bearer"
+
+  def initialize(options = {})
     @conn = Faraday.new do |builder|
+      if options[:auth]
+        builder.authorization options.dig(:auth, :type), options.dig(:auth, :token)
+      end
+      if options[:headers]
+        builder.headers[options.dig(:headers, :type)] = options.dig(:headers, :value)
+      end
       builder.request :json
       builder.response :json, content_type: /\bjson$/
       builder.request :url_encoded

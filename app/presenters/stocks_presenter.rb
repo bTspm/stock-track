@@ -4,14 +4,14 @@ class StocksPresenter
   class Scalar < Btspm::Presenters::ScalarPresenter
     delegate :sector, :security_name, :symbol, to: :company
     delegate :formatted_ytd, to: :growth
-    delegate :latest_price_info_amount,
-             :latest_price_info_change,
-             :latest_price_info_last_updated,
+    delegate :price,
+             :change,
+             :change_percent,
+             :updated_at,
              :open,
              :high,
              :low,
              :volume,
-             :previous_volume,
              :previous_close,
              to: :quote
     delegate :dividend_yield, :market_cap, to: :stats
@@ -22,10 +22,6 @@ class StocksPresenter
 
     def growth
       @growth ||= ::GrowthPresenter.present(data_object.growth, h)
-    end
-
-    def latest_price_info_change_percent
-      quote.latest_price_info_change_percent({ no_wrap: true })
     end
 
     def quote

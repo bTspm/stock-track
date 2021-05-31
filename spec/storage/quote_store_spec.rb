@@ -13,16 +13,32 @@ describe QuoteStore do
   describe "#by_symbol_from_iex" do
     let(:cache_key) { "QuoteStore/by_symbol_from_iex/ABC" }
     let(:quote_response) { double(:quote_response) }
-    let(:response) { double(:response, body: {ABC: {quote: quote_response}}) }
+    let(:response) { double(:response, body: { ABC: { quote: quote_response } }) }
     let(:symbol) { "ABC" }
 
     subject { store.by_symbol_from_iex(symbol) }
 
     it "expect to call information_by_symbols and build quote" do
       expect(Allocator).to receive_message_chain(
-                         :iex_client, :information_by_symbols
-                       ).with(symbols: symbol, options: {types: "quote"}) { response }
+                             :iex_client, :information_by_symbols
+                           ).with(symbols: symbol, options: { types: "quote" }) { response }
       expect(domain_class).to receive(:from_iex_response).with(quote_response) { "Quote Domain" }
+
+      expect(subject).to eq "Quote Domain"
+    end
+  end
+
+  describe "#by_symbol_from_tradier" do
+    let(:cache_key) { "QuoteStore/by_symbol_from_tradier/ABC" }
+    let(:quote_response) { double(:quote_response) }
+    let(:response) { double(:response, body: { quotes: { quote: quote_response } }) }
+    let(:symbol) { "ABC" }
+
+    subject { store.by_symbol_from_tradier(symbol) }
+
+    it "expect to call information_by_symbols and build quote" do
+      expect(Allocator).to receive_message_chain(:tradier_client, :quote_by_symbol).with(symbol) { response }
+      expect(domain_class).to receive(:from_tradier_response).with(quote_response) { "Quote Domain" }
 
       expect(subject).to eq "Quote Domain"
     end

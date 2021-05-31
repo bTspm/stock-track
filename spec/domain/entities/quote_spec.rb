@@ -7,71 +7,74 @@ describe Entities::Quote do
     {
       change: change,
       change_percent: change_percent,
-      close: close,
-      extended_change: extended_change,
-      extended_change_percent: extended_change_percent,
-      extended_price: extended_price,
-      extended_time: extended_time,
       high: high,
-      is_us_market_open: is_us_market_open,
-      latest_price: latest_price,
-      latest_source: latest_source,
-      latest_update: latest_update,
-      latest_volume: latest_volume,
+      price: price,
+      volume: volume,
       low: low,
       open: open,
       previous_close: previous_close,
-      previous_volume: previous_volume,
-      volume: volume
+      source: source,
+      updated_at: updated_at,
     }
   end
   let(:change) { double(:change) }
   let(:change_percent) { double(:change_percent) }
-  let(:close) { double(:close) }
-  let(:extended_change) { double(:extended_change) }
-  let(:extended_change_percent) { double(:extended_change_percent) }
-  let(:extended_price) { double(:extended_price) }
-  let(:extended_time) { double(:extended_time) }
   let(:high) { double(:high) }
-  let(:is_us_market_open) { double(:is_us_market_open) }
-  let(:latest_price) { double(:latest_price) }
-  let(:latest_source) { double(:latest_source) }
-  let(:latest_update) { double(:latest_update) }
-  let(:latest_volume) { double(:latest_volume) }
+  let(:price) { double(:price) }
+  let(:volume) { double(:volume) }
   let(:low) { double(:low) }
   let(:open) { double(:open) }
   let(:previous_close) { double(:previous_close) }
-  let(:previous_volume) { double(:previous_volume) }
-  let(:volume) { double(:volume) }
+  let(:source) { double(:source) }
+  let(:updated_at) { double(:updated_at) }
+  let(:quote) { described_class.new(args) }
 
   describe ".from_iex_response" do
     let(:args) do
       {
         change: -1.83,
         change_percent: -0.00591,
-        close: 307.71,
-        extended_change: -1.06,
-        extended_change_percent: -0.00344,
-        extended_price: 306.65,
-        extended_time: converted_datetime,
         high: 307.9,
-        is_us_market_open: false,
-        latest_price: 307.71,
-        latest_source: "Close",
-        latest_update: converted_datetime,
-        latest_volume: 42_108_051,
+        price: 307.71,
+        source: "Close",
+        updated_at: converted_datetime,
         low: 300.21,
         open: 300.94,
         previous_close: 309.54,
-        previous_volume: 39_732_269,
         volume: 42_108_051
       }
     end
     let(:converted_datetime) { DateTime.new(2020, 0o1, 0o1, 0o0, 0o0, 0o0) }
-    let(:converted_date) { Date.new(2020, 0o1, 0o1) }
     let!(:response) { json_fixture("/api_responses/iex/quote.json") }
 
     subject { described_class.from_iex_response(response) }
+
+    it "expect to create an entity with args" do
+      expect(described_class).to receive(:new).with(args)
+
+      subject
+    end
+  end
+
+  describe ".from_tradier_response" do
+    let(:args) do
+      {
+        change: -1.57,
+        change_percent: -1.24,
+        high: 127.64,
+        price: 125.28,
+        source: :tradier,
+        updated_at: converted_datetime,
+        low: 125.08,
+        open: 126.44,
+        previous_close: 126.85,
+        volume: 94_625_601
+      }.with_indifferent_access
+    end
+    let(:converted_datetime) { DateTime.new(2020, 0o1, 0o1, 0o0, 0o0, 0o0) }
+    let!(:response) { json_fixture("/api_responses/tradier/quote.json").dig(:quotes, :quote) }
+
+    subject { described_class.from_tradier_response(response) }
 
     it "expect to create an entity with args" do
       expect(described_class).to receive(:new).with(args)

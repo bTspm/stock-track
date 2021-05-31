@@ -11,7 +11,7 @@ class EarningsPresenter
     private
 
     def _actual
-      _eps_surprises.map { |surprise| surprise.actual&.round(2) }
+      _eps_surprises.map { |surprise| surprise.actual&.round(StConstants::DEFAULT_DECIMALS_COUNT) }
     end
 
     def _categories
@@ -37,10 +37,10 @@ class EarningsPresenter
     end
 
     def _estimated_earnings
-      estimated_earnings = _eps_surprises.map { |surprise| surprise.estimate.round(2) }
+      estimated_earnings = _eps_surprises.map { |surprise| surprise.estimate&.round(StConstants::DEFAULT_DECIMALS_COUNT) }
       return estimated_earnings if _eps_estimates.blank?
 
-      estimated_earnings + _eps_estimates.map { |estimate| estimate.average.round(2) }
+      estimated_earnings + _eps_estimates.map { |estimate| estimate.average&.round(StConstants::DEFAULT_DECIMALS_COUNT) }
     end
   end
 end

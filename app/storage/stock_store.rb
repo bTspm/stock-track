@@ -15,7 +15,7 @@ class StockStore
       args = {
         company: company,
         growth: GrowthStore.new.by_symbol_from_iex(symbol),
-        quote: QuoteStore.new.by_symbol_from_iex(symbol),
+        quote: QuoteStore.new.by_symbol_from_tradier(symbol),
         stats: StatsStore.new.by_symbol_from_iex(symbol)
       }
 

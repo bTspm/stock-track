@@ -2,20 +2,19 @@
   .card-header
     Quote
   .card-body.mb-2
-    .price-information{class: quote.latest_price_info_price_color}
+    .price-information{class: quote.price_color}
       %div.mb-2
-        %span.small= quote.latest_price_info_last_updated
+        %span.small= quote.updated_at
         .float-sm-right
-          %span= quote.latest_price_info_source
+          %span.badge.badge-info= quote.source
       .row
         .col-lg.col-md-6.col-sm-12.col-xs-12
-          .price= quote.latest_price_info_amount
+          .price= quote.price
         .col-lg.col-md-6.col-sm-6.col-xs-12
           %dt Change
           %dd.small
-            %span= quote.latest_price_info_price_icon
-            %span.mr-1= quote.latest_price_info_change
-            %span= quote.latest_price_info_change_percent
+            %span= quote.price_icon
+            %span.mr-1= quote.change_and_change_percent
         .col-lg.col-md-3.col-sm-6
           %dt Day Range
           %dd.small= quote.day_range
@@ -28,26 +27,3 @@
         .col-lg.col-md-6.col-sm-6
           %dt Previous Close
           %dd.small= quote.previous_close
-        .col-lg.col-md-6.col-sm-6
-          %dt Previous Volume
-          %dd.small= quote.previous_volume
-    - if quote.show_extended_info?
-      .price-information{class: quote.extended_price_info_price_color}
-        %div.mb-2
-          %span.small= quote.extended_price_info_last_updated
-          .float-sm-right
-            %span= quote.extended_price_info_source
-        .row
-          .col-lg.col-md-6.col-sm-6
-            .price= quote.extended_price_info_amount
-          .col-lg.col-md-6.col-sm-6
-            %dt Change
-            %dd.small
-              %span= quote.extended_price_info_price_icon
-              %span.mr-1= quote.extended_price_info_change
-              %span= quote.extended_price_info_change_percent
-          .col-lg.col-md-12
-          .col-lg.col-md-12
-          .col-lg.col-md-12
-          .col-lg.col-md-12
-          .col-lg.col-md-12

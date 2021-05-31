@@ -38,7 +38,7 @@ describe StockStore do
     context "with companies" do
       it "expected to get stock with company, growth, quote and stats" do
         expect(GrowthStore).to receive_message_chain(:new, :by_symbol_from_iex).with(symbol) { "Growth" }
-        expect(QuoteStore).to receive_message_chain(:new, :by_symbol_from_iex).with(symbol) { "Quote" }
+        expect(QuoteStore).to receive_message_chain(:new, :by_symbol_from_tradier).with(symbol) { "Quote" }
         expect(StatsStore).to receive_message_chain(:new, :by_symbol_from_iex).with(symbol) { "Stats" }
         expect(Entities::Stock).to receive(:new).with(args) { "Stock" }
 

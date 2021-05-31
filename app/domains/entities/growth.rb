@@ -13,21 +13,29 @@ module Entities
 
     attr_accessor *ATTRIBUTES
 
-    def self.from_iex_response(response)
-      args = {
-        day_30: response[:day30ChangePercent],
-        day_5: response[:day5ChangePercent],
-        max: response[:maxChangePercent],
-        month_1: response[:month1ChangePercent],
-        month_3: response[:month3ChangePercent],
-        month_6: response[:month6ChangePercent],
-        year_1: response[:year1ChangePercent],
-        year_2: response[:year2ChangePercent],
-        year_5: response[:year5ChangePercent],
-        ytd: response[:ytdChangePercent]
-      }
+    class << self
+      def from_iex_response(response)
+        args = {
+          day_30: _format(response[:day30ChangePercent]),
+          day_5: _format(response[:day5ChangePercent]),
+          max: _format(response[:maxChangePercent]),
+          month_1: _format(response[:month1ChangePercent]),
+          month_3: _format(response[:month3ChangePercent]),
+          month_6: _format(response[:month6ChangePercent]),
+          year_1: _format(response[:year1ChangePercent]),
+          year_2: _format(response[:year2ChangePercent]),
+          year_5: _format(response[:year5ChangePercent]),
+          ytd: _format(response[:ytdChangePercent])
+        }
 
-      new(args)
+        new(args)
+      end
+
+      private
+
+      def _format(value)
+        value.blank? ? nil : value * 100
+      end
     end
   end
 end

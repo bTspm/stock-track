@@ -119,6 +119,7 @@ def view_context
   view_context = ActionController::Base.new.send(:view_context)
   view_context.class.include(ApplicationHelper)
   view_context.class.include(StocksHelper)
+  view_context.class.include(StNumbersHelper)
   view_context.class.include(Rails.application.routes.url_helpers)
   @view_context = view_context
 end

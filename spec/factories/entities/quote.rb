@@ -5,22 +5,14 @@ FactoryBot.define do
         {
           change: 100,
           change_percent: 10,
-          close: 250,
-          extended_change: 200,
-          extended_change_percent: 25,
-          extended_price: 260,
-          extended_time: DateTime.new(2020, 0o1, 0o1, 0o0, 0o0, 0o0),
-          high: 500,
-          is_us_market_open: true,
-          latest_price: 600,
-          latest_source: "IEX",
-          latest_update:  DateTime.new(2019, 0o1, 0o1, 0o0, 0o0, 0o0),
-          latest_volume: 1_000,
-          low: 2_000,
-          open: 5_000,
-          previous_close: 4_000,
-          previous_volume: 8_000,
-          volume: 9_000
+          high: 300_000,
+          price: 100_000,
+          source: "IEX",
+          updated_at: DateTime.new(2019, 0o1, 0o1, 0o0, 0o0, 0o0),
+          low: 600_000,
+          open: 700_000,
+          previous_close: 800_000,
+          volume: 1_000_000
         }
       end
     end

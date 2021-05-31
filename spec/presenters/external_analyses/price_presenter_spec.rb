@@ -17,7 +17,7 @@ describe ExternalAnalyses::PriceTargetPresenter do
       subject { presenter.low }
 
       it "expect to format" do
-        expect(view_context).to receive(:number_with_delimiter).with(100_000) { "Low" }
+        expect(view_context).to receive(:st_number_with_delimiter).with(100_000) { "Low" }
 
         subject
       end
@@ -27,7 +27,7 @@ describe ExternalAnalyses::PriceTargetPresenter do
       subject { presenter.average }
 
       it "expect to format" do
-        expect(view_context).to receive(:number_with_delimiter).with(200_000) { "Avg" }
+        expect(view_context).to receive(:st_number_with_delimiter).with(200_000) { "Avg" }
 
         subject
       end
@@ -37,7 +37,7 @@ describe ExternalAnalyses::PriceTargetPresenter do
       subject { presenter.high }
 
       it "expect to format" do
-        expect(view_context).to receive(:number_with_delimiter).with(250_000) { "High" }
+        expect(view_context).to receive(:st_number_with_delimiter).with(250_000) { "High" }
 
         subject
       end

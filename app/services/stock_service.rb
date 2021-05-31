@@ -24,7 +24,7 @@ class StockService < BusinessService
   end
 
   def quote_by_symbol(symbol)
-    quote_storage.by_symbol_from_iex(symbol)
+    quote_storage.by_symbol_from_tradier(symbol)
   end
 
   def recommendation_trends_by_symbol(symbol)

@@ -12,7 +12,7 @@ describe GrowthPresenter do
       context "with values" do
         it "expect to return chart data" do
           result = subject
-          expect(result[:data]).to eq [500_000, 100_000, 10_000_000, 60_000, 30_000, 10_000, 500]
+          expect(result[:data]).to eq [5_000, 1_000, 100_000, 600, 300, 100, 5]
           expect(result[:xaxis_titles]).to eq %w[5Y 1Y YTD 6M 3M 1M 5D]
         end
       end
@@ -22,7 +22,7 @@ describe GrowthPresenter do
 
         it "expect to return chart data with nil" do
           result = subject
-          expect(result[:data]).to eq [500_000, 100_000, nil, 60_000, 30_000, 10_000, 500]
+          expect(result[:data]).to eq [5_000, 1_000, nil, 600, 300, 100, 5]
           expect(result[:xaxis_titles]).to eq %w[5Y 1Y YTD 6M 3M 1M 5D]
         end
       end
@@ -38,7 +38,7 @@ describe GrowthPresenter do
       end
 
       context "with ytd" do
-        it { is_expected.to include "10,000,000%" }
+        it { is_expected.to include "100,000.00%" }
       end
     end
   end

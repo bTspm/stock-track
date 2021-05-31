@@ -8,9 +8,16 @@ class QuoteStore
     end
   end
 
+  def by_symbol_from_tradier(symbol)
+    fetch_cached(key: "#{self.class.name}/#{__method__}/#{symbol}") do
+      response = Allocator.tradier_client.quote_by_symbol(symbol)
+      Entities::Quote.from_tradier_response(response.body.dig(:quotes, :quote))
+    end
+  end
+
   protected
 
   def _expiry
-    5.hours
+    15.minutes
   end
 end

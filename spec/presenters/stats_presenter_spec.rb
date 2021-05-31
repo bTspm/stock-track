@@ -31,7 +31,7 @@ describe StatsPresenter do
     let(:moving_50_day_average) { 277_000 }
     let(:next_dividend_date) { Date.new(2020, 0o5, 0o1) }
     let(:next_earnings_date) { Date.new(2020, 0o6, 0o1) }
-    let(:pe_ratio) { double(:pe_ratio) }
+    let(:pe_ratio) { 200_100.90 }
     let(:shares_outstanding) { 2_000 }
     let(:ttm_dividend_rate) { 500.2345 }
     let(:ttm_eps) { 99.098 }
@@ -52,7 +52,7 @@ describe StatsPresenter do
       end
 
       context "with beta" do
-        it { is_expected.to eq 100.346 }
+        it { is_expected.to eq 100.35 }
       end
     end
 
@@ -80,7 +80,7 @@ describe StatsPresenter do
         let(:dividend_yield) { nil }
 
         it "expect to return formatted rate/date and N/A for yield" do
-          expect(subject).to include "500.235"
+          expect(subject).to include "500.23"
           expect(subject).to include "next (May 01, 2020)"
           expect(subject).to include "N/A"
         end
@@ -90,7 +90,7 @@ describe StatsPresenter do
         let(:next_dividend_date) { nil }
 
         it "expect to return formatted rate/yield and N/A for date" do
-          expect(subject).to include "500.235"
+          expect(subject).to include "500.23"
           expect(subject).to include "42.35%"
           expect(subject).to include "N/A"
         end
@@ -98,7 +98,7 @@ describe StatsPresenter do
 
       context "with date dividend_rate and dividend_yield" do
         it "expect to return formatted rate/yield and date" do
-          expect(subject).to include "500.235"
+          expect(subject).to include "500.23"
           expect(subject).to include "42.35%"
           expect(subject).to include "next (May 01, 2020)"
         end

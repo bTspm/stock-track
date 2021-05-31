@@ -4,15 +4,19 @@ class QuotesPresenter
   class Scalar < Btspm::Presenters::ScalarPresenter
     include Utils
 
-    PRICE_METHODS = %i[amount
-                       change
-                       change_percent
-                       last_updated
-                       price_color
-                       price_icon
-                       source].freeze
-    delegate *PRICE_METHODS, to: :extended_price_info, prefix: true
-    delegate *PRICE_METHODS, to: :latest_price_info, prefix: true
+    def change_and_change_percent
+      ("#{change} (#{change_percent})").html_safe
+    end
+
+    def change
+      content = h.st_number_with_delimiter data_object.change
+      h.content_color_by_value(content: content, value: data_object.change)
+    end
+
+    def change_percent
+      content = h.st_number_to_percentage data_object.change_percent
+      h.content_color_by_value(content: content, value: data_object.change_percent)
+    end
 
     def day_range
       return "N/A" if data_object.low.blank? && data_object.high.blank?
@@ -22,85 +26,44 @@ class QuotesPresenter
       "#{formatted_low} - #{formatted_high}".html_safe
     end
 
-    def extended_price_info
-      @extended_price_info ||= _extended_price_info
-    end
-
     def high
-      return "N/A" if data_object.high.blank?
-
-      h.number_with_delimiter(data_object.high)
-    end
-
-    def latest_price_info
-      @latest_price_info ||= _latest_price_info
+      h.st_number_with_delimiter(data_object.high)
     end
 
     def low
-      return "N/A" if data_object.low.blank?
-
-      h.number_with_delimiter(data_object.low)
+      h.st_number_with_delimiter(data_object.low)
     end
 
     def open
-      return "N/A" if data_object.open.blank?
-
-      h.number_with_delimiter data_object.open
+      h.st_number_with_delimiter data_object.open
     end
 
     def previous_close
-      return "N/A" if data_object.previous_close.blank?
-
-      h.number_with_delimiter data_object.previous_close
+      h.st_number_with_delimiter data_object.previous_close
     end
 
-    def previous_volume
-      return "N/A" if data_object.previous_volume.blank?
-
-      h.number_to_human data_object.previous_volume
+    def price
+      h.st_number_with_delimiter data_object.price
     end
 
-    def show_extended_info?
-      return false if is_us_market_open
-      return false unless _has_extended_info?
+    def price_color
+      h.price_color_class data_object.change
+    end
 
-      true
+    def price_icon
+      h.price_icon data_object.change
+    end
+
+    def source
+      data_object.source.to_s.titleize
+    end
+
+    def updated_at
+      "Updated #{h.readable_datetime(datetime: data_object.updated_at)}"
     end
 
     def volume
-      return "N/A" if data_object.volume.blank?
-
-      h.number_to_human data_object.volume
-    end
-
-    private
-
-    def _has_extended_info?
-      extended_change ||
-        extended_change_percent ||
-        extended_price
-    end
-
-    def _latest_price_info
-      latest = OpenStruct.new(
-        amount: latest_price,
-        change: change,
-        change_percent: change_percent,
-        source: latest_source,
-        time: latest_update
-      )
-      PricePresenter.present(latest, h)
-    end
-
-    def _extended_price_info
-      extended = OpenStruct.new(
-        amount: extended_price,
-        change: extended_change,
-        change_percent: extended_change_percent,
-        source: PricePresenter::EXTENDED,
-        time: extended_time
-      )
-      PricePresenter.present(extended, h)
+      h.st_number_to_human data_object.volume
     end
   end
 end
