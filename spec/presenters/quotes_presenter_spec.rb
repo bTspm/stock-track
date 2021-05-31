@@ -5,6 +5,17 @@ describe QuotesPresenter do
     let(:quote) { build :entity_quote }
     subject(:presenter) { described_class::Scalar.new(quote, view_context) }
 
+    describe "#change_and_change_percent" do
+      subject { presenter.change_and_change_percent }
+
+      it "expect to return change and change percent" do
+        expect(presenter).to receive(:change) { "Change" }
+        expect(presenter).to receive(:change_percent) { "Change Percent" }
+
+        expect(subject).to eq "Change (Change Percent)"
+      end
+    end
+
     describe "#change" do
       subject { presenter.change }
 
