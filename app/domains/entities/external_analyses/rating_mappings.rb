@@ -42,6 +42,14 @@ module Entities
           strong_sell: ["Sell"]
         },
 
+        Entities::ExternalAnalyses::Analysis::WSJ => {
+          strong_buy: ["Buy"],
+          buy: ["Overweight"],
+          hold: ["Hold"],
+          sell: ["Underperform"],
+          strong_sell: ["Sell"]
+        },
+
         Entities::ExternalAnalyses::Analysis::ZACKS => Entities::ExternalAnalyses::RatingMappings::DEFAULT_MAPPING,
         Entities::ExternalAnalyses::Analysis::CNN => Entities::ExternalAnalyses::RatingMappings::DEFAULT_MAPPING,
         Entities::ExternalAnalyses::Analysis::ROBIN_HOOD => Entities::ExternalAnalyses::RatingMappings::DEFAULT_MAPPING
