@@ -1,9 +1,4 @@
 class StocksController < ApplicationController
-  def earnings
-    earnings = present(stock_service.earnings_by_symbol(params[:symbol]), EarningsPresenter)
-    render partial: "stocks/information_v2/earnings", locals: { earnings: earnings }
-  end
-
   def home; end
 
   def information

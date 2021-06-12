@@ -7,13 +7,8 @@ Rails.application.routes.draw do
   end
 
   namespace :stocks do
-    get :earnings
-    get :growth
     get :home
     get :information
-    get :news
-    get :quote
-    get :stats
     get :time_series
   end
 
