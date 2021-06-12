@@ -80,23 +80,6 @@ describe CompanyService do
 
       expect(subject).to eq "Saved"
     end
-
-    context "when company is etf" do
-      let(:company) { build :entity_company, :etf, symbol: symbol }
-
-      it "expect not to get analysis" do
-        expect(service).to receive(:company_storage).ordered { company_store }
-        expect(company_store).to receive(:by_symbol_from_iex).with(symbol) { company }
-        expect(
-          service
-        ).to receive_message_chain(:company_executive_storage, :by_symbol_from_finn_hub).with(symbol) { "Executives" }
-        expect(service).not_to receive(:external_analysis_storage)
-        expect(service).to receive(:company_storage).ordered { company_store }
-        expect(company_store).to receive(:save_company).with(company) { "Saved" }
-
-        expect(subject).to eq "Saved"
-      end
-    end
   end
 
   describe "#snp500_company_symbols" do

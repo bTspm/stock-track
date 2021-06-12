@@ -1,5 +1,5 @@
 .row
-  .col-lg-4.col-md-6
+  .col-md-6
     .card
       .card-header Analysis
       .card-body
@@ -9,26 +9,24 @@
               %th Source
               %th Rating
               %th Analysts
+              %th Rtg Wt
           %tbody
             - external_analysis.analyses.ordered_by_source_asc_with_no_ratings_last.each do |analysis|
               %tr
                 %td= source_with_external_link(analysis)
                 %td= analysis.formatted_original_rating
                 %td= analysis.analysts_count
+                %td= analysis.rating_rank
           %tfoot
             %tr.text-right
-              %td{colspan: "3"}= external_analysis.formatted_refreshed_at
+              %td{colspan: 4}= external_analysis.formatted_refreshed_at
 
-  .col-lg-8.col-md-6
-    = render partial: "stocks/information_v2/price_targets", locals: { analyses: external_analysis.analyses }
+  .col-md-6
+    - external_analysis.analyses.custom_analyses_sorted_by_source_asc.each do |analysis|
+      .card
+        .card-header= analysis.formatted_source
+        .card-body
+          = render partial: "stocks/information_v2/external_analyses/#{analysis.source}",
+                           locals: { custom: analysis.custom }
 
-    .row.mt-3
-      - external_analysis.analyses.custom_analyses_sorted_by_source_asc.each do |analysis|
-        .col-lg-6.col-md-12
-          .card
-            .card-header= analysis.formatted_source
-            .card-body
-              = render partial: "stocks/information_v2/external_analyses/#{analysis.source}",
-                               locals: { custom: analysis.custom }
-
-
+= render partial: "stocks/information_v2/price_targets", locals: { analyses: external_analysis.analyses }

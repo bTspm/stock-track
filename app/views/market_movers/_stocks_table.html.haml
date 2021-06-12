@@ -7,6 +7,8 @@
         %th Chg
         %th= "%Chg"
         %th Vol
+        %th Mkt Cap
+        %th Ytd %
 
     %tbody
       - stocks.each do |stock|
@@ -16,6 +18,8 @@
           %td.font-weight-bold= stock.change
           %td.font-weight-bold= stock.change_percent
           %td= stock.volume
+          %td= stock.market_cap
+          %td= stock.formatted_ytd
 
     %tfoot
       %tr
@@ -23,3 +27,4 @@
 
 :javascript
   $(".timeago").timeago();
+  $("[data-tooltip='tooltip']").tooltip();

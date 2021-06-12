@@ -1,25 +1,26 @@
 FactoryBot.define do
   factory :entity_company, class: Entities::Company do
-    transient do
-      args do
-        {
-          address: build(:entity_address),
-          exchange: build(:entity_exchange),
-          issuer_type: build(:entity_issuer_type),
-          description: "Test",
-          employees: 137_000,
-          id: 200,
-          industry: "Telecommunications Equipment",
-          name: "Apple Inc.",
-          phone: "1.408.996.1010",
-          # ratings: build(:entity_rating),
-          sector: "Electronic Technology",
-          security_name: "Apple Inc.",
-          sic_code: 3663,
-          symbol: "AAPL",
-          website: "http://www.apple.com"
-        }
-      end
+    args do
+      {
+        address: build(:entity_address),
+        exchange: build(:entity_exchange),
+        issuer_type: build(:entity_issuer_type),
+        description: "Test",
+        employees: 137_000,
+        id: 200,
+        industry: "Telecommunications Equipment",
+        name: "Apple Inc.",
+        phone: "1.408.996.1010",
+        sector: "Electronic Technology",
+        security_name: "Apple Inc.",
+        sic_code: 3663,
+        symbol: "AAPL",
+        website: "http://www.apple.com"
+      }
+    end
+
+    trait :with_external_analysis do
+      external_analysis { build(:entity_external_analysis) }
     end
 
     trait :without_address do

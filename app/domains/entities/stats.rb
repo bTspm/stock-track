@@ -22,7 +22,7 @@ module Entities
     def self.from_iex_response(response)
       args = {
         beta: response[:beta],
-        dividend_yield: response[:dividendYield],
+        dividend_yield: response[:dividendYield].blank? ? nil : response[:dividendYield] * 100,
         float: response[:float],
         market_cap: response[:marketcap],
         moving_50_day_average: response[:day50MovingAvg],

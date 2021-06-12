@@ -29,7 +29,7 @@ puts "Completed Seeding - Issuer Types"
 puts "=========================================================="
 
 puts "Started Seeding - Exchange"
-Services::StockService.new.save_exchanges
+ExchangeStore.new.save_exchanges
 puts "Completed Seeding - Exchange"
 
 puts "=========================================================="

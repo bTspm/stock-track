@@ -11,8 +11,12 @@ describe QuotesPresenter do
       it "expect to return change and change percent" do
         expect(presenter).to receive(:change) { "Change" }
         expect(presenter).to receive(:change_percent) { "Change Percent" }
+        expect(view_context).to receive(:content_color_by_value).with(
+          content: "Change (Change Percent)",
+          value: 100
+        ) { "Colored Change" }
 
-        expect(subject).to eq "Change (Change Percent)"
+        expect(subject).to eq "Colored Change"
       end
     end
 
@@ -41,88 +45,53 @@ describe QuotesPresenter do
       end
     end
 
-    describe "#day_range" do
-      subject { presenter.day_range }
+    describe "#high" do
+      subject { presenter.high }
 
-      context "without high and low" do
-        let(:quote) { build :entity_quote, high: nil, low: nil }
+      it "expect to call st_number_to_currency with high" do
+        expect(view_context).to receive(:st_number_to_currency).with(300_000) { "high" }
 
-        it { is_expected.to eq "N/A" }
+        expect(subject).to eq "high"
       end
+    end
 
-      context "with high and low" do
-        it "expect to return low and high" do
-          expect(view_context).to receive(:positive_content).with("300,000") { "High" }
-          expect(view_context).to receive(:negative_content).with("600,000") { "Low" }
+    describe "#low" do
+      subject { presenter.low }
 
-          expect(subject).to eq "Low - High"
-        end
-      end
+      it "expect to call st_number_to_currency with low" do
+        expect(view_context).to receive(:st_number_to_currency).with(600_000) { "low" }
 
-      context "with high and without low" do
-        let(:quote) { build :entity_quote, low: nil }
-
-        it "expect to return high and low as N/A" do
-          expect(view_context).to receive(:positive_content).with("300,000") { "High" }
-          expect(view_context).to receive(:negative_content).with("N/A") { "N/A" }
-
-          expect(subject).to eq "N/A - High"
-        end
-      end
-
-      context "without high and with low" do
-        let(:quote) { build :entity_quote, high: nil }
-
-        it "expect to return high as N/A and low" do
-          expect(view_context).to receive(:positive_content).with("N/A") { "N/A" }
-          expect(view_context).to receive(:negative_content).with("600,000") { "Low" }
-
-          expect(subject).to eq "Low - N/A"
-        end
+        expect(subject).to eq "low"
       end
     end
 
     describe "#open" do
       subject { presenter.open }
 
-      context "without open" do
-        let(:quote) { build :entity_quote, open: nil }
+      it "expect to call st_number_to_currency with open" do
+        expect(view_context).to receive(:st_number_to_currency).with(700_000) { "open" }
 
-        it { is_expected.to eq "N/A" }
-      end
-
-      context "with open" do
-        it { is_expected.to eq "700,000" }
+        expect(subject).to eq "open"
       end
     end
 
     describe "#previous_close" do
       subject { presenter.previous_close }
 
-      context "without previous_close" do
-        let(:quote) { build :entity_quote, previous_close: nil }
+      it "expect to call st_number_to_currency with previous_close" do
+        expect(view_context).to receive(:st_number_to_currency).with(800_000) { "previous_close" }
 
-        it { is_expected.to eq "N/A" }
-      end
-
-      context "with previous_close" do
-        it { is_expected.to eq "800,000" }
+        expect(subject).to eq "previous_close"
       end
     end
 
     describe "#price" do
       subject { presenter.price }
 
-      it { is_expected.to eq "100,000" }
-    end
+      it "expect to call st_number_to_currency with price" do
+        expect(view_context).to receive(:st_number_to_currency).with(100_000) { "Price" }
 
-    describe "#price_color" do
-      subject { presenter.price_color }
-
-      it "expect to return price_color" do
-        expect(view_context).to receive(:price_color_class).with(quote.change) { "Price Color" }
-
-        expect(subject).to eq "Price Color"
+        expect(subject).to eq "Price"
       end
     end
 
@@ -151,14 +120,10 @@ describe QuotesPresenter do
     describe "#volume" do
       subject { presenter.volume }
 
-      context "without volume" do
-        let(:quote) { build :entity_quote, volume: nil }
+      it "expect to call st_number_to_human with volume" do
+        expect(view_context).to receive(:st_number_to_human).with(1_000_000) { "Volume" }
 
-        it { is_expected.to eq "N/A" }
-      end
-
-      context "with volume" do
-        it { is_expected.to eq "1 M" }
+        expect(subject).to eq "Volume"
       end
     end
   end

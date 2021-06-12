@@ -53,13 +53,6 @@ describe StocksController do
     it { is_expected.to route_to(controller: controller, action: action) }
   end
 
-  describe "#recommendation_trends" do
-    let(:action) { "recommendation_trends" }
-    subject { get("#{base_url}/#{action}") }
-
-    it { is_expected.to route_to(controller: controller, action: action) }
-  end
-
   describe "#time_series" do
     let(:action) { "time_series" }
     subject { get("#{base_url}/#{action}") }

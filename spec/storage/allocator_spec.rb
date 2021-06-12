@@ -102,17 +102,6 @@ describe Allocator do
     end
   end
 
-  describe "#recommendation_trend_store" do
-    let(:store) { RecommendationTrendStore }
-    subject { allocator.recommendation_trend_store }
-
-    it "expect to initialize the store" do
-      expect(store).to receive(:new).and_call_original
-
-      expect(subject).to be_kind_of(store)
-    end
-  end
-
   describe "#stats_store" do
     let(:store) { StatsStore }
     subject { allocator.stats_store }

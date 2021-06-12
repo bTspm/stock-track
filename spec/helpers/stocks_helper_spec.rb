@@ -88,28 +88,6 @@ describe StocksHelper do
     it { is_expected.to have_css("span", class: "text-success") }
   end
 
-  describe "#price_color_class" do
-    let(:value) { 100 }
-
-    subject { helper.price_color_class(value) }
-
-    context "value - negative" do
-      let(:value) { -100 }
-
-      it { is_expected.to eq "loss" }
-    end
-
-    context "value - positive" do
-      it { is_expected.to eq "profit" }
-    end
-
-    context "value - 0" do
-      let(:value) { 0 }
-
-      it { is_expected.to eq "" }
-    end
-  end
-
   describe "#price_icon" do
     let(:icon) { "fas fa-arrow-alt-circle-up" }
     let(:value) { 100 }

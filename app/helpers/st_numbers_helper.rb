@@ -5,11 +5,18 @@ module StNumbersHelper
     number_with_delimiter(number, options)
   end
 
+  def st_number_to_currency(number, options = {})
+    return "N/A" if number.blank?
+
+    options = options.reverse_merge(precision: StConstants::DEFAULT_PRECISION)
+    number_to_currency(number, options)
+  end
+
   def st_number_to_human(number, options = {})
     return "N/A" if number.blank?
 
     options = options.reverse_merge(precision: StConstants::DEFAULT_PRECISION)
-    number_to_human(number, options)
+    tooltip_wrapper(number_with_delimiter(number)) { number_to_human(number, options) }
   end
 
   def st_number_to_percentage(percentage)

@@ -12,7 +12,7 @@ module WatchListsHelper
       data_options.merge!(content: _guest_popover_content)
     end
 
-    content = fontawesome_icon(name_icon_with_style: "far fa-star", text: "Add to Watch Lists")
+    content = fontawesome_icon(name_icon_with_style: "far fa-star")
     button_tag content, type: "button", class: html_class, data: data_options
   end
 

@@ -13,7 +13,6 @@ Rails.application.routes.draw do
     get :information
     get :news
     get :quote
-    get :recommendation_trends
     get :stats
     get :time_series
   end

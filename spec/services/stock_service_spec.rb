@@ -4,39 +4,21 @@ describe StockService do
   let(:service) { described_class.new }
   let(:symbol) { double(:symbol) }
 
-  describe "#earnings_by_symbol" do
-    let(:earnings_store) { double(:earnings_store) }
-    subject { service.earnings_by_symbol(symbol).with_indifferent_access }
-
-    it "expect to get eps_estimates & eps_surprises from earnings_store" do
-      expect(service).to receive(:earnings_storage).ordered { earnings_store }
-      expect(earnings_store).to receive(:eps_estimates_from_finn_hub_by_symbol).with(symbol) { "Estimates" }
-      expect(service).to receive(:earnings_storage).ordered { earnings_store }
-      expect(earnings_store).to receive(:eps_surprises_from_finn_hub_by_symbol).with(symbol) { "Surprises" }
-
-      expect(subject).to include(eps_estimates: "Estimates", eps_surprises: "Surprises")
-    end
-  end
-
-  describe "#growth_by_symbol" do
-    subject { service.growth_by_symbol(symbol) }
-
-    it "expect to call growth_store and get information" do
-      expect(service).to receive_message_chain(:growth_storage, :by_symbol_from_iex).with(symbol) { "Growth" }
-
-      expect(subject).to eq "Growth"
-    end
-  end
-
   describe "#market_movers_by_key" do
     let(:key) { :losers }
     subject { service.market_movers_by_key(key) }
 
     context "cnn key" do
       it "expect to call stock_storage and get information from cnn" do
-        expect(service).to receive_message_chain(:stock_storage, :market_movers_by_key_from_cnn).with(key) { "Cnn" }
+        expect(
+          service
+        ).to receive_message_chain(:stock_storage, :market_movers_by_key_from_cnn).with(key) { "symbols" }
+        expect(service).to receive(:stocks_by_symbols).with(
+          symbols: "symbols",
+          attrs: Entities::Stock::MARKET_MOVER_ATTRS
+        ) { "stocks" }
 
-        expect(subject).to eq "Cnn"
+        expect(subject).to eq "stocks"
       end
     end
 
@@ -44,75 +26,108 @@ describe StockService do
       let(:key) { :abc }
 
       it "expect to call stock_storage and get information from trading_view" do
-        expect(service).to receive_message_chain(
-                             :stock_storage,
-                             :market_movers_by_key_from_trading_view
-                           ).with(key) { "Trading View" }
+        expect(
+          service
+        ).to receive_message_chain(:stock_storage, :market_movers_by_key_from_trading_view).with(key) { "symbols" }
+        expect(service).to receive(:stocks_by_symbols).with(
+          symbols: "symbols",
+          attrs: Entities::Stock::MARKET_MOVER_ATTRS
+        ) { "stocks" }
 
-        expect(subject).to eq "Trading View"
+        expect(subject).to eq "stocks"
       end
     end
   end
 
-  describe "#news_by_symbol" do
-    subject { service.news_by_symbol(symbol) }
+  describe "#stock_info_by_symbol" do
+    subject { service.stock_info_by_symbol(symbol) }
 
-    it "expect to call news_store and get information" do
-      expect(service).to receive_message_chain(:news_storage, :by_symbol_from_iex).with(symbol: symbol) { "News" }
+    it "expect to call stocks_by_symbols with info stock attrs" do
+      expect(service).to receive(:stocks_by_symbols).with(
+        symbols: symbol,
+        attrs: Entities::Stock::INFO_ATTRS
+      ) { ["stock"] }
 
-      expect(subject).to eq "News"
+      expect(subject).to eq "stock"
     end
   end
 
-  describe "#quote_by_symbol" do
-    subject { service.quote_by_symbol(symbol) }
+  describe "#stocks_for_watch_list" do
+    let(:symbols) { double :symbols }
+    subject { service.stocks_for_watch_list(symbols) }
 
-    it "expect to call quote_store and get information" do
-      expect(service).to receive_message_chain(:quote_storage, :by_symbol_from_tradier).with(symbol) { "quote" }
+    it "expect to call stocks_by_symbols with info stock attrs" do
+      expect(service).to receive(:stocks_by_symbols).with(
+        symbols: symbols,
+        attrs: Entities::Stock::WATCH_LIST_ATTRS
+      ) { "stocks" }
 
-      expect(subject).to eq "quote"
-    end
-  end
-
-  describe "#recommendation_trend_by_symbol" do
-    subject { service.recommendation_trends_by_symbol(symbol) }
-
-    it "expect to call recommendation_trend_store and get information" do
-      expect(service).to receive_message_chain(
-                           :recommendation_trend_storage,
-                           :by_symbol_from_finn_hub).with(symbol) { "recommendation_trend" }
-
-      expect(subject).to eq "recommendation_trend"
-    end
-  end
-
-  describe "#save_exchanges" do
-    subject { service.save_exchanges }
-
-    it "expect to call exchange_store and save_exchanges" do
-      expect(service).to receive_message_chain(:exchange_storage, :save_exchanges) { "Created/Updated" }
-
-      expect(subject).to eq "Created/Updated"
-    end
-  end
-
-  describe "#stats_by_symbol" do
-    subject { service.stats_by_symbol(symbol) }
-
-    it "expect to call stats_store and get information" do
-      expect(service).to receive_message_chain(:stats_storage, :by_symbol_from_iex).with(symbol) { "stats" }
-
-      expect(subject).to eq "stats"
+      expect(subject).to eq "stocks"
     end
   end
 
   describe "#stocks_by_symbols" do
-    subject { service.stocks_by_symbols([symbol]) }
+    let(:attrs) { Entities::Stock::ATTRIBUTES }
+    let(:company) { build :company, symbol: symbol }
+    let(:companies) { Array.wrap company }
+    let(:earnings_store) { instance_double(EarningsStore) }
+    let(:symbol) { "AAPL" }
+    let(:symbols) { [symbol] }
+    subject { service.stocks_by_symbols(symbols: symbols, attrs: attrs) }
 
-    it "expect to call stock_store and get information" do
-      expect(service).to receive_message_chain(:stock_storage, :by_symbols).with([symbol]) { "stocks" }
+    before do
+      allow(service).to receive_message_chain(:company_storage, :by_symbols).with(["aapl"]) { companies }
+    end
 
-      expect(subject).to eq "stocks"
+    context "with valid attrs" do
+      let(:args) do
+        {
+          company: company,
+          earnings: { eps_estimates: "Estimates", eps_surprises: "Surprises" },
+          growth: "Growth",
+          quote: "Quote",
+          news: "News",
+          stats: "Stats",
+          time_series: "Time Series"
+        }
+      end
+
+      it "expect to collect the data and build stock" do
+        expect(service).to receive(:earnings_storage).ordered { earnings_store }
+        expect(earnings_store).to receive(:eps_estimates_from_finn_hub_by_symbol).with(symbol) { "Estimates" }
+        expect(service).to receive(:earnings_storage).ordered { earnings_store }
+        expect(earnings_store).to receive(:eps_surprises_from_finn_hub_by_symbol).with(symbol) { "Surprises" }
+        expect(service).to receive_message_chain(:growth_storage, :by_symbol_from_iex).with(symbol) { "Growth" }
+        expect(service).to receive_message_chain(:quote_storage, :by_symbol_from_tradier).with(symbol) { "Quote" }
+        expect(service).to receive_message_chain(:news_storage, :by_symbol_from_iex).with(symbol: symbol) { "News" }
+        expect(service).to receive_message_chain(:stats_storage, :by_symbol_from_iex).with(symbol) { "Stats" }
+        expect(service).to receive(:time_series_by_symbol).with(symbol) { "Time Series" }
+        expect(Entities::Stock).to receive(:new).with(args) { "Stock" }
+
+        subject
+      end
+    end
+
+    context "unknown attr" do
+      let(:attrs) { ["abc"] }
+
+      it "expect to raise an error" do
+        expect { subject }.to raise_error { |error|
+          expect(error).to be_a(StandardError)
+          expect(error.message).to eq "Unknown attr: abc for symbol: AAPL"
+        }
+      end
+    end
+
+    context "when symbol does not match any company" do
+      let(:companies) { [] }
+
+      it "expect to send the symbol to save and log" do
+        expect(CompanyWorker).to receive(:perform_async).with("aapl")
+        expect(Rails).to receive_message_chain(:logger, :info).with("Symbol: aapl sent for save.")
+
+        subject
+      end
     end
   end
 

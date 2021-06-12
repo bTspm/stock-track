@@ -1,42 +1,37 @@
 .card
   .card-header Company
   .card-body
-    - if company.description
-      .mb-3.small.text-justify= company.description
+    %table.table.table-hover.table-sm
+      %tbody
+        %tr
+          %td.font-weight-bold Security Name
+          %td.text-right= company.security_name
+        %tr
+          %td.font-weight-bold Issuer
+          %td.text-right= company.issuer_type_name_with_code
+        %tr
+          %td.font-weight-bold Sector
+          %td.text-right= company.sector
+        %tr
+          %td.font-weight-bold Industry
+          %td.text-right= company.industry
+        %tr
+          %td.font-weight-bold SicCode
+          %td.text-right= company.sic_code
+        %tr
+          %td.font-weight-bold Employees
+          %td.text-right= company.employees
+        %tr
+          %td.font-weight-bold Phone Number
+          %td.text-right= company.phone
+        %tr
+          %td.font-weight-bold Website
+          %td.text-right= link_to company.website, company.website, target: '_blank'
+
+    - if company.description.present?
       %hr
+      .mb-3.small.text-justify= company.description
 
-    .row
-      .col-md-6.col-sm-12
-        %table.table.table-hover.table-sm
-          %tbody
-            %tr
-              %td.font-weight-bold Address
-              %td.text-right= company.address_formatted
-            %tr
-              %td.font-weight-bold Employees
-              %td.text-right= company.employees
-            %tr
-              %td.font-weight-bold Phone Number
-              %td.text-right= company.phone
-            %tr
-              %td.font-weight-bold Website
-              %td.text-right= link_to company.website, company.website, target: '_blank'
-
-      .col-md-6.col-sm-12
-        %table.table.table-hover.table-sm
-          %tbody
-            %tr
-              %td.font-weight-bold Security Name
-              %td.text-right= company.security_name
-            %tr
-              %td.font-weight-bold Issuer
-              %td.text-right= company.issuer_type_name_with_code
-            %tr
-              %td.font-weight-bold Sector
-              %td.text-right= company.sector
-            %tr
-              %td.font-weight-bold Industry
-              %td.text-right= company.industry
-            %tr
-              %td.font-weight-bold SicCode
-              %td.text-right= company.sic_code
+    - if company.address.present?
+      %hr
+      .mb-3.small.text-justify= company.address_formatted

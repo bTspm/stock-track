@@ -1,29 +1,8 @@
-.card
-  .card-header
-    Quote
-  .card-body.mb-2
-    .price-information{class: quote.price_color}
-      %div.mb-2
-        %span.small= quote.updated_at
-        .float-sm-right
-          %span.badge.badge-info= quote.source
-      .row
-        .col-lg.col-md-6.col-sm-12.col-xs-12
-          .price= quote.price
-        .col-lg.col-md-6.col-sm-6.col-xs-12
-          %dt Change
-          %dd.small
-            %span= quote.price_icon
-            %span.mr-1= quote.change_and_change_percent
-        .col-lg.col-md-3.col-sm-6
-          %dt Day Range
-          %dd.small= quote.day_range
-        .col-lg.col-md-3.col-sm-6
-          %dt Volume
-          %dd.small= quote.volume
-        .col-lg.col-md-3.col-sm-6
-          %dt Open
-          %dd.small= quote.open
-        .col-lg.col-md-6.col-sm-6
-          %dt Previous Close
-          %dd.small= quote.previous_close
+%span#price.font-weight-bold.mr-1= quote.price
+%span
+  %span= quote.price_icon
+  %span.mr-1= quote.change_and_change_percent
+.mt-n2.small
+  .small
+    %span.badge.badge-pill.badge-info= quote.source
+    = quote.updated_at

@@ -47,4 +47,10 @@ module ApplicationHelper
   def time_ago(datetime)
     content_tag :span, readable_datetime(datetime: datetime), class: "timeago", title: datetime
   end
+
+  def tooltip_wrapper(title, &block)
+    content_tag :span, title: title, data: { tooltip: :tooltip } do
+      block.call
+    end
+  end
 end

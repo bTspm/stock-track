@@ -43,10 +43,6 @@ class BusinessService
     engine.quote_store
   end
 
-  def recommendation_trend_storage
-    engine.recommendation_trend_store
-  end
-
   def stats_storage
     engine.stats_store
   end

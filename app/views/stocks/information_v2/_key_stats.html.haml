@@ -1,35 +1,52 @@
 .card
   .card-header Key Stats
   .card-body
-    %table.table.table-sm.table-hover.table-striped
-      %tbody
-        %tr
-          %td.font-weight-bold 52 Week Range
-          %td.text-right= stats.week_52_range
-        %tr
-          %td.font-weight-bold Market Cap
-          %td.text-right= stats.market_cap
-        %tr
-          %td.font-weight-bold Annual Div Rate / Yield
-          %td.text-right= stats.dividend_rate_and_yield_with_next_date
-        %tr
-          %td.font-weight-bold Shares Outstanding
-          %td.text-right= stats.shares_outstanding
-        %tr
-          %td.font-weight-bold P/E Ratio
-          %td.text-right= stats.pe_ratio
-        %tr
-          %td.font-weight-bold Beta
-          %td.text-right= stats.beta
-        %tr
-          %td.font-weight-bold Earnings Per Share
-          %td.text-right= stats.ttm_eps_with_next_date
-        %tr
-          %td.font-weight-bold Float
-          %td.text-right= stats.float
-        %tr
-          %td.font-weight-bold Vol Avg 10d/30d
-          %td.text-right= stats.volume_average
-        %tr
-          %td.font-weight-bold Mov Avg 50d/200d
-          %td.text-right= stats.moving_average
+    .row
+      .col-6
+        %table.table.table-sm.table-hover.table-striped
+          %tbody
+            %tr
+              %td.font-weight-bold Open
+              %td.text-right= quote.open
+            %tr
+              %td.font-weight-bold High
+              %td.text-right= quote.high
+            %tr
+              %td.font-weight-bold Low
+              %td.text-right= quote.low
+            %tr
+              %td.font-weight-bold Prev. Close
+              %td.text-right= quote.previous_close
+            %tr
+              %td.font-weight-bold Volume
+              %td.text-right= quote.volume
+            %tr
+              %td.font-weight-bold Vol. Avg 30
+              %td.text-right= stats.volume_30_day_average
+            %tr
+              %td.font-weight-bold 52 Wk Range
+              %td.text-right= stats.week_52_range
+      .col-6
+        %table.table.table-sm.table-hover.table-striped
+          %tbody
+            %tr
+              %td.font-weight-bold Market Cap
+              %td.text-right= stats.market_cap
+            %tr
+              %td.font-weight-bold Div Rate & Yield
+              %td.text-right= stats.dividend_rate_and_yield
+            %tr
+              %td.font-weight-bold Shares O/S
+              %td.text-right= stats.shares_outstanding
+            %tr
+              %td.font-weight-bold P/E Ratio
+              %td.text-right= stats.pe_ratio
+            %tr
+              %td.font-weight-bold Beta
+              %td.text-right= stats.beta
+            %tr
+              %td.font-weight-bold EPS
+              %td.text-right= stats.eps
+            %tr
+              %td.font-weight-bold Float
+              %td.text-right= stats.float

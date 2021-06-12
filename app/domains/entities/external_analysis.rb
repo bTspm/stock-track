@@ -7,6 +7,10 @@ module Entities
         analyses = data[:analyses].map { |analysis| Entities::ExternalAnalyses::Analysis.from_data_hash(analysis) }
         new(analyses: analyses, refreshed_at: data[:refreshed_at].to_datetime)
       end
+
+      def null_object
+        new(analyses: [], refreshed_at: DateTime.now)
+      end
     end
 
     attr_accessor :analyses, :refreshed_at
@@ -23,6 +27,10 @@ module Entities
       return nil if rating_ranks.blank?
 
       rating_ranks.sum / rating_ranks.count.to_f
+    end
+
+    def data_available?
+      analyses.any?
     end
   end
 end

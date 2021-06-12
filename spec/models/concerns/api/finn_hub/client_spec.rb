@@ -49,20 +49,6 @@ describe Api::FinnHub::Client do
     end
   end
 
-  describe "#recommendation_trends" do
-    let(:symbol) { "ABC" }
-
-    subject { client.recommendation_trends(symbol) }
-
-    it "expect to get recommendation_trends" do
-      expect(client).to receive(:get).with(
-        "https://finnhub.io/api/v1/stock/recommendation?symbol=ABC&token=api_key"
-      ) { "Recommendation Trends" }
-
-      expect(subject).to eq "Recommendation Trends"
-    end
-  end
-
   describe "#symbols_by_exchange" do
     let(:exchange) { "ABC" }
 

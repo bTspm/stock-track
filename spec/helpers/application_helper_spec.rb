@@ -148,4 +148,12 @@ describe ApplicationHelper do
       expect(subject).to have_css("span", class: "timeago")
     end
   end
+
+  describe "#tooltip_wrapper" do
+    subject { tooltip_wrapper("ABC") { "test content" } }
+
+    it "expect return a span tag with title and tooltip in the data tag" do
+      expect(subject).to eq "<span title=\"ABC\" data-tooltip=\"tooltip\">test content</span>"
+    end
+  end
 end

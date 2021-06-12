@@ -16,6 +16,17 @@ describe Entities::ExternalAnalysis do
     end
   end
 
+  describe ".null_object" do
+    subject { described_class.null_object }
+
+    it "expect to initialize external analysis with no analyses" do
+      expect(DateTime).to receive(:now) { "DateTime" }
+      expect(described_class).to receive(:new).with(analyses: [], refreshed_at: "DateTime") { "External" }
+
+      subject
+    end
+  end
+
   let(:analysis) { build :entity_external_analyses_analysis }
   let(:analyses) { [analysis] }
   subject(:external_analysis) { described_class.new(analyses: analyses, refreshed_at: refreshed_at) }
@@ -52,6 +63,20 @@ describe Entities::ExternalAnalysis do
 
         it { is_expected.to eq 4.0 }
       end
+    end
+  end
+
+  describe "data_available?" do
+    subject { external_analysis.data_available? }
+
+    context "with analyses" do
+      it { is_expected.to be_truthy }
+    end
+
+    context "without analyses" do
+      let(:analyses) { [] }
+
+      it { is_expected.to be_falsey }
     end
   end
 end

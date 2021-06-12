@@ -20,6 +20,38 @@ describe StNumbersHelper do
     end
   end
 
+  describe "#st_number_to_currency" do
+    let(:number) { 123_456 }
+    let(:options) { {} }
+    subject { helper.st_number_to_currency(number, options) }
+
+    context "without number" do
+      let(:number) { nil }
+
+      it { is_expected.to eq "N/A" }
+    end
+
+    context "with number" do
+      context "with default options" do
+        it "expect to call number to currency with default arguments" do
+          expect(helper).to receive(:number_to_currency).with(number, { precision: 2 }) { "Number" }
+
+          expect(subject).to eq "Number"
+        end
+      end
+
+      context "with option arguments" do
+        let(:options) { { precision: 25 } }
+
+        it "expect to call number to currency with arguments" do
+          expect(helper).to receive(:number_to_currency).with(number, { precision: 25 }) { "Number" }
+
+          expect(subject).to eq "Number"
+        end
+      end
+    end
+  end
+
   describe "#st_number_to_human" do
     let(:number) { 123_456 }
     let(:options) { {} }
@@ -34,7 +66,9 @@ describe StNumbersHelper do
     context "with number" do
       context "with default options" do
         it "expect to call number to human with default arguments" do
+          expect(helper).to receive(:number_with_delimiter).with(number) { "Delim Number" }
           expect(helper).to receive(:number_to_human).with(number, { precision: 2 }) { "Number" }
+          expect(helper).to receive(:tooltip_wrapper).with("Delim Number").and_yield
 
           expect(subject).to eq "Number"
         end
@@ -44,7 +78,11 @@ describe StNumbersHelper do
         let(:options) { { precision: 25 } }
 
         it "expect to call number to human with arguments" do
+          expect(helper).to receive(:number_with_delimiter).with(number) { "Delim Number" }
           expect(helper).to receive(:number_to_human).with(number, { precision: 25 }) { "Number" }
+          expect(helper).to receive(:tooltip_wrapper).with("Delim Number").and_yield
+
+          expect(subject).to eq "Number"
 
           expect(subject).to eq "Number"
         end

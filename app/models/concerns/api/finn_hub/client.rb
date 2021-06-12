@@ -13,10 +13,6 @@ module Api
         get "#{_url}/earnings?symbol=#{_format_symbol(symbol)}&token=#{_key}"
       end
 
-      def recommendation_trends(symbol)
-        get "#{_url}/recommendation?symbol=#{_format_symbol(symbol)}&token=#{_key}"
-      end
-
       def symbols_by_exchange(exchange)
         get "#{_url}/symbol?exchange=#{exchange.upcase}&token=#{_key}"
       end

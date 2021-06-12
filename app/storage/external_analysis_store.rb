@@ -13,9 +13,10 @@ class ExternalAnalysisStore
   ]
 
   def by_company(company)
+    return Entities::ExternalAnalysis.null_object if company.etf?
+
     analyses = SOURCES_BY_SYMBOL.map { |source| _rating_from_source_by_symbol(source: source, symbol: company.symbol) }
     analyses += SOURCES_BY_COMPANY.map { |source| _rating_from_source_by_company(source: source, company: company) }
-    analyses
     Entities::ExternalAnalysis.new(analyses: analyses, refreshed_at: DateTime.now)
   end
 

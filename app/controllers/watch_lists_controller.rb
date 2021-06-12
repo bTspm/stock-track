@@ -7,7 +7,7 @@ class WatchListsController < ApplicationController
 
   def show
     watch_list = present(watch_list_service.watch_list_by_id(params[:id]), WatchListsPresenter)
-    stocks = present(stock_service.stocks_by_symbols(watch_list.symbols), StocksPresenter)
+    stocks = present(stock_service.stocks_for_watch_list(watch_list.symbols), StocksPresenter)
     render partial: "watch_lists/stocks_table", locals: { stocks: stocks, watch_list: watch_list }
   rescue StandardError => e
     render partial: "watch_lists/error", locals: { error: e.message }

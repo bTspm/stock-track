@@ -30,7 +30,6 @@ describe TimeSeriesPresenter do
       it "expect to return chart data" do
         result = subject
         expect(result[:stock_data]).to eq [[1_588_291_200_000, 200], [1_903_824_000_000, 100]]
-        expect(result[:subtitle]).to eq "Between May 01, 2020 to May 01, 2030"
         expect(result[:symbol]).to eq "ABC"
         expect(result[:time_line_buttons]).to eq [{ "type" => "week", "count" => 1, "text" => "1w" },
                                                   { "type" => "month", "count" => 1, "text" => "1m" },
@@ -40,7 +39,6 @@ describe TimeSeriesPresenter do
                                                   { "type" => "year", "count" => 1, "text" => "1y" },
                                                   { "type" => "year", "count" => 5, "text" => "5y" },
                                                   { "type" => "all", "text" => "All" }]
-        expect(result[:title]).to eq "ABC Stock QuotePrice"
       end
     end
   end

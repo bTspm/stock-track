@@ -1,40 +1,38 @@
-.stock-information
-  .container
-    #stock-summary
-      = render partial: "stocks/information_v2/basic_information", locals: { company: @company }
+.container
+  .row.mt-5
+    .col-lg-8.col-md-12
+      .card
+        .card-body
+          .row
+            .col-10= render partial: 'stocks/information_v2/basic_information', locals: { company: @stock.company }
 
-      .mt-3
-        = render_async stocks_quote_path(symbol: @company.symbol) do
-          = render partial: "layouts/loading_card", locals: { header: "Quote" }
+            .col-2.justify-content-center.align-self-center
+              .float-right= render partial: "watch_lists/add_to_watch_list", locals: { symbol: @stock.symbol }
+
+          = render partial: 'stocks/information_v2/quote_information', locals: { quote: @stock.quote }
+
+          .mt-2
+            = render_async stocks_time_series_path(symbol: @stock.symbol) do
+              = render partial: "layouts/loading_card"
+
+      .mt-2= render partial: "stocks/information_v2/key_stats", locals: { stats: @stock.stats, quote: @stock.quote }
+
+      .mt-2= render partial: "stocks/information_v2/news", locals: { news: @stock.news }
+
+      .mt-2
         .row
-          .col-lg-8.col-md-12.col-sm-12.col.xs-12
-            = render_async stocks_time_series_path(symbol: @company.symbol) do
-              = render partial: "layouts/loading_card", locals: { header: "Time Series" }
+          - unless @stock.company.etf?
+            .col-md-6.col-sm-12
+              = render partial: "stocks/information_v2/earnings", locals: { earnings: @stock.earnings }
 
-          .col-lg-4.col-md-12.col-sm-12.col-xs-12
-            = render_async stocks_stats_path(symbol: @company.symbol) do
-              = render partial: "layouts/loading_card", locals: { header: "Stats" }
+            .col-md-6.col-sm-12
+              = render partial: "stocks/information_v2/growth", locals: { growth: @stock.growth }
 
-        = render_async stocks_news_path(symbol: @company.symbol) do
-          = render partial: "layouts/loading_card", locals: { header: "News" }
+      - if @stock.company.external_analysis.data_available?
+        .mt-2= render partial: "stocks/information_v2/external_analyses",
+                      locals: { external_analysis: @stock.company.external_analysis }
 
-        .row
-          - unless @company.etf?
-            .col-lg-4.col-md-6.col-sm-12
-              = render_async stocks_earnings_path(symbol: @company.symbol) do
-                = render partial: "layouts/loading_card", locals: { header: "Earnings" }
+    .col-lg-4.col-md-12
+      = render partial: "stocks/information_v2/company", locals: { company: @stock.company }
 
-            .col-lg-4.col-md-6.col-sm-12
-              = render_async stocks_recommendation_trends_path(symbol: @company.symbol) do
-                = render partial: "layouts/loading_card", locals: { header: "Recommendation Trends" }
-          .col-lg-4.col-md-6.col-sm-12
-            = render_async stocks_growth_path(symbol: @company.symbol) do
-              = render partial: "layouts/loading_card", locals: { header: "Growth" }
 
-        = render partial: 'stocks/information_v2/external_analyses', locals: { external_analysis: @company.external_analysis }
-
-        = render partial: 'stocks/information_v2/company', locals: { company: @company }
-
-        - if @company.company_executives.any?
-          = render partial: 'stocks/information_v2/company_executive',
-                   locals: { executives: @company.company_executives }

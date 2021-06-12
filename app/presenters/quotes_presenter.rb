@@ -5,7 +5,8 @@ class QuotesPresenter
     include Utils
 
     def change_and_change_percent
-      ("#{change} (#{change_percent})").html_safe
+      content = "#{change} (#{change_percent})".html_safe
+      h.content_color_by_value(content: content, value: data_object.change)
     end
 
     def change
@@ -18,36 +19,24 @@ class QuotesPresenter
       h.content_color_by_value(content: content, value: data_object.change_percent)
     end
 
-    def day_range
-      return "N/A" if data_object.low.blank? && data_object.high.blank?
-
-      formatted_high = h.positive_content(high)
-      formatted_low = h.negative_content(low)
-      "#{formatted_low} - #{formatted_high}".html_safe
-    end
-
     def high
-      h.st_number_with_delimiter(data_object.high)
+      h.st_number_to_currency data_object.high
     end
 
     def low
-      h.st_number_with_delimiter(data_object.low)
+      h.st_number_to_currency data_object.low
     end
 
     def open
-      h.st_number_with_delimiter data_object.open
+      h.st_number_to_currency data_object.open
     end
 
     def previous_close
-      h.st_number_with_delimiter data_object.previous_close
+      h.st_number_to_currency data_object.previous_close
     end
 
     def price
-      h.st_number_with_delimiter data_object.price
-    end
-
-    def price_color
-      h.price_color_class data_object.change
+      h.st_number_to_currency data_object.price
     end
 
     def price_icon

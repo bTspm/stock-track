@@ -19,10 +19,8 @@ class TimeSeriesPresenter
     def chart_data(symbol)
       {
         stock_data: _ordered_by_datetime_asc.map(&:formatted_chart_data),
-        subtitle: _subtitle,
         symbol: symbol.upcase,
         time_line_buttons: _time_line_buttons,
-        title: _title(symbol)
       }.to_json
     end
 
@@ -43,16 +41,6 @@ class TimeSeriesPresenter
         { type: "year", count: 5, text: "5y" },
         { type: "all", text: "All" }
       ]
-    end
-
-    def _title(symbol)
-      "#{symbol.upcase} Stock QuotePrice"
-    end
-
-    def _subtitle
-      start_year = h.readable_date(date: _ordered_by_datetime_asc.first.datetime)
-      end_year = h.readable_date(date: _ordered_by_datetime_asc.last.datetime)
-      "Between #{start_year} to #{end_year}"
     end
   end
 end

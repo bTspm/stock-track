@@ -4,7 +4,7 @@ describe ExternalAnalysisStore do
   subject(:store) { described_class.new }
 
   describe "#by_company" do
-    let(:company) { build(:entity_company) }
+    let(:company) { build :entity_company }
     let(:datetime) { double(:datetime) }
     let(:source_by_company_client) { double(:source_by_company_client) }
     let(:source_by_symbol_client) { double(:source_by_symbol_client) }

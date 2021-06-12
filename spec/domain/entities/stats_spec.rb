@@ -44,7 +44,7 @@ describe Entities::Stats do
     let(:args) do
       {
         beta: 1.1465479399284613,
-        dividend_yield: 0.010009424458093661,
+        dividend_yield: 1.000942445809366,
         float: 4_329_598_232,
         market_cap: 1_333_719_761_400,
         moving_50_day_average: 273.11,

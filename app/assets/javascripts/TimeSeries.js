@@ -7,7 +7,7 @@ var TimeSeries = {
             rangeSelector: {
                 buttons: data.time_line_buttons,
                 enabled: true,
-                inputEnabled: true
+                inputEnabled: false
             },
 
             credits: {
@@ -18,13 +18,6 @@ var TimeSeries = {
                 series: {
                     turboThreshold: 0
                 }
-            },
-
-            title: {
-                text: data.title,
-            },
-            subtitle: {
-                text: data.subtitle,
             },
 
             xAxis: {

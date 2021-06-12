@@ -3,7 +3,6 @@ class CompaniesPresenter
 
   class Scalar < Btspm::Presenters::ScalarPresenter
     delegate :formatted, to: :address, prefix: true
-    delegate :country_alpha2, :name_with_country_code, to: :exchange, prefix: true
     delegate :name_with_code, :name, to: :issuer_type, prefix: true
 
     def address
@@ -12,7 +11,7 @@ class CompaniesPresenter
 
     def autocomplete_response
       {
-        exchange_name_with_country_code: exchange_name_with_country_code,
+        exchange_name: exchange_name,
         id: symbol,
         logo_url: logo_url,
         security_name_with_symbol: _security_name_with_symbol,
@@ -32,10 +31,6 @@ class CompaniesPresenter
       "~#{h.st_number_with_delimiter(data_object.employees)}"
     end
 
-    def exchange
-      ::ExchangesPresenter.present(data_object.exchange, h)
-    end
-
     def external_analysis
       ExternalAnalysisPresenter.present(data_object.external_analysis, h)
     end
@@ -46,10 +41,6 @@ class CompaniesPresenter
 
     def logo_url
       "#{ENV['IEX_SYMBOl_LOGO_PREFIX']}#{symbol}.png"
-    end
-
-    def name_with_symbol
-      "#{name} - (#{symbol.upcase})"
     end
 
     def select_picker_response

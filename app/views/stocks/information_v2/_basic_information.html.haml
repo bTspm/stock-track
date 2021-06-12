@@ -1,11 +1,5 @@
-.card
-  .card-body
-    .row
-      .col-sm-8.col-xs-12
-        #company-name= company.name_with_symbol
-        %div.small
-          = company.exchange_name_with_country_code
-          %span{class: "flag-icon flag-icon-#{company.exchange_country_alpha2.downcase}"}
-      .col-sm-4.col-xs-12.mt-2
-        .float-sm-right
-          = render partial: "watch_lists/add_to_watch_list", locals: { symbol: company.symbol }
+%span#company-name.font-weight-bold= company.name
+.small.text-uppercase.mt-n1
+  %span= company.exchange_name
+  %span :
+  %span= company.symbol

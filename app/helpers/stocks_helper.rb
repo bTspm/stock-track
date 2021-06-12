@@ -15,13 +15,6 @@ module StocksHelper
     content_tag :span, content, class: "text-success"
   end
 
-  def price_color_class(value)
-    return "loss" if value.negative?
-    return "profit" if value.positive?
-
-    ""
-  end
-
   def stock_information_link_with_company_name(company)
     content_tag(:span) do
       link = link_to company.symbol, stocks_information_path(symbol: company.symbol),
