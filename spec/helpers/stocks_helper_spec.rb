@@ -122,6 +122,8 @@ describe StocksHelper do
     subject { helper.stock_information_link_with_company_name(company) }
 
     it "expect to return stock information link" do
+      expect(helper).to receive(:tooltip_wrapper).with(company.security_name).and_yield
+
       expect(subject).to have_css(".font-weight-bold")
       expect(subject).to include company.symbol
       expect(subject).to include company.security_name

@@ -37,3 +37,10 @@ body {
 .container {
   max-width: 1400px;
 }
+
+.ellipsis {
+  max-width: 100px;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
