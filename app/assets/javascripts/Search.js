@@ -31,7 +31,7 @@ const Search = {
             suggestion.security_name_with_symbol +
             "</span>" +
             "<span class='sub-text'>" +
-            suggestion.exchange_name_with_country_code +
+            suggestion.exchange_name +
             "</span></span>"
         );
     },
