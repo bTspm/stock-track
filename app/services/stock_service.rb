@@ -37,20 +37,13 @@ class StockService < BusinessService
 
   private
 
-  def _earnings(symbol)
-    {
-      eps_estimates: earnings_storage.eps_estimates_from_finn_hub_by_symbol(symbol),
-      eps_surprises: earnings_storage.eps_surprises_from_finn_hub_by_symbol(symbol)
-    }
-  end
-
   def _init_stock(company:, attrs: Entities::Stock::DEFAULT_ATTRS)
     args = attrs.each_with_object(Hash.new) do |attr, hash|
       hash[attr] = case attr
                    when Entities::Stock::COMPANY
                      company
                    when Entities::Stock::EARNINGS
-                     _earnings(company.symbol)
+                     earnings_storage.by_symbol_from_finn_hub(company.symbol)
                    when Entities::Stock::GROWTH
                      growth_storage.by_symbol_from_iex(company.symbol)
                    when Entities::Stock::QUOTE

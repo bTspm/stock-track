@@ -21,20 +21,6 @@ describe Api::FinnHub::Client do
     end
   end
 
-  describe "#eps_estimates" do
-    let(:symbol) { "ABC" }
-
-    subject { client.eps_estimates(symbol) }
-
-    it "expect to get eps_estimates" do
-      expect(client).to receive(:get).with(
-        "https://finnhub.io/api/v1/stock/eps-estimate?symbol=ABC&token=api_key"
-      ) { "Eps Estimates" }
-
-      expect(subject).to eq "Eps Estimates"
-    end
-  end
-
   describe "#eps_surprises" do
     let(:symbol) { "ABC" }
 

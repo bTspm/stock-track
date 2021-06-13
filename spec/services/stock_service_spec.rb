@@ -83,7 +83,7 @@ describe StockService do
       let(:args) do
         {
           company: company,
-          earnings: { eps_estimates: "Estimates", eps_surprises: "Surprises" },
+          earnings: "Earnings",
           growth: "Growth",
           quote: "Quote",
           news: "News",
@@ -93,10 +93,9 @@ describe StockService do
       end
 
       it "expect to collect the data and build stock" do
-        expect(service).to receive(:earnings_storage).ordered { earnings_store }
-        expect(earnings_store).to receive(:eps_estimates_from_finn_hub_by_symbol).with(symbol) { "Estimates" }
-        expect(service).to receive(:earnings_storage).ordered { earnings_store }
-        expect(earnings_store).to receive(:eps_surprises_from_finn_hub_by_symbol).with(symbol) { "Surprises" }
+        expect(
+          service
+        ).to receive_message_chain(:earnings_storage, :by_symbol_from_finn_hub).with(symbol) { "Earnings" }
         expect(service).to receive_message_chain(:growth_storage, :by_symbol_from_iex).with(symbol) { "Growth" }
         expect(service).to receive_message_chain(:quote_storage, :by_symbol_from_tradier).with(symbol) { "Quote" }
         expect(service).to receive_message_chain(:news_storage, :by_symbol_from_iex).with(symbol: symbol) { "News" }
