@@ -64,7 +64,7 @@ $ bundle exec sidekiq
 8. Navigate to [http//localhost:3000](http//localhost:3000)
 ## Tests
 ```sh
-$ bundle exec rspec spec
+$ bundle exec rspec spec 
 ```
 ## License
 [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
