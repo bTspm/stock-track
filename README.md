@@ -28,24 +28,40 @@ $ git clone https://github.com/bTspm/stock-track.git
 ```sh
 $ cd stock-track
 ```
-3. Run the migrations and seed the ref data.
+3. Set .env file with properties
+- [IEX](Iexcloud.io/) - Register and get key
+- [FinnHub](https://finnhub.io/) - Register and get key
+- [Tradier](https://tradier.com/) - Register and get key
+- [TwelveData](https://twelvedata.com/) - Register and get key
+- [Searchly](https://www.searchly.com/) - Register and get key (For Elasticsearch) - Not Required for Local Env
+
+```sh
+ELASTICSEARCH_URL = ''
+FINNHUB_KEY = ''
+IEX_CLOUD_KEY = ''
+TWELVE_DATA_KEY = ''
+TRADIER_KEY = ''
+
+IEX_SYMBOl_LOGO_PREFIX = ''
+```
+4. Run the migrations and seed the ref data.
 ```sh
 $ bundle exec rake db:migrate
 $ bundle exec rake db:seed
 ```
-4. Start the Rails server.
+5. Start the Rails server.
 ```sh
 $ bundle exec rails s
 ```
-5. Start Redis Server.
+6. Start Redis Server.
 ```sh
 $ brew services start redis
 ```
-6. Start Sidekiq to process the background jobs.
+7. Start Sidekiq to process the background jobs.
 ```sh
 $ bundle exec sidekiq
 ```
-6. Navigate to [http//localhost:3000](http//localhost:3000)
+8. Navigate to [http//localhost:3000](http//localhost:3000)
 ## Tests
 ```sh
 $ bundle exec rspec spec
