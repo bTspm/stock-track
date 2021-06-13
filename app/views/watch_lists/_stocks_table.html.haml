@@ -34,11 +34,11 @@
           %td= stock.low
           %td= stock.previous_close
           %td= stock.volume
-          %td.d-none= stock.volume
+          %td.d-none= stock.data_object_volume
           %td= stock.dividend_yield
           %td.d-none= stock.dividend_yield
           %td= stock.market_cap
-          %td.d-none= stock.market_cap
+          %td.d-none= stock.data_object_market_cap
           %td= stock.formatted_ytd
           %td= stock.sector
           %td.text-center= symbol_delete_button(watch_list_id: watch_list.id, symbol: stock.symbol)

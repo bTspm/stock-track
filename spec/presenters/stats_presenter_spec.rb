@@ -54,6 +54,20 @@ describe StatsPresenter do
       end
     end
 
+    describe "#dividend_yield" do
+      subject { presenter.dividend_yield }
+
+      context "without dividend_yield" do
+        let(:stats) { build :entity_stats, dividend_yield: nil }
+
+        it { is_expected.to eq "N/A" }
+      end
+
+      context "with dividend_yield" do
+        it { is_expected.to eq 5.89 }
+      end
+    end
+
     describe "#eps" do
       subject { presenter.eps }
 

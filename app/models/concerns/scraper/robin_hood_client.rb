@@ -18,7 +18,7 @@ module Scraper
 
     def _rating(response)
       ratings = response.css("._1WW-0CEc7nCIXcX_BxxJeH").map { |node| node.text.to_float }
-      return nil if ratings.all?(&:nil?)
+      return nil if ratings.all?(&:blank?)
 
       buy, hold, sell = ratings
       {

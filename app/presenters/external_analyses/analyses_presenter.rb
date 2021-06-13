@@ -23,9 +23,9 @@ module ExternalAnalyses
       end
 
       def price_target
-        return if data_object.price_target.blank?
+        return if data_object_price_target.blank?
 
-        ExternalAnalyses::PriceTargetPresenter.present(data_object.price_target, h)
+        ExternalAnalyses::PriceTargetPresenter.present(data_object_price_target, h)
       end
     end
 

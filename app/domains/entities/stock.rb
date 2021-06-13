@@ -30,5 +30,8 @@ module Entities
     WATCH_LIST_ATTRS = ATTRIBUTES - [TIME_SERIES, EARNINGS]
 
     attr_accessor *ATTRIBUTES
+
+    delegate :volume, to: :quote
+    delegate :market_cap, to: :stats
   end
 end

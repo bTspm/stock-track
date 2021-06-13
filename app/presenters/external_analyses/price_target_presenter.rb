@@ -5,20 +5,22 @@ module ExternalAnalyses
     CHART_CATEGORIES = ["Low", "Average", "High"]
 
     class Scalar < Btspm::Presenters::ScalarPresenter
+      include Utils
+
       def chart_data
-        [data_object.low, data_object.average, data_object.high]
+        [data_object_low, data_object_average, data_object_high]
       end
 
       def low
-        h.st_number_to_currency data_object.low
+        h.st_number_to_currency data_object_low
       end
 
       def average
-        h.st_number_to_currency data_object.average
+        h.st_number_to_currency data_object_average
       end
 
       def high
-        h.st_number_to_currency data_object.high
+        h.st_number_to_currency data_object_high
       end
     end
   end

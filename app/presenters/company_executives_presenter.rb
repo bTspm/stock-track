@@ -5,20 +5,20 @@ class CompanyExecutivesPresenter
     include Utils
 
     def age
-      value_or_na(data_object.age)
+      value_or_na(data_object_age)
     end
 
     def compensation_with_currency
       return "N/A" if compensation.blank? && currency.blank?
 
-      compensation = h.st_number_with_delimiter data_object.compensation
+      compensation = h.st_number_with_delimiter data_object_compensation
       return compensation if currency.blank?
 
       "#{compensation} (#{currency.upcase})"
     end
 
     def since
-      value_or_na(data_object.since)
+      value_or_na(data_object_since)
     end
   end
 

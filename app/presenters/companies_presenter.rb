@@ -2,11 +2,13 @@ class CompaniesPresenter
   include Btspm::Presenters::Presentable
 
   class Scalar < Btspm::Presenters::ScalarPresenter
+    include Utils
+
     delegate :formatted, to: :address, prefix: true
     delegate :name_with_code, :name, to: :issuer_type, prefix: true
 
     def address
-      ::AddressesPresenter.present(data_object.address, h)
+      ::AddressesPresenter.present(data_object_address, h)
     end
 
     def autocomplete_response
@@ -20,23 +22,23 @@ class CompaniesPresenter
     end
 
     def company_executives
-      return [] if data_object.company_executives.blank?
+      return [] if data_object_company_executives.blank?
 
-      ::CompanyExecutivesPresenter.present(data_object.company_executives, h)
+      ::CompanyExecutivesPresenter.present(data_object_company_executives, h)
     end
 
     def employees
-      return "N/A" if data_object.employees.blank?
+      return "N/A" if data_object_employees.blank?
 
-      "~#{h.st_number_with_delimiter(data_object.employees)}"
+      "~#{h.st_number_with_delimiter(data_object_employees)}"
     end
 
     def external_analysis
-      ExternalAnalysisPresenter.present(data_object.external_analysis, h)
+      ExternalAnalysisPresenter.present(data_object_external_analysis, h)
     end
 
     def issuer_type
-      ::IssuerTypesPresenter.present(data_object.issuer_type, h)
+      ::IssuerTypesPresenter.present(data_object_issuer_type, h)
     end
 
     def logo_url

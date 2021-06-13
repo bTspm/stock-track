@@ -3,8 +3,10 @@ class EarningsPresenter
   SURPRISES_COUNT = 4
 
   class Scalar < Btspm::Presenters::ScalarPresenter
+    include Utils
+
     def actual
-      data_object.actual&.round(StConstants::DEFAULT_DECIMALS_COUNT)
+      data_object_actual&.round(StConstants::DEFAULT_DECIMALS_COUNT)
     end
 
     def category
@@ -12,7 +14,7 @@ class EarningsPresenter
     end
 
     def estimate
-      data_object.estimate&.round(StConstants::DEFAULT_DECIMALS_COUNT)
+      data_object_estimate&.round(StConstants::DEFAULT_DECIMALS_COUNT)
     end
   end
 
