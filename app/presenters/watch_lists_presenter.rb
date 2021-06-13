@@ -21,7 +21,7 @@ class WatchListsPresenter
     end
 
     def ordered_by_name_asc
-      @ordered_by_name_asc ||= WatchListsPresenter.present(data_object_sort_by(&:name), h)
+      WatchListsPresenter.present(sort_by(&:name), h)
     end
 
     def selected_watch_list_id
@@ -31,7 +31,7 @@ class WatchListsPresenter
     private
 
     def _ordered_by_created_at_asc
-      @_ordered_by_created_at_asc ||= WatchListsPresenter.present(data_object_sort_by(&:created_at), h)
+      @_ordered_by_created_at_asc ||= WatchListsPresenter.present(sort_by(&:created_at), h)
     end
   end
 end

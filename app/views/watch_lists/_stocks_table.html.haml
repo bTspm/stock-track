@@ -12,7 +12,7 @@
         %th.no-sort High
         %th.no-sort Low
         %th.no-sort Prev Close
-        %th Volume
+        %th Vol
         %th.d-none Volume Actual Number
         %th Div Yield
         %th.d-none Div Yield Actual Number
@@ -40,8 +40,13 @@
           %td= stock.market_cap
           %td.d-none= stock.data_object_market_cap
           %td= stock.formatted_ytd
-          %td= stock.sector
+          %td
+            =tooltip_wrapper(stock.sector) do
+              .ellipsis= stock.sector
           %td.text-center= symbol_delete_button(watch_list_id: watch_list.id, symbol: stock.symbol)
+    %tfoot
+      %tr
+        %td.text-right{colspan: "17"}= "Updated #{time_ago(DateTime.now)}".html_safe
 
 = render partial: "watch_lists/delete_modal", locals: { watch_list_id: watch_list.id }
 
@@ -49,5 +54,6 @@
   $(document).ready(function () {
     WatchListStocksTable.init().render();
     WatchListActions.init();
-    $('[data-toggle="tooltip"]').tooltip();
+    $(".timeago").timeago();
+    $("[data-tooltip='tooltip']").tooltip();
   });
