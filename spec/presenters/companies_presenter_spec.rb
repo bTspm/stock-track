@@ -32,7 +32,7 @@ describe CompaniesPresenter do
         expect(subject).to eq(
                              exchange_name: "New York Stock Exchange",
                              id: "AAPL",
-                             logo_url: "https://storage.googleapis.com/iexcloud-hl37opg/api/logos/AAPL.png",
+                             logo_url: "https://example.com/AAPL.png",
                              security_name_with_symbol: "Apple Inc. - AAPL",
                              value: "Test Apple Inc. Apple Inc. AAPL"
                            )
@@ -104,7 +104,7 @@ describe CompaniesPresenter do
       subject { presenter.logo_url }
 
       it "expect to include symbol" do
-        expect(subject).to eq "https://storage.googleapis.com/iexcloud-hl37opg/api/logos/AAPL.png"
+        expect(subject).to eq "https://example.com/AAPL.png"
       end
     end
 
