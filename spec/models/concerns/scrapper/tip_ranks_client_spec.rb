@@ -28,7 +28,7 @@ describe Scraper::TipRanksClient do
     context "when call is successful" do
       it "expect to initialize an analysis" do
         expect(browser).to receive(:element).with(
-          class: "client-components-stock-research-analysts-analyst-consensus-style__consensus"
+          class: "minW80"
         ) { class_element }
         expect(class_element).to receive(:wait_until)
         expect(browser).to receive(:html) { html }

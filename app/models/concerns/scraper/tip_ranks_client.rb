@@ -1,16 +1,10 @@
 module Scraper
   class TipRanksClient < BaseScraper
-    CSS_CLASS_AND_KEY_MAPPING = {
-      average: "hold",
-      high: "high",
-      low: "low",
-    }
-
     def analysis_by_symbol(symbol)
       get_response do
         @browser.goto("https://www.tipranks.com/stocks/#{symbol}/forecast")
         @browser
-          .element(class: "client-components-stock-research-analysts-analyst-consensus-style__consensus")
+          .element(class: "minW80")
           .wait_until(&:present?)
         response = Nokogiri::HTML(@browser.html)
 
@@ -30,8 +24,7 @@ module Scraper
 
     def _analysts(response)
       response
-        .css(".client-components-stock-research-analysts-price-target-style__ptInfoText")
-        .css("strong")
+        .css(".override.fontWeightbold.fontSize6")
         .first
         .text
         .to_i
@@ -39,21 +32,22 @@ module Scraper
 
     def _rating(response)
       response
-        .css(".client-components-stock-research-analysts-analyst-consensus-style__consensus")
-        .css("p")
+        .css(".fonth4_bold.aligncenter.mobile_mb0.mobile_fontSize3small.w12")
         .first
         .text
     end
 
     def _price_target(response)
-      CSS_CLASS_AND_KEY_MAPPING.each_with_object(Hash.new) do |(key, css_class), hash|
-        hash[key] = response
-                      .css("strong.client-components-stock-research-analysts-price-target-style__#{css_class}")
-                      .css("span")
-                      .first
-                      .text
-                      .to_float
-      end
+      high, average, low = response
+                             .css(".ml3.mobile_fontSize7.laptop_ml0")
+                             .map(&:text)
+                             .map(&:to_float)
+
+      {
+        high: high,
+        average: average,
+        low: low
+      }
     end
   end
 end
