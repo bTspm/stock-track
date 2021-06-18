@@ -3,7 +3,7 @@ Track NYSE and NASADQ Stock prices and ratings.
 - Demo - [https://stock-track1.herokuapp.com/](https://stock-track1.herokuapp.com/)
 
 ## Build status
-[![Codeship Status for bTspm/stock-track](https://app.codeship.com/projects/4f2d2090-7aeb-0138-3f1a-3a5302a14683/status?branch=master)](https://app.codeship.com/projects/396696)
+[![Codeship Status for bTspm/stock-track](https://app.codeship.com/projects/678ac762-b168-4cc5-928b-2ea7d7543069/status?branch=master)](https://app.codeship.com/projects/446910)
 
 ## Tech/framework used
 <b>Built with</b>
