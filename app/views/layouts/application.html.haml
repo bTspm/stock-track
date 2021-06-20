@@ -3,7 +3,9 @@
   %head
     %meta(content='text/html; charset=UTF-8' http-equiv='Content-Type')/
     %meta{content: "width=device-width, initial-scale=1", name: "viewport"}/
-    %title StockTrack
+    %title
+      = "#{yield :title} - " if content_for?(:title)
+      StockTrack
 
     %script{src:  "https://cdnjs.cloudflare.com/ajax/libs/highcharts/8.0.4/highstock.min.js"}
 
@@ -41,6 +43,7 @@
     = javascript_include_tag 'application', 'data-turbolinks-track': 'reload'
   %body
     = render partial: 'layouts/header'
-    = yield
+    .container
+      = yield
     = content_for :render_async
     = render partial: 'layouts/footer'
