@@ -16,14 +16,16 @@ module StocksHelper
   end
 
   def stock_information_link_with_company_name(company)
-    tooltip_wrapper company.security_name do
-      content_tag(:span) do
-        link = link_to company.symbol, stocks_information_path(symbol: company.symbol),
-                       target: "_blank", class: "font-weight-bold"
+    content = tooltip_wrapper company.security_name do
+      content_tag(:div, company.security_name, class: "ellipsis")
+    end
 
-        concat content_tag(:span, link)
-        concat content_tag(:div, company.security_name, class: "ellipsis")
-      end
+    content_tag(:span) do
+      link = link_to company.symbol, stocks_information_path(symbol: company.symbol),
+                     target: "_blank", class: "font-weight-bold"
+
+      concat content_tag(:span, link)
+      concat content
     end
   end
 
