@@ -19,11 +19,9 @@ module StocksHelper
     content = tooltip_wrapper company.security_name do
       content_tag(:div, company.security_name, class: "ellipsis")
     end
+    link = link_to company.symbol, stocks_information_path(symbol: company.symbol), class: "font-weight-bold"
 
     content_tag(:span) do
-      link = link_to company.symbol, stocks_information_path(symbol: company.symbol),
-                     target: "_blank", class: "font-weight-bold"
-
       concat content_tag(:span, link)
       concat content
     end
