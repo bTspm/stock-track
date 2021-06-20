@@ -1,24 +1,17 @@
-%nav.navbar.navbar-expand-lg.navbar-dark.bg-dark.fixed-top
+%nav.navbar.navbar-expand-lg.py-3.navbar-dark.bg-dark.shadow-sm
   .navbar-brand= link_to 'ST', root_path, class: "text-uppercase font-weight-bold text-white"
+  .w-50= render partial: "stocks/search"
   %button.navbar-toggler{"data-target" => "#navbarCollapse", "data-toggle" => "collapse", type: "button"}
     %span.navbar-toggler-icon
-  #navbarCollapse.collapse.navbar-collapse.justify-content-start
-    .navbar-nav
-      .nav-item.nav-link= link_to "Watch Lists", watch_lists_path
-    .navbar-form.d-inline.w-50
-      = render partial: "stocks/search"
-    .navbar-nav.ml-auto
+  #navbarCollapse.collapse.navbar-collapse
+    %ul.navbar-nav.ml-auto
+      %li.nav-item= link_to fontawesome_icon(name_icon_with_style: "far fa-list-alt",  text: "Watch Lists"),
+                            watch_lists_path, class: "nav-link"
       - if signed_in?
-        %li.btn.btn-outline-warning
-          %span= current_user.email
-        %li.ml-2.btn.btn-outline-warning= link_to 'Sign out', sign_out_path, method: :delete
+        %li.nav-item= link_to fontawesome_icon(name_icon_with_style: "fas fa-sign-out-alt",  text: "Sign Out"),
+                              sign_out_path, method: :delete, class: "nav-link"
       - else
-        .nav-item.dropdown
-          %a.nav-link.dropdown-toggle.mr-4{"data-toggle" => "dropdown", href: "#"} Login
-          .dropdown-menu.action-form
-            = render partial: "sessions/form"
-
-        .nav-item.dropdown
-          %a.btn.btn-primary.dropdown-toggle{"data-toggle" => "dropdown", href: "#"} Sign up
-          .dropdown-menu.action-form
-            = render partial: "users/form", locals: {user: @user || User.new}
+        %li.nav-item= link_to fontawesome_icon(name_icon_with_style: "fas fa-user",  text: "Login"),
+                              sign_in_path, class: "nav-link"
+        %li.nav-item= link_to fontawesome_icon(name_icon_with_style: "fas fa-sign-in-alt",  text: "Sign Up"),
+                              sign_up_path, class: "nav-link"
