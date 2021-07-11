@@ -15,7 +15,7 @@ describe StockService do
         ).to receive_message_chain(:stock_storage, :market_movers_by_key_from_cnn).with(key) { "symbols" }
         expect(service).to receive(:stocks_by_symbols).with(
           symbols: "symbols",
-          attrs: Entities::Stock::MARKET_MOVER_ATTRS
+          attrs: described_class::MARKET_MOVER_STOCK_ATTRS
         ) { "stocks" }
 
         expect(subject).to eq "stocks"
@@ -31,7 +31,7 @@ describe StockService do
         ).to receive_message_chain(:stock_storage, :market_movers_by_key_from_trading_view).with(key) { "symbols" }
         expect(service).to receive(:stocks_by_symbols).with(
           symbols: "symbols",
-          attrs: Entities::Stock::MARKET_MOVER_ATTRS
+          attrs: described_class::MARKET_MOVER_STOCK_ATTRS
         ) { "stocks" }
 
         expect(subject).to eq "stocks"
@@ -45,10 +45,24 @@ describe StockService do
     it "expect to call stocks_by_symbols with info stock attrs" do
       expect(service).to receive(:stocks_by_symbols).with(
         symbols: symbol,
-        attrs: Entities::Stock::INFO_ATTRS
+        attrs: described_class::INFO_STOCK_ATTRS
       ) { ["stock"] }
 
       expect(subject).to eq "stock"
+    end
+  end
+
+  describe "#stocks_for_compare" do
+    let(:symbols) { double :symbols }
+    subject { service.stocks_for_compare(symbols) }
+
+    it "expect to call stocks_by_symbols with info stock attrs" do
+      expect(service).to receive(:stocks_by_symbols).with(
+        symbols: symbols,
+        attrs: described_class::COMPARE_STOCK_ATTRS
+      ) { "stocks" }
+
+      expect(subject).to eq "stocks"
     end
   end
 
@@ -59,7 +73,7 @@ describe StockService do
     it "expect to call stocks_by_symbols with info stock attrs" do
       expect(service).to receive(:stocks_by_symbols).with(
         symbols: symbols,
-        attrs: Entities::Stock::WATCH_LIST_ATTRS
+        attrs: described_class::WATCH_LIST_STOCK_ATTRS
       ) { "stocks" }
 
       expect(subject).to eq "stocks"
@@ -68,9 +82,8 @@ describe StockService do
 
   describe "#stocks_by_symbols" do
     let(:attrs) { Entities::Stock::ATTRIBUTES }
-    let(:company) { build :company, symbol: symbol }
+    let(:company) { build :company, symbol: symbol, external_analysis: "external_analysis" }
     let(:companies) { Array.wrap company }
-    let(:earnings_store) { instance_double(EarningsStore) }
     let(:symbol) { "AAPL" }
     let(:symbols) { [symbol] }
     subject { service.stocks_by_symbols(symbols: symbols, attrs: attrs) }
@@ -84,6 +97,7 @@ describe StockService do
         {
           company: company,
           earnings: "Earnings",
+          external_analysis: "External Analysis",
           growth: "Growth",
           quote: "Quote",
           news: "News",
@@ -96,6 +110,7 @@ describe StockService do
         expect(
           service
         ).to receive_message_chain(:earnings_storage, :by_symbol_from_finn_hub).with(symbol) { "Earnings" }
+        expect(Entities::ExternalAnalysis).to receive(:from_json).with("external_analysis") { "External Analysis" }
         expect(service).to receive_message_chain(:growth_storage, :by_symbol_from_iex).with(symbol) { "Growth" }
         expect(service).to receive_message_chain(:quote_storage, :by_symbol_from_tradier).with(symbol) { "Quote" }
         expect(service).to receive_message_chain(:news_storage, :by_symbol_from_iex).with(symbol: symbol) { "News" }

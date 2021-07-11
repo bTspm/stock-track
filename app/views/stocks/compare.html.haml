@@ -1,0 +1,21 @@
+= content_for :title do
+  = "Compare - #{@stocks.map(&:symbol).join(", ")}"
+
+.container
+  .row
+    .col-lg-9.col-md-12
+      .card
+        .card-header Compare Stocks
+        .card-body
+          = render partial: "stocks/compare/company_picker", locals: { stocks: @stocks }
+
+          %hr
+
+          #compare-chart.mt-3
+
+          = render partial: "stocks/compare/compare_table", locals: { stocks: @stocks }
+
+    .col-lg-3.col-md-12.pull-left= render partial: "stocks/compare/popular_compares"
+
+:javascript
+   Compare.init().render(JSON.parse('#{raw(@stocks.time_series_chart_data_for_compare.to_json)}'));

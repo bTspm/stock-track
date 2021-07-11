@@ -10,6 +10,9 @@ module Entities
     NEW_YORK_STOCK_EXCHANGE_ID = 11
     NASDAQ_IDS = [NASDAQ_CAPITAL_MARKET_ID, NASDAQ_GLOBAL_MARKET_ID]
 
+    NASDAQ = "NASDAQ"
+    NYSE = "NYSE"
+
     attr_accessor *ATTRIBUTES
 
     delegate :alpha2, :code, :name, :usa?, to: :country, prefix: true

@@ -1,0 +1,6 @@
+.card
+  .card-header Popular Compares
+  %ul.list-group.list-group-flush
+    %li.list-group-item= link_to 'FAANG Stocks', stocks_compare_path("symbols": ["FB", "AAPL" ,"AMZN","NFLX","GOOGL"])
+    %li.list-group-item= link_to 'Airline Stocks', stocks_compare_path(symbols: ["AAL", "DAL", "LUV", "UAL", "JBLU"])
+    %li.list-group-item= link_to 'Bank Stocks', stocks_compare_path(symbols:  ["JPM", "BAC", "WFC", "C", "USB"])

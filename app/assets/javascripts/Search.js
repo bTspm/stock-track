@@ -14,7 +14,7 @@ const Search = {
 
     render: function () {
         Search.elements.selector.devbridgeAutocomplete({
-            serviceUrl: "/search/basic",
+            serviceUrl: "/stocks/search",
             minChars: Search.constants.MINIMUM_CHARACTERS,
             onSelect: Search._onSelect,
             formatResult: Search._formatResult,

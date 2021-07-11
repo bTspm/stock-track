@@ -1,25 +1,41 @@
 class StockService < BusinessService
   include Services
 
+  COMPARE_STOCK_ATTRS = Entities::Stock::ATTRIBUTES
+  DEFAULT_STOCK_ATTRS = [
+    Entities::Stock::COMPANY,
+    Entities::Stock::GROWTH,
+    Entities::Stock::QUOTE,
+    Entities::Stock::STATS,
+  ]
+  EXTERNAL_DATA_STOCK_ATTRS = Entities::Stock::ATTRIBUTES - [Entities::Stock::COMPANY]
+  INFO_STOCK_ATTRS = Entities::Stock::ATTRIBUTES - [Entities::Stock::TIME_SERIES]
+  MARKET_MOVER_STOCK_ATTRS = DEFAULT_STOCK_ATTRS
+  WATCH_LIST_STOCK_ATTRS = Entities::Stock::ATTRIBUTES - [Entities::Stock::TIME_SERIES, Entities::Stock::EARNINGS]
+
   def market_movers_by_key(key)
     symbols = if StConstants::CNN_MARKET_MOVER_KEYS.include? key
                 stock_storage.market_movers_by_key_from_cnn(key)
               else
                 stock_storage.market_movers_by_key_from_trading_view(key)
               end
-    stocks_by_symbols(symbols: symbols, attrs: Entities::Stock::MARKET_MOVER_ATTRS)
+    stocks_by_symbols(symbols: symbols, attrs: MARKET_MOVER_STOCK_ATTRS)
   end
 
   def stock_info_by_symbol(symbol)
-    stocks_by_symbols(symbols: symbol, attrs: Entities::Stock::INFO_ATTRS).first
+    stocks_by_symbols(symbols: symbol, attrs: INFO_STOCK_ATTRS).first
+  end
+
+  def stocks_for_compare(symbols)
+    stocks_by_symbols(symbols: symbols, attrs: COMPARE_STOCK_ATTRS)
   end
 
   def stocks_for_watch_list(symbols)
-    stocks_by_symbols(symbols: symbols, attrs: Entities::Stock::WATCH_LIST_ATTRS)
+    stocks_by_symbols(symbols: symbols, attrs: WATCH_LIST_STOCK_ATTRS)
   end
 
-  def stocks_by_symbols(symbols:, attrs: Entities::Stock::DEFAULT_ATTRS)
-    symbols = Array.wrap(symbols).map(&:downcase)
+  def stocks_by_symbols(symbols:, attrs: DEFAULT_STOCK_ATTRS)
+    symbols = Array.wrap(symbols).compact.uniq.map(&:downcase)
     companies = company_storage.by_symbols(symbols)
     companies = companies.group_by { |company| company.symbol.downcase }
 
@@ -37,13 +53,15 @@ class StockService < BusinessService
 
   private
 
-  def _init_stock(company:, attrs: Entities::Stock::DEFAULT_ATTRS)
+  def _init_stock(company:, attrs: DEFAULT_STOCK_ATTRS)
     args = attrs.each_with_object(Hash.new) do |attr, hash|
       hash[attr] = case attr
                    when Entities::Stock::COMPANY
                      company
                    when Entities::Stock::EARNINGS
                      earnings_storage.by_symbol_from_finn_hub(company.symbol)
+                   when Entities::Stock::EXTERNAL_ANALYSIS
+                     Entities::ExternalAnalysis.from_json(company.external_analysis)
                    when Entities::Stock::GROWTH
                      growth_storage.by_symbol_from_iex(company.symbol)
                    when Entities::Stock::QUOTE

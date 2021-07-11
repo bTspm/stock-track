@@ -47,13 +47,6 @@ module Entities
 
         new(args)
       end
-
-      protected
-
-      def _after_extract_args_from_db_entity(entity)
-        args = super
-        args.merge(external_analysis: Entities::ExternalAnalysis.from_json(entity.external_analysis))
-      end
     end
   end
 end

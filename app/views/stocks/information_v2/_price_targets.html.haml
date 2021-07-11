@@ -2,9 +2,9 @@
   .card-header Price Targets
   .card-body
     .row
-      .col-lg-7.col-md-12
+      .col-lg-7.col-md-6.col-sm-12
         #price-target{style: 'height:300px; width:100%'}
-      .col-lg-5.col-md-12
+      .col-lg-5.col-md-6.col-sm-12
         %table#price-target-data.table.table-sm.table-hover
           %thead
             %tr
@@ -42,5 +42,5 @@
       categories: JSON.parse('#{raw(ExternalAnalyses::PriceTargetPresenter::CHART_CATEGORIES.to_json)}')
     },
 
-    series: JSON.parse('#{raw(analyses.price_targets_chart_data)}')
+    series: JSON.parse('#{raw(analyses.price_targets_chart_data.to_json)}')
   });

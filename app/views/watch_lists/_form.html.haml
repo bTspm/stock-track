@@ -25,4 +25,4 @@
                          type: "submit", class: "btn btn-primary", id: "watch-list-form-save-button"
 
 :javascript
-  CompanyPicker.init().render();
+  CompanyPicker.init($("#company-select"), { maximumSelectionLength: 15 }).render();

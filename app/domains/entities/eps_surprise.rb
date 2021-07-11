@@ -12,5 +12,18 @@ module Entities
       }
       new(args)
     end
+
+    def surprise
+      return if estimate.blank? || actual.blank?
+
+      actual - estimate
+    end
+
+    def surprise_percent
+      surprise_value = surprise
+      return nil if surprise_value.blank?
+
+      (surprise_value / estimate.abs) * 100
+    end
   end
 end

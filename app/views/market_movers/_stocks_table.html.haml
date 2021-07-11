@@ -2,13 +2,12 @@
   %table.table.table-hover.w-100.table-sm.table-striped
     %thead
       %tr
-        %th Symbol/Name
+        %th Sym/Name
         %th Price
         %th Chg
         %th= "%Chg"
         %th Vol
         %th Mkt Cap
-        %th Ytd %
 
     %tbody
       - stocks.each do |stock|
@@ -19,7 +18,6 @@
           %td.font-weight-bold= stock.change_percent
           %td= stock.volume
           %td= stock.market_cap
-          %td= stock.formatted_ytd
 
     %tfoot
       %tr

@@ -5,5 +5,5 @@
 
 :javascript
   $(document).ready(function() {
-      Growth.initChart(JSON.parse('#{raw(growth.chart_data)}'));
+      Growth.initChart(JSON.parse('#{raw(growth.chart_data.to_json)}'));
   });

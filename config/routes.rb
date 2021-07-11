@@ -7,14 +7,11 @@ Rails.application.routes.draw do
   end
 
   namespace :stocks do
+    get :compare
     get :home
     get :information
+    get :search
     get :time_series
-  end
-
-  namespace :search do
-    get :basic
-    get :search_for_dropdown
   end
 
   resources :watch_lists do

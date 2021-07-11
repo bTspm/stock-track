@@ -5,5 +5,5 @@
 
 :javascript
   $(document).ready(function() {
-      Earnings.initChart(JSON.parse('#{raw(earnings.chart_data)}'));
+      Earnings.initChart(JSON.parse('#{raw(earnings.chart_data.to_json)}'));
   });

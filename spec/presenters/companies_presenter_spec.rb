@@ -25,12 +25,12 @@ describe CompaniesPresenter do
       end
     end
 
-    describe "#autocomplete_response" do
-      subject { presenter.autocomplete_response }
+    describe "#search_response" do
+      subject { presenter.search_response }
 
       it "expect to return a hash with search response" do
         expect(subject).to eq(
-                             exchange_name: "New York Stock Exchange",
+                             exchange_name: "NASDAQ",
                              id: "AAPL",
                              logo_url: "https://example.com/AAPL.png",
                              security_name_with_symbol: "Apple Inc. - AAPL",
@@ -54,18 +54,6 @@ describe CompaniesPresenter do
 
           expect(subject).to eq "~Delim Number"
         end
-      end
-    end
-
-    describe "#external_analysis" do
-      subject { presenter.external_analysis }
-
-      it "expect to return external_analysis presenter" do
-        expect(
-          ExternalAnalysisPresenter
-        ).to receive(:present).with(company.external_analysis, view_context) { "External Analysis" }
-
-        expect(subject).to eq "External Analysis"
       end
     end
 
@@ -108,14 +96,6 @@ describe CompaniesPresenter do
       end
     end
 
-    describe "#select_picker_response" do
-      subject { presenter.select_picker_response }
-
-      it "expect to return has with id and text" do
-        expect(subject).to eq(id: "AAPL", text: "Apple Inc.")
-      end
-    end
-
     describe "#stock_info_link_with_name" do
       subject { presenter.stock_info_link_with_name }
 
@@ -132,32 +112,14 @@ describe CompaniesPresenter do
     let(:objects) { [object] }
     subject(:presenter) { described_class::Enum.new(objects, view_context) }
 
-    describe "#autocomplete_response" do
-      subject { presenter.autocomplete_response }
+    describe "#search_response" do
+      subject { presenter.search_response }
 
       context "with companies" do
         it "expect to return autocomplete response" do
-          expect_any_instance_of(described_class::Scalar).to receive(:autocomplete_response) { "Search Response" }
+          expect_any_instance_of(described_class::Scalar).to receive(:search_response) { "Search Response" }
 
           expect(subject).to match_array ["Search Response"]
-        end
-      end
-
-      context "without companies" do
-        let(:objects) { nil }
-
-        it { is_expected.to eq [] }
-      end
-    end
-
-    describe "#select_picker_response" do
-      subject { presenter.select_picker_response }
-
-      context "with companies" do
-        it "expect to return select picker response" do
-          expect_any_instance_of(described_class::Scalar).to receive(:select_picker_response) { "Picker Response" }
-
-          expect(subject).to match_array ["Picker Response"]
         end
       end
 

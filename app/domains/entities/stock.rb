@@ -2,6 +2,7 @@ module Entities
   class Stock < BaseEntity
     COMPANY = :company
     EARNINGS = :earnings
+    EXTERNAL_ANALYSIS = :external_analysis
     GROWTH = :growth
     QUOTE = :quote
     NEWS = :news
@@ -11,6 +12,7 @@ module Entities
     ATTRIBUTES = [
       COMPANY,
       EARNINGS,
+      EXTERNAL_ANALYSIS,
       GROWTH,
       QUOTE,
       NEWS,
@@ -18,20 +20,16 @@ module Entities
       TIME_SERIES
     ].freeze
 
-    DEFAULT_ATTRS = [
-      COMPANY,
-      GROWTH,
-      QUOTE,
-      STATS,
-    ]
-    EXTERNAL_DATA_ATTRS = ATTRIBUTES - [COMPANY]
-    INFO_ATTRS = ATTRIBUTES - [TIME_SERIES]
-    MARKET_MOVER_ATTRS = DEFAULT_ATTRS
-    WATCH_LIST_ATTRS = ATTRIBUTES - [TIME_SERIES, EARNINGS]
-
     attr_accessor *ATTRIBUTES
 
     delegate :volume, to: :quote
     delegate :market_cap, to: :stats
+    delegate :average_rating_rank, :total_analysts, to: :external_analysis
+
+    def latest_earnings
+      return if earnings.blank?
+
+      earnings.sort_by(&:date).reverse.find { |earning| earning.surprise.present? }
+    end
   end
 end

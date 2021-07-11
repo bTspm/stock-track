@@ -39,7 +39,7 @@ module ExternalAnalyses
       end
 
       def price_targets_chart_data
-        map(&:chart_data).compact.to_json
+        map(&:chart_data).compact
       end
 
       def with_price_targets

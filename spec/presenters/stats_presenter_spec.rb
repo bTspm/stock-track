@@ -64,17 +64,20 @@ describe StatsPresenter do
       end
 
       context "with dividend_yield" do
-        it { is_expected.to eq 5.89 }
+        it { is_expected.to eq "5.89%" }
       end
     end
 
-    describe "#eps" do
-      subject { presenter.eps }
+    describe "#ttm_eps" do
+      subject { presenter.ttm_eps }
 
       it "expect to call st_number_to_currency with eps" do
         expect(view_context).to receive(:st_number_to_currency).with(6.78, { precision: 3 }) { "EPS" }
+        expect(
+          view_context
+        ).to receive(:content_color_by_value).with(content: "EPS", value: 6.78) { "Formatted Content" }
 
-        expect(subject).to eq "EPS"
+        expect(subject).to eq "Formatted Content"
       end
     end
 

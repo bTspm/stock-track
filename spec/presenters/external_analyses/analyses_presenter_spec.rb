@@ -98,7 +98,7 @@ describe ExternalAnalyses::AnalysesPresenter do
 
     describe "#price_targets_chart_data" do
       let(:analysis_scalar) { double(:analysis_scalar) }
-      subject { JSON.parse(presenter.price_targets_chart_data) }
+      subject { presenter.price_targets_chart_data }
 
       it "expect to call chart_data on analysis" do
         expect(described_class).to receive(:present).with(analysis, view_context, {}) { analysis_scalar }

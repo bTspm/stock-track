@@ -11,21 +11,22 @@ class StatsPresenter
     end
 
     def dividend_rate_and_yield
-      return "N/A" if ttm_dividend_rate.blank? || data_object_dividend_yield.blank?
+      return "N/A" if data_object_ttm_dividend_rate.blank? || data_object_dividend_yield.blank?
 
-      div_yield = h.st_number_to_percentage dividend_yield
-      rate = h.st_number_to_currency ttm_dividend_rate&.round(StConstants::DEFAULT_DECIMALS_COUNT)
-      "#{rate} (#{div_yield})"
+      "#{ttm_dividend_rate} (#{dividend_yield})"
     end
 
     def dividend_yield
-      return "N/A" if data_object_dividend_yield.blank?
-
-      data_object_dividend_yield&.round(StConstants::DEFAULT_DECIMALS_COUNT)
+      h.st_number_to_percentage data_object_dividend_yield&.round(StConstants::DEFAULT_DECIMALS_COUNT)
     end
 
-    def eps
-      h.st_number_to_currency(ttm_eps, precision: 3)
+    def ttm_dividend_rate
+      h.st_number_to_currency data_object_ttm_dividend_rate&.round(StConstants::DEFAULT_DECIMALS_COUNT)
+    end
+
+    def ttm_eps
+      content = h.st_number_to_currency(data_object_ttm_eps, precision: 3)
+      h.content_color_by_value(content: content, value: data_object_ttm_eps)
     end
 
     def float
@@ -51,7 +52,15 @@ class StatsPresenter
     end
 
     def week_52_range
-      "#{h.st_number_to_currency(data_object_week_52_low)} - #{h.st_number_to_currency(data_object_week_52_high)}".html_safe
+      "#{week_52_low} - #{week_52_high}".html_safe
+    end
+
+    def week_52_high
+      h.st_number_to_currency(data_object_week_52_high)
+    end
+
+    def week_52_low
+      h.st_number_to_currency(data_object_week_52_low)
     end
   end
 end

@@ -42,3 +42,67 @@ en:
           trillion: T
           quadrillion: Q
 
+  compare:
+    section:
+      analysis: Analysis
+      company: Company
+      earnings: Earnings
+      growth: Growth
+      quote: Quote
+      stats: Stats
+    company:
+      employees: Employees
+      exchange_name: Exchange
+      industry: Industry
+      issuer_type_name_with_code: Issuer Type
+      sector: Sector
+      security_name: Security Name
+      sic_code: SIC Code
+    external_analysis:
+      average_rating_rank: Rating
+      average_rating_signal: Signal
+      total_analysts: Total Analysts
+    growth:
+      day_5: 5 Days
+      month_1: 1 Month
+      month_3: 3 Month
+      month_6: 6 Month
+      ytd: Year To Date
+      year_1: Year 1
+      year_5: Year 5
+      max: Max
+    latest_earnings:
+      reported_quarter: Last Reported
+      actual: Actual
+      estimate: Estimated
+      surprise: Beat / Miss
+      surprise_percent: Beat / Miss %
+    quote:
+      change: Change
+      change_percent: Change %
+      high: High
+      low: Low
+      open: Open
+      previous_close: Prev Close
+      price: Price
+      volume: Volume
+    stats:
+      volume_30_day_average: Vol Avg 30D
+      beta: Beta
+      ttm_dividend_rate: Div Rate (TTM)
+      dividend_yield: Div Yield
+      float: Float
+      market_cap: Market Cap
+      pe_ratio: P/E Ratio
+      shares_outstanding: Shares Outstanding
+      week_52_high: Week 52 High
+      week_52_low: Week 52 Low
+      ttm_eps: EPS (TTM)
+
+  analysis_signal:
+    strong_buy: Strong Buy
+    buy: Buy
+    hold: Hold
+    sell: Sell
+    strong_sell: Strong Sell
+    unknown: Unknown

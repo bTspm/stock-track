@@ -66,7 +66,57 @@ describe Entities::ExternalAnalysis do
     end
   end
 
-  describe "data_available?" do
+  describe "#average_rating_signal" do
+    subject { external_analysis.average_rating_signal }
+
+    before { allow(external_analysis).to receive(:average_rating_rank) { average_rating_rank } }
+
+    context "when there is no average_rating_rank" do
+      let(:average_rating_rank) { nil }
+
+      it { is_expected.to be_nil }
+    end
+
+    context "when there is average_rating_rank" do
+      context "rank between 1 - 1.5" do
+        let(:average_rating_rank) { 1.25 }
+
+        it { is_expected.to eq :strong_buy }
+      end
+
+      context "rank between 1.51 - 2.25" do
+        let(:average_rating_rank) { 2 }
+
+        it { is_expected.to eq :buy }
+      end
+
+      context "rank between 2.26 - 3.25" do
+        let(:average_rating_rank) { 3}
+
+        it { is_expected.to eq :hold }
+      end
+
+      context "rank between 3.26 - 4.25" do
+        let(:average_rating_rank) { 4 }
+
+        it { is_expected.to eq :sell }
+      end
+
+      context "rank between 4.26 - 5" do
+        let(:average_rating_rank) { 5 }
+
+        it { is_expected.to eq :strong_sell }
+      end
+
+      context "rank not in defined range - 6" do
+        let(:average_rating_rank) { 6 }
+
+        it { is_expected.to eq :unknown }
+      end
+    end
+  end
+
+  describe "#data_available?" do
     subject { external_analysis.data_available? }
 
     context "with analyses" do
@@ -77,6 +127,20 @@ describe Entities::ExternalAnalysis do
       let(:analyses) { [] }
 
       it { is_expected.to be_falsey }
+    end
+  end
+
+  describe "#total_analysts" do
+    subject { external_analysis.total_analysts }
+
+    context "when data available" do
+      it { is_expected.to eq 100 }
+    end
+
+    context "when data not available" do
+      let(:analyses) { [] }
+
+      it { is_expected.to be_nil }
     end
   end
 end

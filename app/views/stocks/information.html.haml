@@ -1,8 +1,7 @@
 = content_for :title do
   = @stock.name
-
 .container
-  .row.mt-5
+  .row
     .col-lg-8.col-md-12
       .card
         .card-body
@@ -14,28 +13,25 @@
 
           = render partial: 'stocks/information_v2/quote_information', locals: { quote: @stock.quote }
 
-          .mt-2
-            = render_async stocks_time_series_path(symbol: @stock.symbol) do
-              = render partial: "layouts/loading_card"
+          = render_async stocks_time_series_path(symbol: @stock.symbol) do
+            = render partial: "layouts/loading_card"
 
-      .mt-2= render partial: "stocks/information_v2/key_stats", locals: { stats: @stock.stats, quote: @stock.quote }
+      = render partial: "stocks/information_v2/key_stats", locals: { stats: @stock.stats, quote: @stock.quote }
 
-      .mt-2= render partial: "stocks/information_v2/news", locals: { news: @stock.news }
+      = render partial: "stocks/information_v2/news", locals: { news: @stock.news }
 
-      .mt-2
-        .row
-          - unless @stock.company.etf?
-            .col-md-6.col-sm-12
-              = render partial: "stocks/information_v2/earnings", locals: { earnings: @stock.earnings }
 
-            .col-md-6.col-sm-12
-              = render partial: "stocks/information_v2/growth", locals: { growth: @stock.growth }
+      .row
+        - unless @stock.company.etf?
+          .col-md-6.col-sm-12
+            = render partial: "stocks/information_v2/earnings", locals: { earnings: @stock.earnings }
 
-      - if @stock.company.external_analysis.data_available?
-        .mt-2= render partial: "stocks/information_v2/external_analyses",
-                      locals: { external_analysis: @stock.company.external_analysis }
+          .col-md-6.col-sm-12
+            = render partial: "stocks/information_v2/growth", locals: { growth: @stock.growth }
+
+      - if @stock.external_analysis.data_available?
+        = render partial: "stocks/information_v2/external_analyses",
+                      locals: { external_analysis: @stock.external_analysis }
 
     .col-lg-4.col-md-12
       = render partial: "stocks/information_v2/company", locals: { company: @stock.company }
-
-

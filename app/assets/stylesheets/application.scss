@@ -24,12 +24,16 @@
 
 body {
   background: #e9ecef;
+  min-height: 75rem;
+  padding-top: 5rem;
 }
 
 @media (max-width: 992px) {
   .container {
     width: 100%;
     max-width: none;
+    padding-left: 0.5rem !important;
+    padding-right: 0.5rem !important;
   }
 }
 
@@ -42,4 +46,18 @@ body {
   overflow: hidden;
   text-overflow: ellipsis;
   white-space: nowrap;
+}
+.input-group > .select2-container--bootstrap {
+  width: auto;
+  flex: 1 1 auto;
+}
+
+.input-group > .select2-container--bootstrap .select2-selection--single {
+  height: 100%;
+  line-height: inherit;
+  padding: 0.5rem 1rem;
+}
+
+.row-winner {
+  background: #eaf9e3;
 }

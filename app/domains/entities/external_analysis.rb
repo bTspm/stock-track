@@ -1,5 +1,11 @@
 module Entities
   class ExternalAnalysis
+    STRONG_BUY = :strong_buy
+    BUY = :buy
+    HOLD = :hold
+    SELL = :sell
+    STRONG_SELL = :strong_sell
+
     class << self
       # @param [String] json json blob saved in Company
       def from_json(json)
@@ -23,14 +29,39 @@ module Entities
     end
 
     def average_rating_rank
-      rating_ranks = analyses.map(&:rating_rank).compact
-      return nil if rating_ranks.blank?
+      return @average_rating_rank if defined? @average_rating_rank
 
-      rating_ranks.sum / rating_ranks.count.to_f
+      rating_ranks = analyses.map(&:rating_rank).compact
+      @average_rating_rank ||= rating_ranks.blank? ? nil : rating_ranks.sum / rating_ranks.count.to_f
+    end
+
+    def average_rating_signal
+      return nil if average_rating_rank.blank?
+
+      case average_rating_rank
+      when 1..1.5
+        STRONG_BUY
+      when 1.51..2.25
+        BUY
+      when 2.26..3.25
+        HOLD
+      when 3.26..4.25
+        SELL
+      when 4.26..5.0
+        STRONG_SELL
+      else
+        :unknown
+      end
     end
 
     def data_available?
       analyses.any?
+    end
+
+    def total_analysts
+      return nil unless data_available?
+
+      analyses.map { |analyst| analyst.analysts_count || 0 }.inject(:+)
     end
   end
 end

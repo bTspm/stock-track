@@ -1,20 +1,4 @@
 module StocksHelper
-  def content_color_by_value(content: nil, value:)
-    content ||= value
-    return negative_content(content) if value.negative?
-    return positive_content(content) if value.positive?
-
-    content
-  end
-
-  def negative_content(content)
-    content_tag :span, content, class: "text-danger"
-  end
-
-  def positive_content(content)
-    content_tag :span, content, class: "text-success"
-  end
-
   def stock_information_link_with_company_name(company)
     content = tooltip_wrapper company.security_name do
       content_tag(:div, company.security_name, class: "ellipsis")
@@ -31,5 +15,29 @@ module StocksHelper
     icon_class = value.negative? ? "fas fa-arrow-alt-circle-down" : "fas fa-arrow-alt-circle-up"
     content = fontawesome_icon(name_icon_with_style: icon_class)
     content_color_by_value(content: content, value: value)
+  end
+
+  def section_row(label:, symbols:)
+    rows = []
+    rows << content_tag(:td, label)
+    symbols.each do |symbol|
+      rows << content_tag(:td, stock_information_link_for_compare(symbol), class: "text-center")
+    end
+    content_tag(:tr, rows.join.html_safe, class: "bg-secondary text-uppercase text-white font-weight-bold")
+  end
+
+  def data_row(label:, values:, winner_index:)
+    rows = []
+    rows << content_tag(:td, label, class: "font-weight-bold")
+    values.each_with_index do |value, index|
+      html_class = "text-center"
+      html_class += " row-winner" if index == winner_index
+      rows << content_tag(:td, value, class: html_class)
+    end
+    content_tag(:tr, rows.join.html_safe)
+  end
+
+  def stock_information_link_for_compare(symbol)
+    link_to symbol, stocks_information_path(symbol: symbol), class: "text-white"
   end
 end

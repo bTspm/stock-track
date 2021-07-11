@@ -1,39 +1,34 @@
-%section#hero
-  .container-fluid
-    .text-center.content-justify-center.mt-5
-      %h1.pb-2 Search Stocks by Name, Ticker
-      %h5.pb-4 Search for more than 3000+ stock symbols or names
+.container.mt-5
+  .row
+    .col-md-9
+      .row
+        .col-md-6.col-sm-12
+          .card
+            .card-header.text-primary Large Cap
+            .card-body
+              = render_async market_movers_mover_path(key: StConstants::LARGE_CAP) do
+                = render partial: "layouts/loading_card"
 
-    .container.mb-5.w-25
-      -# = render partial: "stocks/search"
+        .col-md-6.col-sm-12
+          .card
+            .card-header.text-info Most Active
+            .card-body
+              = render_async market_movers_mover_path(key: StConstants::ACTIVE) do
+                = render partial: "layouts/loading_card"
 
-%section
-  .container
-    .row
-      .col-md-6.col-sm-12
-        .card
-          .card-header.text-primary Large Cap
-          .card-body
-            = render_async market_movers_mover_path(key: StConstants::LARGE_CAP) do
-              = render partial: "layouts/loading_card"
+        .col-md-6.col-sm-12
+          .card
+            .card-header.text-success Top Gainers
+            .card-body
+              = render_async market_movers_mover_path(key: StConstants::GAINERS) do
+                = render partial: "layouts/loading_card"
 
-      .col-md-6.col-sm-12
-        .card
-          .card-header.text-info Top Active
-          .card-body
-            = render_async market_movers_mover_path(key: StConstants::ACTIVE) do
-              = render partial: "layouts/loading_card"
+        .col-md-6.col-sm-12
+          .card
+            .card-header.text-danger Top Losers
+            .card-body
+              = render_async market_movers_mover_path(key: StConstants::LOSERS) do
+                = render partial: "layouts/loading_card"
 
-      .col-md-6.col-sm-12
-        .card
-          .card-header.text-success Top Gainers
-          .card-body
-            = render_async market_movers_mover_path(key: StConstants::GAINERS) do
-              = render partial: "layouts/loading_card"
-
-      .col-md-6.col-sm-12
-        .card
-          .card-header.text-danger Top Losers
-          .card-body
-            = render_async market_movers_mover_path(key: StConstants::LOSERS) do
-              = render partial: "layouts/loading_card"
+    .col-md-3
+      abd

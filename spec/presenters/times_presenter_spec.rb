@@ -7,8 +7,8 @@ describe TimeSeriesPresenter do
 
     subject(:presenter) { described_class::Scalar.new(object, view_context) }
 
-    describe "#formatted_chart_data" do
-      subject { presenter.formatted_chart_data }
+    describe "#chart_data" do
+      subject { presenter.chart_data }
 
       it { is_expected.to eq [1_588_291_200_000, 100] }
     end
@@ -25,20 +25,10 @@ describe TimeSeriesPresenter do
     subject(:presenter) { described_class::Enum.new(objects, view_context) }
 
     describe "#chart_data" do
-      subject { JSON.parse(presenter.chart_data(symbol)).with_indifferent_access }
+      subject { presenter.chart_data }
 
       it "expect to return chart data" do
-        result = subject
-        expect(result[:stock_data]).to eq [[1_588_291_200_000, 200], [1_903_824_000_000, 100]]
-        expect(result[:symbol]).to eq "ABC"
-        expect(result[:time_line_buttons]).to eq [{ "type" => "week", "count" => 1, "text" => "1w" },
-                                                  { "type" => "month", "count" => 1, "text" => "1m" },
-                                                  { "type" => "month", "count" => 3, "text" => "3m" },
-                                                  { "type" => "month", "count" => 6, "text" => "6m" },
-                                                  { "type" => "ytd", "text" => "YTD" },
-                                                  { "type" => "year", "count" => 1, "text" => "1y" },
-                                                  { "type" => "year", "count" => 5, "text" => "5y" },
-                                                  { "type" => "all", "text" => "All" }]
+        expect(subject).to eq [[1_588_291_200_000, 200], [1_903_824_000_000, 100]]
       end
     end
   end

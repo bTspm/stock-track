@@ -2,5 +2,5 @@
 
 :javascript
   $(document).ready(function() {
-    TimeSeries.initChart(JSON.parse('#{raw(time_series.chart_data(params[:symbol]))}'));
+    TimeSeries.initChart(JSON.parse('#{raw(time_series.chart_data.to_json)}'));
   });

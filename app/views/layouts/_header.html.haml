@@ -1,4 +1,4 @@
-%nav.navbar.navbar-expand-lg.py-3.navbar-dark.bg-dark.shadow-sm
+%nav.navbar.navbar-expand-lg.py-3.navbar-dark.bg-dark.shadow-sm.fixed-top
   .navbar-brand= link_to 'ST', root_path, class: "text-uppercase font-weight-bold text-white"
   .w-50= render partial: "stocks/search"
   %button.navbar-toggler{"data-target" => "#navbarCollapse", "data-toggle" => "collapse", type: "button"}
@@ -7,6 +7,8 @@
     %ul.navbar-nav.ml-auto
       %li.nav-item= link_to fontawesome_icon(name_icon_with_style: "far fa-list-alt",  text: "Watch Lists"),
                             watch_lists_path, class: "nav-link"
+      %li.nav-item= link_to fontawesome_icon(name_icon_with_style: "fas fa-exchange-alt",  text: "Compare Stocks"),
+                            stocks_compare_path("symbols": ["FB", "AAPL" ,"AMZN","NFLX","GOOGL"]), class: "nav-link"
       - if signed_in?
         %li.nav-item= link_to fontawesome_icon(name_icon_with_style: "fas fa-sign-out-alt",  text: "Sign Out"),
                               sign_out_path, method: :delete, class: "nav-link"

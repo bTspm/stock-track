@@ -19,10 +19,6 @@ FactoryBot.define do
       }
     end
 
-    trait :with_external_analysis do
-      external_analysis { build(:entity_external_analysis) }
-    end
-
     trait :without_address do
       address { nil }
     end

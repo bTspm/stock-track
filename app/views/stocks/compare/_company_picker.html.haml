@@ -1,0 +1,13 @@
+.row.mb-4
+  .col-lg-8.col-md-12
+    = form_tag stocks_compare_path, method: :get do
+      .input-group.mb-3
+        = select_tag("symbols",
+                      options_from_collection_for_select(stocks.companies, :symbol, :security_name, stocks.symbols),
+                      prompt: "",
+                      class: "form-control",
+                      id: "company-select",
+                      required: true,
+                      multiple: true)
+        .input-group-append
+          = submit_tag "Compare", class: "btn btn-primary btn-sm"

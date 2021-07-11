@@ -5,7 +5,6 @@ var TimeSeries = {
                 enabled: false
             },
             rangeSelector: {
-                buttons: data.time_line_buttons,
                 enabled: true,
                 inputEnabled: false
             },
@@ -20,14 +19,14 @@ var TimeSeries = {
                 }
             },
 
-            xAxis: {
-                gapGridLineWidth: 0
+            tooltip: {
+                split: false
             },
 
             series: [{
-                name: data.symbol,
+                name: "Price",
                 type: 'area',
-                data: data.stock_data,
+                data: data,
                 gapSize: 5,
                 tooltip: {
                     valueDecimals: 2
@@ -47,12 +46,5 @@ var TimeSeries = {
                 threshold: null
             }]
         });
-    },
-
-    myCustomLabelFormatter: function () {
-        var len = this.yData.length,
-            sgn = this.yData[len - 1] >= this.yData[len - 2] ? "+" : "-";
-        return this.name + ": " + (this.yData[0] / this.yData[len - 1]).toFixed(2) + "%";
     }
-
 };

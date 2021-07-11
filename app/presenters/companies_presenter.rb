@@ -11,7 +11,7 @@ class CompaniesPresenter
       ::AddressesPresenter.present(data_object_address, h)
     end
 
-    def autocomplete_response
+    def search_response
       {
         exchange_name: exchange_name,
         id: symbol,
@@ -33,10 +33,6 @@ class CompaniesPresenter
       "~#{h.st_number_with_delimiter(data_object_employees)}"
     end
 
-    def external_analysis
-      ExternalAnalysisPresenter.present(data_object_external_analysis, h)
-    end
-
     def issuer_type
       ::IssuerTypesPresenter.present(data_object_issuer_type, h)
     end
@@ -45,12 +41,12 @@ class CompaniesPresenter
       "#{ENV['IEX_SYMBOl_LOGO_PREFIX']}#{symbol}.png"
     end
 
-    def select_picker_response
-      { id: symbol, text: security_name }
-    end
-
     def stock_info_link_with_name
       h.stock_information_link_with_company_name(self)
+    end
+
+    def exchange_name
+      exchange.nyse? ? Entities::Exchange::NYSE : Entities::Exchange::NASDAQ
     end
 
     private
@@ -65,16 +61,10 @@ class CompaniesPresenter
   end
 
   class Enum < Btspm::Presenters::EnumPresenter
-    def autocomplete_response
+    def search_response
       return [] if data_object.blank?
 
-      map(&:autocomplete_response)
-    end
-
-    def select_picker_response
-      return [] if data_object.blank?
-
-      map(&:select_picker_response)
+      map(&:search_response)
     end
   end
 end

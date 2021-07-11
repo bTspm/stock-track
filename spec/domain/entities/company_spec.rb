@@ -6,7 +6,6 @@ describe Entities::Company do
     address: "Address",
     company_executives: ["Company Executive"],
     exchange: "Exchange",
-    external_analysis: "External Analysis",
     id: 123,
     issuer_type: "Issuer Type"
   }
@@ -21,7 +20,6 @@ describe Entities::Company do
       allow(entity).to receive(:issuer_type) { "issuer_type" }
       allow(Entities::IssuerType).to receive(:from_db_entity).with("issuer_type") { "Issuer Type" }
       allow(entity).to receive(:external_analysis) { "external_analysis" }
-      allow(Entities::ExternalAnalysis).to receive(:from_json).with("external_analysis") { "External Analysis" }
     end
   end
   es_args = { address: "Address", exchange: "Exchange", issuer_type: "Issuer Type" }

@@ -30,6 +30,22 @@ module ApplicationHelper
     html.html_safe
   end
 
+  def content_color_by_value(content: nil, value:)
+    content ||= value
+    return negative_content(content) if value.negative?
+    return positive_content(content) if value.positive?
+
+    content
+  end
+
+  def negative_content(content)
+    content_tag :span, content, class: "text-danger"
+  end
+
+  def positive_content(content)
+    content_tag :span, content, class: "text-success"
+  end
+
   def readable_datetime(datetime:, format: DEFAULT_DATETIME_FORMAT)
     return "N/A" if datetime.blank?
 
