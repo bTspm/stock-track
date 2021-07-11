@@ -3,6 +3,8 @@ require "spec_helper"
 require "capybara/rspec"
 require "factory_bot"
 require "sidekiq/testing"
+require "coveralls"
+require "simplecov"
 
 ENV["RAILS_ENV"] ||= "test"
 
@@ -13,7 +15,13 @@ Dotenv.load(
   ".env"
 )
 
-require "simplecov"
+Coveralls.wear!
+
+SimpleCov.formatters = [
+  SimpleCov::Formatter::HTMLFormatter,
+  Coveralls::SimpleCov::Formatter
+]
+
 SimpleCov.start do
   add_filter "/bin/"
   add_filter "/db/"
@@ -30,9 +38,6 @@ SimpleCov.start do
   add_group "storage", "app/storage"
   add_group "workers", "app/workers"
 end
-
-require 'coveralls'
-Coveralls.wear!
 
 require File.expand_path("../config/environment", __dir__)
 
