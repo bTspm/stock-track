@@ -79,6 +79,7 @@ gem "countries"
 
 gem "clearance"
 
-
 gem 'watir'
 gem 'webdrivers'
+
+gem 'coveralls', require: false

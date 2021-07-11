@@ -130,3 +130,6 @@ Shoulda::Matchers.configure do |config|
     with.library :rails
   end
 end
+
+require 'coveralls'
+Coveralls.wear!
