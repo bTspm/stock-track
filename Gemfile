@@ -82,4 +82,5 @@ gem "clearance"
 gem 'watir'
 gem 'webdrivers'
 
-gem 'coveralls', require: false
+gem 'coveralls_reborn', '~> 0.22.0', require: false
+gem 'simplecov-lcov', '~> 0.8.0'
