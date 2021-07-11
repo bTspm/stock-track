@@ -31,6 +31,9 @@ SimpleCov.start do
   add_group "workers", "app/workers"
 end
 
+require 'coveralls'
+Coveralls.wear!
+
 require File.expand_path("../config/environment", __dir__)
 
 # Prevent database truncation if the environment is production
@@ -131,5 +134,3 @@ Shoulda::Matchers.configure do |config|
   end
 end
 
-require 'coveralls'
-Coveralls.wear!
