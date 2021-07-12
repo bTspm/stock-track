@@ -70,6 +70,8 @@ group :test do
   gem "rspec-rails"
   gem "shoulda-matchers"
   gem "simplecov"
+  gem 'coveralls_reborn', '~> 0.22.0', require: false
+  gem 'simplecov-lcov', '~> 0.8.0'
 end
 
 gem "sidekiq"
@@ -82,5 +84,3 @@ gem "clearance"
 gem 'watir'
 gem 'webdrivers'
 
-gem 'coveralls_reborn', '~> 0.22.0', require: false
-gem 'simplecov-lcov', '~> 0.8.0'
