@@ -1,6 +1,6 @@
 .container.mt-5
   .row
-    .col-md-9
+    .col-lg-9
       .row
         .col-md-6.col-sm-12
           .card
@@ -30,5 +30,5 @@
               = render_async market_movers_mover_path(key: StConstants::LOSERS) do
                 = render partial: "layouts/loading_card"
 
-    .col-md-3
-      abd
+    .col-lg-3
+      = render partial: "common/watch_list_tile/watch_list_tile"

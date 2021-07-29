@@ -73,6 +73,18 @@ class WatchListsController < ApplicationController
     render partial: "watch_lists/dropdown", locals: { watch_lists: watch_lists }
   end
 
+  def user_watch_lists_tile
+    watch_lists = present(watch_list_service.user_watch_lists, WatchListsPresenter)
+    stocks = present(stock_service.stocks_for_watch_list(watch_lists[0].symbols), StocksPresenter) if watch_lists.any?
+    render partial: "common/watch_list_tile/watch_list_tile_result", locals: { stocks: stocks, watch_lists: watch_lists }
+  end
+
+  def watch_list_stocks_for_tile
+    watch_list = present(watch_list_service.watch_list_by_id(params[:id]), WatchListsPresenter)
+    stocks = present(stock_service.stocks_for_watch_list(watch_list.symbols), StocksPresenter)
+    render partial: "common/watch_list_tile/stock_table", locals: { stocks: stocks }
+  end
+
   private
 
   def _save_watch_list

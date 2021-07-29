@@ -18,11 +18,13 @@ Rails.application.routes.draw do
     collection do
       get :add_to_watch_lists
       get :update_dropdown
+      get :user_watch_lists_tile
     end
 
     member do
       patch :add_symbol
       delete :delete_symbol
+      get :watch_list_stocks_for_tile
     end
   end
 

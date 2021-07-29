@@ -43,23 +43,14 @@ describe StocksHelper do
     end
   end
 
-  describe "#stock_information_link_for_compare" do
-    let(:symbol) { "AAPL" }
-    subject { helper.stock_information_link_for_compare(symbol) }
-
-    it "expect to return stock information link" do
-      expect(subject).to include "AAPL"
-      expect(subject).to have_css("a", class: "text-white")
-    end
-  end
-
   describe "#section_row" do
     let(:label) { "Label" }
     let(:symbols) { ["AAPL"] }
     subject { helper.section_row(label: label, symbols: symbols) }
 
     it "expect to return a table row with label and symbol table data" do
-      expect(helper).to receive(:stock_information_link_for_compare).with("AAPL") { "Stock Link" }
+      expect(helper).to receive(:stocks_information_path).with({:symbol=>"AAPL"}) { "Path" }
+      expect(helper).to receive(:link_to).with("AAPL", "Path", {:class=>"text-white"}) { "Stock Link" }
 
       expect(subject).to include "Label"
       expect(subject).to include "bg-secondary text-uppercase text-white font-weight-bold"

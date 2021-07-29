@@ -17,6 +17,10 @@ class WatchListStore < BaseStore
   def delete_symbol_from_watch_list(id:, symbol:)
     watch_list = WatchList.find_by!(id: id, user_id: user.id)
     watch_list = WatchListBuilder.new(watch_list).build { |build| build.delete_symbol(symbol) }
+    if watch_list.symbols.blank?
+      msg = "Symbol cannot be removed as a watchlist must have at least one symbol. Delete the watchlist instead."
+      raise StandardError.new(msg)
+    end
     watch_list.save!
     Entities::WatchList.from_db_entity(watch_list)
   end

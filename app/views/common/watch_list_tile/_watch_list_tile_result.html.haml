@@ -1,0 +1,11 @@
+- if watch_lists.blank?
+  .text-center
+    You have no Watch lists.
+    %div= link_to fontawesome_icon(name_icon_with_style: "fas fa-plus",  text: "Add Watch List"),
+                  watch_lists_path,  class:"mt-4 btn-sm btn-secondary"
+- else
+  .text-center= render partial: "watch_lists/dropdown", locals: { watch_lists: watch_lists }
+  = render partial: "common/watch_list_tile/stock_table", locals: { stocks: stocks }
+
+:javascript
+  WatchListTile.init().render();

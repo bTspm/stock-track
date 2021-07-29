@@ -1,0 +1,12 @@
+.card
+  .card-header Watchlist
+  .card-body
+    - if current_user
+      = render_async user_watch_lists_tile_watch_lists_path do
+        = render partial: "layouts/loading_card"
+    - else
+      .text-center
+        = "Login/Signup to Create a Watch List"
+        %div
+          = link_to fontawesome_icon(name_icon_with_style: "far fa-list-alt",  text: "Watch Lists"),
+                    watch_lists_path,  class:"mt-4 btn btn-secondary"

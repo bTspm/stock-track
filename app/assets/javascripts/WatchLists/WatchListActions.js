@@ -60,8 +60,12 @@ const WatchListActions = {
             }).done(function () {
                 rowElement.addClass("d-none");
                 Notifications.success("Deleted from Watchlist.")
-            })
+            }).fail(WatchListActions._onError);
         });
+    },
+
+    _onError: function (data) {
+        Notifications.error(data.responseJSON.message);
     },
 
     _displayFormError: function(message){

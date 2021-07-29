@@ -48,15 +48,28 @@ describe WatchListStore do
   describe "#delete_symbol_from_watch_list" do
     subject { store.delete_symbol_from_watch_list(id: watch_list.id, symbol: symbol) }
 
-    it "expect to retrieve watch_list and delete symbol" do
-      expect(WatchList).to receive(:find_by!).with(id: watch_list.id, user_id: user.id).and_call_original
-      expect(WatchListBuilder).to receive(:new).with(watch_list) { watch_list_builder }
-      expect(watch_list_builder).to receive(:build).and_yield(watch_list_builder)
-      expect(watch_list_builder).to receive(:delete_symbol).with(symbol) { watch_list }
-      expect(watch_list).to receive(:save!) { watch_list }
-      expect(Entities::WatchList).to receive(:from_db_entity).with(watch_list) { "Watch List" }
+    context "when watchlist symbols less than 1" do
+      let(:watch_list) { create(:watch_list, user: user, symbols: [symbol]) }
 
-      expect(subject).to eq "Watch List"
+      it "expect to raise an error" do
+        expect { subject }.to raise_error do |error|
+          msg = "Symbol cannot be removed as a watchlist must have at least one symbol. Delete the watchlist instead."
+          expect(error.message).to eq msg
+        end
+      end
+    end
+
+    context "when watchlist symbols more than 1" do
+      it "expect to retrieve watch_list and delete symbol" do
+        expect(WatchList).to receive(:find_by!).with(id: watch_list.id, user_id: user.id).and_call_original
+        expect(WatchListBuilder).to receive(:new).with(watch_list) { watch_list_builder }
+        expect(watch_list_builder).to receive(:build).and_yield(watch_list_builder)
+        expect(watch_list_builder).to receive(:delete_symbol).with(symbol) { watch_list }
+        expect(watch_list).to receive(:save!) { watch_list }
+        expect(Entities::WatchList).to receive(:from_db_entity).with(watch_list) { "Watch List" }
+
+        expect(subject).to eq "Watch List"
+      end
     end
   end
 

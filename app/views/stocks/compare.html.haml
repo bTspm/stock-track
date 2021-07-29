@@ -15,7 +15,10 @@
 
           = render partial: "stocks/compare/compare_table", locals: { stocks: @stocks }
 
-    .col-lg-3.col-md-12.pull-left= render partial: "stocks/compare/popular_compares"
+    .col-lg-3.col-md-12.pull-left
+      = render partial: "stocks/compare/popular_compares"
+      = render partial: "common/watch_list_tile/watch_list_tile"
+
 
 :javascript
    Compare.init().render(JSON.parse('#{raw(@stocks.time_series_chart_data_for_compare.to_json)}'));

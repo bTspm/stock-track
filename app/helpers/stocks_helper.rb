@@ -21,7 +21,8 @@ module StocksHelper
     rows = []
     rows << content_tag(:td, label)
     symbols.each do |symbol|
-      rows << content_tag(:td, stock_information_link_for_compare(symbol), class: "text-center")
+      link = link_to(symbol, stocks_information_path(symbol: symbol), class: "text-white")
+      rows << content_tag(:td, link, class: "text-center")
     end
     content_tag(:tr, rows.join.html_safe, class: "bg-secondary text-uppercase text-white font-weight-bold")
   end
@@ -35,9 +36,5 @@ module StocksHelper
       rows << content_tag(:td, value, class: html_class)
     end
     content_tag(:tr, rows.join.html_safe)
-  end
-
-  def stock_information_link_for_compare(symbol)
-    link_to symbol, stocks_information_path(symbol: symbol), class: "text-white"
   end
 end
