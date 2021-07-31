@@ -9,10 +9,10 @@ module Entities
 
     attr_accessor *ATTRIBUTES
 
-    def self.from_twelve_data_response(response)
+    def self.from_tradier_response(response)
       args = {
         close: response[:close].to_f,
-        datetime: response[:datetime].to_datetime,
+        datetime: response[:date].to_datetime,
         high: response[:high].to_f,
         low: response[:low].to_f,
         open: response[:open].to_f,

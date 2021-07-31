@@ -128,17 +128,6 @@ describe RemoteClients do
     end
   end
 
-  describe "#twelve_data_client" do
-    let(:client) { Api::TwelveData::Client }
-    subject { dummy_class.twelve_data_client }
-
-    it "expect to initialize the client" do
-      expect(client).to receive(:new) { "Client" }
-
-      expect(subject).to eq "Client"
-    end
-  end
-
   describe "#we_bull_client" do
     let(:client) { Scraper::WeBullClient }
     subject { dummy_class.we_bull_client }

@@ -1,10 +1,9 @@
 class TimeSeriesStore
   include Cacheable
-
-  def by_symbol_from_twelve_data(options)
+  def by_symbol_from_tradier(options)
     fetch_cached(key: "#{self.class.name}/#{__method__}/#{options}") do
-      response = Allocator.twelve_data_client.time_series(options)
-      response.body[:values].map { |datum| Entities::TimeSeries.from_twelve_data_response(datum) }
+      response = Allocator.tradier_client.time_series(options)
+      response.body.dig(:history, :day).map { |datum| Entities::TimeSeries.from_tradier_response(datum) }
     end
   end
 

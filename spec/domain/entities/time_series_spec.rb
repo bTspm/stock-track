@@ -20,7 +20,7 @@ describe Entities::TimeSeries do
   let(:open) { double(:open) }
   let(:volume) { double(:volume) }
 
-  describe ".from_twelve_data_response" do
+  describe ".from_tradier_response" do
     let(:args) do
       {
         close: 180.53000,
@@ -32,9 +32,9 @@ describe Entities::TimeSeries do
       }
     end
     let(:converted_datetime) { DateTime.new(2020, 0o5, 14, 0o0, 0o0, 0o0) }
-    let!(:response) { json_fixture("/api_responses/twelve_data/time_series.json").last }
+    let!(:response) { json_fixture("/api_responses/tradier/time_series.json").last }
 
-    subject { described_class.from_twelve_data_response(response) }
+    subject { described_class.from_tradier_response(response) }
 
     it "expect to create an entity with args" do
       expect(described_class).to receive(:new).with(args)

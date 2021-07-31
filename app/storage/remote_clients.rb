@@ -43,10 +43,6 @@ module RemoteClients
     Scraper::TradingViewClient.new
   end
 
-  def twelve_data_client
-    Api::TwelveData::Client.new
-  end
-
   def we_bull_client
     Scraper::WeBullClient.new
   end

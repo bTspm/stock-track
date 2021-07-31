@@ -1,5 +1,5 @@
 class TimeSeriesRequest
-  DAY1 = "1day".freeze
+  DAY1 = "daily".freeze
   DATE_FORMAT = "%Y-%m-%d %H:%M:%S".freeze
   DEFAULT_INTERVAL = DAY1
 

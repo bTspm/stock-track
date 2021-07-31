@@ -154,7 +154,7 @@ describe StockService do
       expect(request).to receive(:to_options) { "Options" }
       expect(
         service
-      ).to receive_message_chain(:time_series_storage, :by_symbol_from_twelve_data).with("Options") { "Time Series" }
+      ).to receive_message_chain(:time_series_storage, :by_symbol_from_tradier).with("Options") { "Time Series" }
 
       expect(subject).to eq "Time Series"
     end
