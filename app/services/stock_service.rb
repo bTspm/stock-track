@@ -48,7 +48,7 @@ class StockService < BusinessService
   end
 
   def time_series_by_symbol(symbol)
-    time_series_storage.by_symbol_from_twelve_data(TimeSeriesRequest.five_year(symbol).to_options)
+    time_series_storage.by_symbol_from_tradier(TimeSeriesRequest.five_year(symbol).to_options)
   end
 
   private
