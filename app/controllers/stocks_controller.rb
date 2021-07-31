@@ -11,6 +11,11 @@ class StocksController < ApplicationController
     @stock = present(stock_service.stock_info_by_symbol(params[:symbol]), StocksPresenter)
   end
 
+  def market_movers
+    stocks = present(stock_service.market_movers_by_key(params[:key].to_sym), StocksPresenter)
+    render partial: "stocks/market_movers/stocks_table", locals: { stocks: stocks }
+  end
+
   def search
     companies = present(company_service.basic_search(params[:query]), CompaniesPresenter)
     render json: { suggestions: companies.search_response }

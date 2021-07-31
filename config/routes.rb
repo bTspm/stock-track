@@ -2,14 +2,11 @@ Rails.application.routes.draw do
   # For details on the DSL available within this file, see https://guides.rubyonrails.org/routing.html
   root "stocks#home"
 
-  namespace :market_movers do
-    get :mover
-  end
-
   namespace :stocks do
     get :compare
     get :home
     get :information
+    get :market_movers
     get :search
     get :time_series
   end
