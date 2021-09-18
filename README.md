@@ -1,3 +1,4 @@
+
 ## Stock Track
 Track NYSE and NASADQ Stock prices and ratings.
 - Demo - [https://stock-track1.herokuapp.com/](https://stock-track1.herokuapp.com/)
@@ -17,7 +18,11 @@ Track NYSE and NASADQ Stock prices and ratings.
 
 ## Features
 - Stock Watch Lists.
+  ![img.png](git_images/watch_lists.png)
 - Price Targets and Analyst Ratings from across the web.
+  ![git_images/price_targets.png](git_images/price_targets.png)
+- Compare Stocks
+  ![img.png](git_images/compare.png)
 
 ## Installation
 1. Clone the repo.
